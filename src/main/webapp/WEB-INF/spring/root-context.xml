@@ -3,23 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	
-		<!-- 
-	
-		root-context.xml
-		서버구동과 동시에 web.xml을 거쳐서 바로 로딩되는 문서
-		=>서버구동과 동시에 바로 세팅(빈으로 등록)해야되는 내용들을 작성하면 된다.
-		DB연결 설정, 트랜젝션처리,내외부 모듈연동등
-		
-	  -->
 
-	<!-- 커넥션풀을 쓸수 있는 클래스
-	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
-	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	 	<property name="username" value="server"/>
-	 	<property name="password" value="server"/>
-	 </bean> -->
 	 
 	  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
 	 	<property name="driverClassName" value="org.postgresql.Driver"/>
@@ -30,39 +14,19 @@
 	 
 	 
 	
-	<!-- 
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-	 -->
-	
 	
 	  <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 	  		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 	  		<property name ="dataSource" ref="dataSource"/> <!-- myBatis bean등록 -->
 	  </bean>
-	  
-	    <!-- 
-	  	  SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory)
-	  
-	   -->
-	  
+	
 	  
 	  
 	  <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession"> <!--SqlSessionTemplate bean등록  -->
 	  		<constructor-arg ref="sqlSessionFactory"/><!-- 자동 생성자 주입   (sqlSessionFactory)를 주입-->
 	  </bean>
 	  
-	   <!-- 
-	  	SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-	  	sqlSessionFactory.setConfigLocation("classPath:mybatis-config.xml");
-	  	sqlSessionFactory.setDataSource(dataSource)
-	  -->
-	  
-	  
-	    <!--  property:setter를 통한 주입
-	  		constructor-arg: 생성자를 통한 주입
-	   -->
+	
 	  
 	   
 	    <!-- 파일 업로드 관련 빈 등록 -->

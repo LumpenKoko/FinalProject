@@ -1,0 +1,12 @@
+/*footer태그*/
+.footer {
+    box-sizing: border-box;
+    width: 1920px;
+    height: 100%;
+    max-width: 1920px;
+    bottom :0;
+    padding: 40px;
+    border-top: 1px solid  var(--border-color);
+    background-color: var(--white-color);
+    white-space: nowrap;
+}

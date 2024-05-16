@@ -25,6 +25,9 @@
     --wrapper-width:1920px;
     --main-width:1280px;
     
+	/*공통 테두리*/
+	--outer-border-radius:10px;
+	--inner-border-radius:15px;
 }
 
 *,

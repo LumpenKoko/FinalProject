@@ -5,20 +5,14 @@
 	max-width:100%;
 }
 
-
-.detail_main{
-	width:100%;
-}
-
 /*title 영역*/
 .detail_main .space_detail{
-	width:100%;
 	display:flex;
 	justify-content: space-between;
 	border:solid 1px var(--border-color);
 	border-radius:var(--inner-border-radius);
-	margin:30px;
-	margin-bottom:20px;
+	margin-top:30px;
+	margin-bottom:30px;
 	padding:10px;
 }
 
@@ -54,7 +48,7 @@
 	grid-template-rows: repeat(1, 50px);
 	border:solid 1px var(--border-color);
 	column-gap: 50px;
-	margin: 30px;
+	margin-bottom: 30px;
 	padding:30px;
     white-space: initial;/*영역 넘어가면 자동 줄바꿈*/
     border-radius:var(--inner-border-radius)
@@ -73,7 +67,7 @@
 	border-radius:var(--inner-border-radius);
 }
 .detail_main .detail_area{
-	width:80%;
+	width:78%;
 }
 
 .detail_main .more_area{
@@ -102,7 +96,7 @@
 
 
 .detail_main .location_area{
-	width:80%;
+	width:78%;
 }
 
 .detail_main .hospital_area{

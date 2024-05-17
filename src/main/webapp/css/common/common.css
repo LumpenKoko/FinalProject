@@ -161,3 +161,8 @@ ol,ul,li{
 	border:solid 1px black;
 	
 }
+
+.row-box{
+	display: flex;
+	flex-direction: row;
+}

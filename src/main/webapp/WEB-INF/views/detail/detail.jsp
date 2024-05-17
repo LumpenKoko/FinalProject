@@ -10,8 +10,10 @@
 <%@ include file="../common/common-file.jsp"%>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/detail.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 <script src='<%=request.getContextPath()%>/js/map.js'></script>
+
 
 </head>
 <body>
@@ -37,9 +39,9 @@
 			  <div class="title">소개</div>
 			  
 			  <div class="content"> 
-				  <% for (int i=0; i<400; i++) { %>
-				      <%="소개"%>
-				  <%} %>
+				마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
+				마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다.
+				마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
 			  </div>
 				
 			</div>
@@ -67,8 +69,13 @@
 			
 			<div class="section">
 				<div class="title">시설 상세</div>
-				<div class="content">내용</div>
+				<div class="img-space">
+					<%for (int l =0 ; l<3; l++){ %>
+					 <div class="img-div"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+					<% } %>
+				</div>
 			</div>
+
 			<div class="section">
 				<div class="title">상품 정보</div>
 				<div class="content">내용</div>
@@ -91,9 +98,100 @@
 			 </div>
 			
 
-			<div class="section">
+			<div class="section review">
 				<div class="title">리뷰</div>
-				
+				<div class="review-detail">
+				     <ul class="detail-ul">
+						<li class="title score">4.3</li>
+						<li class="star" style="color:#FE8B94;">★★★★★★</li>
+						<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
+						
+					</ul>
+					<ul class="category-ul">
+						<li><a href="#">최신순</a></li>
+						<li><a href="#">높은 평점순</a></li>
+						<li><a href="#">낮은 평점순</a></li>
+					</ul>
+				</div>
+
+				<!--리뷰 내용영역-->
+				<%for(int i=0; i<10; i++){ %>
+
+				<div class="review-section">
+					<div class="profile-star">
+						<div class="profile">
+							<div class="img-div"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+							<div><span class="title">토리형</span><br>
+								<span>2024.05.18</span>
+							</div>
+						</div>
+
+						<div>
+							<span class="star" style="color:#FE8B94;">★★★★★★</span>
+							<span><a href="#">수정</a>|<a href="#">삭제</a></span>
+						</div>
+				    </div>
+
+					<div class="img-content">
+						<%for (int l =0 ; l<3; l++){ %>
+						<div class="img-div"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+						<% } %>
+					</div>
+
+					<div class="content">
+                      <%for(int k=0 ; k<50; k++){%>
+						 내용내용내용
+					  <%}%>
+					</div>
+
+	         	</div> 
+
+				 <!--답글 영역-->
+				 <!-- 답글이 있을때만 처리 -->
+
+				 <div style="align-items: right;">
+					<div class="review-section reply">
+					
+						<div class="reply-master">
+							<div class="title master">사장님</div>
+							<div>2024-05-17</div>
+						</div>
+
+						<div class="content master-reply">
+								<%for(int k=0 ; k<30; k++){%>
+									답글내용내용내용
+								<%}%>
+						</div>
+					</div>
+			    </div>
+				<%}%>
+
+				<!--리뷰 작성 영역-->
+				<div class="review-section">
+					<div class="enroll-div">
+						<div class="enroll-profile">
+							<div class="img-div">
+								<img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image">
+							</div>
+							<div class="star">☆☆☆☆☆</div>
+						</div>
+
+						<div class="review-enroll">
+							<button class="common-button pink-button">리뷰 등록</button>
+						</div>
+					</div>
+
+					<div class="enroll-area">
+						<div class="review-section input-review">
+							<textarea  class="input-area" placeholder="내용을 입력하세요"></textarea>
+
+						</div>
+						<div class="review-section input-img">
+							<input type="file" placeholder="파일을 첨부하세요">
+						</div>
+					</div>
+
+				</div>
 			</div>
 			
 		</div>

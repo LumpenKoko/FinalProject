@@ -1,0 +1,201 @@
+/**리뷰  타이틀*/
+.detail_main .review .review-detail{
+    display:flex;
+	justify-content: space-between;
+	border:solid 1px var(--border-color);
+	border-radius:var(--inner-border-radius);
+	margin-top:30px;
+	margin-bottom:30px;
+    padding-top:15px;
+}
+
+.detail_main .review .review-detail ul{ 
+    display:flex;
+	justify-content: space-between;
+    gap:10px;
+
+}
+
+.detail_main .review .review-detail .category-ul a{
+    list-style: none;
+    color:black;
+}
+.detail_main .review .review-detail .category-ul a:hover{
+    color:var(--main-color);
+}
+
+.detail_main .review .review-detail li{ 
+   padding:10px;
+}
+
+/**리뷰 내용*/
+
+/*리뷰 내용 공통 영역*/
+.review .review-section{
+    width:100%;
+	display:grid;
+	grid-template-rows: repeat(1, 50px);
+	border:solid 1px var(--border-color);
+	column-gap: 50px;
+	margin-bottom: 30px;
+	padding:30px;
+    white-space: initial;/*영역 넘어가면 자동 줄바꿈*/
+    border-radius:var(--inner-border-radius)
+
+}
+
+/*프로필 별점*/
+.detail_main .review .profile-star{
+    display:flex;
+    justify-content: space-between;
+}
+
+/*이미지 내용 div*/
+.detail_main .review .img-content{
+   display: flex;
+   justify-content: flex-start;
+   gap:10px;
+   padding:15px;
+}
+
+/*리뷰 내용*/
+.detail_main .review .content{
+    padding-top:20px;
+    padding-bottom:20px;
+
+}
+
+.detail_main .review .profile{
+    display:flex;
+    justify-content:flex-start;
+    gap:5px;
+    
+}
+
+/**이미지*/
+
+/*프로필 이미지*/
+.detail_main .review .profile .img-div{
+    width: 50px;
+    height: 50px;
+   
+}
+.detail_main .review .profile img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+/* 내용 이미지*/
+.detail_main .review .img-content .img-div{
+    width: 150px;
+    height:150px;
+   
+}
+
+.detail_main .review .img-content img{
+ 
+    width:  100%;
+    height:  100%;
+    border-radius:var(--inner-border-radius);
+}
+
+
+
+/**리뷰 작성 영역*/
+
+.detail_main .enroll-div{
+    display:flex;
+    justify-content: space-between;
+    gap:10px;
+}
+
+
+.detail_main .enroll-profile{
+    display:flex;
+    justify-content: flex-start;
+    gap:10px;
+}
+
+
+.detail_main .enroll-area{
+    display:flex;
+    justify-content: space-between;
+    gap:10px;
+}
+
+/*작성 프로필 사진*/
+.detail_main .enroll-profile .img-div{
+    width: 35px;
+    height: 35px;
+}
+.detail_main .enroll-profile .img-div img{
+    width:100%;
+    height:100%;
+    border-radius: 50px;
+}
+
+
+
+
+/*입력창*/
+.detail_main .enroll-area {
+    display:flex;
+    justify-content: space-between;
+    gap:10px;
+
+}
+
+.detail_main .enroll-area .input-review{
+    width:80%;
+    height:200px;
+    padding:0;
+    margin:0;
+}
+
+.detail_main .enroll-area .input-review .input-area{
+    width:100%;
+    height:200px;
+    box-sizing: border-box;
+    border-radius:var(--inner-border-radius);
+     resize: none;
+    text-align: left;
+    border-style: "none"; 
+}
+
+.detail_main .enroll-area .input-img{
+    width:20%;
+    height:200px;
+}
+
+.detail_main .enroll-area .input-img input{
+    width:100%;
+    height:200px;
+}
+
+
+/*리뷰 작성 별*/
+
+
+/**답글영역*/
+
+.detail_main .reply{
+   
+    width:80%;
+    text-align: right;
+    float:right;
+    background-color: var(--background-color);
+
+}
+
+
+
+.detail_main .reply .reply-master{
+    display:flex;
+    justify-content: space-between;
+}
+
+.detail_main .reply .master-reply{
+   text-align: left;
+}
+

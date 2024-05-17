@@ -1,4 +1,4 @@
-window.onload=function(){
+$(function(){
 
     let mapContainer = document.getElementById('location_map'), // 지도를 표시할 div 
     mapOption = {
@@ -37,7 +37,10 @@ window.onload=function(){
      } 
     });    
 
-}
+})
+
+ 
+
 
 
 

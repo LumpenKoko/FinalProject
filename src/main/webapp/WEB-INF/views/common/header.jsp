@@ -45,7 +45,7 @@
         <ul>
             <li><span>지도</span></li>
 
-            <li><span>커뮤니티</span></li>
+            <li><a href="<%=request.getContextPath()%>/community.bo">커뮤니티</a></li>
             <li><a href="<%=request.getContextPath()%>/myPageMain.mp">대시보드</a></li>
 
         </ul>

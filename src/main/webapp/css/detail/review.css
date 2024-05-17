@@ -72,6 +72,7 @@
     
 }
 
+
 /**이미지*/
 
 /*프로필 이미지*/
@@ -197,5 +198,19 @@
 
 .detail_main .reply .master-reply{
    text-align: left;
+}
+
+
+/*페이징 처리 css*/
+
+.detail_main .page-div{
+    display:flex;
+    justify-content: center;
+    gap:20px;
+}
+
+
+.detail_main .page-button{
+    color:var(--main-color);
 }
 

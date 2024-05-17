@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/detail.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/room.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 <script src='<%=request.getContextPath()%>/js/map/map.js'></script>
 
@@ -30,7 +31,7 @@
 			<div class="space_detail">
 			     <div class="title">공간 이름</div>
 				 <div class="good">
-					<div id="heart">♡</div>&nbsp;
+					<div id="heart"><a href="#">♡</a></div>&nbsp;
 					<div id="count">46</div>
 				</div>
 			</div>
@@ -76,11 +77,33 @@
 				</div>
 			</div>
 
+            <!-- 장소 종류에따라 처리-->
+
+			<!--상품 정보-->
 			<div class="section">
 				<div class="title">상품 정보</div>
-				<div class="content">내용</div>
+				<% for(int i=0; i<3; i++){%>
+					<div class="content sales">
+						<div>등심돈까스</div>
+						<div style="width:80%"><hr></div>
+						<div>12000원</div>	
+					
+						
+					</div>
+				<%}%>
 			</div>
 
+			 <!--객실 정보-->
+
+            <div class="room-section">
+
+
+
+			</div>
+
+
+
+			<!--위치-->
 			<div class="location_div">
 				<div class="section location_area">
 				    <div class="title">위치정보 </div>
@@ -191,6 +214,21 @@
 						</div>
 					</div>
 
+				</div>
+                   
+				<!--페이지 처리 영역-->
+				<div class="page-div">
+					<div id="previous-button" class="prv-button">
+						<a href="#" class="page-button">◀</a>
+					</div>
+					
+					<!--페이징 처리(페이징 객체 받아올것)-->
+					<% for (int i=1; i<=10; i++) {%>
+						<div><a href="#" class="number"><%=i%></a></div>
+					<%}%>
+					<div id="previous-button" class="next-button">
+						<a href="#" class="page-button">▶</a>
+					</div>
 				</div>
 			</div>
 			

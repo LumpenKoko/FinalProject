@@ -2,6 +2,15 @@
 	max-width:100%;
 }
 
+.detail_main a{
+	text-decoration-line:none;
+	color:black;
+}
+/*a태그 hover*/
+.detail_main a:hover{
+	color:var( --main-color);
+}
+
 /*title 영역*/
 .detail_main .space_detail{
 	display:flex;
@@ -25,6 +34,7 @@
 .detail_main .content{
 	text-align: left;
 	margin-left:20px;
+
 }
 
 .detail_main .good{
@@ -33,9 +43,6 @@
 	
 }
 
-.detail_main .good .heart:hover {
-	background:red;
-}
 
 
 /*공통  grid 영역*/
@@ -98,7 +105,21 @@
 	border-radius:var(--inner-border-radius);
 }
 
+/** 장소 종류들*/
+
 /*
+ 상품 정보
+*/
+
+.detail_main .sales{
+	display: flex;
+	justify-content: space-between;
+	gap:20px;
+}
+
+
+
+/**
   위치 정보
 */
 

@@ -95,7 +95,7 @@
 
 			 <!--객실 정보-->
 
-            <div class="section">
+            <div class="room-section">
 
 
 

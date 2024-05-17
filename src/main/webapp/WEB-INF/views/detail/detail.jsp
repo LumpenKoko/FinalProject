@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/detail.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
-<script src='<%=request.getContextPath()%>/js/map.js'></script>
+<script src='<%=request.getContextPath()%>/js/map/map.js'></script>
 
 
 </head>
@@ -23,7 +23,7 @@
 	<div class="wrapper">
 		 <div id="header_img">
 		 		 <div id="show_name">공간 이름</div>
-		        <img src="<%=contextPath%>/img/공간2.png">
+		        <img src="<%=contextPath%>/resources/img/공간2.png">
 		</div>
 		<div class="main detail_main">
 		

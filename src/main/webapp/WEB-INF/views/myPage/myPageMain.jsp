@@ -19,9 +19,9 @@
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="<%=request.getContextPath()%>/resources/img/camera.jpg" onclick="" id="camera">
+                                <img src="<%=request.getContextPath()%>/resources/img/camera.png" onclick="" id="camera">
                                 <div id="profile"
-                                    style="background-image: url(<%=request.getContextPath()%>/resources/img/profile.jpg)">
+                                    style="background-image: url(<%=request.getContextPath()%>/resources/img/profile.png)">
                                 </div>
                                 <p id="nickName">토리형</p>
                                 <div id="solid"></div>
@@ -29,8 +29,8 @@
                                 <p id="petName">토리</p>
                             </div>
                             <div id="main_main_left2">
-                                <div id="reviews">작성한 리뷰</div>
-                                <div id="wishList">찜 목록</div>
+                                <div id="main" onclick="location.href='<%=request.getContextPath()%>/Main.mp'">작성한 리뷰</div>
+                                <div id="wishList" onclick="location.href='<%=request.getContextPath()%>/Wish.mp'">찜 목록</div>
                                 <div id="coupon">쿠폰 목록</div>
                                 <div id="boardList">게시글 목록</div>
                                 <div id="info">개인정보</div>
@@ -47,16 +47,16 @@
                             <div id="right2">
                                 <div id="right2-top">
                                     <div id="right2-top1">
-                                        <div><img src="<%=request.getContextPath()%>/resources/img/profile.jpg" id="reviewProfile"></div>
+                                        <div><img src="<%=request.getContextPath()%>/resources/img/profile.png" id="reviewProfile"></div>
                                         <div id="top1Text">
                                             <p style="margin-top: 20px; margin-bottom: 0px; font-size: 18px; font-weight: bold; text-align: left;">토리형</p>
                                             <p style="margin-top: 0px; font-size: 13px; color: #bababa;">2024.05.10</p>
                                         </div>
                                     </div> 
                                     <div id="right2-top2">
-                                        <span style="margin-right: 5px; color: #FE8B94;">★★★★★</span>
+                                        <span style="margin-right: 5px; color: #FE8B94; cursor:default;">★★★★★</span>
                                         <span style="color: #bababa;">수정</span>
-                                        <span style="color: #bababa;">｜</span>
+                                        <span style="color: #bababa; cursor:default;">｜</span>
                                         <span style="color: #bababa;">삭제</span>
                                     </div>
                                 </div>
@@ -66,21 +66,27 @@
                                     <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg" alt="">
                                 </div>
                                 <div id="right2-bottom">
-                                    <p style="text-align: left;">댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</p>
+                                    <p style="text-align: left; overflow: initial; white-space: initial;">댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</p>
                                 </div>
                             </div>
-                            <div id="right3">
-
-                            </div>
-                            <div id="right4">
-
-                            </div>
+                            <div id="container"></div>
                             <div id="right5">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                // 복제할 원본 div 요소를 가져옵니다
+                var originalDiv = document.getElementById('right2');
+            
+                // 새로운 div를 생성하고 복제한 후 container에 추가합니다
+                for (var i = 0; i < 2; i++) {
+                    var newDiv = originalDiv.cloneNode(true); // true를 전달하여 하위 요소들도 함께 복제합니다
+                    document.getElementById('container').appendChild(newDiv);
+                }
+            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

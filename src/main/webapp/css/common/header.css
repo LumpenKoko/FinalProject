@@ -13,7 +13,7 @@
 }
 
 /* 로고 섹션 */
-#header_logo {
+#header-logo {
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -21,13 +21,13 @@
     margin-right:20px;
 
 }
-#header_menu{
+#header-menu{
 	margin-right:80px;
 }
 
 
 /* 메뉴 섹션 */
-#header_menu ul {
+#header-menu ul {
     display: flex;
     gap: 10px;
     list-style: none;
@@ -37,7 +37,7 @@
     
 }
 
-#header_menu li {
+#header-menu li {
     cursor: pointer;
     font-weight: bold;
     white-space: nowrap;
@@ -45,14 +45,14 @@
     color: #000;
 }
 
-#header_menu li:hover {
+#header-menu li:hover {
     color: #fe8b94;
     white-space: nowrap;
 }
 
 
 /* 검색 섹션 */
-#header_search {
+#header-search {
     display: flex;
    /* align-items: center;*/
     flex: 3;
@@ -66,7 +66,7 @@
    /* box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);*/
 }
 
-#header_search input {
+#header-search input {
     width: 100%;
     height: 100%;
     border-radius: 20px;
@@ -76,7 +76,7 @@
     font-size: 16px;
 }
 
-#header_search_button {
+#header-search-button {
 
     width: 40px;
     height: 100%;
@@ -92,14 +92,14 @@
  
 }
 
-#header_search_button img {
+#header-search-button img {
     width: 20px;
     height: 20px;
 }
 
 
 /* 로그인 섹션 */
-#header_login {
+#header-login {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -108,7 +108,7 @@
     white-space: nowrap;
 }
 
-#header_login img {
+#header-login img {
     width: 50px;
     height: 50px;
     border-radius: 50%;

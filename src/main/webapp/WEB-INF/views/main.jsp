@@ -5,13 +5,387 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/main/main.css"/>
+<%@ include file="./common/common-file.jsp"%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/mainpage/mainpage.css"/>
 </head>
 <body>
-  
 	<%@ include file="./common/header.jsp"%>
+
+
+
+	
+    <div id="mainpage-wrap" class="wrapper">
+		<!-- 상단 이미지 -->
+		<div class="mainpage-full-img">
+			<img src="<%=request.getContextPath()%>/resources/mainpage/arjan-stalpers-8-sgismcDAQ-unsplash.jpg" alt="">
+		</div>
+
+		<div class="mainpage-wrap">
+
+			<!-- 아이콘(검색, 커뮤니티, 쇼츠, 지도) -->
+			<div id="mainpage-search-icon" class="gray-round-box flex-box">
+				<div>
+					<img src="<%=request.getContextPath()%>/resources/mainpage/dog1.jpg" alt="">
+					<div class="gugi-icon-title">검색</div>
+				</div>
+				<div>
+					<img src="<%=request.getContextPath()%>/resources/mainpage/cat1.jpg" alt="">
+					<div class="gugi-icon-title">커뮤니티</div>
+				</div>
+				<div>
+					<img src="<%=request.getContextPath()%>/resources/mainpage/dog2.jpg" alt="">
+					<div class="gugi-icon-title">쇼츠</div>
+				</div>
+				<div>
+					<img src="<%=request.getContextPath()%>/resources/mainpage/cat2.jpg" alt="">
+					<div class="gugi-icon-title">지도</div>
+				</div>
+			</div>
+
+			<!-- 추천 컨텐츠 -->
+			<div id="search-ranking" class="gray-round-box">
+				<span>반려동물과 좋은 추억을 남길 장소를 추천해드려요 </span>
+				<div>
+					<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+					
+					<!-- 추천 컨텐츠 세 개를 전부 감싸는 박스 -->
+					<div>
+						<!-- 추천 컨텐츠 박스 하나 -->
+						<div class="search-ranking-content gray-round-box">
+							<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
+							<div>
+								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
+								<div id="search-ranking-rating">
+									<div>4.3</div>
+									<div>
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+									</div>
+								</div>
+								<hr>
+								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
+								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
+							</div>
+						</div>
+
+						<div class="search-ranking-content gray-round-box">
+							<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
+							<div>
+								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
+								<div id="search-ranking-rating">
+									<div>4.3</div>
+									<div>
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+									</div>
+								</div>
+								<hr>
+								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
+								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
+							</div>
+						</div>
+
+						<div class="search-ranking-content gray-round-box">
+							<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
+							<div>
+								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
+								<div id="search-ranking-rating">
+									<div>4.3</div>
+									<div>
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+									</div>
+								</div>
+								<hr>
+								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
+								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 커뮤니티 인기글 -->
+		<div id="community-ranking" class="mainpage-full-img">
+			<span>커뮤니티 인기글을 통해 우리 집 반려동물에 맞는 정보를 찾아보세요</span>
+			
+			<div class="flex-box">
+				<div class="community-ranking-box">
+					<table>
+						<tr><th colspan="2">인기 조회글</th></tr>
+
+						<!-- 글 박스 -->
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="community-ranking-box">
+					<table>
+						<tr><th colspan="2">인기 추천글</th></tr>
+
+						<!-- 글 박스 -->
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="community-ranking-box">
+					<table>
+						<tr><th colspan="2">댓글 최다순</th></tr>
+
+						<!-- 글 박스 -->
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+						<tr class="community-ranking-box-content">
+							<td id="community-ranking-box-ranking">5</td>
+							<td id="community-ranking-box-content">
+								<div class="community-ranking-box-title">
+									<div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+									<span>[20]</span>
+								</div>
+								<div class="community-ranking-box-member">쿠키언니</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="mainpage-wrap">
+			<div id="shorts-ranking" class="gray-round-box">
+				<span>인기 멍냥이 쇼츠</span>
+				<div>
+					<div class="shorts-ranking-content">
+						<div>
+							<img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
+						</div>
+						<div class="shorts-ranking-text">
+							<div class="shorts-ranking-text-title">
+								<div class="shorts-ranking-text-user">쿠키언니</div>
+								<div class="shorts-ranking-text-date">2024.05.12</div>
+							</div>
+							<div class="shorts-ranking-text-content">쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 </div>
+						</div>
+					</div>
+					<div class="shorts-ranking-content">
+						<div>
+							<img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
+						</div>
+						<div class="shorts-ranking-text">
+							<div class="shorts-ranking-text-title">
+								<div class="shorts-ranking-text-user">쿠키언니</div>
+								<div class="shorts-ranking-text-date">2024.05.12</div>
+							</div>
+							<div class="shorts-ranking-text-content">쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 </div>
+						</div>
+					</div>
+					<div class="shorts-ranking-content">
+						<div>
+							<img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
+						</div>
+						<div class="shorts-ranking-text">
+							<div class="shorts-ranking-text-title">
+								<div class="shorts-ranking-text-user">쿠키언니</div>
+								<div class="shorts-ranking-text-date">2024.05.12</div>
+							</div>
+							<div class="shorts-ranking-text-content">쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="mainpage-map" class="mainpage-full-img">
+			<div class="mainpage-wrap">
+				<div id="mainpage-map-title">대동반려지도</div>
+				<div id="mainpage-map-text">지도를 중심으로 반려동물과 동행 가능한 장소를 찾아보세요</div>
+				
+				<div id="mainpage-map-content">
+					<div id="mainpage-map-inbox" class="gray-round-box">
+						<div class="mainpage-map-inbox-row">
+							<div class="mainpage-map-category">
+								<div><img src="<%=request.getContextPath()%>/resources/mainpage/food.png" alt=""></div>
+								<span>식당/카페</span>
+							</div>
+							<div class="mainpage-map-category">
+								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/hotel.png" alt=""></div>
+								<span>숙소</span>
+							</div>
+						</div>
+						<div class="mainpage-map-inbox-row">
+							<div class="mainpage-map-category">
+								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/themepark.png" alt=""></div>
+								<span>행사/테마파크</span>
+							</div>
+							<div class="mainpage-map-category">
+								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/hospital.png" alt=""></div>
+								<span>병원</span>
+							</div>
+						</div>
+						<div class="mainpage-map-inbox-row">
+							<div class="mainpage-map-category">
+								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/etc.png" alt=""></div>
+								<span>기타</span>
+							</div>
+						</div>
+					</div>
+					<div id="mainpage-map-map" class="gray-round-box"><img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240517_154417343.png" alt=""></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
 
 	
     <%@ include file="./common/footer.jsp"%>

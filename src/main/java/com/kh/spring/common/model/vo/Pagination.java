@@ -21,7 +21,7 @@ public class Pagination {
 		int endPage=startPage+pageLimit-1;//페이장바의 끝수
 		
 		endPage=endPage>maxPage? maxPage :endPage;
-		PageInfo pi =new PageInfo(listCount,currentPage,pageLimit,boardLimit,
+		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,
 				maxPage,startPage,endPage);
 		
 		return pi;

@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+}
+form{
+width: 100%;
+height: auto;
+padding-left: 10%;
+padding-right: 10%;
+
+}
+
+
+#bossmanubar{
+    max-width: 1280px;
+    
+
+}
+#bossmanubar div{
+    border: 1px solid #BABABA ;
+    height: 53px;
+    width: 207px;
+    padding-top: 15px;
+    font-size: 15px;
+}
+#chatlist{
+    margin-top: 12px;
+    border-radius: 15px;
+}
+
+#privacy-page{
+    border: 1px solid #BABABA;
+    width: 653px;
+    height: 835px;
+    
+}
+
+
+
+

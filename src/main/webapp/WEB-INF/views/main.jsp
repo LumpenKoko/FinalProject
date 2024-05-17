@@ -10,6 +10,9 @@
 </head>
 <body>
 	<%@ include file="./common/header.jsp"%>
+
+
+
 	
     <div id="mainpage-wrap" class="wrapper">
 		<!-- 상단 이미지 -->
@@ -383,6 +386,7 @@
 		</div>
 		
 	</div>
+
 	
     <%@ include file="./common/footer.jsp"%>
 	

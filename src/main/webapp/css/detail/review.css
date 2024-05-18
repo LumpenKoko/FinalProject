@@ -1,5 +1,5 @@
 /**리뷰  타이틀*/
-.detail_main .review .review-detail{
+.detail-main .review .review-detail{
     display:flex;
 	justify-content: space-between;
 	border:solid 1px var(--border-color);
@@ -9,22 +9,22 @@
     padding-top:15px;
 }
 
-.detail_main .review .review-detail ul{ 
+.detail-main .review .review-detail ul{ 
     display:flex;
 	justify-content: space-between;
     gap:10px;
 
 }
 
-.detail_main .review .review-detail .category-ul a{
+.detail-main .review .review-detail .category-ul a{
     list-style: none;
     color:black;
 }
-.detail_main .review .review-detail .category-ul a:hover{
+.detail-main .review .review-detail .category-ul a:hover{
     color:var(--main-color);
 }
 
-.detail_main .review .review-detail li{ 
+.detail-main .review .review-detail li{ 
    padding:10px;
 }
 
@@ -45,13 +45,13 @@
 }
 
 /*프로필 별점*/
-.detail_main .review .profile-star{
+.detail-main .review .profile-star{
     display:flex;
     justify-content: space-between;
 }
 
 /*이미지 내용 div*/
-.detail_main .review .img-content{
+.detail-main .review .img-content{
    display: flex;
    justify-content: flex-start;
    gap:10px;
@@ -59,13 +59,13 @@
 }
 
 /*리뷰 내용*/
-.detail_main .review .content{
+.detail-main .review .content{
     padding-top:20px;
     padding-bottom:20px;
 
 }
 
-.detail_main .review .profile{
+.detail-main .review .profile{
     display:flex;
     justify-content:flex-start;
     gap:5px;
@@ -76,25 +76,25 @@
 /**이미지*/
 
 /*프로필 이미지*/
-.detail_main .review .profile .img-div{
+.detail-main .review .profile .img-div{
     width: 50px;
     height: 50px;
    
 }
-.detail_main .review .profile img{
+.detail-main .review .profile img{
     width: 100%;
     height: 100%;
     border-radius: 50px;
 }
 
 /* 내용 이미지*/
-.detail_main .review .img-content .img-div{
+.detail-main .review .img-content .img-div{
     width: 150px;
     height:150px;
    
 }
 
-.detail_main .review .img-content img{
+.detail-main .review .img-content img{
  
     width:  100%;
     height:  100%;
@@ -105,32 +105,32 @@
 
 /**리뷰 작성 영역*/
 
-.detail_main .enroll-div{
+.detail-main .enroll-div{
     display:flex;
     justify-content: space-between;
     gap:10px;
 }
 
 
-.detail_main .enroll-profile{
+.detail-main .enroll-profile{
     display:flex;
     justify-content: flex-start;
     gap:10px;
 }
 
 
-.detail_main .enroll-area{
+.detail-main .enroll-area{
     display:flex;
     justify-content: space-between;
     gap:10px;
 }
 
 /*작성 프로필 사진*/
-.detail_main .enroll-profile .img-div{
+.detail-main .enroll-profile .img-div{
     width: 35px;
     height: 35px;
 }
-.detail_main .enroll-profile .img-div img{
+.detail-main .enroll-profile .img-div img{
     width:100%;
     height:100%;
     border-radius: 50px;
@@ -140,39 +140,42 @@
 
 
 /*입력창*/
-.detail_main .enroll-area {
+.detail-main .enroll-area {
     display:flex;
     justify-content: space-between;
     gap:10px;
 
 }
 
-.detail_main .enroll-area .input-review{
+.detail-main .enroll-area .input-review{
     width:80%;
     height:200px;
     padding:0;
     margin:0;
+    border-style: none; 
 }
 
-.detail_main .enroll-area .input-review .input-area{
+.detail-main .enroll-area .input-review .input-area{
     width:100%;
     height:200px;
     box-sizing: border-box;
     border-radius:var(--inner-border-radius);
-     resize: none;
+    resize: none;
     text-align: left;
-    border-style: "none"; 
 }
 
-.detail_main .enroll-area .input-img{
+.detail-main .enroll-area .input-img{
     width:20%;
     height:200px;
+    padding:0;
 }
-
-.detail_main .enroll-area .input-img input{
+/*버튼처리*/
+.detail-main .enroll-area .input-img> .upload-label{
     width:100%;
     height:200px;
+    
 }
+
 
 
 /*리뷰 작성 별*/
@@ -180,7 +183,7 @@
 
 /**답글영역*/
 
-.detail_main .reply{
+.detail-main .reply{
    
     width:80%;
     text-align: right;
@@ -191,26 +194,26 @@
 
 
 
-.detail_main .reply .reply-master{
+.detail-main .reply .reply-master{
     display:flex;
     justify-content: space-between;
 }
 
-.detail_main .reply .master-reply{
+.detail-main .reply .master-reply{
    text-align: left;
 }
 
 
 /*페이징 처리 css*/
 
-.detail_main .page-div{
+.detail-main .page-div{
     display:flex;
     justify-content: center;
     gap:20px;
 }
 
 
-.detail_main .page-button{
+.detail-main .page-button{
     color:var(--main-color);
 }
 

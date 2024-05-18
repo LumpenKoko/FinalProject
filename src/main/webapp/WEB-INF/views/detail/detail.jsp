@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/room.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 <script src='<%=request.getContextPath()%>/js/map/map.js'></script>
+<script src='<%=request.getContextPath()%>/js/map/hostpital-map.js'></script>
 
 
 </head>
@@ -21,14 +22,13 @@
 	
 	<%@ include file="../common/header.jsp"%>
    
-	<div class="wrapper">
-		 <div id="header_img">
-		 		 <div id="show_name">공간 이름</div>
-		        <img src="<%=contextPath%>/resources/img/공간2.png">
+	<div class="wrapper detail-wrapper">
+		<div class="header-img">
+		 	<div class="show-name">공간 이름</div>
+		    <img src="<%=contextPath%>/resources/img/공간2.png">
 		</div>
-		<div class="main detail_main">
-		
-			<div class="space_detail">
+		<div class="main detail-main">
+			<div class="space-detail">
 			     <div class="title">공간 이름</div>
 				 <div class="good">
 					<div id="heart"><a href="#">♡</a></div>&nbsp;
@@ -37,33 +37,36 @@
 			</div>
 			
 			<div class="section">
-			  <div class="title">소개</div>
-			  
-			  <div class="content"> 
-				마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
-				마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다.
-				마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
-			  </div>
-				
+			   <div class="title">소개</div>
+			   <div class="content"> 
+					마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
+					마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다.
+					마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
+			   </div>
 			</div>
 			
-			 <div class="detail_div">
-				<div class="section detail_area">
+			 <div class="detail-div">
+				<div class="section detail-area">
 				    <div class="title">상세정보 </div>
-					<div class="content">
-						<% for (int i=0; i<100; i++) { %>
-							<%="내용"%>
-						<%} %>
+					<div class="detail-information detail-content">
+					    <div>
+							<div class="content">숙소</div>
+							<div class="content">02-1234-5678</div>
+							<div class="content">체크인 15:00/체크아웃 11:00</div>
+						</div>
+						<div>
+							<div class="content">소형견,중형견,고양이</div>
+							<div class="content">부산광역시 해운대 극성로</div>
+							<div class="content">https://place-site.yanolja.com</div>	
+						</div>
 					</div>
 				</div>
 				
-				<div class="section more_area">
-					
+				<div class="section more-area">
 					<span class="title">더 알아보기</span><br>
 					<div><button class="common-button white-button" style="width:100%;">지도보기</button></div>
 					<div> </div>
 				    <div><button class="common-button pink-button" style="width:100%;">채팅문의</button></div>
-					
 				</div>
 			 </div>
 
@@ -87,35 +90,48 @@
 						<div>등심돈까스</div>
 						<div style="width:80%"><hr></div>
 						<div>12000원</div>	
-					
-						
 					</div>
 				<%}%>
 			</div>
 
 			 <!--객실 정보-->
 
-            <div class="room-section">
-
-
-
+			 <div class="section room">
+				<div class="title">객실 정보</div>
+				<div class="room-section room-information">
+					<div class="img-div">
+                        <img src="<%=contextPath%>/resources/img/tori.jpg"/>
+					</div>
+					<div class="room-info">
+						<div class="title" style="color:var(--main-color);">스탠다드 트윈(OTT 시청가능)</div>
+						<div class="title price">6800원</div>
+						<div style="width:100%"><hr></div>
+						<div class="check-in-out">
+							체크인:<span>15:00</span>/체크아웃<span>11:00</span>
+						</div>
+						<div class="capacity">
+							객실기준<span>2</span>명/최대<span>2</span>명
+						</div>
+						<div class="detail-show">
+							<button class="common-button white-button">상세보기</button>
+						</div>
+					</div>	
+				</div>
 			</div>
 
-
-
-			<!--위치-->
-			<div class="location_div">
-				<div class="section location_area">
+           	<!--위치-->
+			<div class="location-div">
+				<div class="section location-area">
 				    <div class="title">위치정보 </div>
 					<div class="content">
-						<div id="location_map" style="width:100%; height:500px;"></div>
+						<div id="location-map" style="width:100%; height:500px;"></div>
 					</div>
 				</div>
 				
-				<div class="section hospital_area">
+				<div class="section hospital-area">
 					<div class="title">동물병원</div>
 					<div class="content">
-						<div id="hostpial_map" style="width:80%;height:80%;"></div>
+						<div id="hostpial_map" style="width:150px;height:500px;"></div>
 				    </div>
 				</div>
 			 </div>
@@ -207,10 +223,10 @@
 					<div class="enroll-area">
 						<div class="review-section input-review">
 							<textarea  class="input-area" placeholder="내용을 입력하세요"></textarea>
-
 						</div>
 						<div class="review-section input-img">
-							<input type="file" placeholder="파일을 첨부하세요">
+							<label for="fileInput" class="upload-label " style="font-size: 120px; font-weight:bold;">+</label>
+							<input id="fileInput" name="file" type="file" style="display: none;">
 						</div>
 					</div>
 

@@ -11,5 +11,11 @@ public class DetailController {
 		
 		return "detail/detail";
 	}
+	
+	@GetMapping("/chat")
+	public String ChatList() {
+		
+		return "chat/chat";
+	}
 
 }

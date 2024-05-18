@@ -1,6 +1,6 @@
 $(function(){
 
-    let mapContainer = document.getElementById('location-map'), // 지도를 표시할 div 
+    let mapContainer = document.getElementById('hostpial_map'), // 지도를 표시할 div 
     mapOption = {
      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
      level: 3 // 지도의 확대 레벨
@@ -28,7 +28,7 @@ $(function(){
     
          // 인포윈도우로 장소에 대한 설명을 표시합니다
          let infowindow = new kakao.maps.InfoWindow({
-            content: '장소'
+            content: '병원위치'
          });
          infowindow.open(map, marker);
     

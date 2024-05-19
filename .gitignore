@@ -4,6 +4,7 @@
 target/
 classes/
 Servers/
+WebContent/
 
 ### Eclipse ###
 .metadata

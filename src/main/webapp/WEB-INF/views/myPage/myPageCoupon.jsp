@@ -7,7 +7,7 @@
         <title>Insert title here</title>
 
 
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/myPage/myPageMain.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/myPage/myPageCoupon.css" />
     </head>
 
     <body>
@@ -44,34 +44,26 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <div id="right1">작성한 리뷰</div>
+                            <div id="right1">쿠폰 목록</div>
                             <div id="right2">
-                                <div id="right2-top">
-                                    <div id="right2-top1">
-                                        <div><img src="<%=request.getContextPath()%>/resources/img/myPage/profile.png" id="reviewProfile"></div>
-                                        <div id="top1Text">
-                                            <p style="margin-top: 20px; margin-bottom: 0px; font-size: 18px; font-weight: bold; text-align: left;">토리형</p>
-                                            <p style="margin-top: 0px; font-size: 13px; color: #bababa;">2024.05.10</p>
-                                        </div>
-                                    </div> 
-                                    <div id="right2-top2">
-                                        <span style="margin-right: 5px; color: #FE8B94; cursor:default;">★★★★★</span>
-                                        <span style="color: #bababa;">수정</span>
-                                        <span style="color: #bababa; cursor:default;">｜</span>
-                                        <span style="color: #bababa;">삭제</span>
-                                    </div>
+                                <div id="right2-left">
+                                    <div id="top">AAA카페 송파점</div>
+                                    <div id="mid">10000원 할인</div>
+                                    <div id="bottom">2024.05.10 ~ 2024.11.02</div>
                                 </div>
-                                <div id="right2-mid">
-                                    <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg" alt="">
-                                    <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg" alt="">
-                                    <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg" alt="">
-                                </div>
-                                <div id="right2-bottom">
-                                    <p style="text-align: left; overflow: initial; white-space: initial;">댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</p>
+                                <div id="right2-right">
+                                    <button id="use">사용하기</button>
                                 </div>
                             </div>
-                            <div id="container"></div>
-                            <div id="right5">
+                            <div id="right3" style="margin-bottom: 30px;">
+                                <div id="right3-left">
+                                    <div id="top">AAA카페 송파점</div>
+                                    <div id="mid">10000원 할인</div>
+                                    <div id="bottom">2024.05.10 ~ 2024.11.02</div>
+                                </div>
+                                <div id="right3-right">
+                                    <button id="none">사용하기</button>
+                                </div>
                             </div>
                         </div>
                     </div>

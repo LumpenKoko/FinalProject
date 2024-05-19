@@ -1,0 +1,21 @@
+*{
+    border: 1px solid rgb(208, 240, 253);
+}
+
+.gray-round-box{
+    border: 1px solid var(--border-color);
+    border-radius: var(--inner-border-radius);
+}
+
+.main{
+    display: flex;
+    justify-content: space-between;
+}
+
+#category-box{
+    width: 240px;
+}
+
+#search-result-box{
+    width: 820px;
+}

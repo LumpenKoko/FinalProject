@@ -25,5 +25,15 @@ public class MemberController {
 	public String memberEnrollCommonForm() {
 		return "member/memberEnrollCommon";
 	}
+	
+	@RequestMapping("memberEnrollAdminForm.me")
+	public String memberEnrollAdminForm() {
+		return "member/memberEnrollAdmin";
+	}
+	
+	@RequestMapping("memberEnrollSelectForm.me")
+	public String memberEnrollSelectForm() {
+		return "member/memberEnrollSelect";
+	}
 
 }

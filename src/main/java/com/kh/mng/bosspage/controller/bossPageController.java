@@ -13,6 +13,11 @@ public class bossPageController {
 	
 	@RequestMapping(value="bossManuBar.bm")
 	public String bossManuBar() {
-		return "bosspage.bossmanubar";
+		return "bosspage/bossmanubar";
+	}
+	
+	@RequestMapping(value="bossLocation.bl")
+	public String bossLocation() {
+		return "bosspage/bosslocation";
 	}
 }

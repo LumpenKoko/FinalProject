@@ -35,4 +35,14 @@ public class myPage {
 	public String myPageInfo() {
 		return "myPage/myPageInfo";
 	}
+	
+	@RequestMapping(value="myPagePetInfo.mp")
+	public String myPagePetInfo() {
+		return "myPage/myPagePetInfo";
+	}
+	
+	@RequestMapping(value="myPagePetSignUp.mp")
+	public String myPagePetSignUp() {
+		return "myPage/myPagePetSignUp";
+	}
 }

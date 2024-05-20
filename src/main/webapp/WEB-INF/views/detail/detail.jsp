@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/detail.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/room.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review_star.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 <script src='<%=request.getContextPath()%>/js/map/map.js'></script>
 <script src='<%=request.getContextPath()%>/js/map/hostpital-map.js'></script>
@@ -23,15 +24,25 @@
 	<%@ include file="../common/header.jsp"%>
    
 	<div class="wrapper detail-wrapper">
-		<div class="header-img">
-		 	<div class="show-name">공간 이름</div>
-		    <img src="<%=contextPath%>/resources/img/공간2.png">
+		<!--헤더 이미지-->
+		<div class="header-img" style="background: url('<%=contextPath%>/resources/img/공간2.png') no-repeat center center/cover;">
+		    <div class="head-img-pre">
+				<button>&gt;</button>
+			</div>
+		 	<div class="overlay">
+				<h1 class="gugi-regular">공간 이름</h1>
+			</div>
+			<div class="head-img-next">
+				<button>&lt;</button>
+			</div>
+		    <!-- <img src="<%=contextPath%>/resources/img/공간2.png"> -->
 		</div>
+		<!--메인영역-->
 		<div class="main detail-main">
 			<div class="space-detail">
 			     <div class="title">공간 이름</div>
 				 <div class="good">
-					<div id="heart"><a href="#">♡</a></div>&nbsp;
+					<div id="heart"><a href="#" class="pick-heart">♥</a></div>&nbsp;
 					<div id="count">46</div>
 				</div>
 			</div>
@@ -64,9 +75,9 @@
 				
 				<div class="section more-area">
 					<span class="title">더 알아보기</span><br>
-					<div><button class="common-button white-button" style="width:100%;">지도보기</button></div>
+					<div><button class="common-button white-button" style="width:100%;" onclick="location.href='https://map.kakao.com/link/search/제주특별자치도 제주시 첨단로 242'">지도보기</button></div>
 					<div> </div>
-				    <div><button class="common-button pink-button" style="width:100%;">채팅문의</button></div>
+				    <div><button class="common-button pink-button" style="width:100%;" onclick ="location.href='<%=contextPath%>/chat'">채팅문의</button></div>
 				</div>
 			 </div>
 
@@ -113,11 +124,73 @@
 							객실기준<span>2</span>명/최대<span>2</span>명
 						</div>
 						<div class="detail-show">
-							<button class="common-button white-button">상세보기</button>
+							<button  type="button" class="common-button white-button btn btn-primary" data-toggle="modal" data-target="#myModal">상세보기</button>
 						</div>
 					</div>	
 				</div>
 			</div>
+
+	 <!-- The Modal -->
+	 <div class="modal fade wrapper" id="myModal">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+		  
+			
+			<!-- Modal body -->
+			<div class="modal-body room-modal">
+				<div class="title">객실 상세</div>
+				<div class="img-modal-div">
+					<%for (int l =0 ; l<3; l++){ %>
+					 <div class="img-modal"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+					<% } %>
+				</div>
+				 <table>
+						<tr>
+							<th>객실명</th>
+							<td>스탠다드트윈(0TT시청가능)</td>
+						</tr>
+
+						<tr>
+							<th>가격</th>
+							<td>스탠다드트윈(0TT시청가능)</td>
+						</tr>
+						
+						<tr>
+							<th>시간</th>
+							<td>체크인15:00/체크아웃11:00</td>
+						</tr>
+						<tr>
+							<th>수용인원</th>
+							<td>객실기준2명/최대2명</td>
+						</tr>
+					    <tr>
+							<th>상세정보</th>
+							<td>인원 추가시 비용이 발생되며, 현장에서 결제 바랍니다.
+								더블베드 1개
+								객실+욕실 / 11평
+								인원 추가시 비용이 발생되며, 현장에서 결제 바랍니다.
+								더블베드 1개
+								객실+욕실 / 11평
+								더블베드 1개
+								
+							</td>
+						</tr>
+					</table>
+				
+			</div>
+			  <!-- Modal footer -->
+			  <div class="modal-footer" style="align-items: center; width:100%;">
+				<button type="button" class="common-button pink-button">예약하기</button>
+				<button type="button" class="common-button white-button" data-dismiss="modal">닫기</button>
+			  </div>
+			
+			 </div>
+		</div>
+	 </div>
+	  
+  
+
+
 
            	<!--위치-->
 			<div class="location-div">
@@ -142,7 +215,7 @@
 				<div class="review-detail">
 				     <ul class="detail-ul">
 						<li class="title score">4.3</li>
-						<li class="star" style="color:#FE8B94;">★★★★★★</li>
+						<li class="avg-star" style="color:#FE8B94;">★★★★★</li>
 						<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
 						
 					</ul>
@@ -166,7 +239,7 @@
 						</div>
 
 						<div>
-							<span class="star" style="color:#FE8B94;">★★★★★★</span>
+							<span  style="color:#FE8B94;">★★★★★</span>
 							<span><a href="#">수정</a>|<a href="#">삭제</a></span>
 						</div>
 				    </div>
@@ -212,7 +285,13 @@
 							<div class="img-div">
 								<img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image">
 							</div>
-							<div class="star">☆☆☆☆☆</div>
+							<div class="star-rating">
+								<input type="radio" class="star" name="rating"  value="1">
+								<input type="radio" class="star" name="rating"  value="2">
+								<input type="radio" class="star" name="rating"  value="3">
+								<input type="radio" class="star" name="rating"  value="4">
+								<input type="radio" class="star" name="rating"  value="5">
+							</div>
 						</div>
 
 						<div class="review-enroll">

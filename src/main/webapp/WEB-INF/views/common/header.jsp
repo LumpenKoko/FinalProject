@@ -68,7 +68,7 @@
 	         	<a href="#">마이페이지</a>&nbsp;&nbsp;<a href="<%=contextPath%>/logoutTest">로그아웃</a>
 	         </div> 
           <%}else{%>
-             <div><a href="#">회원가입</a>&nbsp;&nbsp;<a href="<%=contextPath%>/loginTest">로그인</a></div>
+             <div><a href="<%=contextPath%>/memberEnrollSelectForm.me">회원가입</a>&nbsp;&nbsp;<a href="<%=contextPath%>/loginForm.me">로그인</a></div>
           <%} %>
 
 	 </div>

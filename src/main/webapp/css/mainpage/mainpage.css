@@ -7,6 +7,65 @@
     border-radius: var(--inner-border-radius);
 }
 
+/* 반려동물 등록 장려 모달창 */
+#regist-question-title{
+    font-size: 24px;
+    margin: 20px 0px;
+}
+
+#regist-question-content{
+    margin: 20px 0px;
+}
+
+#regist-question-text{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal-body>button{
+    width: 150px;
+    margin: 0px 10px;
+}
+
+#regist-question-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 25px 5px 25px;
+}
+
+#regist-question-footer>div{
+    display: flex;
+    align-items: center;
+    height: 15px;
+}
+
+#regist-question-footer>label{
+    margin: auto 0px;
+}
+
+#regist-question-footer>div:hover{
+    color: var(--main-color);    
+}
+
+#regist-question-footer>button{
+    font-size: 15px;
+    color: black;
+}
+
+#check-alarm{
+    margin-right: 10px;
+}
+
+#regist-question-footer>button:hover{
+    color: var(--main-color);
+}
+
+
+
+/* 메인페이지 기본 css */
+
 .mainpage-full-img{
     width: 100%;
 }

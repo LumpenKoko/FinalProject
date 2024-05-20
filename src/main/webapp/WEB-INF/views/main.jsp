@@ -6,14 +6,46 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="./common/common-file.jsp"%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/minibox.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mainpage/mainpage.css"/>
 </head>
 <body>
 	<%@ include file="./common/header.jsp"%>
+	<!-- Button to Open the Modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#regist-pet-alarm">
+		반려동물 등록
+	</button>
+	<!-- The Modal -->
+	<div class="modal size" id="regist-pet-alarm">
+		<div class="modal-dialog size">
+			<div class="modal-content size">
+				<!-- Modal body -->
+				<div class="modal-body size">
+					<div class="minibox-title" id="regist-question-title">
+						아직 반려동물 등록이 안 되어 있으시네요!
+					</div>
+					<div class="minibox-text" id="regist-question-content">
+						동행하고 있는 반려동물을 등록하면 <br>
+						좀 더 편리한 서비스 사용이 가능합니다.
+					</div>
+					<div id="regist-question-text">
+						반려동물을 등록하시겠습니까?
+					</div>
 
+					<button class="common-button pink-button">지금 등록하기</button>
+					<button class="common-button white-button">나중에 하기</button>
 
-
-	
+					<div id="regist-question-footer">
+						<div>
+							<input type="checkbox" id="check-alarm" class="checkbox-color-pink">
+							<label for="check-alarm">3일 동안 보지 않기</label>
+						</div>
+						<button class="close" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     <div id="mainpage-wrap" class="wrapper">
 		<!-- 상단 이미지 -->
 		<div class="mainpage-full-img">

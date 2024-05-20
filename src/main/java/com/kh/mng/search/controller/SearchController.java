@@ -10,4 +10,9 @@ public class SearchController {
 	public String searchForm() {
 		return "search/searchPage";
 	}
+	
+	@RequestMapping("test")
+	public String test() {
+		return "bosspage/bossCouponPage";
+	}
 }

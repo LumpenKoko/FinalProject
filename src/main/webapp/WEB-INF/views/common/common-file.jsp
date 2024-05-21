@@ -29,3 +29,5 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css
 
 <!-- 공통css -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/common.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/modal.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/minibox.css"/>

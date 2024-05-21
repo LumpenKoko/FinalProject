@@ -22,7 +22,7 @@
                     <div class="privacy-page">
                         <div class="privacy-top">장소 정보</div>
                         <div id="location-details">
-                            <p>운영업체/카테고리</p>
+                            <p>운영업체/카테고리(*필수*)</p>
                             <select class="location-category">
                                 <option value="">식당</option>
                                 <option value="">카페</option>
@@ -32,15 +32,15 @@
                                 <option value="">병원</option>
                             </select>
                             <div>
-                                <p>상호명</p>
+                                <p>상호명(*필수*)</p>
                                 <input type="text" name="상호명">
                             </div>
                             <div>
-                                <p>가게 전화번호</p>
+                                <p>가게 전화번호(*필수*)</p>
                                 <input type="tel" name="가게전화번호" style="background: white;" placeholder="(ex.지역번호)-0000-0000">
                             </div>
                             <div id="operating">
-                                <p>운영시간</p>
+                                <p>운영시간(*필수*)</p>
                                 <div id="operating-hours">
                                     <p>월</p>
                                     <p>휴무</p>
@@ -449,8 +449,58 @@
                                 </div>
                             </div>
                             <div id="storeinfo">
-                                <p>상세 설명*</p>
-                                <textarea placeholder="*장소에 대한 설명과 반려동물 풀입 시 도움이 될 만한 정보를 적어주세요. (ex)테이블 밀집도, 케이지 필요 여부 등."></textarea>
+                                <p>상세 설명(필수*)</p>
+                                <textarea style="border-radius: 15px;" placeholder="*장소에 대한 설명과 반려동물 풀입 시 도움이 될 만한 정보를 적어주세요. (ex)테이블 밀집도, 케이지 필요 여부 등."></textarea>
+                            </div>
+                            <div>
+                                <p>반려동물 종류 및 크기(*필수*)</p>
+                                <div id="animal-check">
+                                    <p>소형견</p>
+                                    <input type="checkbox">
+                                    <p>중형견</p>
+                                    <input type="checkbox">
+                                    <p>대형견</p>
+                                    <input type="checkbox">
+                                    <p>고양이</p>
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+                            <div id="reservation-link">
+                                <p>외부 예약링크(선택)</p>
+                                <input type="text" placeholder="ex)www.mnguide.com">
+                            </div>
+                            <div id="photo-registration">
+                                <p>업체 사진등록(*필수*)</p>
+    	                        <label for="file1">
+                                    <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                </label>
+                                <input type="file" name="file" id="file1" class="company-file">
+                                <label for="file2">
+                                    <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                </label>
+                                <input type="file" name="file" id="file2" class="company-file">
+                                <label for="file3">
+                                    <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                </label>
+                                <input type="file" name="file" id="file3" class="company-file">
+                            </div>
+                            <div>
+                                <p>상품등록</p>
+                                <div id="product-registration">
+                                    <input type="text" class="product-name" placeholder="상품명을 입력하세요.">
+                                    <input type="text" class="commodity-price" placeholder="가격을 입력하세요.">
+                                    <button class="delete-droduct">
+                                        <img class="delete-droductimg" src="<%=contextPath%>/resources/img/bosspage/-.png">
+                                    </button>
+                                </div>
+                                <div id="product-registration" style="margin-top: 20px;">
+                                    <button class="add-product">
+                                        <img class="add-productimg" src="<%=contextPath%>/resources/img/myPage/+.png">
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="upload-location">
+                                <button class="upload-bt">등록</button>
                             </div>
                         </div>
                         

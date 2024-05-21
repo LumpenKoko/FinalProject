@@ -20,7 +20,7 @@
 		<div class="modal-dialog size">
 			<div class="modal-content size">
 				<!-- Modal body -->
-				<div class="modal-body size">
+				<div class="modal-body">
 					<div class="minibox-title" id="regist-question-title">
 						아직 반려동물 등록이 안 되어 있으시네요!
 					</div>
@@ -33,7 +33,7 @@
 					</div>
 
 					<button class="common-button pink-button">지금 등록하기</button>
-					<button class="common-button white-button">나중에 하기</button>
+					<button class="common-button white-button" data-dismiss="modal">나중에 하기</button>
 
 					<div id="regist-question-footer">
 						<div>

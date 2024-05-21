@@ -20,4 +20,9 @@ public class bossPageController {
 	public String bossLocation() {
 		return "bosspage/bosslocation";
 	}
+	
+	@RequestMapping(value="bossPageReviews.bp")
+	public String bossPageReviews() {
+		return "bosspage/bossPageReviews";
+	}
 }

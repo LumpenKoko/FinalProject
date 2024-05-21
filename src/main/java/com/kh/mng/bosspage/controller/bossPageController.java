@@ -29,4 +29,9 @@ public class bossPageController {
 	public String animalhospital() {
 		return "bosspage/animalhospital";
 	}
+
+	@RequestMapping(value="bossPageReviews.bp")
+	public String bossPageReviews() {
+		return "bosspage/bossPageReviews";
+	}
 }

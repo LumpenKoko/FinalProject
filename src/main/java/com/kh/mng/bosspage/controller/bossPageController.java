@@ -21,6 +21,15 @@ public class bossPageController {
 		return "bosspage/bosslocation";
 	}
 	
+	@RequestMapping(value="bossAccommodationinfo.ba")
+	public String bossAccommodationinfo() {
+		return "bosspage/bossAccommodationinfo";
+	}
+	@RequestMapping(value="animalhospital.ah")
+	public String animalhospital() {
+		return "bosspage/animalhospital";
+	}
+
 	@RequestMapping(value="bossPageReviews.bp")
 	public String bossPageReviews() {
 		return "bosspage/bossPageReviews";

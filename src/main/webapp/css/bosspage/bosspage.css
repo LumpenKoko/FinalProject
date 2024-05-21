@@ -28,7 +28,7 @@ display: flex;
 .privacy-page{
     border: 1px solid #BABABA;
     width: 653px;
-    height: 835px;
+    height: auto;
     margin-left: 5%;
     border-radius: 15px;
 }

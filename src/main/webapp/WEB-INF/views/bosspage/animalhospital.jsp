@@ -20,23 +20,15 @@
                         <%@ include file="../bosspage/bossmanubar.jsp" %>
                     </div>
                     <div class="privacy-page">
-                        <div class="privacy-top">식당 / 카페 / 행사 / 테마파크 / 동물병원 정보</div>
+                        <div class="privacy-top">동물병원 정보</div>
                         <div id="location-details">
-                            <p>운영업체/카테고리(*필수*)</p>
-                            <select class="location-category">
-                                <option value="">식당</option>
-                                <option value="">카페</option>
-                                <option value="">행사</option>
-                                <option value="">테마파크</option>
-                                <option value="">동물병원</option>
-                            </select>
                             <div>
                                 <p>상호명(*필수*)</p>
                                 <input type="text" name="상호명">
                             </div>
                             <div>
-                                <p>가게 전화번호(*필수*)</p>
-                                <input type="tel" name="가게전화번호" style="background: white;" placeholder="(ex.지역번호)-0000-0000">
+                                <p>병원 전화번호(*필수*)</p>
+                                <input type="tel" style="background: white;" placeholder="(ex.지역번호)-0000-0000">
                             </div>
                             <div id="operating">
                                 <p>운영시간(*필수*)</p>
@@ -482,21 +474,6 @@
                                     <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
                                 </label>
                                 <input type="file" name="file" id="file3" class="company-file">
-                            </div>
-                            <div>
-                                <p>상품등록</p>
-                                <div id="product-registration">
-                                    <input type="text" class="product-name" placeholder="상품명을 입력하세요.">
-                                    <input type="text" class="commodity-price" placeholder="가격을 입력하세요.">
-                                    <button class="delete-droduct">
-                                        <img class="delete-droductimg" src="<%=contextPath%>/resources/img/bosspage/-.png">
-                                    </button>
-                                </div>
-                                <div id="product-registration" style="margin-top: 20px;">
-                                    <button class="add-product">
-                                        <img class="add-productimg" src="<%=contextPath%>/resources/img/myPage/+.png">
-                                    </button>
-                                </div>
                             </div>
                             <div id="upload-location">
                                 <button class="upload-bt">등록</button>

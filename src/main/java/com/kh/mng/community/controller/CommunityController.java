@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CommunityController {
-	@RequestMapping(value="community.bo")
+	@RequestMapping("/community")
 	public String communityMain() {
-		return "community/boardMain";
+		return "community/communityMain";
 	}
 	
 	@RequestMapping(value="shortsView.bo")

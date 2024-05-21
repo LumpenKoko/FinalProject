@@ -8,6 +8,10 @@
 }
 
 /* 반려동물 등록 장려 모달창 */
+#regist-pet-button{
+    display: none;
+}
+
 #regist-question-title{
     font-size: 24px;
     margin: 20px 0px;

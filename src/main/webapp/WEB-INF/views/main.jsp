@@ -11,8 +11,8 @@
 </head>
 <body>
 	<%@ include file="./common/header.jsp"%>
-	<!-- Button to Open the Modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#regist-pet-alarm">
+	<!-- if문 등록해야 함 -->
+	<button type="button" id="regist-pet-button" class="btn btn-primary" data-toggle="modal" data-target="#regist-pet-alarm">
 		반려동물 등록
 	</button>
 	<!-- The Modal -->

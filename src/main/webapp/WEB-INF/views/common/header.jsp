@@ -36,7 +36,7 @@
 
 
 <div id="header">
-    <div id="header-logo" >
+    <div id="header-logo" onclick="location.href='<%=contextPath%>'">
         <div class="gugi-regular">멍냥</div>
         <div style="font-size: 30px; color:#FE8B94; width:100% float:left;">가이드</div>
     </div>

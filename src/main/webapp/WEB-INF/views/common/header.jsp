@@ -36,7 +36,7 @@
 
 
 <div id="header">
-    <div id="header-logo" onclick="location.href='/'">
+    <div id="header-logo" onclick="location.href='<%=contextPath%>'">
         <div class="gugi-regular">멍냥</div>
         <div style="font-size: 30px; color:#FE8B94; width:100% float:left;">가이드</div>
     </div>
@@ -45,10 +45,10 @@
         <ul>
             <li><span>지도</span></li>
 
-            <li><a href="/bossMainPage.bm">보스페이지</a></li>
+            <li><a href="<%=contextPath%>/bossMainPage.bm">보스페이지</a></li>
 
-            <li><a href="/community.bo">커뮤니티</a></li>
-            <li><a href="/myPageMain.mp">대시보드</a></li>
+            <li><a href="<%=contextPath%>/community">커뮤니티</a></li>
+            <li><a href="<%=contextPath%>/myPageMain.mp">대시보드</a></li>
 
         </ul>
     </div>
@@ -68,7 +68,7 @@
 	         	<a href="#">마이페이지</a>&nbsp;&nbsp;<a href="/logoutTest">로그아웃</a>
 	         </div> 
           <%}else{%>
-             <div><a href="/memberEnrollSelectForm.me">회원가입</a>&nbsp;&nbsp;<a href="/loginForm.me">로그인</a></div>
+             <div><a href="<%=contextPath%>/memberEnrollSelectForm.me">회원가입</a>&nbsp;&nbsp;<a href="/loginForm.me">로그인</a></div>
           <%} %>
 
 	 </div>

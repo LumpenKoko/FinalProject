@@ -70,7 +70,7 @@
                         <div class="flex-box">
                             <div class="minibox-title">게시판</div>
                             <div>
-                                <button class="common-button pink-button">게시글등록</button>
+                                <a href="<%=request.getContextPath()%>/enrollBoard.bo"><button class="common-button pink-button">게시글 등록</button></a>
                             </div>
                         </div>
                         <div class="flex-box">

@@ -240,6 +240,8 @@
     /* border-style: none; */
     border-radius:var(--outer-border-radius);
     text-align: left;
+    text-align: center;
+    font-size: 20px;
 }
 
 .community-main .board-search .input-box{
@@ -248,6 +250,7 @@
     border-style: none;
     border-radius: var(--inner-border-radius);
     text-align: left;
+    font-size: 20px;
     /* display:inline-block; */
 }
 

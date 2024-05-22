@@ -21,7 +21,7 @@
             </div>
 
             <form action="" id="login-form">
-                <input type="text" class="minibox-input" placeholder="아이디를 입력하세요">
+                <input type="text" name="" class="minibox-input" placeholder="아이디를 입력하세요">
                 <input type="password" class="minibox-input" placeholder="비밀번호를 입력하세요">
 
                 <div>

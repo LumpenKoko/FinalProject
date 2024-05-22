@@ -80,6 +80,7 @@
 #photo-registration{
   text-align: left;
   display: flex;
+  gap: 10px;
 }
 .registration-upload {
     width: 117px;

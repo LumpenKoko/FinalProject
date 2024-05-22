@@ -16,8 +16,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="../common/common-file.jsp"%>
-<meta charset="UTF-8">
+<!-- <%@ include file="../common/common-file.jsp"%> -->
+<meta charset="UTF-8"> 
 <title>Insert title here</title>
 
 

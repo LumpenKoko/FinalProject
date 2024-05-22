@@ -164,6 +164,7 @@
 	width:300px;
 	height:300px;
 	border-radius:var(--inner-border-radius);
+	cursor: pointer;
 }
 
 /** 장소 종류들*/

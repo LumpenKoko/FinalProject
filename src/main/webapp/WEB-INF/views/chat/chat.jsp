@@ -62,18 +62,20 @@
 								</div>
 								<div class="master-name title">사장님</div>
 							</div>
-							<div class="content master-color">
-								내용내용내용
+							<div class="content master-content master-color">
+								<%for (int i=1; i<10; i++) {%>
+										내용내용	내용내용	내용내용	내용내용
+							    <%}%>
 							</div>
 						</div>
 						<!--유저-->
 						<div class="send-user">
-							<div class="content user-color">
+							<div class="content user-content user-color">
 								내용내용내용
 							</div>
 							<div class="content user-color">
 								<%for(int i=1; i<20; i++){%>
-									내용내용
+									내용내용	내용내용	내용내용	내용내용
 								<%}%>
 							</div>
 						</div>
@@ -87,7 +89,7 @@
 								<div class="master-name title">사장님</div>
 							</div>
 							<div class="content master-color">
-								내용내용내용
+								내용내용	내용내용	내용내용	내용내용
 							</div>
 						</div>
            

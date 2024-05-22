@@ -304,7 +304,9 @@
 							<textarea  class="input-area" placeholder="내용을 입력하세요"></textarea>
 						</div>
 						<div class="review-section input-img">
-							<label for="fileInput" class="upload-label " style="font-size: 120px; font-weight:bold;">+</label>
+							<label for="fileInput" class="upload-label">
+								<img src="resources/img/myPage/+.png">
+							</label>
 							<input id="fileInput" name="file" type="file" style="display: none;">
 						</div>
 					</div>

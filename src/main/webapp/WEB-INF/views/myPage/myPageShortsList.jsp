@@ -31,17 +31,17 @@
                             </div>
                             <div id="main_main_left2">
                                 <div id="mainList"
-                                    onclick="location.href='/myPageMain.mp'">작성한 리뷰</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰</div>
                                 <div id="wishList"
-                                    onclick="location.href='/myPageWish.mp'">찜 목록</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록</div>
                                 <div id="coupon"
-                                    onclick="location.href='/myPageCoupon.mp'">쿠폰 목록</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록</div>
                                 <div id="boardList"
-                                    onclick="location.href='/myPageBoard.mp'">게시글 / 쇼츠 목록
-                                </div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록</div>
                                 <div id="info"
-                                onclick="location.href='/myPageInfo.mp'">개인정보</div>
-                                <div style="border-style: none;" id="petInfo">반려동물 정보</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보</div>
+                                <div style="border-style: none;" id="petInfo"
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보</div>
                             </div>
                             <div id="main_main_left3">
                                 <div id="chatting">채팅 목록</div>

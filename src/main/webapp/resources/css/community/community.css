@@ -279,7 +279,7 @@
 */
 
 /* 글쓰기 영역 */
-input::placeholder {
+#titleInput::placeholder {
     color: var(--border-color);
     font-weight: bold;
     font-size: 24px;

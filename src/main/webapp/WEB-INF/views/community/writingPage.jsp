@@ -36,9 +36,9 @@
 					
 					<div id="summernote"></div>
 					
-					<div class="tmp-box">
-						<button>사진이미지</button>
-					<button type="submit" class="pink-button">게시글 등록</button>
+					<div class="flex-box" style="height: 100px; justify-content: space-between;">
+						<div><img src="resources/img/img-icon.png" alt="이미지등록" width="50" height="50"></div>
+						<button type="submit" class="common-button pink-button">게시글 등록</button>
 					</div>
 					
 				</form>

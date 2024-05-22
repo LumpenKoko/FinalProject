@@ -17,7 +17,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
+<meta charset="UTF-8"> 
+=======
 <meta charset="UTF-8">
+>>>>>>> d4689275e94f2593a9a35fc64e73984a8ff6ba61
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/common/header.css"/>
 </head>

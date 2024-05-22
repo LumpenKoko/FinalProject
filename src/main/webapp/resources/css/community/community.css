@@ -278,3 +278,32 @@
     margin-bottom: 20px;
 */
 
+/* 글쓰기 영역 */
+#titleInput::placeholder {
+    color: var(--border-color);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.writing-area{
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 30px;
+}
+
+#titleInput{
+    width: 1200px;
+    height: 70px;
+    border: none;
+}
+
+#category{
+    height: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    text-align: center;
+}
+
+
+
+

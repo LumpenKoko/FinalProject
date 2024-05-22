@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/community/community.css"/>
+<link rel="stylesheet" href="resources/css/community/community.css"/>
 
 </head>
 <body>
@@ -31,7 +31,7 @@
                         <%for(int i=0; i<10; i++){ %>
                          <div class="short-img-div">
                             <div class="short-img" >
-                                <img src="<%=contextPath%>/resources/img/공간2.png">
+                                <img src="resources/img/공간2.png">
                                 <div class="img-detail">
                                     <div style="font-weight: bold; font-size:20px;"><%=i%>번째 고객</div><br>
                                     <div>2024-05-21</div>
@@ -93,7 +93,7 @@
                             <div class="content-box">
                                 <div class="profile">
                                     <div class="img-div">
-                                        <img src="<%=contextPath%>/resources/img/tori.jpg">
+                                        <img src="resources/img/tori.jpg">
                                     </div>
                                     <div>쿠키언니</div>
                                     <div>2024.00.00</div> 
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                              <div class="img-box">
-                               <img src="<%=contextPath%>/resources/img/tori.jpg">
+                               <img src="resources/img/tori.jpg">
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>채팅</title>
 <%@ include file="../common/common-file.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/chat/chat.css"/>
+<link rel="stylesheet" href="resources/css/chat/chat.css"/>
 </head>
 <body>
    	<%@ include file="../common/header.jsp"%>
@@ -22,7 +22,7 @@
 							<div class="chat-grid chat-list-area">
 								<div class="profile-area">
 									<div class="img-div">
-										<img src="<%=contextPath%>/resources/img/tori.jpg">
+										<img src="resources/img/tori.jpg">
 									</div>
 									<div class="profile-list">
 										<div class="title">토리형</div>
@@ -46,7 +46,7 @@
 							<div class="title">&lt;</div>
 						</div>
 						<div class="img-div">
-							<img src="<%=contextPath%>/resources/img/tori.jpg">
+							<img src="resources/img/tori.jpg">
 						</div>
 						<div class="title">토리형</div>
 					</div>
@@ -58,7 +58,7 @@
 						<div class="send-master">
 							<div class="master-profile">
 								<div class="img-div">
-									<img src="<%=contextPath%>/resources/img/tori.jpg">
+									<img src="resources/img/tori.jpg">
 								</div>
 								<div class="master-name title">사장님</div>
 							</div>
@@ -82,7 +82,7 @@
 						<div class="send-master">
 							<div class="master-profile">
 								<div class="img-div">
-									<img src="<%=contextPath%>/resources/img/tori.jpg">
+									<img src="resources/img/tori.jpg">
 								</div>
 								<div class="master-name title">사장님</div>
 							</div>
@@ -101,7 +101,7 @@
 					<div class="input-chatting">
 						<div class="img">
 							<label for="file" class="img-button">
-								<img src="<%=contextPath%>/resources/img/img-icon.png">
+								<img src="resources/img/img-icon.png">
 							</label>
 							<input id="file" type="file" style="display:none;">
 						</div>
@@ -110,7 +110,7 @@
 						</div>
 						<div class="submit">
 							<button type="button">
-								<img src="<%=contextPath%>/resources/img/send-img.png">
+								<img src="resources/img/send-img.png">
 							</button>
 						</div>
 					</div>

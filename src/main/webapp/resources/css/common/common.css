@@ -40,8 +40,6 @@
 	resize: none;
 	text-decoration:none;
 	font-family:var(--font-family);
-	white-space: nowrap;
-
 	margin: 0;
 	padding: 0;
 }

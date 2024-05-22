@@ -241,12 +241,12 @@
 }
 
 .community-main .board-search .input-box{
-    width:90%;
+    width:80%;
     height:100%;
     border-style: none;
     border-radius: var(--inner-border-radius);
     text-align: left;
-    display:inline-block;
+    /* display:inline-block; */
 }
 
 

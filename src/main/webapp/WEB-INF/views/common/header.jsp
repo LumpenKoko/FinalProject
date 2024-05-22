@@ -65,7 +65,7 @@
              <img src="profile_image_url.jpg" alt="Profile Image">
 	         <div>
 	         	<span>쿠키언니 님</span><br>
-	         	<a href="#">마이페이지</a>&nbsp;&nbsp;<a href="/logoutTest">로그아웃</a>
+	         	<a href="#">마이페이지</a>&nbsp;&nbsp;<a href="<%=contextPath%>/logoutTest">로그아웃</a>
 	         </div> 
           <%}else{%>
              <div><a href="<%=contextPath%>/memberEnrollSelectForm.me">회원가입</a>&nbsp;&nbsp;<a href="<%=contextPath%>/loginForm.me">로그인</a></div>

@@ -31,22 +31,22 @@
                             </div>
                             <div id="main_main_left2">
                                 <div id="mainList"
-                                    onclick="location.href='/myPageMain.mp'">작성한 리뷰
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
                                 </div>
                                 <div id="coupon"
-                                    onclick="location.href='/myPageCoupon.mp'">쿠폰 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
                                 </div>
                                 <div id="boardList"
-                                    onclick="location.href='/myPageBoard.mp'">게시글 / 쇼츠 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록
                                 </div>
                                 <div id="info"
-                                    onclick="location.href='/myPageInfo.mp'">개인정보
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
                                 </div>
                                 <div style="border-style: none;" id="petInfo"
-                                    onclick="location.href='/myPagePetInfo.mp'">반려동물 정보
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
                                 </div>
                             </div>
                             <div id="main_main_left3">
@@ -57,10 +57,10 @@
                     <div id="right">
                         <div id="main_main_right">
                             <div id="right1">
-                                <span onclick="location.href='/myPageBoard.mp'"
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'"
                                     id="board">게시글</span>
                                 <span>&nbsp;/&nbsp;</span>
-                                <span onclick="location.href='/myPageShorts.mp'"
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'"
                                     id="shorts">쇼츠</span>
                             </div>
                             <div id="right2">

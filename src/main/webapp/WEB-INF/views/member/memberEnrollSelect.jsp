@@ -8,7 +8,8 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollSelect.css"/>
-<link rel="stylesheet" href="resources/js/member/memberEnrollSelect.js"/>
+<script src="resources/js/member/memberEnrollSelect.js"></script>
+<!-- <link rel="stylesheet" href="resources/js/member/memberEnrollSelect.js"/> -->
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -22,23 +23,24 @@
 				</div>
 
 				<div id="member-select-box">
-					<div class="member-select-category gray-round-box" onclick="selectMemberKind(1)">
+					<div class="member-select-category gray-round-box" id="kindCommon">
 						<div class="padding-category"><img src="resources/member/commonMember.png" alt=""></div>
 						<span>일반회원</span>
 					</div>
-					<div class="member-select-category gray-round-box" onclick="selectMemberKind(2)">
+					<div class="member-select-category gray-round-box" id="kindBoss">
 						<div class="padding-category"><img src="resources/member/adminMember.png" alt=""></div>
 						<span>사장회원</span>
 					</div>
 				</div>
+				<input type="radio" name="userKind" id="radio-common" value="N">
+				<input type="radio" name="userKind" id="radio-boss" value="Y">
 
-				<button type="submit" id="member-select-button" class="common-button pink-button minibox-full-button">확인</button>
+				<button id="member-select-button" class="common-button pink-button minibox-full-button">확인</button>
 			</div>
 		</div>
 	</div>
 
 	
     <%@ include file="../common/footer.jsp"%>
-	
 </body>
 </html>

@@ -71,3 +71,7 @@
     width: 50%;
     margin-top: 40px;
 }
+
+#radio-common, #radio-boss{
+    display: none;
+}

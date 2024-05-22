@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="resources/css/mainpage/mainpage.css"/>
 </head>
 <body>
+	
 	<%@ include file="./common/header.jsp"%>
 	<!-- if문 등록해야 함 -->
 	<button type="button" id="regist-pet-button" class="btn btn-primary" data-toggle="modal" data-target="#regist-pet-alarm">

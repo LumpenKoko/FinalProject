@@ -1,0 +1,22 @@
+*,
+*::before, *::after {
+	box-sizing: border-box;
+	/*font-optical-sizing: auto;
+	font-weight: weight;
+	font-style: normal;*/
+	outline: none;
+	resize: none;
+	text-decoration:none;
+	text-align:left;
+	font-family:var(--font-family);
+	
+	margin: 0;
+	padding: 0;
+}
+
+/* 글쓰기 영역 */
+.writing-area{
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 30px;
+}

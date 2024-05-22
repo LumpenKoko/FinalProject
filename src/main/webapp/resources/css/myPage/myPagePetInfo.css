@@ -271,7 +271,7 @@
 }
 
 input[type="radio"] {
-    display: none; /* 기본 라디오 버튼 숨기기 */
+    display: none; /* 동그란 라디오 버튼을 숨깁니다. */
 }
 
 input[type="radio"] + label {
@@ -292,6 +292,12 @@ input[type="radio"] + label {
 input[type="radio"] + label:hover {
     color: #FE8B94;
     border-color: #FE8B94;
+}
+
+/* 선택된 상태의 라디오 버튼에 대한 스타일 */
+input[type="radio"]:checked + label {
+    border-color: #FE8B94 !important; /* 선택된 경우의 보더 색상 */
+    color: #FE8B94 !important; /* 선택된 경우의 폰트 색상 */
 }
 
 #right3 {

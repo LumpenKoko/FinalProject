@@ -8,6 +8,7 @@
 
 
         <link rel="stylesheet" href="resources/css/myPage/myPageBoardList.css" />
+        <link rel="stylesheet" href="resources/css/common/common.css" />
     </head>
 
     <body>
@@ -19,15 +20,14 @@
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="resources/img/myPage/camera.png" onclick=""
-                                    id="camera">
-                                <div id="profile"
-                                    style="background-image: url(resources/img/myPage/profile.png)">
+                                <img src="resources/img/myPage/camera.png" onclick="document.getElementById('fileInput').click()" id="camera">
+                                <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
                                 </div>
+                                <input type="file" id="fileInput" style="display: none;">
                                 <p id="nickName">토리형</p>
                                 <div id="solid"></div>
-                                <p id="pet">반려동물</p>
-                                <p id="petName">토리</p>
+                                <p id="pets">반려동물</p>
+                                <p id="petProfileName">토리</p>
                             </div>
                             <div id="main_main_left2">
                                 <div id="mainList"
@@ -42,8 +42,8 @@
                                 <div id="boardList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록
                                 </div>
-                                <div id="info"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
+                                <div id="info" onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">
+                                    개인정보
                                 </div>
                                 <div style="border-style: none;" id="petInfo"
                                     onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
@@ -96,6 +96,19 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.getElementById('fileInput').addEventListener('change', function () {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
+                    }
+
+                    reader.readAsDataURL(file);
+                });
+            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

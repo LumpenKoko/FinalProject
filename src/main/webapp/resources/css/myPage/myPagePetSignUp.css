@@ -202,7 +202,9 @@
 }
 
 input[type="radio"] {
-    display: none; /* 기본 라디오 버튼 숨기기 */
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
 }
 
 input[type="radio"] + label {
@@ -224,14 +226,20 @@ input[type="radio"] + label:hover {
     border-color: #FE8B94;
 }
 
+input[type="radio"]:checked + label {
+    border-color: #FE8B94 !important; /* 선택된 경우의 보더 색상 */
+    color: #FE8B94 !important; /* 선택된 경우의 폰트 색상 */
+}
+
 #imgInput {
-    width: 574px;
-    height: 574px;
-    border: 1px solid #bababa;
-    border-radius: 15px;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
+    margin-top: 0px !important;
+    width: 250px !important; /* 변경된 너비 */
+    height: 250px !important; /* 변경된 높이 */
+    border: 1px solid #bababa !important;
+    border-radius: 15px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    cursor: pointer !important;
 }
 
 #submit {

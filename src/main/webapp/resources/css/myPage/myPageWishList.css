@@ -80,19 +80,19 @@
     font-weight: bold;
 }
 
-#solid1 {
+#solidMain {
     border-bottom: 1px solid #bababa;
     width: 80%;
     margin: 0 auto;
 }
 
-#pet {
+#pets {
     margin-top: 20px;
     font-size: 15px;
     margin-bottom: 0px;
 }
 
-#petName {
+#petProfileName {
     font-size: 18px;
     color: #FE8B94;
     font-weight: bold;

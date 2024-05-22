@@ -8,6 +8,7 @@
 
 
         <link rel="stylesheet" href="resources/css/myPage/myPageWishList.css" />
+        <link rel="stylesheet" href="resources/css/common/common.css" />
     </head>
 
     <body>
@@ -19,32 +20,31 @@
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="resources/img/myPage/camera.png" onclick=""
-                                    id="camera">
-                                <div id="profile"
-                                    style="background-image: url(resources/img/myPage/profile.png)">
+                                <img src="resources/img/myPage/camera.png"
+                                    onclick="document.getElementById('fileInput').click()" id="camera">
+                                <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
+                                <input type="file" id="fileInput" style="display: none;">
                                 </div>
                                 <p id="nickName">토리형</p>
-                                <div id="solid1">
-                                </div>
-                                <p id="pet">반려동물</p>
-                                <p id="petName">토리</p>
+                                <div id="solidMain"></div>
+                                <p id="pets">반려동물</p>
+                                <p id="petProfileName">토리</p>
                             </div>
                             <div id="main_main_left2">
-                                <div id="main" 
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
+                                <div id="main" onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한
+                                    리뷰
                                 </div>
-                                <div id="wishList" 
+                                <div id="wishList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
                                 </div>
-                                <div id="coupon" 
+                                <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
                                 </div>
-                                <div id="boardList" 
+                                <div id="boardList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록
                                 </div>
-                                <div id="info"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
+                                <div id="info" onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">
+                                    개인정보
                                 </div>
                                 <div style="border-style: none;" id="petInfo"
                                     onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
@@ -60,8 +60,7 @@
                             <div id="right1">찜 목록</div>
                             <div id="right2">
                                 <div id="right2-left">
-                                    <img src="resources/img/myPage/cafe.png" onclick=""
-                                        id="cafe">
+                                    <img src="resources/img/myPage/cafe.png" onclick="" id="cafe">
                                 </div>
                                 <div id="right2-right" style="height: 80%;">
                                     <div id="right2-right1">
@@ -89,13 +88,11 @@
                                     </div>
                                     <div id="right2-right2">
                                         <div id="address">
-                                            <img src="resources/img/myPage/address.png"
-                                                id="address1">
+                                            <img src="resources/img/myPage/address.png" id="address1">
                                             <span id="address2">부산광역시 해운대 극성로 북6길</span>
                                         </div>
                                         <div id="phone">
-                                            <img src="resources/img/myPage/phone.png"
-                                                id="phone1">
+                                            <img src="resources/img/myPage/phone.png" id="phone1">
                                             <span id="phone2">02-1234-5678</span>
                                         </div>
                                         <div id="time">
@@ -135,6 +132,17 @@
                         icon.innerHTML = '♡';
                     }
                 }
+
+                document.getElementById('fileInput').addEventListener('change', function () {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
+                    }
+
+                    reader.readAsDataURL(file);
+                });
             </script>
 
             <%@ include file="../common/footer.jsp" %>

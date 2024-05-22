@@ -7,7 +7,7 @@
         <title>Insert title here</title>
 
 
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/myPage/myPageWishList.css" />
+        <link rel="stylesheet" href="resources/css/myPage/myPageWishList.css" />
     </head>
 
     <body>
@@ -19,10 +19,10 @@
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="<%=request.getContextPath()%>/resources/img/myPage/camera.png" onclick=""
+                                <img src="resources/img/myPage/camera.png" onclick=""
                                     id="camera">
                                 <div id="profile"
-                                    style="background-image: url(<%=request.getContextPath()%>/resources/img/myPage/profile.png)">
+                                    style="background-image: url(resources/img/myPage/profile.png)">
                                 </div>
                                 <p id="nickName">토리형</p>
                                 <div id="solid1">
@@ -32,22 +32,22 @@
                             </div>
                             <div id="main_main_left2">
                                 <div id="main" 
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
+                                    onclick="location.href='/myPageMain.mp'">작성한 리뷰
                                 </div>
                                 <div id="wishList" 
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='/myPageWish.mp'">찜 목록
                                 </div>
                                 <div id="coupon" 
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
+                                    onclick="location.href='/myPageCoupon.mp'">쿠폰 목록
                                 </div>
                                 <div id="boardList" 
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록
+                                    onclick="location.href='/myPageBoard.mp'">게시글 / 쇼츠 목록
                                 </div>
                                 <div id="info"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
+                                    onclick="location.href='/myPageInfo.mp'">개인정보
                                 </div>
                                 <div style="border-style: none;" id="petInfo"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
+                                    onclick="location.href='/myPagePetInfo.mp'">반려동물 정보
                                 </div>
                             </div>
                             <div id="main_main_left3">
@@ -60,7 +60,7 @@
                             <div id="right1">찜 목록</div>
                             <div id="right2">
                                 <div id="right2-left">
-                                    <img src="<%=request.getContextPath()%>/resources/img/myPage/cafe.png" onclick=""
+                                    <img src="resources/img/myPage/cafe.png" onclick=""
                                         id="cafe">
                                 </div>
                                 <div id="right2-right" style="height: 80%;">
@@ -89,17 +89,17 @@
                                     </div>
                                     <div id="right2-right2">
                                         <div id="address">
-                                            <img src="<%=request.getContextPath()%>/resources/img/myPage/address.png"
+                                            <img src="resources/img/myPage/address.png"
                                                 id="address1">
                                             <span id="address2">부산광역시 해운대 극성로 북6길</span>
                                         </div>
                                         <div id="phone">
-                                            <img src="<%=request.getContextPath()%>/resources/img/myPage/phone.png"
+                                            <img src="resources/img/myPage/phone.png"
                                                 id="phone1">
                                             <span id="phone2">02-1234-5678</span>
                                         </div>
                                         <div id="time">
-                                            <img src="<%=request.getContextPath()%>/resources/img/myPage/time.png" id="time1">
+                                            <img src="resources/img/myPage/time.png" id="time1">
                                             <span id="time2">영업 중</span>
                                             <span id="time3">22:00</span>
                                             <span id="time4">종료</span>

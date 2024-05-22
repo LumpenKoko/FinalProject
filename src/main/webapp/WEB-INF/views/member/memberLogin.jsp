@@ -20,16 +20,16 @@
                 반려동물과 행복한 동행을 시작하세요
             </div>
 
-            <form action="" id="login-form">
-                <input type="text" class="minibox-input" placeholder="아이디를 입력하세요">
-                <input type="password" class="minibox-input" placeholder="비밀번호를 입력하세요">
+            <form action="<%=contextPath%>/login.me" id="login-form">
+                <input type="text" name="userId" class="minibox-input" placeholder="아이디를 입력하세요">
+                <input type="password" name="userPwd" class="minibox-input" placeholder="비밀번호를 입력하세요">
 
                 <div>
                     <div>
                         <input type="checkbox" id="save-id" class="checkbox-color-pink">
                         <label for="save-id">아이디 저장</label>
                     </div>
-                    <div class="error-message-nomargin">아이디 혹은 비밀번호가 일치하지 않습니다.</div>
+                    <div class="error-message-nomargin">${errorMsg}</div>
                 </div>
 
                 <button type="submit" class="common-button pink-button minibox-full-button">로그인</button>

@@ -13,8 +13,8 @@
 	<%@ include file="../common/header.jsp"%>
 	<div class="wrapper">
 		<div class="main">
-			<div class="writing-area">
-				<form action="test.bo">
+			<div class="community-area">
+				<form action="tmp.bo">
 					<div>
 						<div>
 							<select id="category" name="category">

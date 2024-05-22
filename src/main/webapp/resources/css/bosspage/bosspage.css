@@ -12,11 +12,14 @@ display: flex;
 
 /*사업자 메뉴바*/
 #bossmanubar div{
-    border: 1px solid #BABABA ;
+    border: 1px solid #BABABA;
     height: 53px;
     width: 207px;
-    padding-top: 15px;
-    font-size: 15px;
+    padding: 14px;
+    font-size: 15px
+}
+#bossmanubar a{
+    margin-left: 10px;
 }
 .chatlist{
     margin-top: 12px;
@@ -37,9 +40,10 @@ display: flex;
     background: #EFEFEF;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    padding-top: 10px;
+    padding: 15px;
     border-bottom: 1px solid #BABABA;
     font-weight: 700;
+    text-align: center;
 }
 #information{
     padding: 50px;
@@ -47,9 +51,9 @@ display: flex;
     
 }
 .privacy *{
-    width: 101px;
+    width: 57%;
     height: 39px;
-    padding-right: 130px;
+    text-align:left;
     display: flex;
 }
 

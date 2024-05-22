@@ -36,7 +36,8 @@
                             </div>
                             <div>
                                 <p>가게 전화번호(*필수*)</p>
-                                <input type="tel" name="가게전화번호" style="background: white;" placeholder="(ex.지역번호)-0000-0000">
+                                <input type="tel" name="가게전화번호" style="background: white;"
+                                    placeholder="(ex.지역번호)-0000-0000">
                             </div>
                             <div id="operating">
                                 <p>운영시간(*필수*)</p>
@@ -70,7 +71,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -128,7 +129,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -186,7 +187,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -244,7 +245,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -302,7 +303,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -360,7 +361,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -418,7 +419,7 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
+                                    <p style="margin-right: 0;margin-left: 30px;">~</p>
                                     <select class="close-time">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
@@ -449,7 +450,8 @@
                             </div>
                             <div id="storeinfo">
                                 <p>상세 설명(필수*)</p>
-                                <textarea style="border-radius: 15px;" placeholder="*장소에 대한 설명과 반려동물 풀입 시 도움이 될 만한 정보를 적어주세요. (ex)테이블 밀집도, 케이지 필요 여부 등."></textarea>
+                                <textarea style="border-radius: 15px;"
+                                    placeholder="*장소에 대한 설명과 반려동물 풀입 시 도움이 될 만한 정보를 적어주세요. (ex)테이블 밀집도, 케이지 필요 여부 등."></textarea>
                             </div>
                             <div>
                                 <p>반려동물 종류 및 크기(*필수*)</p>
@@ -468,20 +470,25 @@
                                 <p>외부 예약링크(선택)</p>
                                 <input type="text" placeholder="ex)www.mnguide.com">
                             </div>
-                            <div id="photo-registration">
+                            <div>
                                 <p>업체 사진등록(*필수*)</p>
-    	                        <label for="file1">
-                                    <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
-                                </label>
-                                <input type="file" name="file" id="file1" class="company-file">
-                                <label for="file2">
-                                    <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
-                                </label>
-                                <input type="file" name="file" id="file2" class="company-file">
-                                <label for="file3">
-                                    <div class="registration-upload"><img src="<%=contextPath%>/resources/img/myPage/+.png"></div>
-                                </label>
-                                <input type="file" name="file" id="file3" class="company-file">
+                                <div id="photo-registration">
+                                    <label for="file1">
+                                        <div class="registration-upload"><img
+                                                src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                    </label>
+                                    <input type="file" name="file" id="file1" class="company-file">
+                                    <label for="file2">
+                                        <div class="registration-upload"><img
+                                                src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                    </label>
+                                    <input type="file" name="file" id="file2" class="company-file">
+                                    <label for="file3">
+                                        <div class="registration-upload"><img
+                                                src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                    </label>
+                                    <input type="file" name="file" id="file3" class="company-file">
+                                </div>
                             </div>
                             <div>
                                 <p>상품등록</p>
@@ -489,7 +496,8 @@
                                     <input type="text" class="product-name" placeholder="상품명을 입력하세요.">
                                     <input type="text" class="commodity-price" placeholder="가격을 입력하세요.">
                                     <button class="delete-droduct">
-                                        <img class="delete-droductimg" src="<%=contextPath%>/resources/img/bosspage/-.png">
+                                        <img class="delete-droductimg"
+                                            src="<%=contextPath%>/resources/img/bosspage/-.png">
                                     </button>
                                 </div>
                                 <div id="product-registration" style="margin-top: 20px;">
@@ -502,7 +510,7 @@
                                 <button class="upload-bt">등록</button>
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div>

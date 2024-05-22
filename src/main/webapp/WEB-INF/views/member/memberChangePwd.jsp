@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/minibox.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member/memberLogin.css"/>
+<link rel="stylesheet" href="resources/css/common/minibox.css"/>
+<link rel="stylesheet" href="resources/css/member/memberLogin.css"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>

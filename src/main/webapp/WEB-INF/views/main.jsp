@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="./common/common-file.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/minibox.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/mainpage/mainpage.css"/>
+<link rel="stylesheet" href="resources/css/common/minibox.css"/>
+<link rel="stylesheet" href="resources/css/mainpage/mainpage.css"/>
 </head>
 <body>
 	<%@ include file="./common/header.jsp"%>
@@ -49,7 +49,7 @@
     <div id="mainpage-wrap" class="wrapper">
 		<!-- 상단 이미지 -->
 		<div class="mainpage-full-img">
-			<img src="<%=request.getContextPath()%>/resources/mainpage/arjan-stalpers-8-sgismcDAQ-unsplash.jpg" alt="">
+			<img src="resources/mainpage/arjan-stalpers-8-sgismcDAQ-unsplash.jpg" alt="">
 		</div>
 
 		<div class="mainpage-wrap">
@@ -57,19 +57,19 @@
 			<!-- 아이콘(검색, 커뮤니티, 쇼츠, 지도) -->
 			<div id="mainpage-search-icon" class="gray-round-box flex-box">
 				<div>
-					<img src="<%=request.getContextPath()%>/resources/mainpage/dog1.jpg" alt="">
+					<img src="resources/mainpage/dog1.jpg" alt="">
 					<div class="gugi-icon-title">검색</div>
 				</div>
 				<div>
-					<img src="<%=request.getContextPath()%>/resources/mainpage/cat1.jpg" alt="">
+					<img src="resources/mainpage/cat1.jpg" alt="">
 					<div class="gugi-icon-title">커뮤니티</div>
 				</div>
 				<div>
-					<img src="<%=request.getContextPath()%>/resources/mainpage/dog2.jpg" alt="">
+					<img src="resources/mainpage/dog2.jpg" alt="">
 					<div class="gugi-icon-title">쇼츠</div>
 				</div>
 				<div>
-					<img src="<%=request.getContextPath()%>/resources/mainpage/cat2.jpg" alt="">
+					<img src="resources/mainpage/cat2.jpg" alt="">
 					<div class="gugi-icon-title">지도</div>
 				</div>
 			</div>
@@ -78,24 +78,45 @@
 			<div id="search-ranking" class="gray-round-box">
 				<span>반려동물과 좋은 추억을 남길 장소를 추천해드려요 </span>
 				<div>
-					<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+					<img src="resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
 					
 					<!-- 추천 컨텐츠 세 개를 전부 감싸는 박스 -->
 					<div>
 						<!-- 추천 컨텐츠 박스 하나 -->
 						<div class="search-ranking-content gray-round-box">
-							<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+							<img src="resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
 							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
 							<div>
 								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
 								<div id="search-ranking-rating">
 									<div>4.3</div>
 									<div>
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+									</div>
+								</div>
+								<hr>
+								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
+								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
+							</div>
+						</div>
+
+						<div class="search-ranking-content gray-round-box">
+							<img src="resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
+							<div>
+								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
+								<div id="search-ranking-rating">
+									<div>4.3</div>
+									<div>
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
 									</div>
 								</div>
 								<hr>
@@ -112,32 +133,11 @@
 								<div id="search-ranking-rating">
 									<div>4.3</div>
 									<div>
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-									</div>
-								</div>
-								<hr>
-								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
-								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
-							</div>
-						</div>
-
-						<div class="search-ranking-content gray-round-box">
-							<img src="<%=request.getContextPath()%>/resources/mainpage/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
-							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
-							<div>
-								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
-								<div id="search-ranking-rating">
-									<div>4.3</div>
-									<div>
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
+										<img class="ranking-star-img" src="resources/mainpage/KakaoTalk_20240507_002829702_08.png" alt="">
 									</div>
 								</div>
 								<hr>
@@ -340,7 +340,7 @@
 				<div>
 					<div class="shorts-ranking-content">
 						<div>
-							<img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
+							<img src="resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
 						</div>
 						<div class="shorts-ranking-text">
 							<div class="shorts-ranking-text-title">
@@ -352,7 +352,7 @@
 					</div>
 					<div class="shorts-ranking-content">
 						<div>
-							<img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
+							<img src="resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
 						</div>
 						<div class="shorts-ranking-text">
 							<div class="shorts-ranking-text-title">
@@ -364,7 +364,7 @@
 					</div>
 					<div class="shorts-ranking-content">
 						<div>
-							<img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
+							<img src="resources/mainpage/KakaoTalk_20240502_183702147.jpg" alt="">
 						</div>
 						<div class="shorts-ranking-text">
 							<div class="shorts-ranking-text-title">
@@ -387,32 +387,32 @@
 					<div id="mainpage-map-inbox" class="gray-round-box">
 						<div class="mainpage-map-inbox-row">
 							<div class="mainpage-map-category">
-								<div><img src="<%=request.getContextPath()%>/resources/mainpage/food.png" alt=""></div>
+								<div><img src="resources/mainpage/food.png" alt=""></div>
 								<span>식당/카페</span>
 							</div>
 							<div class="mainpage-map-category">
-								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/hotel.png" alt=""></div>
+								<div class="padding-category"><img src="resources/mainpage/hotel.png" alt=""></div>
 								<span>숙소</span>
 							</div>
 						</div>
 						<div class="mainpage-map-inbox-row">
 							<div class="mainpage-map-category">
-								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/themepark.png" alt=""></div>
+								<div class="padding-category"><img src="resources/mainpage/themepark.png" alt=""></div>
 								<span>행사/테마파크</span>
 							</div>
 							<div class="mainpage-map-category">
-								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/hospital.png" alt=""></div>
+								<div class="padding-category"><img src="resources/mainpage/hospital.png" alt=""></div>
 								<span>병원</span>
 							</div>
 						</div>
 						<div class="mainpage-map-inbox-row">
 							<div class="mainpage-map-category">
-								<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/mainpage/etc.png" alt=""></div>
+								<div class="padding-category"><img src="resources/mainpage/etc.png" alt=""></div>
 								<span>기타</span>
 							</div>
 						</div>
 					</div>
-					<div id="mainpage-map-map" class="gray-round-box"><img src="<%=request.getContextPath()%>/resources/mainpage/KakaoTalk_20240517_154417343.png" alt=""></div>
+					<div id="mainpage-map-map" class="gray-round-box"><img src="resources/mainpage/KakaoTalk_20240517_154417343.png" alt=""></div>
 				</div>
 			</div>
 		</div>

@@ -58,7 +58,7 @@
                         <div id="main_main_right">
                             <div id="right1">
                                 <p id="contentText">아직 등록하신 반려동물이 없으시네요!<br>지금 바로 반려동물을 등록하고 행복한 동행을 시작해보세요.</p>
-                                <button type="submit" id="signUp" onclick="location.href='/myPagePetSignUp.mp'">반려동물 등록하기</button>
+                                <button type="submit" id="signUp" onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'">반려동물 등록하기</button>
                             </div>
                             <div id="right2">
                                 <h1>반려동물 1</h1>

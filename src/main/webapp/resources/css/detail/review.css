@@ -40,7 +40,9 @@
 	margin-bottom: 30px;
 	padding:30px;
     white-space: initial;/*영역 넘어가면 자동 줄바꿈*/
-    border-radius:var(--inner-border-radius)
+    border-radius:var(--inner-border-radius);
+    cursor: pointer;
+    
 
 }
 
@@ -162,6 +164,7 @@
     border-radius:var(--inner-border-radius);
     resize: none;
     text-align: left;
+    font-size:20px;
 }
 
 .detail-main .enroll-area .input-img{
@@ -173,13 +176,14 @@
 .detail-main .enroll-area .input-img> .upload-label{
     width:100%;
     height:200px;
-    
+    align-items: center;
+    cursor: pointer;
 }
 
-
-
-/*리뷰 작성 별*/
-
+.detail-main .enroll-area .input-img .upload-label>img{
+   margin-left:70px;
+   margin-top:50px;
+}
 
 /**답글영역*/
 

@@ -7,6 +7,7 @@
  
 <mapper namespace="memberMapper">
 	<resultMap type="Member" id="memberResult">
+		<result column="USER_NO" property="userNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="USER_PWD" property="userPwd"/>
 		<result column="USER_NAME" property="userName"/>
@@ -22,7 +23,8 @@
 </resultMap>
 
 	<select id="loginMember" resultMap="memberResult">
-		SELECT USER_ID,
+		SELECT USER_NO,
+			   USER_ID,
 			   USER_PWD,
 			   USER_NAME,
 			   USER_NICKNAME,
@@ -30,7 +32,6 @@
 			   USER_EMAIL,
 			   ENROLL_DATE,
 			   MODIFY_DATE,
-			   STATUS,
 			   USER_BIRTHDAY,
 			   USER_PHONE,
 			   USER_KIND

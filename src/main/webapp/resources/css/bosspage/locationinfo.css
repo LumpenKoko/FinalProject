@@ -27,7 +27,7 @@
     display: flex;
 }
 #operating-hours p{
-    margin-right: 15px;
+    margin-right: 14px;
     font-weight: 600;
 }
 #operating-hours input{
@@ -78,7 +78,8 @@
 /*업체 사진등록*/
 
 #photo-registration{
-    text-align: left;
+  text-align: left;
+  display: flex;
 }
 .registration-upload {
     width: 117px;
@@ -107,6 +108,7 @@
   #product-registration{
     text-align: left;
     display: flex;
+    width: 100%;
   }
   .product-name{
     width: 292px;

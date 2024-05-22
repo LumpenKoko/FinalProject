@@ -2,6 +2,7 @@
 
     <!DOCTYPE html>
     <html>
+    <%@ include file="../common/common-file.jsp"%>
     <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
     
     <head>
@@ -16,7 +17,7 @@
             <div style="border-bottom: none;">
                 <a href="<%=contextPath%>/bossLocation.bl">장소 정보</a>
             </div>
-            <div style="border-bottom: none;">쿠폰 / 리뷰관리</div>
+            <div style="border-bottom: none;"><p style="margin-left: 10px;">쿠폰 / 리뷰관리</p></div>
             <div style="border-bottom: none;">
                 <a href="">쿠폰 관리</a>
             </div>

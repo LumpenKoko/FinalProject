@@ -9,13 +9,13 @@
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/detail.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/room.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/detail/review_star.css"/>
+<link rel="stylesheet" href="resources/css/detail/detail.css"/>
+<link rel="stylesheet" href="resources/css/detail/review.css"/>
+<link rel="stylesheet" href="resources/css/detail/room.css"/>
+<link rel="stylesheet" href="resources/css/detail/review_star.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
-<script src='<%=request.getContextPath()%>/js/map/map.js'></script>
-<script src='<%=request.getContextPath()%>/js/map/hostpital-map.js'></script>
+<script src='resources/js/map/map.js'></script>
+<script src='resources/js/map/hostpital-map.js'></script>
 
 
 </head>
@@ -25,7 +25,7 @@
    
 	<div class="wrapper detail-wrapper">
 		<!--헤더 이미지-->
-		<div class="header-img" style="background: url('<%=contextPath%>/resources/img/공간2.png') no-repeat center center/cover;">
+		<div class="header-img" style="background: url('resources/img/공간2.png') no-repeat center center/cover;">
 		    <div class="head-img-pre">
 				<button>&gt;</button>
 			</div>
@@ -35,7 +35,7 @@
 			<div class="head-img-next">
 				<button>&lt;</button>
 			</div>
-		    <!-- <img src="<%=contextPath%>/resources/img/공간2.png"> -->
+		    <!-- <img src="resources/img/공간2.png"> -->
 		</div>
 		<!--메인영역-->
 		<div class="main detail-main">
@@ -77,7 +77,7 @@
 					<span class="title">더 알아보기</span><br>
 					<div><button class="common-button white-button" style="width:100%;" onclick="location.href='https://map.kakao.com/link/search/제주특별자치도 제주시 첨단로 242'">지도보기</button></div>
 					<div> </div>
-				    <div><button class="common-button pink-button" style="width:100%;" onclick ="location.href='<%=contextPath%>/chat'">채팅문의</button></div>
+				    <div><button class="common-button pink-button" style="width:100%;" onclick ="location.href='chat'">채팅문의</button></div>
 				</div>
 			 </div>
 
@@ -86,7 +86,7 @@
 				<div class="title">시설 상세</div>
 				<div class="img-space">
 					<%for (int l =0 ; l<3; l++){ %>
-					 <div class="img-div"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+					 <div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
 					<% } %>
 				</div>
 			</div>
@@ -111,7 +111,7 @@
 				<div class="title">객실 정보</div>
 				<div class="room-section room-information">
 					<div class="img-div">
-                        <img src="<%=contextPath%>/resources/img/tori.jpg"/>
+                        <img src="resources/img/tori.jpg"/>
 					</div>
 					<div class="room-info">
 						<div class="title" style="color:var(--main-color);">스탠다드 트윈(OTT 시청가능)</div>
@@ -141,7 +141,7 @@
 				<div class="title">객실 상세</div>
 				<div class="img-modal-div">
 					<%for (int l =0 ; l<3; l++){ %>
-					 <div class="img-modal"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+					 <div class="img-modal"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
 					<% } %>
 				</div>
 				 <table>
@@ -232,7 +232,7 @@
 				<div class="review-section">
 					<div class="profile-star">
 						<div class="profile">
-							<div class="img-div"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+							<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
 							<div><span class="title">토리형</span><br>
 								<span>2024.05.18</span>
 							</div>
@@ -246,7 +246,7 @@
 
 					<div class="img-content">
 						<%for (int l =0 ; l<3; l++){ %>
-						<div class="img-div"><img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image"></div>
+						<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
 						<% } %>
 					</div>
 
@@ -283,7 +283,7 @@
 					<div class="enroll-div">
 						<div class="enroll-profile">
 							<div class="img-div">
-								<img src="<%=contextPath%>/resources/img/tori.jpg" alt="Profile Image">
+								<img src="resources/img/tori.jpg" alt="Profile Image">
 							</div>
 							<div class="star-rating">
 								<input type="radio" class="star" name="rating"  value="1">

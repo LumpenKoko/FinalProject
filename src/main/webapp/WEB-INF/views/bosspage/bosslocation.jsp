@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bosspage/bosspage.css" />
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bosspage/locationinfo.css" />
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/common.css" />
+    <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
+    <link rel="stylesheet" href="resources/css/bosspage/locationinfo.css" />
+    <link rel="stylesheet" href="resources/css/common/common.css" />
 
     <head>
         <meta charset="UTF-8">

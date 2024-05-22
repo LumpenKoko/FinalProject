@@ -2,7 +2,7 @@
 
     <!DOCTYPE html>
     <html>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bosspage/bosspage.css" />
+    <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
     
     <head>
         <meta charset="UTF-8">
@@ -11,17 +11,17 @@
     <body>
         <div id="bossmanubar">
             <div style="border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom: none;">
-                <a href="<%=request.getContextPath()%>/bossMainPage.bm">사업자 / 개인 정보</a>
+                <a href="resources/bossMainPage.bm">사업자 / 개인 정보</a>
             </div>
             <div style="border-bottom: none;">
-                <a href="<%=request.getContextPath()%>/bossLocation.bl">장소 정보</a>
+                <a href="resources/bossLocation.bl">장소 정보</a>
             </div>
             <div style="border-bottom: none;">쿠폰 / 리뷰관리</div>
             <div style="border-bottom: none;">
                 <a href="">쿠폰 관리</a>
             </div>
             <div style="border-bottom-left-radius:15px; border-bottom-right-radius: 15px;">
-                <a href="<%=request.getContextPath()%>/bossPageReviews.bp">리뷰 관리</a>
+                <a href="resources/bossPageReviews.bp">리뷰 관리</a>
             </div>
             <div class="chatlist">
                 <a href="">채팅 관리</a>

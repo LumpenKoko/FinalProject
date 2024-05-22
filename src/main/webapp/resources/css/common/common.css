@@ -163,4 +163,5 @@ ol,ul,li{
 .row-box{
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }

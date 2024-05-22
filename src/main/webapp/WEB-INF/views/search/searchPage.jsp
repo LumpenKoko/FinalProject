@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/minibox.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/search/searchPage.css"/>
+<link rel="stylesheet" href="resources/css/common/minibox.css"/>
+<link rel="stylesheet" href="resources/css/search/searchPage.css"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -87,7 +87,7 @@
                     <div id="search-order-by">
                         <div id="order-by-title">
                             <span>정렬기준</span>
-                            <img src="<%=request.getContextPath()%>/resources/searchpage/open-icon.png" alt="">
+                            <img src="resources/searchpage/open-icon.png" alt="">
                         </div>
                         <div id="order-by-box">
                             <div class="order-by-list">최신순</div>
@@ -99,12 +99,12 @@
 
                 <!-- 장소 검색 결과 컨텐츠 -->
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -117,10 +117,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -131,15 +131,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -148,12 +148,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -166,10 +166,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -180,15 +180,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -197,12 +197,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -215,10 +215,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -229,15 +229,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -246,12 +246,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -264,10 +264,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -278,15 +278,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -295,12 +295,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -313,10 +313,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -327,15 +327,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -343,12 +343,12 @@
                     </div>
                 </div>
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -361,10 +361,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -375,64 +375,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -441,12 +392,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -459,10 +410,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -473,15 +424,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -490,12 +441,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -508,10 +459,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -522,15 +473,15 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -539,12 +490,12 @@
                 </div>
 
                 <div class="search-content-box gray-round-box">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/search-place.jpg" alt="">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
                     <div class="search-content">
                         <div class="content-title">
                             <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/like-pre.png" alt="">
+                                <img src="resources/searchpage/like-pre.png" alt="">
                                 <span>45</span>
                             </div>
                         </div>
@@ -557,10 +508,10 @@
                                 <span class="font-bold">평점</span>
                                 <span>4.3</span>
                                 <div>
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
-                                    <img src="<%=request.getContextPath()%>/resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
                                 </div>
                             </div>
                             <div>
@@ -571,15 +522,64 @@
                         <hr>
                         <div class="content-lower-box">
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/location.png" alt="">
+                                <img src="resources/searchpage/location.png" alt="">
                                 <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/phone.png" alt="">
+                                <img src="resources/searchpage/phone.png" alt="">
                                 <span>010-1234-5678</span>
                             </div>
                             <div>
-                                <img src="<%=request.getContextPath()%>/resources/searchpage/time.png" alt="">
+                                <img src="resources/searchpage/time.png" alt="">
+                                <span>영업 중 22:00 종료</span>
+                                <span class="close-red">영업 종료</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-content-box gray-round-box">
+                    <img src="resources/searchpage/search-place.jpg" alt="">
+                    <div class="search-content">
+                        <div class="content-title">
+                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
+                            <div>
+                                <img src="resources/searchpage/like-pre.png" alt="">
+                                <span>45</span>
+                            </div>
+                        </div>
+                        <div class="content-upper-box">
+                            <div>
+                                <span class="font-bold">분류</span>
+                                <span>카페</span>
+                            </div>
+                            <div>
+                                <span class="font-bold">평점</span>
+                                <span>4.3</span>
+                                <div>
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                    <img src="resources/searchpage/rating-star.png" alt="">
+                                </div>
+                            </div>
+                            <div>
+                                <span class="font-bold">종류</span>
+                                <span>소형견, 중형견, 고양이</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="content-lower-box">
+                            <div>
+                                <img src="resources/searchpage/location.png" alt="">
+                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
+                            </div>
+                            <div>
+                                <img src="resources/searchpage/phone.png" alt="">
+                                <span>010-1234-5678</span>
+                            </div>
+                            <div>
+                                <img src="resources/searchpage/time.png" alt="">
                                 <span>영업 중 22:00 종료</span>
                                 <span class="close-red">영업 종료</span>
                             </div>
@@ -589,7 +589,7 @@
 
                 <!-- 페이징 바 -->
                 <div id="paging-bar">
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/paging-left.png" alt="">
+                    <img src="resources/searchpage/paging-left.png" alt="">
                     <button>1</button>
                     <button>2</button>
                     <button>3</button>
@@ -600,7 +600,7 @@
                     <button>8</button>
                     <button>9</button>
                     <button>10</button>
-                    <img src="<%=request.getContextPath()%>/resources/searchpage/paging-right.png" alt="">
+                    <img src="resources/searchpage/paging-right.png" alt="">
                 </div>
 
             </div>

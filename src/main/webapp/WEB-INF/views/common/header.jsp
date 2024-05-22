@@ -13,16 +13,13 @@
     String testUser=(String)session.getAttribute("loginUser");
     String alertMsg = (String)session.getAttribute("alertMsg");
 %> 
+
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="../common/common-file.jsp"%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
 <link rel="stylesheet" href="resources/css/common/header.css"/>
-
 </head>
 <body>
 

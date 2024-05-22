@@ -6,15 +6,15 @@
   
  <configuration>
  	
- 	<!--  <settings>
+  <settings>
  	
  		<setting name="jdbcTypeForNull" value="NULL"/>
  	</settings>
- 	  // typeAlias : VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기위한 별칭을 등록하는 영역
+ 	  <!-- typeAlias : VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기위한 별칭을 등록하는 영역-->
  	<typeAliases>
- 		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member" />
- 		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
- 		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" />
+ 		<typeAlias type="com.kh.mng.member.model.vo.Member" alias="Member" />
+ 		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
+ 		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
  		
  	</typeAliases> 
  	
@@ -23,9 +23,9 @@
  	
  	<mappers>
  		<mapper resource="/mappers/member-mapper.xml"/>
- 	    <mapper resource="/mappers/board-mapper.xml"/>
+ 	    <!-- <mapper resource="/mappers/board-mapper.xml"/> -->
  	</mappers>
  	
-  -->
+
  	
  </configuration>

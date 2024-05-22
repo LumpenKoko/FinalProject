@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bosspage/bossPageReviews.css" />
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/common.css" />
+    <link rel="stylesheet" href="resources/css/bosspage/bossPageReviews.css" />
+    <link rel="stylesheet" href="resources/css/common/common.css" />
 
     <head>
         <meta charset="UTF-8">
@@ -23,7 +23,7 @@
                         <div id="reviews">
                             <div id="top">
                                 <div style="margin-top: 20px; margin-left: 20px; line-height: 35px;" id="top1">
-                                    <img src="<%=request.getContextPath()%>/resources/img/myPage/profile.png"
+                                    <img src="resources/img/myPage/profile.png"
                                         id="reviewsProfile">
                                     <span
                                         style="float: left; margin-left: 20px; font-size: 17px; font-weight: bold;">닉네임</span>
@@ -35,9 +35,9 @@
                                 </div>
                             </div>
                             <div id="mid">
-                                <img src="<%=request.getContextPath()%>/resources/img/myPage/cafe.png">
-                                <img src="<%=request.getContextPath()%>/resources/img/myPage/cafe.png">
-                                <img src="<%=request.getContextPath()%>/resources/img/myPage/cafe.png">
+                                <img src="resources/img/myPage/cafe.png">
+                                <img src="resources/img/myPage/cafe.png">
+                                <img src="resources/img/myPage/cafe.png">
                             </div>
                             <div id="bottom">
                                 <p style="text-align: left; overflow: initial; white-space: initial;">좋아요 좋아요 좋아요 좋아요
@@ -70,11 +70,11 @@
                             <th id="content-expiration">14일</th>
                             <th id="content-count" style="margin-right: 60px;">6 / 10</th>
                             <th id="-"><button style="background-size: 8px;
-                                    background-image: url(<%=request.getContextPath()%>/resources/img/myPage/-.png);">
+                                    background-image: url(resources/img/myPage/-.png);">
                                 </button></th>
                             <th id="content-admin">&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;</th>
                             <th id="+"><button style="background-size: 20px;
-                                background-image: url(<%=request.getContextPath()%>/resources/img/myPage/+.png);">
+                                background-image: url(resources/img/myPage/+.png);">
                                 </button></th>
                         </tr>
                     </table>

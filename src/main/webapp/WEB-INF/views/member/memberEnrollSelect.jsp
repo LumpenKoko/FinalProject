@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/minibox.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member/memberEnrollSelect.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/js/member/memberEnrollSelect.js"/>
+<link rel="stylesheet" href="resources/css/common/minibox.css"/>
+<link rel="stylesheet" href="resources/css/member/memberEnrollSelect.css"/>
+<link rel="stylesheet" href="resources/js/member/memberEnrollSelect.js"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -23,11 +23,11 @@
 
 				<div id="member-select-box">
 					<div class="member-select-category gray-round-box" onclick="selectMemberKind(1)">
-						<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/member/commonMember.png" alt=""></div>
+						<div class="padding-category"><img src="resources/member/commonMember.png" alt=""></div>
 						<span>일반회원</span>
 					</div>
 					<div class="member-select-category gray-round-box" onclick="selectMemberKind(2)">
-						<div class="padding-category"><img src="<%=request.getContextPath()%>/resources/member/adminMember.png" alt=""></div>
+						<div class="padding-category"><img src="resources/member/adminMember.png" alt=""></div>
 						<span>사장회원</span>
 					</div>
 				</div>

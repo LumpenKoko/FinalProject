@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<%@ include file="../common/common-file.jsp" %>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/community/community.css"/>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/community/boardContent.css"/>
+	<link rel="stylesheet" href="resources/css/community/community.css"/>
+	<link rel="stylesheet" href="resources/css/community/boardContent.css"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -22,7 +22,7 @@
                             <span id="board-category-text">여행/숙소</span>
                         </div>
                         <div class="change-button-box">
-                            <img src="<%=contextPath%>/resources/community/threeCircle.png" alt="">
+                            <img src="resources/community/threeCircle.png" alt="">
                             <div class="change-box">
                                 <div class="change-box-list" onclick="location.href='#'">수정하기</div>
                                 <div class="change-box-list change-box-last" data-toggle="modal" data-target="#delete-content">삭제하기</div>
@@ -31,7 +31,7 @@
                     </div>
                     <div id="board-header-info">
                         <div>
-                            <img src="<%=contextPath%>/resources/community/userProfile.jpg" alt="">
+                            <img src="resources/community/userProfile.jpg" alt="">
                             <span>쿠키언니</span>
                         </div>
                         <span>조회수 45</span>
@@ -42,17 +42,17 @@
                 <!-- 글 내용 및 사진 영역 -->
                 <div id="board-content-box">
                     <div id="board-content-text">
-                        <img src="<%=contextPath%>/resources/community/userProfile.jpg" alt="">
+                        <img src="resources/community/userProfile.jpg" alt="">
                         <div>컨텐츠박스입니다. 예시입니다. 은성님 어디 계세요.</div>
                     </div>
                     <div id="board-communication-box">
                         <div class="board-communication-info">
                             <!-- 좋아요 여부에 따라 처리 필요 -->
-                            <img src="<%=contextPath%>/resources/community/like-after.png" alt="">
+                            <img src="resources/community/like-after.png" alt="">
                             <span>좋아요 8</span>
                         </div>
                         <div class="board-communication-info">
-                            <img src="<%=contextPath%>/resources/community/reply.png" alt="">
+                            <img src="resources/community/reply.png" alt="">
                             <span>댓글 5</span>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
 
                     <!-- 로그인한 유저가 작성한 본인 댓글 -->
                     <div class="board-reply-box">
-                        <div class="board-reply-profile"><img src="<%=contextPath%>/resources/community/userProfile.jpg" alt=""></div>
+                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
                         <div class="board-reply-content">
                             <div class="reply-title-box">
                                 <div>
@@ -73,7 +73,7 @@
                                 </div>
                                 
                                 <div class="change-button-box">
-                                    <img src="<%=contextPath%>/resources/community/threeCircle.png" alt="">
+                                    <img src="resources/community/threeCircle.png" alt="">
                                     <div class="change-box">
                                         <div class="change-box-list">수정하기</div>
                                         <div class="change-box-list change-box-last" data-toggle="modal" data-target="#delete-content">삭제하기</div>
@@ -87,7 +87,7 @@
 
                     <!-- 본인이 작성하지 않은 댓글 -->
                     <div class="board-reply-box">
-                        <div class="board-reply-profile"><img src="<%=contextPath%>/resources/community/userProfile.jpg" alt=""></div>
+                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
                         <div class="board-reply-content">
                             <div class="reply-title-box">
                                 <div>
@@ -102,7 +102,7 @@
 
                     <!-- 대댓글 형식 -->
                     <div class="board-reply-box re-reply-width">
-                        <div class="board-reply-profile"><img src="<%=contextPath%>/resources/community/userProfile.jpg" alt=""></div>
+                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
                         <div class="board-reply-content">
                             <div class="reply-title-box">
                                 <div>
@@ -120,7 +120,7 @@
                         <form action="">
                             <div class="reply-regist-info">
                                 <div>
-                                    <img src="<%=contextPath%>/resources/community/userProfile.jpg" alt="">
+                                    <img src="resources/community/userProfile.jpg" alt="">
                                     <span>강아지왕</span>
                                 </div>
                                 <button class="common-button pink-button">댓글 등록</button>
@@ -130,7 +130,7 @@
                     </div>
 
                     <div class="board-reply-box">
-                        <div class="board-reply-profile"><img src="<%=contextPath%>/resources/community/userProfile.jpg" alt=""></div>
+                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
                         <div class="board-reply-content">
                             <div class="reply-title-box">
                                 <div>
@@ -148,7 +148,7 @@
                     <form action="">
                         <div class="reply-regist-info">
                             <div>
-                                <img src="<%=contextPath%>/resources/community/userProfile.jpg" alt="">
+                                <img src="resources/community/userProfile.jpg" alt="">
                                 <span>강아지왕</span>
                             </div>
                             <button class="common-button pink-button">댓글 등록</button>

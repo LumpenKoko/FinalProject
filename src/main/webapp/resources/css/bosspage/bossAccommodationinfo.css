@@ -1,0 +1,20 @@
+/*객실등록*/
+#room-info{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#room-information th, td{
+    text-align: left;
+    
+}
+
+#room-information img{
+    width: 115px;
+    height: 115px;
+}
+
+#room-information .img-box{
+    text-align: right;
+}

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
     <link rel="stylesheet" href="resources/css/bosspage/locationinfo.css" />
     <link rel="stylesheet" href="resources/css/common/common.css" />
-
+    <link rel="stylesheet" href="resources/css/bosspage/bossAccommodationinfo.css" />
     <head>
         <meta charset="UTF-8">
         <title>Insert title here</title>
@@ -31,12 +31,10 @@
                                 <input type="tel" name="가게전화번호" style="background: white;" placeholder="(ex.지역번호)-0000-0000">
                             </div>
                             <div id="operating">
-                                <p>운영시간(*필수*)</p>
+                                <p>입/퇴실 시간</p>
                                 <div id="operating-hours">
-                                    <p>월</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
+                                    <p style="margin: left;">체크인</p>
+                                    <select class="opne-time" style="margin-left: 0px;">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
                                         <option value="">02:00</option>
@@ -62,356 +60,8 @@
                                         <option value="">22:00</option>
                                         <option value="">23:00</option>
                                     </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                </div>
-                                <div id="operating-hours">
-                                    <p>화</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                </div>
-                                <div id="operating-hours">
-                                    <p>수</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                </div>
-                                <div id="operating-hours">
-                                    <p>목</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                </div>
-                                <div id="operating-hours">
-                                    <p>금</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                </div>
-                                <div id="operating-hours">
-                                    <p>토</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                </div>
-                                <div id="operating-hours">
-                                    <p>일</p>
-                                    <p>휴무</p>
-                                    <input type="checkbox" name="휴무">
-                                    <select class="opne-time">
-                                        <option value="">00:00</option>
-                                        <option value="">01:00</option>
-                                        <option value="">02:00</option>
-                                        <option value="">03:00</option>
-                                        <option value="">04:00</option>
-                                        <option value="">05:00</option>
-                                        <option value="">06:00</option>
-                                        <option value="">07:00</option>
-                                        <option value="">08:00</option>
-                                        <option value="">09:00</option>
-                                        <option value="">10:00</option>
-                                        <option value="">11:00</option>
-                                        <option value="">12:00</option>
-                                        <option value="">13:00</option>
-                                        <option value="">14:00</option>
-                                        <option value="">15:00</option>
-                                        <option value="">16:00</option>
-                                        <option value="">17:00</option>
-                                        <option value="">18:00</option>
-                                        <option value="">19:00</option>
-                                        <option value="">20:00</option>
-                                        <option value="">21:00</option>
-                                        <option value="">22:00</option>
-                                        <option value="">23:00</option>
-                                    </select>
-                                        <p style="margin-right: 0;margin-left: 30px;">~</p>
-                                    <select class="close-time">
+                                        <p style="margin-left: 70px;">체크아웃</p>
+                                    <select class="close-time" style="margin-left: 0px;">
                                         <option value="">00:00</option>
                                         <option value="">01:00</option>
                                         <option value="">02:00</option>
@@ -476,18 +126,48 @@
                                 <input type="file" name="file" id="file3" class="company-file">
                             </div>
                             <div>
-                                <p>상품등록</p>
-                                <div id="product-registration">
-                                    <input type="text" class="product-name" placeholder="상품명을 입력하세요.">
-                                    <input type="text" class="commodity-price" placeholder="가격을 입력하세요.">
-                                    <button class="delete-droduct">
-                                        <img class="delete-droductimg" src="<%=contextPath%>/resources/img/bosspage/-.png">
-                                    </button>
-                                </div>
-                                <div id="product-registration" style="margin-top: 20px;">
-                                    <button class="add-product">
-                                        <img class="add-productimg" src="<%=contextPath%>/resources/img/myPage/+.png">
-                                    </button>
+                                <p>객실등록</p>
+                                <div style="border-top: 1px solid #BABABA; margin-top: 10px; margin-bottom: 10px;"></div>
+                                <div>
+                                    <table id="room-information">
+                                        <tr>
+                                            <td>객실1</td>
+                                            <td ></td>
+                                            <td ></td>
+                                            <td ></td>
+                                        </tr>
+                                        <tr>
+                                            <td>객실 이름</td>
+                                            <td colspan="3">김땡땡</td>
+                                        </tr>
+                                        <tr>
+                                            <td>가격</td>
+                                            <td colspan="3">68000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>기본 정보</td>
+                                            <td colspan="3">
+                                                7평, 퀸 침대 1개<br>
+                                                2인 기준 / 인원 추가 불가<br>
+                                                커피포트, 다리미, 와이파이, 욕조, 비데, 욕실용품,<br> 
+                                                잔디 마당, 바베큐, 헤어 드라이기, 냉장고
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>수용 인원</td>
+                                            <td colspan="3">2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>체크인/체크아웃</td>
+                                            <td colspan="3">15:00~11:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png" alt=""></td>
+                                            <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png" alt=""></td>
+                                            <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png" alt=""></td>
+                                            <td style="width: 25%;"></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                             <div id="upload-location">

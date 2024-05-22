@@ -109,6 +109,7 @@
     top: 0px;
     width: 100%;
     height: 100%;
+    text-align: center;
     /* display: table; */
     /* background: rgba(228, 212, 212, 0.7); */
     color: #fff;
@@ -235,18 +236,19 @@
 .community-main .board-search .select-box{
     width:100%;
     height:100%;
-    border: 1px solid var(--border-color);
-    border-radius: var(--inner-border-radius);
+    /* border: 1px solid var(--border-color); */
+    /* border-style: none; */
+    border-radius:var(--outer-border-radius);
     text-align: left;
 }
 
 .community-main .board-search .input-box{
-    width:90%;
+    width:80%;
     height:100%;
     border-style: none;
     border-radius: var(--inner-border-radius);
     text-align: left;
-    display:inline-block;
+    /* display:inline-block; */
 }
 
 
@@ -261,6 +263,7 @@
     border-style: none;
     background-color:transparent;
     border-radius:var(--outer-border-radius);
+    float:right;
 }
  
 .community-main .search-div:focus{
@@ -285,7 +288,7 @@
     font-size: 24px;
 }
 
-.writing-area{
+.community-area{
     border: 1px solid var(--border-color);
     border-radius: 25px;
     padding: 30px;

@@ -5,9 +5,10 @@
     justify-content: space-between;
 }
 
-#room-information th, td{
+#room-information td{
     text-align: left;
-    
+    padding-top: 13px;
+    font-weight: 600;
 }
 
 #room-information img{

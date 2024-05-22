@@ -46,7 +46,7 @@
                                     onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
                                 </div>
                                 <div style="border-style: none; color: #FE8B94;" id="petInfo"
-                                    onclick="location.href='/myPagePetInfo.mp'">반려동물 정보
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
                                 </div>
                             </div>
                             <div id="main_main_left3">

@@ -29,7 +29,7 @@
                         <input type="checkbox" id="save-id" class="checkbox-color-pink">
                         <label for="save-id">아이디 저장</label>
                     </div>
-                    <div class="error-message-nomargin">아이디 혹은 비밀번호가 일치하지 않습니다.</div>
+                    <div class="error-message-nomargin">${errorMsg}</div>
                 </div>
 
                 <button type="submit" class="common-button pink-button minibox-full-button">로그인</button>

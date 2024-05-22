@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ page import="com.kh.mng.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
     
     //로그인 유저 정의
-	//Member loginUser = (Member)session.getAttribute("loginUser");
+	Member loginUser = (Member)session.getAttribute("loginUser");
     
     //로그인 유저 테스트
    
-    String testUser=(String)session.getAttribute("loginUser");
+    //String testUser=(String)session.getAttribute("loginUser");
     String alertMsg = (String)session.getAttribute("alertMsg");
 %> 
 
@@ -58,15 +58,25 @@
    <!-- 로그여부 조건 처리 필요 -->
     <div id="header-login">
 
-	    <% if(testUser!=null){ %>
-             <img src="profile_image_url.jpg" alt="Profile Image">
-	         <div>
-	         	<span>쿠키언니 님</span><br>
-	         	<a href="#">마이페이지</a>&nbsp;&nbsp;<a href="<%=contextPath%>/logoutTest">로그아웃</a>
-	         </div> 
-          <%}else{%>
-             <div><a href="<%=contextPath%>/memberEnrollSelectForm.me">회원가입</a>&nbsp;&nbsp;<a href="<%=contextPath%>/loginForm.me">로그인</a></div>
-          <%} %>
+	    <% if(loginUser != null){ %>
+            <c:choose>
+                <c:when test="${loginUser.userKind eq 'N'}">
+                    <img src="profile_image_url.jpg" alt="Profile Image">
+                    <div>
+                        <span>${loginUser.userNickname}</span><br>
+                         <a href="<%=contextPath%>/myPageMain.mp">마이페이지</a>&nbsp;&nbsp;<a href="<%=contextPath%>/logout.me">로그아웃</a>
+                    </div> 
+                </c:when>
+                <c:otherwise>
+                    <div>
+                        <a href="<%=contextPath%>/logout.me">로그아웃</a>
+                    </div> 
+                </c:otherwise>
+            </c:choose>
+        
+        <% } else { %>
+            <div><a href="<%=contextPath%>/memberEnrollSelectForm.me">회원가입</a>&nbsp;&nbsp;<a href="<%=contextPath%>/loginForm.me">로그인</a></div>
+        <% } %>
 
 	 </div>
 </div>

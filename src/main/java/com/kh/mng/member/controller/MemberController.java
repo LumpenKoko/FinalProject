@@ -29,9 +29,37 @@ public class MemberController {
 	public ModelAndView memberLogin(Member m, ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		Member loginUser = memberService.loginMember(m);
 		
-		session.setAttribute("loginUser", loginUser);
-		mv.setViewName("redirect:/");
+		// 아이디가 없을 때
+		
+		// 비밀번호가 서로 맞지 않을 때
+		
+		// 성공 했을 때
+			// 회원인 경우
+			// 사장인 경우
+		if (loginUser == null) {
+			mv.addObject("errorMsg", "아이디가 일치하지 않습니다.");
+			mv.setViewName("member/memberLogin");
+//		} else if (비밀번호가 맞지 않는 경우) {
+		} else {
+			if(loginUser.getUserKind().equals("N")) {
+				session.setAttribute("loginUser", loginUser);
+				mv.setViewName("main");	
+			} else {
+				System.out.println("들어왔다.");
+				session.setAttribute("loginUser", loginUser);
+				mv.setViewName("bosspage/bossmainpage");
+			}
+		}
+		
+		System.out.println(loginUser);
 		return mv;
+	}
+	
+	@GetMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.removeAttribute("loginUser");
+		// session.invalidate(); -> 만료
+		return "redirect:/";
 	}
 	
 	@RequestMapping("searchMemberForm.me")

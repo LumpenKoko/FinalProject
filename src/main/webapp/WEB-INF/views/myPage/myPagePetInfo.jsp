@@ -8,6 +8,7 @@
 
 
         <link rel="stylesheet" href="resources/css/myPage/myPagePetInfo.css" />
+        <link rel="stylesheet" href="resources/css/common/common.css" />
     </head>
 
     <body>
@@ -19,11 +20,10 @@
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="resources/img/myPage/camera.png" onclick=""
-                                    id="camera">
-                                <div id="profile"
-                                    style="background-image: url(resources/img/myPage/profile.png)">
+                                <img src="resources/img/myPage/camera.png" onclick="document.getElementById('fileInput').click()" id="camera">
+                                <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
                                 </div>
+                                <input type="file" id="fileInput" style="display: none;">
                                 <p id="nickName">토리형</p>
                                 <div id="solid"></div>
                                 <p id="pets">반려동물</p>
@@ -42,8 +42,8 @@
                                 <div id="boardList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록
                                 </div>
-                                <div id="info"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
+                                <div id="info" onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">
+                                    개인정보
                                 </div>
                                 <div style="border-style: none; color: #FE8B94;" id="petInfo"
                                     onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
@@ -58,7 +58,9 @@
                         <div id="main_main_right">
                             <div id="right1">
                                 <p id="contentText">아직 등록하신 반려동물이 없으시네요!<br>지금 바로 반려동물을 등록하고 행복한 동행을 시작해보세요.</p>
-                                <button type="submit" id="signUp" onclick="location.href='/myPagePetSignUp.mp'">반려동물 등록하기</button>
+                                <button type="submit" id="signUp"
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'">반려동물
+                                    등록하기</button>
                             </div>
                             <div id="right2">
                                 <h1>반려동물 1</h1>
@@ -88,21 +90,36 @@
                                         </div>
                                         <div id="gender-input">
                                             <input type="radio" name="gender" id="men" value="남아">
-                                            <label for="men">남아</label>                               
+                                            <label for="men">남아</label>
                                             <input type="radio" name="gender" id="women" value="여아">
                                             <label for="women">여아</label>
                                         </div>
-                                        <button type="submit" id="update" style="margin-top: 50px;">수정</button>
+                                        <button type="submit" id="update" style="margin-top: 50px;">삭제</button>
                                     </div>
                                 </div>
                             </div>
                             <div id="right3">
-                                <button id="addSignUp">반려동물 추가 등록하기</button>
+                                <button id="addSignUp"
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'">반려동물 추가
+                                    등록하기</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.getElementById('fileInput').addEventListener('change', function () {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
+                    }
+
+                    reader.readAsDataURL(file);
+                });
+            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

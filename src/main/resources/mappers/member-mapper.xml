@@ -39,6 +39,12 @@
 		 WHERE USER_ID = #{userId}
 		   AND STATUS = 'true'
 	</select>	
+	
+	<select id="checkMemberId" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = #{checkId}	
+	</select>
 
 	<update id="updateMember">
 		UPDATE MEMBER

@@ -16,7 +16,14 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Override
 	public Member loginMember(Member m) {
 		return memberDao.loginMember(sqlSession, m);
+	}
+
+	@Override
+	public int checkMemberId(String userId) {
+		int result = memberDao.checkMemberId(sqlSession, userId);
+		return result;
 	}
 }

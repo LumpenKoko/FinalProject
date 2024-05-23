@@ -28,6 +28,7 @@
             item.innerHTML = `
             <div class="shorts-content">
                 <img style="width: 100%; height: 100%;" src="resources/img/review.jpg" alt="숏츠이미지">
+                <div class="text-overlay"><b>썸네일 설명들</b></div>
             </div>
             `;
             return item;

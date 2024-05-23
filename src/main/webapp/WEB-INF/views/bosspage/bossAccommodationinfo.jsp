@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
-    <%@ include file="../common/common-file.jsp" %>
-        <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
-        <link rel="stylesheet" href="resources/css/bosspage/locationinfo.css" />
-        <link rel="stylesheet" href="resources/css/common/common.css" />
-        <link rel="stylesheet" href="resources/css/bosspage/bossAccommodationinfo.css" />
-
         <head>
             <meta charset="UTF-8">
             <title>Insert title here</title>
 
+            <%@ include file="../common/common-file.jsp" %>
+            <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
+            <link rel="stylesheet" href="resources/css/bosspage/locationinfo.css" />
+            <link rel="stylesheet" href="resources/css/common/common.css" />
+            <link rel="stylesheet" href="resources/css/bosspage/bossAccommodationinfo.css" />
+            <script src="resources/js/bosspage/bosspage.js"></script>
         </head>
 
-        <body>
+        <body onload="bosspageInit('/mng')">
             <%@ include file="../common/header.jsp" %>
 
                 <div id="bossmainpage-wrap" class="wrapper">
@@ -118,20 +118,23 @@
                                     <p>업체 사진등록(*필수*)</p>
                                     <div id="photo-registration">
                                         <label for="file1">
-                                            <div class="registration-upload"><img
-                                                    src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                            <div class="registration-upload" data-target="file1">
+                                                <img src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            </div>
                                         </label>
-                                        <input type="file" name="file" id="file1" class="company-file">
+                                        <input type="file" accept="image/*" name="file" id="file1" class="company-file">
                                         <label for="file2">
-                                            <div class="registration-upload"><img
-                                                    src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                            <div class="registration-upload" data-target="file2">
+                                                <img src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            </div>
                                         </label>
-                                        <input type="file" name="file" id="file2" class="company-file">
+                                        <input type="file" accept="image/*" name="file" id="file2" class="company-file">
                                         <label for="file3">
-                                            <div class="registration-upload"><img
-                                                    src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                            <div class="registration-upload" data-target="file3">
+                                                <img src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            </div> 
                                         </label>
-                                        <input type="file" name="file" id="file3" class="company-file">
+                                        <input type="file" accept="image/*" name="file" id="file3" class="company-file">
                                     </div>
                                 </div>
                                 <div>
@@ -172,12 +175,9 @@
                                                 <td colspan="3">15:00~11:00</td>
                                             </tr>
                                             <tr>
-                                                <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png"
-                                                        alt=""></td>
-                                                <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png"
-                                                        alt=""></td>
-                                                <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png"
-                                                        alt=""></td>
+                                                <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png" alt=""></td>
+                                                <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png" alt=""></td>
+                                                <td class="img-box"><img src="<%=contextPath%>/resources/img/공간2.png" alt=""></td>
                                                 <td style="width: 25%;"></td>
                                             </tr>
                                         </table>
@@ -186,8 +186,7 @@
                                     </div>
                                     <div id="product-registration" style="margin-top: 40px;">
                                         <button class="roomOpen-modal">
-                                            <img class="add-productimg"
-                                                src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            <img class="add-productimg" src="<%=contextPath%>/resources/img/myPage/+.png">
                                         </button>
                                     </div>
                                 </div>
@@ -286,21 +285,24 @@
                                 <div>
                                     <p>사진등록</p>
                                     <div id="photo-registration">
-                                        <label for="file1">
-                                            <div class="registration-upload"><img
-                                                    src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                        <label for="file4">
+                                            <div class="registration-upload" data-target="file4">
+                                                <img src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            </div>
                                         </label>
-                                        <input type="file" name="file" id="file1" class="company-file">
-                                        <label for="file2">
-                                            <div class="registration-upload"><img
-                                                    src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                        <input type="file" accept="image/*" name="file" id="file4" class="company-file">
+                                        <label for="file5">
+                                            <div class="registration-upload" data-target="file5">
+                                                <img src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            </div>
                                         </label>
-                                        <input type="file" name="file" id="file2" class="company-file">
-                                        <label for="file3">
-                                            <div class="registration-upload"><img
-                                                    src="<%=contextPath%>/resources/img/myPage/+.png"></div>
+                                        <input type="file" accept="image/*" name="file" id="file5" class="company-file">
+                                        <label for="file6">
+                                            <div class="registration-upload" data-target="file6">
+                                                <img src="<%=contextPath%>/resources/img/myPage/+.png">
+                                            </div>
                                         </label>
-                                        <input type="file" name="file" id="file3" class="company-file">
+                                        <input type="file" accept="image/*" name="file" id="file6" class="company-file">
                                     </div>
                                 </div>
                                 <div id="upload-location">
@@ -317,24 +319,6 @@
 
 
                 <%@ include file="../common/footer.jsp" %>
-
-                    <script>
-                        /*객실 모달창 열기*/
-                        const modal = document.querySelector('.rooms-modal');
-                        const roomOpenModal = document.querySelector('.roomOpen-modal');
-                        const closeModalBtn = document.querySelector('.closeModal-bt');
-
-                        roomOpenModal.addEventListener("click", () => {
-                            modal.style.display = "flex";
-                        })
-
-                        closeModalBtn.addEventListener("click", () => {
-                            modal.style.display = "none";
-                        });
-                    </script>
-
-
-
 
         </body>
 

@@ -2,13 +2,16 @@
 
     <!DOCTYPE html>
     <html>
-    <%@ include file="../common/common-file.jsp"%>
-    <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
+    
     
     <head>
         <meta charset="UTF-8">
         <title>사장님메뉴</title>
         
+        <%@ include file="../common/common-file.jsp"%>
+        <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
+        <script src="resources\js\bosspage\bosspage.js"></script>
+
     <body>
         <div id="bossmanubar">
             <div style="border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom: none;">

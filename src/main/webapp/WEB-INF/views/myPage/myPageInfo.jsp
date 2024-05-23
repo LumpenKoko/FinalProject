@@ -52,7 +52,7 @@
                     </div>
                     <div id="right">
                         <form id="main_main_right" action="">
-                            <h1 style="margin-top: 50px; color: #FE8B94;">개인정보 수정</h1>
+                            <h1 style="margin-top: 50px; color: #FE8B94; text-align: center;">개인정보 수정</h1>
                             <div id="id-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</p>
                                 <input type="text" placeholder="userId" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
@@ -82,10 +82,10 @@
                             <div id="email-input"
                                 style="display: flex; margin-left: 70px; margin-top: 50px; justify-content: space-between;">
                                 <input type="text" placeholder="userEmail" style="width: 300px; height: 50px; border-radius: 15px;
-                                 border: 1px solid #bababa;">
+                                 border: 1px solid #bababa; padding-left: 20px;">
                                 <p style="font-size: 22px;">@</p>
                                 <select id="website"
-                                    style="border-radius: 15px; width: 300px; border: 1px solid #bababa; margin-right: 165px;">
+                                    style="border-radius: 15px; width: 300px; border: 1px solid #bababa; margin-right: 165px; padding-left: 20px;">
                                     <option value="naver.com">naver.com</option>
                                     <option value="daum.net">daum.net</option>
                                     <option value="gmail.com">gmail.com</option>

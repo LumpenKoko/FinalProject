@@ -22,6 +22,14 @@ public class Pet {
 		this.petGender = petGender;
 		this.userNo = userNo;
 		this.petSizeNo = petSizeNo;
+	}	
+	
+	public Pet(String petName, Date petBirthday, char petGender, int petSizeNo) {
+		super();
+		this.petName = petName;
+		this.petBirthday = petBirthday;
+		this.petGender = petGender;
+		this.petSizeNo = petSizeNo;
 	}
 
 	public int getPetNo() {

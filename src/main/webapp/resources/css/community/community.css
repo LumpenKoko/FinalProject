@@ -310,6 +310,17 @@
     text-align: center;
 }
 
+#uploadVideo:hover{
+	background-color: var(--border-color) !important;
+    cursor: pointer;
+}
+
+#choicePic:hover{
+	background-color: var(--background-color) !important;
+    cursor: pointer;
+}
+
+
 
 
 

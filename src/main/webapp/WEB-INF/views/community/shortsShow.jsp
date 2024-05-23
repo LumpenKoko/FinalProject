@@ -26,7 +26,9 @@
             const item = document.createElement('div');
             item.className = 'shorts-view tmp-box';
             item.innerHTML = `
-            <div style="width: 40%; height: 100%; border: 1px solid black;">숏츠나 봐라...~</div>
+            <div class="shorts-content">
+                <img style="width: 100%; height: 100%;" src="resources/img/review.jpg" alt="숏츠이미지">
+            </div>
             `;
             return item;
         }

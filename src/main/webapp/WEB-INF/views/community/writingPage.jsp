@@ -33,8 +33,12 @@
 						</div>
 						
 					</div>
+
+					<hr>
 					
 					<div id="summernote"></div>
+
+					<hr>
 					
 					<div class="flex-box" style="height: 100px; justify-content: space-between;">
 						<div><img src="resources/img/img-icon.png" alt="이미지등록" width="50" height="50"></div>

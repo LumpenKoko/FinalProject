@@ -15,14 +15,17 @@
 <link rel="stylesheet" href="resources/css/detail/review_star.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 <script src='resources/js/map/map.js'></script>
+<script src='resources/js/ajax/detailAjax.js'></script>
+<script src='resources/js/detail/pick.js'></script>
 <script src='resources/js/map/hostpital-map.js'></script>
 
 
 </head>
-<body>
+<%@ include file="../common/header.jsp"%>
+
+<body onload="init('<%=contextPath%>',2)">
 	
-	<%@ include file="../common/header.jsp"%>
-   
+
 	<div class="wrapper detail-wrapper">
 		<!--헤더 이미지-->
 		<div class="header-img" style="background: url('resources/img/공간2.png') no-repeat center center/cover;">
@@ -42,7 +45,7 @@
 			<div class="space-detail">
 			     <div class="title">공간 이름</div>
 				 <div class="good">
-					<div id="heart"><a href="#" class="pick-heart">♥</a></div>&nbsp;
+					<div><a id="heart" class="pick-heart">♥</a></div>&nbsp;
 					<div id="count">46</div>
 				</div>
 			</div>

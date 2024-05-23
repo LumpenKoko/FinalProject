@@ -310,6 +310,52 @@
     text-align: center;
 }
 
+#uploadVideo:hover{
+	background-color: var(--border-color) !important;
+    cursor: pointer;
+}
+
+#choicePic:hover{
+	background-color: var(--background-color) !important;
+    cursor: pointer;
+}
+
+.shorts-view {
+    height: 800px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#loader {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shorts-content {
+    position: relative;
+    width: 40%;
+    height: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.shorts-content img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.text-overlay{
+    position: absolute;
+    color: black;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 
 

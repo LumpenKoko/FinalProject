@@ -320,6 +320,20 @@
     cursor: pointer;
 }
 
+.shorts-view {
+    height: 800px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#loader {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 

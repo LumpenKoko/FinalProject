@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.mng.member.model.vo.Member;
@@ -55,12 +56,36 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 로그아웃
 	@GetMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		session.removeAttribute("loginUser");
-		// session.invalidate(); -> 만료
 		return "redirect:/";
 	}
+	
+	// 아이디 중복 확인(회원가입 시)
+	@ResponseBody
+	@GetMapping("checkId.me")
+	public String checkMemberId(String userId) {
+		int result = memberService.checkMemberId(userId);
+		
+		if (result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
+
+	}
+	
+	// 일반회원가입
+	@GetMapping("memberEnrollCommon.me")
+	public String insertCommonMember(Member m, ModelAndView mv, HttpSession session, HttpServletResponse response) {
+		System.out.println(m);
+
+		return "redirect:/";
+	}
+	
+	
 	
 	@RequestMapping("searchMemberForm.me")
 	public String memberSearchForm() {

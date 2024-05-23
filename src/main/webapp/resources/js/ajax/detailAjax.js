@@ -1,0 +1,117 @@
+
+let contextPath;
+let userNo;
+let spaceNo=2;
+
+let statusResult='';
+//비동기처리 초기화 함수
+function init(path,userNum){
+    // heartClick();
+  
+   contextPath=path;
+   userNo=userNum;
+
+   //페이지 로딩될때 이공간에대한 전체 찜개수 먼저 불러온다.
+   pickedCount({locationNo:spaceNo},(count)=>{
+     setPickedCount(count);
+   });
+
+   //페이지 로딩될때 유저의 찜한 상태를 가져온다.
+   pickedState({locationNo:spaceNo,userNo:userNo},(status)=>{
+     statusResult= getUserPickedState(status);//상태 초기화
+     //하트 클릭시 유저가 찜하거나 찜해제한다. (상태 검사부터) 
+     
+   })
+
+   clickHeart({locationNo:spaceNo,userNo:userNo},pickedCount);
+
+}
+
+
+//클릭함수
+function clickHeart(data,pickedCount){
+     //console.log("클릭함수호출:"+data.status);
+  
+
+    const heart=document.getElementById("heart");
+    heart.onclick=()=>{
+       // console.log("클릭됨"+data.status);
+        userPicked(data,(status)=>{
+
+            setUserPickedState(status);
+
+            //유저가 찜하면 전체 찜목록을 다시 한번 업데이트 해준다.
+            pickedCount({locationNo:spaceNo},
+                (count)=>{
+                    setPickedCount(count);
+            });
+        });
+    }
+
+   
+}
+
+
+//이공간 전체찜 개수 가져오는 비동기 함수
+function pickedCount(data,callback){
+    console.log("pickCout"+data);
+    $.ajax({
+        type:"post",
+        url:contextPath+"/count",
+        headers :{
+            "Content-Type" :"application/json",
+        },
+        data:JSON.stringify(data),
+        success:function(result){
+            console.log("pickedCount")
+            callback(result)
+        }
+
+    })
+}
+
+//찜 상태 가져오는 비동기 함수
+
+function pickedState(data,callback){
+    console.log(data);
+    $.ajax({
+        type:"post",
+        url:contextPath+"/state",
+        headers :{
+            "Content-Type" :"application/json",
+        },
+        data: JSON.stringify(data),
+        success:function(result){
+            console.log("picekdState")
+            console.log("statusResult:"+result)
+            callback(result)
+        },
+        error:function(error){
+            console.log(error)
+        }
+
+    })
+}
+
+//찜 하고 해제하기 -> 상태 반환
+function userPicked(data,callback){
+    //console.log("insert:"+data.status);
+    $.ajax({
+        type:"post",
+        url:contextPath+"/pick",
+        headers :{
+            "Content-Type" :"application/json",
+        },
+        data: JSON.stringify(data),
+        success:function(result){
+            console.log("picked")
+           // console.log(result)
+            callback(result)
+        },
+        error:function(error){
+            console.log(error)
+        }
+
+    })
+
+}

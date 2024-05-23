@@ -60,6 +60,7 @@
 /*a태그 hover*/
 
 .detail-main .pick-heart{
+	cursor: pointer;
 	color:rgb(255, 215, 222);
 }
 

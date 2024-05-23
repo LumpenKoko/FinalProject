@@ -17,5 +17,6 @@ public class DetailController {
 		
 		return "chat/chat";
 	}
+	
 
 }

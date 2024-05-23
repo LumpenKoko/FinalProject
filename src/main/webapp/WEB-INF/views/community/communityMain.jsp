@@ -29,20 +29,22 @@
                      <!--그리드-->
                     <div class="grid-box short-area">
                         <%for(int i=0; i<10; i++){ %>
-                         <div class="short-img-div">
-                            <div class="short-img" >
-                                <img src="resources/img/공간2.png">
-                                <div class="img-detail">
-                                    <div style="font-weight: bold; font-size:20px;"><%=i%>번째 고객</div><br>
-                                    <div>2024-05-21</div>
-                                    <div>쇼츠내용내용<br>
-                                        쇼츠내용내용<br>
-                                        쇼츠내용내용<br>
-                                        쇼츠내용내용<br>
-                                        쇼츠내용내용<br></div>
-                                </div>
-                            </div>
-                         </div>
+                            <a href="<%=request.getContextPath()%>/shortsView.bo">
+                                <div class="short-img-div">
+                                    <div class="short-img" >
+                                        <img src="resources/img/공간2.png">
+                                        <div class="img-detail">
+                                            <div style="font-weight: bold; font-size:20px;"><%=i%>번째 고객</div><br>
+                                            <div>2024-05-21</div>
+                                            <div>쇼츠내용내용<br>
+                                                쇼츠내용내용<br>
+                                                쇼츠내용내용<br>
+                                                쇼츠내용내용<br>
+                                                쇼츠내용내용<br></div>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </a>
                         <%}%>
                     </div>
                     

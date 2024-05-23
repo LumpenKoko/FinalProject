@@ -68,7 +68,7 @@
             <a href="<%=request.getContextPath()%>/community">인기 페이지 보기</a>
         </div>
         <div class="img-container">
-            <img src="https://example.com/lost-character.png" alt="Lost character in a maze">
+            <img src="resources/img/error/travelingDog.png" alt="Lost character in a maze">
         </div>
     </div>
 

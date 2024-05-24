@@ -1,7 +1,10 @@
-package com.kh.mng.detail.controller;
+package com.kh.mng.location.controller;
+
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,22 +13,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.kh.mng.detail.model.vo.PickedInfo;
-import com.kh.mng.detail.service.DetailService;
+import com.kh.mng.location.model.vo.detail.DetailLocation;
+import com.kh.mng.location.model.vo.detail.Location;
+import com.kh.mng.location.model.vo.detail.PickedInfo;
+import com.kh.mng.location.model.vo.detail.Review;
+import com.kh.mng.location.service.DetailService;
 
 @Controller
-public class DetailController {
+public class DetailLocationController {
 	@Autowired 
 	private DetailService detailService;
 	
 	@GetMapping("/detail")
-	public String DetailView(@RequestParam(value="spaceNo",defaultValue="1") String spaceNo) {
+	public String DetailView(@RequestParam(value="spaceNo",defaultValue="1") int spaceNo,Model model) {
 		
 		System.out.println(spaceNo);
-		//장소정보와
-		// 공간 이미지를 db에서 받아온다.
+		//장소정보와 ,리뷰 정보도
+		// 공간 이미지를 db에서 받아온다. ,리뷰 정보도
+	  	DetailLocation detailLocation =  detailService.selectDetailLocation(spaceNo);
+	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(spaceNo);
+		System.out.println(detailLocation);
+		System.out.println(reviews);
+	    
+		model.addAttribute("location",detailLocation);
+		model.addAttribute("review",reviews);
 		
-		return "detail/detail";
+		return "location/detail";
 	}
 	
 	
@@ -41,7 +54,7 @@ public class DetailController {
 		
 		//찜 확인(db거친다)
 		//이 공간에대한 유저 찜 상태 받기
-		int count= detailService.pickedStatus( pickedInfo);
+		int count= detailService.pickedStatus(pickedInfo);
 		char status=' ';
 		
 	    System.out.println(count);
@@ -107,7 +120,7 @@ public class DetailController {
 	}
 	
 	
-	//로그인 정보
+	//로그인 정보 가져오기
 	
 	
 }

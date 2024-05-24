@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 	
 <!DOCTYPE html>
 <html>
@@ -14,9 +14,10 @@
 <link rel="stylesheet" href="resources/css/detail/room.css"/>
 <link rel="stylesheet" href="resources/css/detail/review_star.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
+
 <script src='resources/js/map/map.js'></script>
+<script src='resources/js/location/pick.js'></script>
 <script src='resources/js/ajax/detailAjax.js'></script>
-<script src='resources/js/detail/pick.js'></script>
 <script src='resources/js/map/hostpital-map.js'></script>
 
 
@@ -33,7 +34,7 @@
 				<button>&gt;</button>
 			</div>
 		 	<div class="overlay">
-				<h1 class="gugi-regular">공간 이름</h1>
+				<h1 class="gugi-regular">${location.locationName}</h1>
 			</div>
 			<div class="head-img-next">
 				<button>&lt;</button>
@@ -43,7 +44,7 @@
 		<!--메인영역-->
 		<div class="main detail-main">
 			<div class="space-detail">
-			     <div class="title">공간 이름</div>
+			     <div class="title">${location.locationName}</div>
 				 <div class="good">
 					<div><a id="heart" class="pick-heart">♥</a></div>&nbsp;
 					<div id="count">46</div>
@@ -52,11 +53,7 @@
 			
 			<div class="section">
 			   <div class="title">소개</div>
-			   <div class="content"> 
-					마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
-					마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다.
-					마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 마당이 있는 넓은 펜션입니다. 
-			   </div>
+			   <div class="content"> ${location.explanation}</div>
 			</div>
 			
 			 <div class="detail-div">
@@ -64,14 +61,14 @@
 				    <div class="title">상세정보 </div>
 					<div class="detail-information detail-content">
 					    <div>
-							<div class="content">숙소</div>
-							<div class="content">02-1234-5678</div>
-							<div class="content">체크인 15:00/체크아웃 11:00</div>
+							<div class="content">${location.categoryName}</div>
+							<div class="content">${location.locationPhone}</div>
+							<div class="content">${location.day}</div>
 						</div>
 						<div>
-							<div class="content">소형견,중형견,고양이</div>
-							<div class="content">부산광역시 해운대 극성로</div>
-							<div class="content">https://place-site.yanolja.com</div>	
+							<div class="content">${location.kindName}</div>
+							<div class="content">${location.address}</div>
+							<div class="content">${location.reservationLink}</div>	
 						</div>
 					</div>
 				</div>
@@ -101,9 +98,9 @@
 				<div class="title">상품 정보</div>
 				<% for(int i=0; i<3; i++){%>
 					<div class="content sales">
-						<div>등심돈까스</div>
+						<div>${location.goods}</div>
 						<div style="width:80%"><hr></div>
-						<div>12000원</div>	
+						<div>${location.goodPrice}</div>	
 					</div>
 				<%}%>
 			</div>
@@ -217,10 +214,9 @@
 				<div class="title">리뷰</div>
 				<div class="review-detail">
 				     <ul class="detail-ul">
-						<li class="title score">4.3</li>
+						<li class="title score">${location.locationStar}</li>
 						<li class="avg-star" style="color:#FE8B94;">★★★★★</li>
 						<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
-						
 					</ul>
 					<ul class="category-ul">
 						<li><a href="#">최신순</a></li>
@@ -229,9 +225,37 @@
 					</ul>
 				</div>
 
-				<!--리뷰 내용영역-->
-				<%for(int i=0; i<10; i++){ %>
+                <!--내용-->
+				<c:forEach var="r" items="${review}">
+					<div class="review-section">
+					<div class="profile-star">
+						<div class="profile">
+							<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
+							<div><span class="title">${r.userName}</span><br>
+								<span>${r.enrollDate}</span>
+							</div>
+						</div>
 
+						<div>
+						  <span  style="color:#FE8B94;">
+							 <c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
+						  </span>
+							<span><a href="#">수정</a>|<a href="#">삭제</a></span>
+						</div>
+				    </div>
+
+					<div class="img-content">
+						<c:forEach begin="1" end="3">
+							<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
+						</c:forEach>
+					</div>
+					<div class="content">${r.reviewContent}</div>
+				</div>
+			   </c:forEach>
+
+			<!--test리뷰 내용영역-->
+			<c:forEach begin="1" end="10">
+				
 				<div class="review-section">
 					<div class="profile-star">
 						<div class="profile">
@@ -248,15 +272,15 @@
 				    </div>
 
 					<div class="img-content">
-						<%for (int l =0 ; l<3; l++){ %>
-						<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
-						<% } %>
+						<c:forEach begin="1" end="3">
+							<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
+						</c:forEach>
 					</div>
 
 					<div class="content">
-                      <%for(int k=0 ; k<50; k++){%>
-						 내용내용내용
-					  <%}%>
+					  <c:forEach begin="1" end="50">
+						  내용내용내용
+					   </c:forEach>
 					</div>
 
 	         	</div> 
@@ -279,7 +303,7 @@
 						</div>
 					</div>
 			    </div>
-				<%}%>
+			</c:forEach>
 
 				<!--리뷰 작성 영역-->
 				<div class="review-section">

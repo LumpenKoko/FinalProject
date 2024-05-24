@@ -1,4 +1,4 @@
-package com.kh.mng.location.model.vo;
+package com.kh.mng.location.model.vo.detail;
 
 import java.sql.Date;
 

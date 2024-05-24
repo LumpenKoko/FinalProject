@@ -8,13 +8,15 @@
  	
   <settings>
  	
- 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 	<setting name="jdbcTypeForNull" value="NULL"/>
  	</settings>
  	  <!-- typeAlias : VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기위한 별칭을 등록하는 영역-->
  	<typeAliases>
  		<typeAlias type="com.kh.mng.member.model.vo.Member" alias="Member" />
  		<typeAlias type="com.kh.mng.pet.model.vo.Pet" alias="Pet" />
- 		<typeAlias type="com.kh.mng.detail.model.vo.Picked" alias="Picked"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.detail.Picked" alias="Picked"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.detail.DetailLocation" alias="DetailLocation"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.detail.Review" alias="Review"/>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
  		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
  		
@@ -26,10 +28,10 @@
  	<mappers>
  		<mapper resource="/mappers/member-mapper.xml"/>
  		<mapper resource="/mappers/pet-mapper.xml"/>
- 		<mapper resource="/mappers/detail/picked-mapper.xml"/>
- 	    <!-- <mapper resource="/mappers/board-mapper.xml"/> -->
+ 		<mapper resource="/mappers/location/picked-mapper.xml"/>
+ 		<mapper resource="/mappers/location/detail-mapper.xml"/>
  	</mappers>
  	
-
+    
  	
  </configuration>

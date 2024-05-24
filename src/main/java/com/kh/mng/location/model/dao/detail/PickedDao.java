@@ -1,9 +1,9 @@
-package com.kh.mng.detail.model.dao;
+package com.kh.mng.location.model.dao.detail;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.mng.detail.model.vo.PickedInfo;
+import com.kh.mng.location.model.vo.detail.PickedInfo;
 
 @Repository
 public class PickedDao {

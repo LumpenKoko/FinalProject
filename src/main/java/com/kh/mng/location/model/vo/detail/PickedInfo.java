@@ -1,4 +1,4 @@
-package com.kh.mng.detail.model.vo;
+package com.kh.mng.location.model.vo.detail;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +11,4 @@ public class PickedInfo {
 	private int locationNo;
 	private int userNo;
 	private char status;
-	
 }

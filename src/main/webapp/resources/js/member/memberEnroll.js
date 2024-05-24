@@ -1,5 +1,9 @@
-function memberEnrollCommon(path){
-    let contextPath = path;
+// 스크립트 파일을 실행할 때 우선 스크립트 함수 제목만 쭉 기억함
+
+let contextPath;
+function init(path){
+    contextPath = path;
+
     let allButton = document.querySelector("#check-agree-all");
     let agreeButton = document.querySelectorAll(".check-box>input");
 
@@ -8,21 +12,49 @@ function memberEnrollCommon(path){
 
     for(let agree of agreeButton){
         // agree.addEventListener('change', agreeCheck)
-        agree.onchange = agreeCheck;
+        agree.onchange = 
     }
 
-    // 네 가지 전부 선택 시 전체 동의
-    function agreeCheck(){
-        console.log("하나선택")
-        let allCheck = true;
-        for (let check of agreeButton){
-            if (!check.checked){
-                allCheck = false;
-            }
+    
+}
 
-            allButton.checked = allCheck;
+function clickAgree(){
+    let allCheck = true;
+    for (let check of agreeButton){
+        if (!check.checked){
+            allCheck = false;
         }
+
+        allButton.checked = allCheck;
     }
+};
+
+// 전체 동의 선택 시 전체 선택, 취소
+function checkAgreeAll(agreeButton){
+    for (let agree of agreeButton){
+        agree.checked = allButton.checked;
+    }
+}
+
+function ajaxGetData(url, data, callback){
+    $.ajax({
+        url: url,
+        data: data,
+        success: function (result) {
+            callback(result)
+        },
+        error: function () {
+            console.log("정보를 불러오는데 실패 했습니다.");
+        }
+    })
+}
+
+
+
+
+    
+    
+
     let userId;
     // 아이디 중복 확인
     document.querySelector("#id-check").onclick = function(){
@@ -156,10 +188,3 @@ function memberEnrollCommon(path){
             }
         })
     }
-}
-
-function checkAgreeAll(agreeButton){
-    for (let agree of agreeButton){
-        agree.checked = allButton.checked;
-    }
-}

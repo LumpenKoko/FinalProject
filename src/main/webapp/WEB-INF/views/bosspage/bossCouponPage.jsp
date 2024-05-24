@@ -103,7 +103,7 @@
 
                         <tr id="coupon-regist">
                             <td colspan="4">
-                                <button class="common-button"><img src="<%=contextPath%>/resources/bosspage/plus.png" alt=""></button>
+                                <button class="common-button"><img src="resources/img/bosspage/plus.png" alt=""></button>
                             </td>
                         </tr>
                     </table>

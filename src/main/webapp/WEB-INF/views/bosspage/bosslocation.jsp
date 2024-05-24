@@ -21,7 +21,7 @@
                             <%@ include file="../bosspage/bossmanubar.jsp" %>
                         </div>
                         <div class="privacy-page">
-                            <div class="privacy-top">식당 / 카페 / 행사 / 테마파크 / 동물병원 정보</div>
+                            <div class="privacy-top">식당 / 카페 / 행사 / 테마파크 정보</div>
                             <div id="location-details">
                                 <p>운영업체/카테고리(*필수*)</p>
                                 <select class="location-category">
@@ -29,7 +29,7 @@
                                     <option value="">카페</option>
                                     <option value="">행사</option>
                                     <option value="">테마파크</option>
-                                    <option value="">동물병원</option>
+                                    
                                 </select>
                                 <div>
                                     <p>상호명(*필수*)</p>

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
-    <link rel="stylesheet" href="resources/css/bosspage/bossPageReviews.css" />
-    <link rel="stylesheet" href="resources/css/common/common.css" />
-
     <head>
         <meta charset="UTF-8">
         <title>Insert title here</title>
-
+        
+        <%@ include file="../common/common-file.jsp" %>
+        <link rel="stylesheet" href="resources/css/bosspage/bossPageReviews.css" />
+        <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="resources/js/bosspage/bossreviews.js"></script>
     </head>
 
     <body>
@@ -23,15 +24,16 @@
                         <div id="reviews">
                             <div id="top">
                                 <div style="margin-top: 20px; margin-left: 20px; line-height: 35px;" id="top1">
-                                    <img src="resources/img/myPage/profile.png"
-                                        id="reviewsProfile">
-                                    <span
-                                        style="float: left; margin-left: 20px; font-size: 17px; font-weight: bold;">닉네임</span>
+                                    <img src="resources/img/myPage/profile.png" id="reviewsProfile">
+                                    <span style="float: left; margin-left: 20px; font-size: 17px; font-weight: bold;">닉네임</span>
                                     <span style="float: left; margin-left: 20px; color: #FE8B94;">★★★★★</span>
-                                    <span
-                                        style="float: left; margin-left: 20px; font-size: 15px; color: #bababa;">2024.05.10</span>
-                                    <button onclick="showReply()" style="margin-left: 60px;">답글 달기</button>
-                                    <button onclick="giveCoupon()">쿠폰 발급</button>
+                                    <span style="float: left; margin-left: 20px; font-size: 15px; color: #bababa;">2024.05.10</span>
+                                    <button onclick="showReply()" style="margin-left: 60px;">
+                                        답글 달기
+                                    </button>
+                                    <button onclick="giveCoupon()">
+                                        쿠폰 발급
+                                    </button>
                                 </div>
                             </div>
                             <div id="mid">
@@ -44,8 +46,15 @@
                                     좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋아요 좋...</p>
                             </div>
                             <div id="reply" style="margin-top: 20px; margin-left: 20px;">
-                                <textarea name="content" id="replyArea"></textarea>
+                                <textarea name="content" id="replyArea" placeholder="사장님의 답글을 입력해 주세요."></textarea>
                                 <button id="replySubmit" onclick="closeReply()">등록</button>
+                            </div>
+                            <!-- 답글 내용 -->
+                            <div id="rpple-complete">
+                                <div class="rpple-date">asdfgsdfg</div>
+                                <button class="rpple-removal">
+                                    삭제
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -88,35 +97,10 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                function giveCoupon() {
-                    var modal = document.getElementById('modal');
-                    var modalBackground = document.getElementById('modal-background');
-                    modal.style.display = 'block'; // 모달 창 보이기
-                    modalBackground.style.display = 'block'; // 배경 보이기
-                }
-
-                function closeModal() {
-                    var modal = document.getElementById('modal');
-                    var modalBackground = document.getElementById('modal-background');
-                    modal.style.display = 'none'; // 모달 창 숨기기
-                    modalBackground.style.display = 'none'; // 배경 숨기기
-                }
-
-                function showReply() {
-                    var replyDiv = document.getElementById('reply');
-                    replyDiv.style.display = 'block'; // reply div 보이기
-                }
-
-                function closeReply() {
-                    var replyDiv = document.getElementById('reply');
-                    replyDiv.style.display = 'none'; // reply div 숨기기
-                }
-            </script>
-
             <%@ include file="../common/footer.jsp" %>
-                </div>
+        </div>
+
+        
 
 
 

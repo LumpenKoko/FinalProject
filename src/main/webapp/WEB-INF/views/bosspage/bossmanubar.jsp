@@ -15,17 +15,17 @@
     <body>
         <div id="bossmanubar">
             <div style="border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom: none;">
-                <a href="<%=contextPath%>/bossMainPage.bm">사업자 / 개인 정보</a>
+                <a href="<%=request.getContextPath()%>/bossMainPage.bm">사업자 / 개인 정보</a>
             </div>
             <div style="border-bottom: none;">
-                <a href="<%=contextPath%>/bossLocation.bl">장소 정보</a>
+                <a href="<%=request.getContextPath()%>/bossLocation.bl">장소 정보</a>
             </div>
             <div style="border-bottom: none;"><p style="margin-left: 10px;">쿠폰 / 리뷰관리</p></div>
             <div style="border-bottom: none;">
                 <a href="">쿠폰 관리</a>
             </div>
             <div style="border-bottom-left-radius:15px; border-bottom-right-radius: 15px;">
-                <a href="<%=contextPath%>/bossPageReviews.bp">리뷰 관리</a>
+                <a href="<%=request.getContextPath()%>/bossPageReviews.bp">리뷰 관리</a>
             </div>
             <div class="chatlist">
                 <a href="">채팅 관리</a>

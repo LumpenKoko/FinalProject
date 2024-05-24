@@ -45,6 +45,89 @@
 		FROM MEMBER
 		WHERE USER_ID = #{checkId}	
 	</select>
+	
+	<insert id="insertCommonMember">
+		INSERT INTO MEMBER
+			(
+			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_NICKNAME,
+			USER_GENDER,
+			USER_EMAIL,
+			USER_BIRTHDAY,
+			USER_PHONE,
+			USER_KIND
+			)
+		VALUES
+			(
+			NEXTVAL('SEQ_USER'),
+			#{userId},
+			#{userPwd},
+			#{userName},
+			#{userNickname},
+			#{userGender},
+			#{userEmail},
+			#{userBirthday},
+			#{userPhone},
+			#{userKind}
+			)
+	</insert>
+	
+	<insert id="insertCommonMember">
+		INSERT INTO MEMBER
+			(
+			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_GENDER,
+			USER_EMAIL,
+			USER_BIRTHDAY,
+			USER_PHONE,
+			USER_KIND
+			)
+		VALUES
+			(
+			NEXTVAL('SEQ_USER'),
+			#{userId},
+			#{userPwd},
+			#{userName},
+			#{userGender},
+			#{userEmail},
+			#{userBirthday},
+			#{userPhone},
+			#{userKind}
+			)
+	</insert>
+	
+	<insert id="insertLocation">
+		INSERT INTO LOCATION
+			(
+			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_GENDER,
+			USER_EMAIL,
+			USER_BIRTHDAY,
+			USER_PHONE,
+			USER_KIND
+			)
+		VALUES
+			(
+			NEXTVAL('SEQ_USER'),
+			#{userId},
+			#{userPwd},
+			#{userName},
+			#{userGender},
+			#{userEmail},
+			#{userBirthday},
+			#{userPhone},
+			#{userKind}
+			)
+	</insert>
 
 	<update id="updateMember">
 		UPDATE MEMBER

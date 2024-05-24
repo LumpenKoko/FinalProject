@@ -20,7 +20,7 @@
                 반려동물과 행복한 동행을 시작하세요
             </div>
 
-            <form action="<%=contextPath%>/login.me" id="login-form">
+            <form action="<%=contextPath%>/login.me" method="POST" id="login-form">
                 <input type="text" name="userId" class="minibox-input" placeholder="아이디를 입력하세요">
                 <input type="password" name="userPwd" class="minibox-input" placeholder="비밀번호를 입력하세요">
 

@@ -8,7 +8,7 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollCommon.css"/>
-<script src="resources/js/member/memberEnrollCommon.js"></script>
+<script src="resources/js/member/memberEnroll.js"></script>
 </head>
 <body onload="init('<%=request.getContextPath()%>')">
 	<%@ include file="../common/header.jsp"%>
@@ -22,7 +22,7 @@
                 반려동물과 행복한 동행을 시작하세요.
             </div>
 
-            <form action="">
+            <form action="<%=contextPath%>/memberEnrollCommon.me" method="POST">
                 <div class="minibox-mini-title">
                     <span>휴대폰번호 인증</span>
                     <span class="required-color">*</span>
@@ -51,19 +51,19 @@
                     </div>
                     <hr>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-first" class="checkbox-color-pink check-agree">
+                        <input type="checkbox" id="check-agree-first" class="checkbox-color-pink check-agree" onchange="clickAgree()">
                         <label for="check-agree-first">[필수] 본인 확인 서비스 이용 약관 동의</label>
                     </div>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-second" class="checkbox-color-pink check-agree">
+                        <input type="checkbox" id="check-agree-second" class="checkbox-color-pink check-agree" onchange="clickAgree()">
                         <label for="check-agree-second">[필수] 통신사 이용 약관 동의</label>
                     </div>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-third" class="checkbox-color-pink check-agree">
+                        <input type="checkbox" id="check-agree-third" class="checkbox-color-pink check-agree" onchange="clickAgree()">
                         <label for="check-agree-third">[필수] 통신사/인증사의 개인정보 이용, 제공 동의</label>
                     </div>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-fourth" class="checkbox-color-pink check-agree">
+                        <input type="checkbox" id="check-agree-fourth" class="checkbox-color-pink check-agree" onchange="clickAgree()">
                         <label for="check-agree-fourth">[필수] 고유식별 정보 처리 동의</label>
                     </div>
 
@@ -149,18 +149,21 @@
                     <!-- <span class="error-message-margin">필수 항목입니다.</span> -->
                 </div>
                 <div id="email-enroll">
-                    <input type="text" class="minibox-input" placeholder="이메일 입력">
+                    <input type="text" id="email-pre" class="minibox-input" placeholder="이메일 입력">
                     <span>@</span>
-                    <select name="" id="email-select-box" class="minibox-input">
-                        <!-- 직접입력 선택 시 js로 input 창으로 바뀌도록 -->
-                        <option value="">직접입력</option>
-                        <option value="naver">naver.com</option>
-                        <option value="google">google.com</option>
-                        <option value="nate">nate.com</option>
-                        <option value="daum">daum.com</option>
+                    <input type="text" id="email-post" class="minibox-input" disabled>
+                    <select id="email-select-box" class="minibox-input">
+                        <!-- selected 하면 기본값으로 지정 -->
+                        <option value="직접입력" selected>직접입력</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="google.com">google.com</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="daum.com">daum.com</option>
                     </select>
                 </div>
-                <button type="submit" id="enroll-button" class="common-button minibox-full-button" disabled>회원가입</button>
+
+                <input type="text" id="input-email" name="userEmail">
+                <button type="submit" id="enroll-button" class="common-button minibox-full-button">회원가입</button>
             </form>
         </div>
 	</div>

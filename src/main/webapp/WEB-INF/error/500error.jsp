@@ -3,12 +3,11 @@
 <%@ page isErrorPage="true" %>
 <% response.setStatus(200); %>
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>500 - 서버 에러</title>
+    <title>안녕하세요</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -69,8 +68,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>서버 폭발!</h1>
-        <p>뭔가 잘못된 것 같아요... 서버가 펑펑 터지고 있어요!</p>
+        <h1>오류</h1>
+        <p>다시 시도해 주세요</p>
         <div class="btn-group">
             <a href="<%=request.getContextPath()%>">홈으로 돌아가기</a>
             <a href="javascript:location.reload()">새로고침</a>

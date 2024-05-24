@@ -5,17 +5,25 @@ window.onload = function(){
     let contextPath = window.location.origin + "/" + window.location.pathname.split("/")[1] + "/";
 
     common.onclick = function(){
-        let commonInput = document.querySelector("#radio-common");
-        commonInput.checked = true;
-        // common.style = "border: 1px solid var(--main-color);";
-        // document.querySelector("#kindCommon>*").style = 
-        //     "color: var(--main-color);" +
-        //     "border: 1px solid var(--main-color);" +
-        //     "background: var(--main-color);"
+        document.querySelector("#radio-common").checked = true;
+        common.style = "border: 1px solid var(--main-color);";
+        document.querySelector("#kindCommon>div").style = "background: var(--main-color);";
+        document.querySelector("#kindCommon>span").style = "color: var(--main-color);";
+    
+        boss.style = "border: 1px solid var(--border-color);";
+        document.querySelector("#kindBoss>div").style = "background: #efefef;";
+        document.querySelector("#kindBoss>span").style = "color: black;";
     }
 
     boss.onclick = function(){
         document.querySelector("#radio-boss").checked = true;
+        boss.style = "border: 1px solid var(--main-color);";
+        document.querySelector("#kindBoss>div").style = "background: var(--main-color);";
+        document.querySelector("#kindBoss>span").style = "color: var(--main-color);";
+    
+        common.style = "border: 1px solid var(--border-color);";
+        document.querySelector("#kindCommon>div").style = "background: #efefef;";
+        document.querySelector("#kindCommon>span").style = "color: black;";
     }
 
     button.onclick = function(){

@@ -8,6 +8,8 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollAdmin.css"/>
+
+<script src="resources/js/member/memberEnroll.js"></script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>

@@ -13,12 +13,12 @@ public class DetailDao {
 
 	public DetailLocation selectDetailLocation(SqlSessionTemplate sqlSession,int spaceNo) {
 	
-		return sqlSession.selectOne("detail.selectDetailList",spaceNo);
+		return sqlSession.selectOne("location.selectDetailList",spaceNo);
 	}
 
 	public ArrayList<Review> selectDetailReviewList(SqlSessionTemplate sqlSession, int spaceNo) {
 	  
-		return (ArrayList) sqlSession.selectList("detail.selectDetailReviewList",spaceNo);
+		return (ArrayList) sqlSession.selectList("review.selectDetailReviewList",spaceNo);
 	}
 
 }

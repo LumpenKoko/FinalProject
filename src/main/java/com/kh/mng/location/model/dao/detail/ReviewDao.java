@@ -10,7 +10,7 @@ import com.kh.mng.location.model.vo.detail.Review;
 @Repository
 public class ReviewDao {
 
-	public ArrayList<Review> selectReview(SqlSessionTemplate sqlSession,int spaceNo){
-		return (ArrayList)sqlSession.selectList("detail.selectDetailReviewList",spaceNo);
+	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession,int spaceNo){
+		return (ArrayList)sqlSession.selectList("review.selectDetailReviewList",spaceNo);
 	}
 }

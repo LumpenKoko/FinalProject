@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   
-   <mapper namespace="detail">
+   <mapper namespace="location">
   	
     <resultMap type="DetailLocation" id="detailLocation">
 		<result column="LOCATION_NO" property="locationNo"/>
@@ -19,7 +19,7 @@
 		<result column="ROOM_INFO" property="roomInfo"/>
 		<result column="DAYS" property="day"/>
 		<result column="CAPACITY" property="capacity"/>
-		<result column="LOCATION_CATEGORY_NO" property="locatonCategoryNo"/>
+		<result column="LOCATION_CATEGORY_NO" property="locationCategoryNo"/>
 		<result column="CATEGORY_NAME" property="categoryName"/>
 		<result column="START_TIME" property="startTime"/>
 		<result column="END_TIME" property="endTime"/>
@@ -44,7 +44,7 @@
 	   				ROOM_INFO,
 	   				DAYS,
 	   				CAPACITY,
-	   				l.LOCATION_CATEGORY_NO,
+	   				L.LOCATION_CATEGORY_NO,
 	   				CATEGORY_NAME,
 	   				START_TIME,
 	   				END_TIME,
@@ -67,39 +67,31 @@
 
     </select>
     
-    <!-- 리뷰 -->
-    
-       
-   <resultMap type="Review" id="detailReview">
-   	  <result column="REVIEW_NO" property="reviewNo"/>
-   	  <result column="REVIEW_STAR" property="reviewStar"/>
-   	  <result column="REVIEW_CONTENT" property="reviewContent"/>
-   	  <result column="ENROLL_DATE" property="enrollDate"/>
-   	  <result column="USER_NAME" property="userName"/>
-   	   <result column="LOCATION_STAR" property="locationStar"/>
-   	  <result column="USER_NO" property="userNo"/>
-   			
-   
-   </resultMap>
-   
-    
-    <select id="selectDetailReviewList" resultMap="detailReview">
-    	
-		   SELECT   R.REVIEW_NO,
-	    	   	    REVIEW_STAR,
-	    	        REVIEW_CONTENT,
-    			    R.ENROLL_DATE,
-    			    USER_NAME,
-    			    L.LOCATION_STAR,
-    			    R.USER_NO
-		    	    FROM REVIEW R
-		    	    JOIN LOCATION L
-		    	    ON (R.LOCATION_NO = L.LOCATION_NO)
-		    	    JOIN MEMBER M
-		    	    ON (R.USER_NO = M.USER_NO)
-		    	    WHERE L.LOCATION_NO = #{spaceNo} AND L.STATUS = true
-    	    
-    </select>
+    <insert id="insertLocation">
+      INSERT INTO LOCATION
+         (
+         LOCATION_NO,
+         LOCATION_NAME,
+         LOCATION_PHONE,
+         EXPLANATION,
+         BUSINESS_NO,
+         ADDRESS,
+         USER_NO,
+         LOCATION_CATEGORY_NO
+         )
+      VALUES
+         (
+         NEXTVAL('SEQ_LOC'),
+         #{locationName},
+         #{locationPhone},
+         #{explanation},
+         #{businessNo},
+         #{address},
+         #{userNo},
+         #{locationCategoryNo}
+         )
+   </insert>
+  
 
  	</mapper>
  

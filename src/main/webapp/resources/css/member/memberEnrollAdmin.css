@@ -80,21 +80,21 @@ option{
 .select-button{
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
-.select-button>input{
-    display: block;
+.select-button>div{
     width: 35%;
     height: 60px;
     border: 1px solid var(--border-color);
     border-radius: var(--inner-border-radius);
     text-align: center;
-    padding: 10px 20px;
     margin-bottom: 20px;
     font-size: 18px;
+    cursor: pointer;
 }
 
-.select-button>input:hover{
+.select-button>div:hover{
     border: 1px solid var(--main-color);
     color: var(--main-color);
 }
@@ -107,17 +107,24 @@ option{
 }
 
 #email-enroll>input{
-    width: 40%;    
+    width: 35%;    
     margin: 0px;
 }
 
 #email-select-box{
-    width: 40%;
+    width: 10%;
     margin: 0px;
+    border-radius: 100px;
+    background-color: #efefef;
+    /* background-image: url(../../member/email.png); */
 }
 
 #email-select-box>option{
     text-align: left;
+}
+
+#enroll-button{
+    border-radius: 100px;
 }
 
 #check-boss-info{
@@ -149,4 +156,8 @@ option{
     border-radius: var(--inner-border-radius);
     margin-bottom: 30px;
     cursor: inherit;
+}
+
+#radio-f, #radio-m, #radio-kind, #input-email, #input-address{
+    display: none;
 }

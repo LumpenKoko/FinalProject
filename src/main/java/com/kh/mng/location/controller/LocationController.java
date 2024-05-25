@@ -1,48 +1,59 @@
 package com.kh.mng.location.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.mng.location.model.vo.detail.DetailLocation;
+import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.detail.Location;
 import com.kh.mng.location.model.vo.detail.PickedInfo;
 import com.kh.mng.location.model.vo.detail.Review;
-import com.kh.mng.location.service.DetailService;
+import com.kh.mng.location.service.LocationService;
 
 @Controller
-public class DetailLocationController {
+public class LocationController {
 	@Autowired 
-	private DetailService detailService;
+	private LocationService detailService;
 	
 	@GetMapping("/detail")
-	public String DetailView(@RequestParam(value="spaceNo",defaultValue="1") int spaceNo,Model model) {
+	public String DetailLocation(@RequestParam(value="spaceNo",defaultValue="1") int spaceNo,Model model) {
 		
 		System.out.println(spaceNo);
 		//장소정보와 ,리뷰 정보도
 		// 공간 이미지를 db에서 받아온다. ,리뷰 정보도
 	  	DetailLocation detailLocation =  detailService.selectDetailLocation(spaceNo);
 	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(spaceNo);
-		System.out.println(detailLocation);
+    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(spaceNo);
+    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailMainImg(spaceNo);
+//		System.out.println(detailLocation);
 		System.out.println(reviews);
+		System.out.println(mainImg);
+		System.out.println(detailImg);
 	    
 		model.addAttribute("location",detailLocation);
 		model.addAttribute("review",reviews);
-		
+		model.addAttribute("mainImg",mainImg);
+		model.addAttribute("detailImg",detailImg);
 		return "location/detail";
 	}
-	
-	
-	
 	
 	
 	//유저 찜 상태 가져오는 컨트롤러
@@ -117,6 +128,55 @@ public class DetailLocationController {
 	public String ChatList() {
 		
 		return "chat/chat";
+	}
+	
+	
+	
+	//file upload
+	@PostMapping("/insertReview")
+	public String insertBoard(MultipartFile upfile,HttpSession session,Model model) {
+	
+		
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeName = saveFile(upfile,session);
+		
+		}
+			
+	   return "location/detail";
+	
+	}
+	
+	
+	public String saveFile(MultipartFile upfile,HttpSession session) {
+		
+				String originName = upfile.getOriginalFilename();
+				
+			
+				String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+				
+			
+				int ranNum = (int)(Math.random() * 90000) + 10000;
+				
+			
+				String ext = originName.substring(originName.lastIndexOf("."));
+				
+			
+				String changeName = currentTime + ranNum + ext;
+				
+				
+				String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+				
+				try {
+					upfile.transferTo(new File(savePath + changeName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				return changeName;
+		
 	}
 	
 	

@@ -136,6 +136,7 @@
 
 #enroll-button{
     border-radius: 100px;
+    cursor: inherit;
 }
 
 #radio-f, #radio-m, #radio-kind, #input-email{

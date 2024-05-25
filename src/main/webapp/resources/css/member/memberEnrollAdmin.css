@@ -125,6 +125,7 @@ option{
 
 #enroll-button{
     border-radius: 100px;
+    cursor: inherit;
 }
 
 #check-boss-info{

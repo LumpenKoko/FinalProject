@@ -3,7 +3,7 @@ package com.kh.mng.member.model.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.detail.Location;
 import com.kh.mng.member.model.vo.Member;
 
 @Repository
@@ -29,8 +29,12 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertBossMember", m);
 	}
 	
+	public int selectUserNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.selectUserNo");
+	}
+	
 	public int insertLocation(SqlSessionTemplate sqlSession, Location loc) {
-		return sqlSession.insert("memberMapper.insertLocation", loc);
+		return sqlSession.insert("location.insertLocation", loc);
 	}
 
 }

@@ -116,7 +116,7 @@
 
                 <div class="minibox-mini-title minibox-mini-title-bold">사업자 정보 인증</div>
                 
-                <form action="">
+                <!-- <form action=""> -->
                     <div class="minibox-mini-title">
                         <span>사업자등록번호</span>
                         <span class="required-color">*</span>
@@ -147,7 +147,7 @@
                     <input type="text" name="address" id="input-address">
 
                     <button type="submit" id="check-phone-button" class="common-button pink-button minibox-full-button">사업자 정보 인증</button>
-                </form>
+                <!-- </form> -->
 
                 <div id="checked-boss-info" class="common-button">사업자 정보 인증이 완료되었습니다.</div>
 
@@ -214,7 +214,7 @@
                     <option value="1">기타</option>
                 </select>
 
-                <button type="submit" id="enroll-button" class="common-button minibox-full-button">회원가입</button>
+                <button type="submit" id="enroll-button" class="common-button minibox-full-button" disabled>회원가입</button>
             </form>
         </div>
 	</div>

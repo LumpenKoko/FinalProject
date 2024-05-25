@@ -1,6 +1,6 @@
 package com.kh.mng.member.service;
 
-import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.detail.Location;
 import com.kh.mng.member.model.vo.Member;
 
 public interface MemberService {

@@ -158,6 +158,7 @@ function activeEnroll(userInfo, enroll){
     if (!checkDisable){
         enroll.style.background = "var(--main-color)";
         enroll.style.color = "#FFFFFF";
+        enroll.style.cursor = "pointer";
     } else {
         enroll.style.background = "inherit";
         enroll.style.color = "var(--border-color)";
@@ -224,7 +225,7 @@ function activeBossEnroll(){
 
     let enroll = document.querySelector("#enroll-button");
 
-    let userInfo = [userId, userPwd, userName, userNickname, userGender, userBirthday, userPreEmail, userPostEmail, userPhone, 
+    let userInfo = [userId, userPwd, userName, userGender, userBirthday, userPreEmail, userPostEmail, userPhone, 
                     businessNo, locationName, addressContent, addressDetail];
 
     activeEnroll(userInfo, enroll);

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.detail.Location;
 import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.member.service.MemberServiceImpl;
 
@@ -105,6 +105,9 @@ public class MemberController {
 	public String insertBossMember(Member m, Location loc, Model model, HttpSession session, HttpServletResponse response) {
 		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
 		m.setUserPwd(encPwd);
+		
+		loc.setExplanation("장소에 대한 정보를 입력해주세요.");
+		loc.setLocationPhone(m.getUserPhone());
 		
 		int result = memberService.insertBossMember(m, loc);
 		

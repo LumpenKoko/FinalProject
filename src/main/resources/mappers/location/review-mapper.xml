@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+   <mapper namespace="review">
+  	
+    <!-- 리뷰 -->
+      
+   <resultMap type="Review" id="detailReview">
+   	  <result column="REVIEW_NO" property="reviewNo"/>
+   	  <result column="REVIEW_STAR" property="reviewStar"/>
+   	  <result column="REVIEW_CONTENT" property="reviewContent"/>
+   	  <result column="ENROLL_DATE" property="enrollDate"/>
+   	  <result column="USER_NAME" property="userName"/>
+   	  <result column="LOCATION_STAR" property="locationStar"/>
+   	  <result column="USER_NO" property="userNo"/>
+   	  <result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"/>
+   	  <result column="OWNER_ENROLL" property="ownerEnroll"/>
+   </resultMap>
+   
+    <select id="selectDetailReviewList" resultMap="detailReview">
+    	
+		   SELECT   R.REVIEW_NO,
+	    	   	    REVIEW_STAR,
+	    	        REVIEW_CONTENT,
+    			    R.ENROLL_DATE,
+    			    USER_NAME,
+    			    L.LOCATION_STAR,
+    			    R.USER_NO,
+    			    O.ENROLL_DATE AS OWNER_ENROLL,
+    			    O.OWNER_REPLY_CONTENT
+		    	    FROM REVIEW R
+		    	    JOIN LOCATION L
+		    	    ON (R.LOCATION_NO = L.LOCATION_NO)
+		    	    JOIN MEMBER M
+		    	    ON (R.USER_NO = M.USER_NO)
+		    	    LEFT JOIN OWNER_REPLY O
+		    	    ON (R.REVIEW_NO = O.REVIEW_NO)
+		    	    WHERE L.LOCATION_NO = #{spaceNo} AND L.STATUS = true
+    	    
+    </select>
+
+ 	</mapper>
+ 
+ 

@@ -8,24 +8,28 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.location.model.dao.detail.DetailDao;
 import com.kh.mng.location.model.dao.detail.PickedDao;
+import com.kh.mng.location.model.dao.detail.ReviewDao;
 import com.kh.mng.location.model.vo.detail.DetailLocation;
+import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.detail.Location;
 import com.kh.mng.location.model.vo.detail.PickedInfo;
 import com.kh.mng.location.model.vo.detail.Review;
 
 @Service
-public class DetailServiceImpl implements DetailService {
+public class LocationServiceImpl implements LocationService {
 	
 	private SqlSessionTemplate sqlSession;
 	private PickedDao pickedDao;
 	private DetailDao detailDao;
+	private ReviewDao reviewDao;
 	 
 	@Autowired
-	public  DetailServiceImpl (SqlSessionTemplate sqlSession,
-			PickedDao picked,DetailDao detailDao) {
+	public  LocationServiceImpl (SqlSessionTemplate sqlSession,
+			PickedDao picked,DetailDao detailDao,ReviewDao reviewDao) {
 		this.sqlSession=sqlSession;
 		this.pickedDao=picked;
 		this.detailDao=detailDao;
+		this.reviewDao=reviewDao;
 	}
 	
 	@Override
@@ -56,8 +60,20 @@ public class DetailServiceImpl implements DetailService {
 
 	@Override
 	public ArrayList<Review> selectDetailReviewList(int spaceNo) {
-		// TODO Auto-generated method stub
-		return detailDao.selectDetailReviewList(sqlSession,spaceNo);
+		
+		return reviewDao.selectReviewList(sqlSession,spaceNo);
+	}
+
+	@Override
+	public ArrayList<DetailLocationAttachment> selectDetailMainImg(int spaceNo) {
+	
+		return detailDao.selectMainImg(sqlSession, spaceNo);
+	}
+
+	@Override
+	public ArrayList<DetailLocationAttachment> selectDetailDetailImg(int spaceNo) {
+	
+		return detailDao.selectDetailImg(sqlSession, spaceNo);
 	}
 
 }

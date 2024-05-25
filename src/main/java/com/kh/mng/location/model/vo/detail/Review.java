@@ -22,4 +22,6 @@ public class Review {
 	private String userName;
 	private double locationStar;//장소 평균평점
 	private int userNo;
+	private String ownerReplyContent;//사장님 답글
+	private Date ownerEnroll;//사장님 답글 입력 날짜
 }

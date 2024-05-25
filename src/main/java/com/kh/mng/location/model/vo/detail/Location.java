@@ -26,6 +26,6 @@ public class Location {
 	private Date modifyDate;
 	private boolean status;
     private int userNo;
-	private int locatonCategoryNo;
+	private int locationCategoryNo;
 	
 }

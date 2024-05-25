@@ -27,7 +27,7 @@ public class DetailLocation {
 	private String roomInfo;//객실 정보
 	private String day; //체크인 체크아웃
     private int capacity;//수용인원
-	private int locatonCategoryNo;//카테고리 번호
+	private int locationCategoryNo;//카테고리 번호
 	private String categoryName;//카테고리 명
 	private Time startTime;//시작시간
 	private Time endTime;//종료시간

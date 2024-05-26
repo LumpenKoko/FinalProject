@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import com.kh.mng.location.model.vo.detail.DetailLocation;
+import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.detail.Location;
 import com.kh.mng.location.model.vo.detail.PickedInfo;
 import com.kh.mng.location.model.vo.detail.Review;
 
 @Service
-public interface DetailService {
+public interface LocationService {
 
 	int pickedStatus(PickedInfo pickedInfo);
 	int pickedCount(int spaceNo);
@@ -18,4 +19,6 @@ public interface DetailService {
 	int deletePicked(PickedInfo pickedInfo);
 	DetailLocation selectDetailLocation(int spaceNo);
 	ArrayList<Review> selectDetailReviewList(int spaceNo);
+	ArrayList<DetailLocationAttachment> selectDetailMainImg(int spaceNo);
+	ArrayList<DetailLocationAttachment> selectDetailDetailImg(int spaceNo);
 }

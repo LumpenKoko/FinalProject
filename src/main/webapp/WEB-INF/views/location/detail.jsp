@@ -15,10 +15,12 @@
 <link rel="stylesheet" href="resources/css/detail/review_star.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 
-<script src='resources/js/map/map.js'></script>
-<script src='resources/js/location/pick.js'></script>
-<script src='resources/js/ajax/detailAjax.js'></script>
-<script src='resources/js/map/hostpital-map.js'></script>
+<script src='resources/js/location/ajax/init.js'></script>
+<script src='resources/js/location/ajax/pickAjax.js'></script>
+<script src='resources/js/location/ajax/reviewAjax.js'></script>
+<script src='resources/js/location/pick/pick.js'></script>
+<script src='resources/js/location/map/map.js'></script>
+<script src='resources/js/location/map/hostpital-map.js'></script>
 
 
 </head>
@@ -114,14 +116,14 @@
                         <img src="resources/img/tori.jpg"/>
 					</div>
 					<div class="room-info">
-						<div class="title" style="color:var(--main-color);">스탠다드 트윈(OTT 시청가능)</div>
-						<div class="title price">6800원</div>
+						<div class="title" style="color:var(--main-color);">${location.roomInfo}</div>
+						<div class="title price">${location.goodPrice}</div>
 						<div style="width:100%"><hr></div>
 						<div class="check-in-out">
-							체크인:<span>15:00</span>/체크아웃<span>11:00</span>
+							${location.day}</span>
 						</div>
 						<div class="capacity">
-							객실기준<span>2</span>명/최대<span>2</span>명
+							객실기준<span>${location.capacity}</span>명/최대<span>${location.capacity}</span>명
 						</div>
 						<div class="detail-show">
 							<button  type="button" class="common-button white-button btn btn-primary" data-toggle="modal" data-target="#myModal">상세보기</button>
@@ -147,33 +149,25 @@
 				 <table>
 						<tr>
 							<th>객실명</th>
-							<td>스탠다드트윈(0TT시청가능)</td>
+							<td>${location.goods}</td>
 						</tr>
 
 						<tr>
 							<th>가격</th>
-							<td>스탠다드트윈(0TT시청가능)</td>
+							<td>${location.goodPrice}</td>
 						</tr>
 						
 						<tr>
 							<th>시간</th>
-							<td>체크인15:00/체크아웃11:00</td>
+							<td>${location.day}</td>
 						</tr>
 						<tr>
 							<th>수용인원</th>
-							<td>객실기준2명/최대2명</td>
+							<td>최대${location.capacity}명</td>
 						</tr>
 					    <tr>
 							<th>상세정보</th>
-							<td>인원 추가시 비용이 발생되며, 현장에서 결제 바랍니다.
-								더블베드 1개
-								객실+욕실 / 11평
-								인원 추가시 비용이 발생되며, 현장에서 결제 바랍니다.
-								더블베드 1개
-								객실+욕실 / 11평
-								더블베드 1개
-								
-							</td>
+							<td>${location.roomInfo}</td>
 						</tr>
 					</table>
 				
@@ -196,6 +190,7 @@
 			<div class="location-div">
 				<div class="section location-area">
 				    <div class="title">위치정보 </div>
+				    <input id="address" type="text" value="제주특별자치도 제주시 첨단로 242" hidden>
 					<div class="content">
 						<div id="location-map" style="width:100%; height:500px;"></div>
 					</div>
@@ -251,10 +246,24 @@
 					</div>
 					<div class="content">${r.reviewContent}</div>
 				</div>
+
+				<!-- 답글이 있을때만 처리-->
+				<c:if test="${r.ownerReplyContent != null}">
+					<div style="align-items: right;">
+						<div class="review-section reply">
+						
+							<div class="reply-master">
+								<div class="title master">사장님</div>
+								<div>${r.ownerEnroll}</div>
+							</div>
+							<div class="content master-reply">${r.ownerReplyContent}</div>
+						</div>
+				</div>
+			 </c:if>
 			   </c:forEach>
 
 			<!--test리뷰 내용영역-->
-			<c:forEach begin="1" end="10">
+			<c:forEach begin="1" end="2">
 				
 				<div class="review-section">
 					<div class="profile-star">
@@ -289,20 +298,20 @@
 				 <!-- 답글이 있을때만 처리 -->
 
 				 <div style="align-items: right;">
-					<div class="review-section reply">
-					
-						<div class="reply-master">
-							<div class="title master">사장님</div>
-							<div>2024-05-17</div>
-						</div>
+						<div class="review-section reply">
+						
+							<div class="reply-master">
+								<div class="title master">사장님</div>
+								<div>2024-05-17</div>
+							</div>
 
-						<div class="content master-reply">
-								<%for(int k=0 ; k<30; k++){%>
-									답글내용내용내용
-								<%}%>
+							<div class="content master-reply">
+									<%for(int k=0 ; k<30; k++){%>
+										답글내용내용내용
+									<%}%>
+							</div>
 						</div>
-					</div>
-			    </div>
+			       </div>
 			</c:forEach>
 
 				<!--리뷰 작성 영역-->

@@ -17,6 +17,7 @@
  		<typeAlias type="com.kh.mng.location.model.vo.detail.Picked" alias="Picked"/>
  		<typeAlias type="com.kh.mng.location.model.vo.detail.DetailLocation" alias="DetailLocation"/>
  		<typeAlias type="com.kh.mng.location.model.vo.detail.Review" alias="Review"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.detail.DetailLocationAttachment" alias="DetailLocationAttachment"/>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
  		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
  		
@@ -31,6 +32,7 @@
  		<mapper resource="/mappers/location/picked-mapper.xml"/>
  		<mapper resource="/mappers/location/location-mapper.xml"/>
  		<mapper resource="/mappers/location/review-mapper.xml"/>
+ 		<mapper resource="/mappers/location/attachment-mapper.xml"/>
  		<mapper resource="/mappers/search-mapper.xml"/>
  	</mappers>
  	

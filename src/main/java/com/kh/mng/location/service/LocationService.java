@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import com.kh.mng.location.model.vo.detail.DetailLocation;
-import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
-import com.kh.mng.location.model.vo.detail.Location;
-import com.kh.mng.location.model.vo.detail.PickedInfo;
-import com.kh.mng.location.model.vo.detail.Review;
+import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.vo.DetailLocation;
+import com.kh.mng.location.model.vo.DetailLocationAttachment;
+import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.Review;
 
 @Service
 public interface LocationService {

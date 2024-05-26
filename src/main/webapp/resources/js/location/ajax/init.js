@@ -31,4 +31,8 @@ function init(path,userNum){
    clickHeart({locationNo:spaceNo,userNo:userNo},pickedCount);
 
 
+   //review
+   reviewAjax(reviewData());
+
+
 }

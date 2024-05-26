@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.mng.location.model.vo.detail.Location;
+import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.search.service.SearchServiceImpl;
 
 @Controller

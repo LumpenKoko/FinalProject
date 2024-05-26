@@ -170,20 +170,22 @@
 .detail-main .enroll-area .input-img{
     width:20%;
     height:200px;
+    border-radius:var(--inner-border-radius);
     padding:0;
 }
-/*버튼처리*/
+/*img버튼처리*/
 .detail-main .enroll-area .input-img> .upload-label{
     width:100%;
     height:200px;
     align-items: center;
+    border-radius:var(--inner-border-radius);
     cursor: pointer;
 }
 
-.detail-main .enroll-area .input-img .upload-label>img{
+/* .detail-main .enroll-area .input-img .upload-label>img{
    margin-left:70px;
    margin-top:50px;
-}
+} */
 
 /**답글영역*/
 

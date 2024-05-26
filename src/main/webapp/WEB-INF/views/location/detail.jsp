@@ -21,7 +21,8 @@
 <script src='resources/js/location/pick/pick.js'></script>
 <script src='resources/js/location/map/map.js'></script>
 <script src='resources/js/location/map/hostpital-map.js'></script>
-
+<script src='resources/js/location/location.js'></script>
+<script src='resources/js/location/review/review.js'></script>
 
 </head>
 <%@ include file="../common/header.jsp"%>
@@ -31,18 +32,31 @@
 
 	<div class="wrapper detail-wrapper">
 		<!--헤더 이미지-->
-		<div class="header-img" style="background: url('resources/img/공간2.png') no-repeat center center/cover;">
-		    <div class="head-img-pre">
-				<button>&gt;</button>
+
+		    <c:set var="i" value="0"/>
+			<c:set var="k" value="0"/>
+
+			<div id="headerImg" class="header-img" style="background: url('${mainImg.get(i).filePath}${mainImg.get(i).changeName}')  no-repeat center center/cover;">
+				
+				
+				<c:set var="maxSize" value="${mainImg.size()}"/>
+
+				<div class="head-img-pre">
+					<button onclick="moveImg('${i=(i==0)?maxSize-1:i-1}','${mainImg.get((i%maxSize)).filePath}${mainImg.get(i).changeName}')">&gt;</button>
+					<!-- <input type="text" value="${k=i}" hidden> -->
+				</div>
+				 <div class="overlay">
+					<h1 class="gugi-regular">${location.locationName}</h1>
+				</div>
+				<div class="head-img-next">
+					<button onclick="moveImg('${k=(k==(maxSize-1))?0:k+1}','${mainImg.get((k%maxSize)).filePath}${mainImg.get(k).changeName}')">&lt;</button>
+				</div>
+				 <input type="text" value="${i=k}" hidden>
 			</div>
-		 	<div class="overlay">
-				<h1 class="gugi-regular">${location.locationName}</h1>
-			</div>
-			<div class="head-img-next">
-				<button>&lt;</button>
-			</div>
-		    <!-- <img src="resources/img/공간2.png"> -->
-		</div>
+		
+
+
+
 		<!--메인영역-->
 		<div class="main detail-main">
 			<div class="space-detail">
@@ -331,22 +345,22 @@
 						</div>
 
 						<div class="review-enroll">
-							<button class="common-button pink-button">리뷰 등록</button>
+							<button id="review-submit" class="common-button pink-button" type="button">리뷰 등록</button>
 						</div>
 					</div>
 
 					<div class="enroll-area">
 						<div class="review-section input-review">
-							<textarea  class="input-area" placeholder="내용을 입력하세요"></textarea>
+							<textarea  id="review-content" class="input-area" placeholder="내용을 입력하세요"></textarea>
 						</div>
 						<div class="review-section input-img">
-							<label for="fileInput" class="upload-label">
-								<img src="resources/img/myPage/+.png">
+							<label id="img-background" for="fileInput" class="upload-label" style="background: url(resources/img/myPage/+.png)  no-repeat center center/cover;">
+								<div  id="img-count" style="float:right; margin-top:170px; font-weight: bold; font-size:18px; color:green">0</div>
 							</label>
-							<input id="fileInput" name="file" type="file" style="display: none;">
+							<input id="fileInput" name="file" type="file" style="display: none;" onchange="fileUpload(this)">
 						</div>
 					</div>
-
+					<div id="file-list">file-list</div>
 				</div>
                    
 				<!--페이지 처리 영역-->

@@ -6,14 +6,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.mng.location.model.dao.detail.DetailDao;
-import com.kh.mng.location.model.dao.detail.PickedDao;
-import com.kh.mng.location.model.dao.detail.ReviewDao;
-import com.kh.mng.location.model.vo.detail.DetailLocation;
-import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
-import com.kh.mng.location.model.vo.detail.Location;
-import com.kh.mng.location.model.vo.detail.PickedInfo;
-import com.kh.mng.location.model.vo.detail.Review;
+import com.kh.mng.location.model.dao.DetailDao;
+import com.kh.mng.location.model.dao.PickedDao;
+import com.kh.mng.location.model.dao.ReviewDao;
+import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.vo.DetailLocation;
+import com.kh.mng.location.model.vo.DetailLocationAttachment;
+import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.Review;
 
 @Service
 public class LocationServiceImpl implements LocationService {

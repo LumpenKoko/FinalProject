@@ -1,4 +1,4 @@
-package com.kh.mng.location.model.vo.detail;
+package com.kh.mng.location.model.vo;
 
 import java.sql.Date;
 
@@ -14,9 +14,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DetailLocationAttachment {
-	private int picNo;
+	//private int picNo;
 	private String originName;
 	private String changeName;
 	private String filePath;
-	private int locationNo;
+	//private int locationNo;
 }

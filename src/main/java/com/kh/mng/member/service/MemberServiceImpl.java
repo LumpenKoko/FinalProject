@@ -4,7 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.mng.location.model.vo.detail.Location;
+import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.dao.MemberDao;
 import com.kh.mng.member.model.vo.Member;
 

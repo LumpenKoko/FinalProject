@@ -6,27 +6,27 @@
   
    <mapper namespace="attachment">
   	  <resultMap type="DetailLocationAttachment" id="detailAttachMent">
-  	  		<result column = "PICK_NO"  property="pickNo"/>
   	  		<result column = "ORIGIN_NAME" property="originName"/>
   	  		<result column = "CHANGE_NAME" property="changeName"/>
   	  		<result column = "FILE_PATH" property="filePath"/>
-  	  		<result column = "LOCATION_NO" property="locationNo"/>
   	  </resultMap>
    
    	  <select id="selectMainAttachment" resultMap="detailAttachMent">
-   	  		SELECT FILE_PATH ,
+   	  		SELECT
    	  			   ORIGIN_NAME,
-   	  			   CHANGE_NAME
+   	  			   CHANGE_NAME,
+   	  			   FILE_PATH
    	  			   FROM PICTURE 
    	  			   WHERE FILE_LEVEL = 1 and LOCATION_NO = #{space_no}
    	  </select>
    	  
    	  <select id="selectdetailAttachment" resultMap="detailAttachMent">
-   	  		SELECT FILE_PATH ,
+   	  		SELECT
    	  			   ORIGIN_NAME,
-   	  			   CHANGE_NAME
+   	  			   CHANGE_NAME,
+   	  			   FILE_PATH
    	  			   FROM PICTURE 
-   	  			   WHERE FILE_LEVEL = 2 LOCATION_NO = #{space_no}
+   	  			   WHERE FILE_LEVEL = 2  and LOCATION_NO = #{space_no}
    	  </select>
  
  	

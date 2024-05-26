@@ -68,6 +68,7 @@
         background-color: #FE8B94;
         color: white;
         
+        
     }
 
     #mid {
@@ -268,7 +269,7 @@
     #rpple-complete{
         display: flex;
         padding: 20px;
-        display: none;
+        
         
     }
     .rpple-date{
@@ -294,5 +295,14 @@
         font-weight: 700;
     }
     
-    
+    .complete-message{
+        width: 100px;
+        height: 35px;
+        margin-right: 20px;
+        border: 1px solid #BABABA;
+        border-radius: 15px;
+        background-color: #bababa;
+        color: white;
+        
+    }
     

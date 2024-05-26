@@ -12,30 +12,28 @@ function closeModal() {
     modalBackground.style.display = 'none'; // 배경 숨기기
 }
 
-function showReply() {
-    var replyDiv = document.getElementById('reply');
-    replyDiv.style.display = 'block'; // reply div 보이기
-}
-
 function closeReply() {
     var replyDiv = document.getElementById('reply');
     var replyArea = document.getElementById('replyArea');
 
+    // 답글 입력란 숨기기
     replyDiv.style.display = 'none';
     replyArea.value = '';  // 답글 입력란 내용 지우기
 
-    // 답글 영역을 보여줍니다.
-    document.getElementById('rpple-complete').style.display = 'block';
-    // 답글 입력창을 숨깁니다.
-    document.getElementById('reply').style.display = 'none';
+    // "답글 달기" 버튼 숨기기
+    document.getElementById('showReplyButton').style.display = 'none';
+    // "답글 완료" 메시지 보이기
+    document.querySelector('.complete-message').style.display = 'block';
 
+    // 답글 완료 섹션 보이기
+    document.getElementById('rpple-complete').style.display = 'flex';
 }
 
 function showReply() {
     var replyDiv = document.getElementById('reply');
     var replyArea = document.getElementById('replyArea');
-    
-    // 답글 입력란이 보이는지 확인
+
+    // 답글 입력란 표시 여부 토글
     if (replyDiv.style.display === 'none' || replyDiv.style.display === '') {
         replyDiv.style.display = 'block';
     } else {
@@ -44,3 +42,11 @@ function showReply() {
     }
 }
 
+function onDeleteClick() {
+    // 답글 완료 섹션 숨기기
+    document.getElementById('rpple-complete').style.display = 'none';
+    // "답글 달기" 버튼 다시 보이기
+    document.getElementById('showReplyButton').style.display = 'block';
+    // "답글 완료" 메시지 숨기기
+    document.querySelector('.complete-message').style.display = 'none';
+}

@@ -23,14 +23,17 @@
                         <div class="title">리뷰 관리</div>
                         <div id="reviews">
                             <div id="top">
-                                <div style="margin-top: 20px; margin-left: 20px; line-height: 35px;" id="top1">
+                                <div style="margin-top: 20px; margin-left: 20px; line-height: 35px; display: flex;" id="top1">
                                     <img src="resources/img/myPage/profile.png" id="reviewsProfile">
                                     <span style="float: left; margin-left: 20px; font-size: 17px; font-weight: bold;">닉네임</span>
                                     <span style="float: left; margin-left: 20px; color: #FE8B94;">★★★★★</span>
                                     <span style="float: left; margin-left: 20px; font-size: 15px; color: #bababa;">2024.05.10</span>
-                                    <button onclick="showReply()" style="margin-left: 60px;">
+                                    <button id="showReplyButton" onclick="showReply()" style="margin-left: 60px;">
                                         답글 달기
                                     </button>
+                                    <div class="complete-message" style="margin-left: 60px; display: none;">
+                                        <p contenteditable="showReplyButton">답글 완료</p>
+                                    </div>
                                     <button onclick="giveCoupon()">
                                         쿠폰 발급
                                     </button>
@@ -50,9 +53,9 @@
                                 <button id="replySubmit" onclick="closeReply()">등록</button>
                             </div>
                             <!-- 답글 내용 -->
-                            <div id="rpple-complete">
+                            <div id="rpple-complete" style="display: none;">
                                 <div class="rpple-date">asdfgsdfg</div>
-                                <button class="rpple-removal">
+                                <button onclick="onDeleteClick()" class="rpple-removal">
                                     삭제
                                 </button>
                             </div>

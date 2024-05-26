@@ -33,6 +33,7 @@
  		<mapper resource="/mappers/location/location-mapper.xml"/>
  		<mapper resource="/mappers/location/review-mapper.xml"/>
  		<mapper resource="/mappers/location/attachment-mapper.xml"/>
+ 		<mapper resource="/mappers/search-mapper.xml"/>
  	</mappers>
  	
     

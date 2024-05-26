@@ -51,8 +51,10 @@
     </div>
 
     <div id="header-search" >
-        <input type="text" placeholder="장소를 검색하세요" style="text-align:left;">
-        <button id="header-search-button" type="button">🔍</button>
+        <form action="<%=contextPath%>/searchKeyword.pl">
+            <input type="text" name="keyword" placeholder="장소를 검색하세요" style="text-align:left;">
+            <button id="header-search-button" type="submit">🔍</button>
+        </form>
     </div>
 
    <!-- 로그여부 조건 처리 필요 -->

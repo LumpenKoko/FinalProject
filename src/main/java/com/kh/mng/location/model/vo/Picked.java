@@ -1,4 +1,4 @@
-package com.kh.mng.location.model.vo.detail;
+package com.kh.mng.location.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

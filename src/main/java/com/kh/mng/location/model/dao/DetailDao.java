@@ -1,13 +1,13 @@
-package com.kh.mng.location.model.dao.detail;
+package com.kh.mng.location.model.dao;
 
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.mng.location.model.vo.detail.DetailLocation;
-import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
-import com.kh.mng.location.model.vo.detail.Review;
+import com.kh.mng.location.model.vo.DetailLocation;
+import com.kh.mng.location.model.vo.DetailLocationAttachment;
+
 
 @Repository
 public class DetailDao {

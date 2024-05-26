@@ -7,8 +7,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PickedInfo {
-	private int locationNo;
-	private int userNo;
-	private char status;
+public class ReviewInfo {
+	private int starCount;
+	private String content;
+	
 }

@@ -21,17 +21,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.kh.mng.location.model.vo.detail.DetailLocation;
-import com.kh.mng.location.model.vo.detail.DetailLocationAttachment;
-import com.kh.mng.location.model.vo.detail.Location;
-import com.kh.mng.location.model.vo.detail.PickedInfo;
-import com.kh.mng.location.model.vo.detail.Review;
+import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.vo.DetailLocation;
+import com.kh.mng.location.model.vo.DetailLocationAttachment;
+import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
 
 @Controller
 public class LocationController {
 	@Autowired 
 	private LocationService detailService;
+	
+	
+	@GetMapping("/chat")
+	public String ChatList() {
+		
+		return "chat/chat";
+	}
+
 	
 	@GetMapping("/detail")
 	public String DetailLocation(@RequestParam(value="spaceNo",defaultValue="1") int spaceNo,Model model) {
@@ -42,7 +50,7 @@ public class LocationController {
 	  	DetailLocation detailLocation =  detailService.selectDetailLocation(spaceNo);
 	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(spaceNo);
     	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(spaceNo);
-    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailMainImg(spaceNo);
+    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(spaceNo);
 //		System.out.println(detailLocation);
 		System.out.println(reviews);
 		System.out.println(mainImg);
@@ -123,27 +131,25 @@ public class LocationController {
 	    return new Gson().toJson(status);
 	}
 	
-		
-	@GetMapping("/chat")
-	public String ChatList() {
-		
-		return "chat/chat";
-	}
 	
-	
-	
-	//file upload
+	//Review ,file upload
 	@PostMapping("/insertReview")
-	public String insertBoard(MultipartFile upfile,HttpSession session,Model model) {
+	@ResponseBody
+	public String insertBoard(@RequestParam("files")MultipartFile[] upfile,
+			 				  @RequestParam("content") String content,
+			 				  @RequestParam("starCount") String starCount,
+			                  HttpSession session,Model model) {
 	
-		
-		
-		if(!upfile.getOriginalFilename().equals("")) {
-			String changeName = saveFile(upfile,session);
-		
-		}
+		System.out.println(upfile);
+		System.out.println(content);
+		System.out.println(starCount);
+//		
+//		if(!upfile.getOriginalFilename().equals("")) {
+//			String changeName = saveFile(upfile,session);
+//		
+//		}
 			
-	   return "location/detail";
+	   return "ok";
 	
 	}
 	

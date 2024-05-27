@@ -34,4 +34,9 @@ public class bossPageController {
 	public String bossPageReviews() {
 		return "bosspage/bossPageReviews";
 	}
+	
+	@RequestMapping(value="bossCouponPage.bc")
+	public String bossCouponPage() {
+		return "bosspage/bossCouponPage";
+	}
 }

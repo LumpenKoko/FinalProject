@@ -57,6 +57,6 @@ function bosspageInit(path){
             companyImg.src = path + "/resources/img/myPage/+.png";
         }
     }
-    // companyfile.addEventListener('change', getImageFiles);
+    
 }
 

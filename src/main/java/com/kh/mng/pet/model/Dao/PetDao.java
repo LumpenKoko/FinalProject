@@ -10,4 +10,8 @@ public class PetDao {
 	public int insertPet(SqlSessionTemplate sqlSession, Pet p) {
 		return sqlSession.insert("petMapper.insertPet", p);
 	}
+	
+	public int updatePet(SqlSessionTemplate sqlSession, Pet p) {
+		return sqlSession.update("petMapper.updatePet", p);
+	}
 }

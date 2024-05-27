@@ -169,7 +169,7 @@
     flex-direction: column;
 }
 
-#nameInput {
+#petName {
     border: 1px solid #bababa;
     border-radius: 15px;
     float: left;
@@ -177,7 +177,7 @@
     height: 50px;
 }
 
-#category {
+#petSizeNo {
     border: 1px solid #bababa;
     border-radius: 15px;
     float: left;
@@ -185,7 +185,7 @@
     height: 50px;
 }
 
-#birth {
+#petBirthday {
     border: 1px solid #bababa;
     border-radius: 15px;
     float: left;

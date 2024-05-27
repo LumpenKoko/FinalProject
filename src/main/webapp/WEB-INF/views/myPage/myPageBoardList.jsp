@@ -63,7 +63,7 @@
                                 <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'"
                                     id="shorts">쇼츠</span>
                             </div>
-                            <div id="right2">
+                            <div id="right2" onclick="location.href='<%=request.getContextPath()%>/community'" style="cursor: pointer;">
                                 <div id="right2-left">
                                     <div style="height: 45px;">
                                         <span id="category">여행/숙소</span>
@@ -83,7 +83,7 @@
                                     <div id="right2-right-top">
                                         <img src="resources/img/myPage/board.png">
                                     </div>
-                                    <div id="right2-right-bottom">
+                                    <div id="right2-right-bottom" style="margin-left: 85px;">
                                         <span style="color: #bababa; cursor: pointer;" onclick="">수정</span>
                                         <span style="color: #bababa; cursor:default;">｜</span>
                                         <span style="color: #bababa; cursor: pointer;" onclick="">삭제</span>

@@ -77,11 +77,11 @@
                                         </div>
                                         <div style="margin-top: 30px;">
                                             <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">생일</p>
-                                            <input type="date" id="birth">
+                                            <input type="date" id="petBirthday">
                                         </div>
                                         <div style="margin-top: 30px;">
                                             <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">크기</p>
-                                            <select name="category" id="category">
+                                            <select name="petSizeNo" id="petSizeNo">
                                                 <option value="소형견">소형견</option>
                                                 <option value="중형견">중형견</option>
                                                 <option value="대형견">대형견</option>
@@ -89,9 +89,9 @@
                                             </select>
                                         </div>
                                         <div id="gender-input">
-                                            <input type="radio" name="gender" id="men" value="남아">
+                                            <input type="radio" name="petGender" id="men" value="M">
                                             <label for="men">남아</label>
-                                            <input type="radio" name="gender" id="women" value="여아">
+                                            <input type="radio" name="petGender" id="women" value="F">
                                             <label for="women">여아</label>
                                         </div>
                                         <button type="submit" id="update" style="margin-top: 50px;">삭제</button>

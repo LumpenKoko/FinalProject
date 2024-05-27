@@ -57,9 +57,9 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <form action="" id="petSighUp">
-                                <h1 style="margin-top: 50px;">반려동물 등록</h1>
-                                <p style="margin-top: 40px; font-size: 17px;">반려동물 정보를 입력해<br>행복한 멍냥 가이드를 누려보세요</p>
+                            <form action="<%=request.getContextPath()%>/insertPet.mp" id="petSighUp" method="POST">
+                                <h1 style="margin-top: 50px; text-align: center;">반려동물 등록</h1>
+                                <p style="margin-top: 40px; font-size: 17px; text-align: center;">반려동물 정보를 입력해<br>행복한 멍냥 가이드를 누려보세요</p>
                                 <div
                                     style="margin-left: 100px; margin-top: 30px; font-size: 21px; display: flex; flex-direction: column;">
                                     <div style="margin-top: 40px;">
@@ -69,11 +69,11 @@
                                             항목입니다</span>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="이름을 입력하세요" id="nameInput">
+                                        <input type="text" placeholder="이름을 입력하세요" id="petName" style="font-size: 17px; padding-left: 30px;">
                                     </div>
                                 </div>
                                 <div style="margin-left: 100px; margin-top: 40px; font-size: 21px;">
-                                    <select name="category" id="category">
+                                    <select name="petSizeNo" id="petSizeNo" style="font-size: 17px; padding-left: 30px;">
                                         <option value="소형견">소형견</option>
                                         <option value="중형견">중형견</option>
                                         <option value="대형견">대형견</option>
@@ -82,12 +82,12 @@
                                 </div>
                                 <div style="margin-left: 100px; font-size: 21px; margin-top: 40px;">
                                     <span style="float: left;">생일</span><br>
-                                    <input type="date" id="birth">
+                                    <input type="date" id="petBirthday" style="font-size: 17px; padding-left: 30px; padding-right: 30px;">
                                 </div>
                                 <div id="gender-input">
-                                    <input type="radio" name="gender" id="men" value="남아">
+                                    <input type="radio" name="petGender" id="men" value="M">
                                     <label for="men">남아</label>
-                                    <input type="radio" name="gender" id="women" value="여아">
+                                    <input type="radio" name="petGender" id="women" value="F">
                                     <label for="women">여아</label>
                                 </div>
                                 <!-- <div style="margin-left: 100px; font-size: 21px; margin-top: 40px;">

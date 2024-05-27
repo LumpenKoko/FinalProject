@@ -28,4 +28,19 @@ public class PetController {
 			return "common/errorPage";
 		}
 	}
+	
+	@PostMapping("/updatePet.mp")
+	public String updatePet(Pet p, HttpSession session, Model model) {
+		
+		int result = petService.updatePet(p);
+		
+		if (result > 0) {
+			session.setAttribute("pet", p);
+			session.setAttribute("alertMsg", "반려동물 정보 수정 성공");
+			return "redirect:/myPage.me";
+		} else {
+			model.addAttribute("errorMsg", "반려동물 정보 수정 실패");
+			return "common/errorPage";
+		}		
+	}
 }

@@ -21,4 +21,8 @@ public class PetServiceImpl implements PetService {
         return petDao.insertPet(sqlSession, p);
     }
 
+	@Override
+	public int updatePet(Pet p) {
+		return petDao.updatePet(sqlSession, p);
+	}
 }

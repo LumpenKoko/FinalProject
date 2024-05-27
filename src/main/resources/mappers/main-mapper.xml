@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+ 
+<mapper namespace="mainMapper">
+	<resultMap type="Member" id="memberResult">
+		<result column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_PWD" property="userPwd"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="USER_NICKNAME" property="userNickname"/>
+		<result column="USER_GENDER" property="userGender"/>
+		<result column="USER_EMAIL" property="userEmail"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="USER_BIRTHDAY" property="userBirthday"/>
+		<result column="USER_PHONE" property="userPhone"/>
+		<result column="USER_KIND" property="userKind"/>
+</resultMap>
+   <resultMap type="DetailLocation" id="detailLocation">
+	<result column="LOCATION_NO" property="locationNo"/>
+	<result column="LOCATION_NAME" property="locationName"/>
+	<result column="LOCATION_PHONE" property="locationPhone"/>
+	<result column="EXPLANATION" property="explanation"/>
+	<result column="LOCATION_STAR" property="locationStar"/>
+	<result column="RESERVATION_LINK" property="reservationLink"/>
+	<result column="ADDRESS" property="address"/>
+	<result column="GOODS" property="goods"/>
+	<result column="GOODS_PRICE" property="goodPrice"/>
+	<result column="ROOM_INFO" property="roomInfo"/>
+	<result column="DAYS" property="day"/>
+	<result column="CAPACITY" property="capacity"/>
+	<result column="LOCATION_CATEGORY_NO" property="locatonCategoryNo"/>
+	<result column="CATEGORY_NAME" property="categoryName"/>
+	<result column="START_TIME" property="startTime"/>
+	<result column="END_TIME" property="endTime"/>
+	<result column="REST_STATUS" property="restStatus"/>
+	<result column="KIND_NAME" property="kindName"/>
+  </resultMap>
+    <resultMap type="Attachment" id="attachmentResult">
+		<result column="PIC_NO" property="picNo"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="LOCATION_OPTION_NO" property="locationOptionNo"/>
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="PET_NO" property="petNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+   </resultMap>
+   <!-- 
+	<select id="selectLocationTop" resultMap="detailLocation">
+		SELECT *
+		FROM (
+		SELECT LOCATION_NO,
+			   LOCATION_NAME,
+			   LOCATION_STAR,
+			   ADDRESS,
+			   LOCATION_CATEGORY_NAME
+		  FROM LOCATION LO
+		 INNER JOIN LOCATION_CATEGORY LC
+		 	   ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+		 WHERE STATUS = 'true'
+		 ORDER BY LOCATION_STAR
+		<choose>
+			<when test="locNum == 1">
+				AND LC.LOCATION_CATEGORY_NAME = '식당'
+			</when>
+			<when test="locNum == 2">
+				AND LC.LOCATION_CATEGORY_NAME = '카페'
+			</when>
+			<when test="locNum == 3">
+				AND LC.LOCATION_CATEGORY_NAME = '숙소'
+			</when>
+		</choose>)
+	</select>	
+	
+ -->
+</mapper>

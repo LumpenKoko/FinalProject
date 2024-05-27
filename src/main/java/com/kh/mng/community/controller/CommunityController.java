@@ -30,4 +30,9 @@ public class CommunityController {
 	public String enrollBoard() {
 		return "community/writingPage";
 	}
+	
+	@RequestMapping(value="shortsBoard.bo")
+	public String shortsBoard() {
+		return "community/shortsBoard";
+	}
 }

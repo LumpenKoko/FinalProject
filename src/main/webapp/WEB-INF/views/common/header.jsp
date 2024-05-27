@@ -51,7 +51,7 @@
     </div>
 
     <div id="header-search" >
-        <form action="<%=contextPath%>/searchKeyword.pl">
+        <form action="<%=contextPath%>/searchKeyword.pl?cpage=1">
             <input type="text" name="keyword" placeholder="장소를 검색하세요" style="text-align:left;">
             <button id="header-search-button" type="submit">🔍</button>
         </form>

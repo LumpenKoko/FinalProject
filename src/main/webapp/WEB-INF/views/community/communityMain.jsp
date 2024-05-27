@@ -19,7 +19,7 @@
                 <div class="title-box flex-box short-title-height">
                     <div class="minibox-title">쇼츠</div>
                     <div>
-                        <button class="common-button white-button">더보기</button>
+                        <a href="<%=request.getContextPath()%>/shortsBoard.bo"><button class="common-button white-button">더보기</button></a>
                         <a href="<%=request.getContextPath()%>/enrollShorts.bo"><button class="common-button pink-button">쇼츠 등록</button></a>
                     </div>
                 </div>

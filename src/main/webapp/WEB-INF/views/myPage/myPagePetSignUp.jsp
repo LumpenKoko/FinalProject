@@ -57,7 +57,7 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <form action="<%=request.getContextPath()%>/insertPet.mp" id="petSighUp" method="POST">
+                            <form action="insertPet.mp" id="petSignUp" method="POST">
                                 <h1 style="margin-top: 50px; text-align: center;">반려동물 등록</h1>
                                 <p style="margin-top: 40px; font-size: 17px; text-align: center;">반려동물 정보를 입력해<br>행복한 멍냥 가이드를 누려보세요</p>
                                 <div
@@ -65,11 +65,9 @@
                                     <div style="margin-top: 40px;">
                                         <span style="float: left; margin-bottom: 0px;">이름</span>
                                         <span style="color: #FE8B94; float: left; margin-bottom: 0px;">*</span>
-                                        <span style="color: red; float: left; margin-left: 30px;" id="nameHidden">필수
-                                            항목입니다</span>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="이름을 입력하세요" id="petName" style="font-size: 17px; padding-left: 30px;">
+                                        <input type="text" placeholder="이름을 입력하세요" id="petName" style="font-size: 17px; padding-left: 30px;" name="petName">
                                     </div>
                                 </div>
                                 <div style="margin-left: 100px; margin-top: 40px; font-size: 21px;">
@@ -82,7 +80,7 @@
                                 </div>
                                 <div style="margin-left: 100px; font-size: 21px; margin-top: 40px;">
                                     <span style="float: left;">생일</span><br>
-                                    <input type="date" id="petBirthday" style="font-size: 17px; padding-left: 30px; padding-right: 30px;">
+                                    <input type="date" id="petBirthday" style="font-size: 17px; padding-left: 30px; padding-right: 30px;" name="petBirthday">
                                 </div>
                                 <div id="gender-input">
                                     <input type="radio" name="petGender" id="men" value="M">

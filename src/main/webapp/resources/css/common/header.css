@@ -2,7 +2,7 @@
     box-sizing: border-box;
     width: 1920px;
     height: 120px;
-    margin: 0px auto 10px auto;
+    margin: 0px auto 10PX auto;
     display: flex;
     align-items: center;
     justify-content: space-between; /* space-between사용 */

@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Insert title here</title>
-        <%@ include file="./common/common-file.jsp"%>
+        <%@ include file="../common/common-file.jsp"%>
 
         <link rel="stylesheet" href="resources/css/myPage/myPageMain.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />

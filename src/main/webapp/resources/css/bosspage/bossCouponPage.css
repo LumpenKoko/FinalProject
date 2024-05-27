@@ -2,6 +2,10 @@
     /* border: 1px rsolid rgb(208, 240, 253); */
 }
 
+table{
+    text-align: center;
+}
+
 .privacy-page *{
     font-size: 15px;
 }
@@ -24,6 +28,7 @@
 
 .coupon-content input{
     margin: 0px;
+    height: 35px;
 }
 
 .coupon-title{
@@ -78,9 +83,15 @@
 
 
 /* 쿠폰 삭제 모달창 */
+#delete-coupon{
+    text-align: center;
+    
+}
+
 #delete-coupon-title{
     font-size: 24px;
     margin: 20px 0px;
+    
 }
 
 #delete-coupon-content{
@@ -97,4 +108,7 @@
 .modal-body>button{
     width: 150px;
     margin: 0px 10px 30px 10px;
+}
+.minibox-input{
+    resize: none;
 }

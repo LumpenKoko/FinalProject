@@ -450,13 +450,13 @@
                                     <p>반려동물 종류 및 크기(*필수*)</p>
                                     <div id="animal-check">
                                         <p>소형견</p>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="소형견">
                                         <p>중형견</p>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="중형견">
                                         <p>대형견</p>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="대형견">
                                         <p>고양이</p>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="고양이">
                                     </div>
                                 </div>
                                 <div id="reservation-link">

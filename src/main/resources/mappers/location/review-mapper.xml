@@ -20,9 +20,15 @@
    	  <result column="OWNER_ENROLL" property="ownerEnroll"/>
    </resultMap>
    
-    <select id="selectDetailReviewList" resultMap="detailReview">
-    	
-		   SELECT   R.REVIEW_NO,
+   
+   <resultMap type="Attachment" id="reviewAttachment">
+	   		<result column="ORIGIN_NAME" property="originName"/>
+	   		<result column="CHANGE_NAME" property="changeName"/>
+	   		<result column="FILE_PATH" property="filePath"/>
+  </resultMap>
+   
+   <select id="selectDetailReviewList" resultMap="detailReview">
+     SELECT   R.REVIEW_NO,
 	    	   	    REVIEW_STAR,
 	    	        REVIEW_CONTENT,
     			    R.ENROLL_DATE,
@@ -39,9 +45,61 @@
 		    	    LEFT JOIN OWNER_REPLY O
 		    	    ON (R.REVIEW_NO = O.REVIEW_NO)
 		    	    WHERE L.LOCATION_NO = #{spaceNo} AND L.STATUS = true
-    	    
+   </select>
+    
+    <select id="selectAttachment" resultMap="reviewAttachment">
+    		SELECT ORIGIN_NAME,
+    			   CHANGE_NAME,
+    			   FILE_PATH 
+    			   FROM PICTURE
+    			   WHERE REVIEW_NO = #{reviewNo}
+   </select>
+    
+      <select id="insertReview" resultType="_int">
+    		INSERT INTO 
+    		REVIEW 
+    		  (REVIEW_NO,
+    		  REVIEW_STAR,
+    		  REVIEW_CONTENT,
+    		  ENROLL_DATE,
+    		  MODIFY_DATE,
+    		  STATUS,
+    		  USER_NO,
+    		  LOCATION_NO
+    		  )
+    		VALUES(
+    			NEXTVAL('SEQ_REV'),
+    			#{starCount},
+    			#{content},
+    			DEFAULT,
+    			NULL,
+    			DEFAULT,
+    			#{userNo},
+    			#{spaceNo}
+    		);
+    </select>
+    
+     <select id="insertAttachment" resultType="_int">
+         INSERT INTO
+         PICTURE(
+         	PIC_NO,
+         	ORIGIN_NAME,
+         	CHANGE_NAME,
+         	FILE_PATH,
+         	FILE_LEVEL,
+         	REVIEW_NO
+         )
+         VALUES
+           (NEXTVAL('SEQ_PIC'),
+           #{originName},
+           #{changeName},
+           #{path},
+           DEFAULT,
+           CURRVAL('SEQ_REV')
+          )
+         
     </select>
 
  	</mapper>
- 
+ 	
  

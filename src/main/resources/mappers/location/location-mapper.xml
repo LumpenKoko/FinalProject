@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+   <mapper namespace="location">
+  	
+    <resultMap type="DetailLocation" id="detailLocation">
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="LOCATION_NAME" property="locationName"/>
+		<result column="LOCATION_PHONE" property="locationPhone"/>
+		<result column="EXPLANATION" property="explanation"/>
+		<result column="LOCATION_STAR" property="locationStar"/>
+		<result column="RESERVATION_LINK" property="reservationLink"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="GOODS" property="goods"/>
+		<result column="GOODS_PRICE" property="goodPrice"/>
+		<result column="ROOM_INFO" property="roomInfo"/>
+		<result column="DAYS" property="day"/>
+		<result column="CAPACITY" property="capacity"/>
+		<result column="LOCATION_CATEGORY_NO" property="locationCategoryNo"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="START_TIME" property="startTime"/>
+		<result column="END_TIME" property="endTime"/>
+		<result column="REST_STATUS" property="restStatus"/>
+		<result column="KIND_NAME" property="kindName"/>
+		
+   </resultMap>
+   
+ 
+ 	<!-- 장소상세 -->
+ 
+   <select id="selectDetailList" resultMap="detailLocation">
+	   	SELECT  L.LOCATION_NO,
+	   				LOCATION_NAME,
+	   				LOCATION_PHONE,
+	   				EXPLANATION,
+	   				LOCATION_STAR,
+	   				RESERVATION_LINK,
+	   				ADDRESS,
+	   				GOODS,
+	   				GOODS_PRICE,
+	   				ROOM_INFO,
+	   				DAYS,
+	   				CAPACITY,
+	   				L.LOCATION_CATEGORY_NO,
+	   				CATEGORY_NAME,
+	   				START_TIME,
+	   				END_TIME,
+	   				REST_STATUS,
+	                KIND_NAME
+	       FROM LOCATION L 
+	       JOIN LOCATION_OPTION O
+	       ON (O.LOCATION_NO = L.LOCATION_NO)
+	       JOIN LOCATION_CATEGORY C
+		   ON (C.LOCATION_CATEGORY_NO = L.LOCATION_CATEGORY_NO)
+		   JOIN OPERATION_TIME T
+		   ON (T.LOCATION_NO = L.LOCATION_NO)
+	      JOIN 
+			(
+			SELECT LOCATION_NO AS LN , PET_KIND_NAME AS KIND_NAME FROM ENTER_GRADE E 
+			JOIN PET_SIZE P ON (E.PET_SIZE_NO = P.PET_SIZE_NO)
+			JOIN PET_KIND K ON (K.PET_KIND_NO = P.PET_KIND_NO)
+			) P
+		  ON (L.LOCATION_NO=P.LN) WHERE L.LOCATION_NO = #{locationNo} AND STATUS = true
+
+    </select>
+    
+    <insert id="insertLocation">
+      INSERT INTO LOCATION
+         (
+         LOCATION_NO,
+         LOCATION_NAME,
+         LOCATION_PHONE,
+         EXPLANATION,
+         BUSINESS_NO,
+         ADDRESS,
+         USER_NO,
+         LOCATION_CATEGORY_NO
+         )
+      VALUES
+         (
+         NEXTVAL('SEQ_LOC'),
+         #{locationName},
+         #{locationPhone},
+         #{explanation},
+         #{businessNo},
+         #{address},
+         #{userNo},
+         #{locationCategoryNo}
+         )
+   </insert>
+  
+
+ 	</mapper>
+ 
+ 

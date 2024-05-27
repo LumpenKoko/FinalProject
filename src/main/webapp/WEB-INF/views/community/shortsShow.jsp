@@ -26,13 +26,42 @@
             const item = document.createElement('div');
             item.className = 'shorts-view tmp-box';
             item.innerHTML = `
-            <div class="shorts-content">
+            <div class="shorts-content" id="shorts-content`+ num + `">
                 <img style="width: 100%; height: 100%;" src="resources/img/review.jpg" alt="숏츠이미지">
-                <div class="text-overlay"><b>썸네일 설명들</b></div>
+                <div class="text-overlay">
+                    <b>썸네일 설명들</b>
+                    <button class="comment-button" data-index="`+ num + `" data-toggle="true">댓글보기</button>
+                </div>
             </div>
+            <div id="shorts-comment`+ num + `" class="shorts-comment tmp-box flex-box">댓글들..~</div>
             `;
             return item;
         }
+
+        // 댓글 오른쪽으로 나오게 하는 함수
+        $(document).ready(function(){
+            let isVisible = false;
+
+            $('.comment-button').click(function(ev){
+               
+                const btn = ev.target;
+                const index = btn.dataset.index;
+                btn.dataset.toggle = btn.dataset.toggle === "true" ? "false" : "true";
+                const toggle = btn.dataset.toggle;
+             
+            
+               
+                if (toggle === "true") {
+                    $("#shorts-comment" + index).animate({right: '30%'}, 'slow');
+                    $("#shorts-content" + index).animate({left: '30%'}, 'slow');
+                } else {
+                    $("#shorts-comment" + index).animate({right: '10%'}, 'slow');
+                    $("#shorts-content" + index).animate({left: '10%'}, 'slow');
+                }
+                
+            });
+        });
+
 
         // 더미 데이터 로딩 함수
         function loadItems(numItems = 10) {

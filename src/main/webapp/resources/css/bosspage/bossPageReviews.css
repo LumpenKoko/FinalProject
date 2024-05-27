@@ -31,6 +31,7 @@
         height: auto;
         margin-left: 5%;
         border-radius: 15px;
+        text-align: center;
     }
 
     .title {
@@ -38,14 +39,14 @@
         background: #EFEFEF;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
-        border-bottom: 1px solid #BABABA;
         font-weight: 700;
         font-size: 21px;
         line-height: 70px;
+        border-bottom: 1px solid #BABABA;
+        
     }
 
     #reviews {
-        border: 1px solid #BABABA;
         width: 100%;
         height: auto;
         display: flex;
@@ -66,7 +67,8 @@
         border-radius: 15px;
         background-color: #FE8B94;
         color: white;
-        line-height: 35px;
+        
+        
     }
 
     #mid {
@@ -99,11 +101,12 @@
         border: 1px solid #bababa;
         border-radius: 15px;
         margin-bottom: 20px;
+        padding: 20px;
     }
 
     #replySubmit {
         width: 91px;
-        height: 34px;
+        height: 114px;
         border: 1px solid #bababa;
         background-color: #FE8B94;
         color: white;
@@ -182,6 +185,7 @@
         text-align: center;
         border-bottom: 1px solid #BABABA;
         line-height: 53px;
+        
     }
 
     #coupon-title {
@@ -262,5 +266,43 @@
         font-weight: bold;
         border-radius: 15px;
     }
+    #rpple-complete{
+        display: flex;
+        padding: 20px;
+        
+        
+    }
+    .rpple-date{
+        resize: none;
+        width: 502px;
+        height: 114px;
+        margin-right: auto;
+        border: 1px solid #bababa;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: #EFEFEF;
+        text-align: left;
+    }
+    .rpple-removal{
+        width: 94px;
+        height: 114px;
+        border: 1px solid #bababa;
+        background: #FE8B94;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        font-weight: 700;
+    }
     
+    .complete-message{
+        width: 100px;
+        height: 35px;
+        margin-right: 20px;
+        border: 1px solid #BABABA;
+        border-radius: 15px;
+        background-color: #bababa;
+        color: white;
+        
+    }
     

@@ -12,6 +12,7 @@ public class CommunityController {
 	
 	@RequestMapping(value="shortsView.bo")
 	public String detailShortsView() {
+		
 		return "community/shortsShow";
 	}
 	

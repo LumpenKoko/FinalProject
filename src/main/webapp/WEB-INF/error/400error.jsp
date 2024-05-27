@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사용자에러 - 400</title>
+    <title>잘못된 주소</title>
     <link rel="stylesheet" href="404.css">
     <style>
 			body{
@@ -56,8 +56,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>400</h1>
-        <p>사용자 에러입니다~~</p>
+        <h1>잘못된 값</h1>
+        <p>경로를 잘못 입력하셨습니다.</p>
         <a href="<%=request.getContextPath()%>">홈으로 돌아가기</a>
     </div>
 </body>

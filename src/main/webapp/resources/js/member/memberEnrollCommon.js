@@ -1,14 +1,10 @@
-function init(path){
+function memberEnrollCommon(path){
     let contextPath = path;
     let allButton = document.querySelector("#check-agree-all");
     let agreeButton = document.querySelectorAll(".check-box>input");
 
     // 전체 동의 선택 시 전체 선택, 취소
-    allButton.onchange = function(){
-        for (let agree of agreeButton){
-            agree.checked = allButton.checked;
-        }
-    }
+    allButton.onchange = checkAgreeAll(agreeButton);
 
     for(let agree of agreeButton){
         // agree.addEventListener('change', agreeCheck)
@@ -27,7 +23,6 @@ function init(path){
             allButton.checked = allCheck;
         }
     }
-    
     let userId;
     // 아이디 중복 확인
     document.querySelector("#id-check").onclick = function(){
@@ -110,6 +105,40 @@ function init(path){
         selectF.style.color = "black";
     }
 
+
+    let selectInput = document.querySelector("#email-select-box");
+    let preInput = document.querySelector("#email-pre");
+    let postInput = document.querySelector("#email-post");
+    let userEmail = document.querySelector("[name='userEmail'");
+    
+    // postInput 기본값 지정
+    postInput.value = "직접입력";
+    postInput.disabled = false;
+
+    // 이메일 select 박스 선택 시 input 창 값 변경 및 활성화 여부
+    selectInput.onchange = function(){
+        postInput.value = selectInput.value;
+
+        if (selectInput.value == "직접입력"){
+            postInput.disabled = false;
+        } else {
+            postInput.disabled = true;
+        }
+
+        changeEmail();
+    }
+
+    // 이메일 value 넘기기
+    preInput.onchange = changeEmail;
+    selectInput.addEventListener = ('change', changeEmail);
+    preInput.onkeyup = changeEmail;
+    postInput.onkeyup = changeEmail;
+
+    function changeEmail(){
+        console.log("dhkTek")
+        userEmail.value = preInput.value + "@" + postInput.value;
+    }
+
     // 모든 항목 기입 시 버튼 활성화
 
 
@@ -126,5 +155,11 @@ function init(path){
                 console.log("정보를 불러오는데 실패 했습니다.");
             }
         })
+    }
+}
+
+function checkAgreeAll(agreeButton){
+    for (let agree of agreeButton){
+        agree.checked = allButton.checked;
     }
 }

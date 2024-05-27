@@ -24,11 +24,11 @@
 
 				<div id="member-select-box">
 					<div class="member-select-category gray-round-box" id="kindCommon">
-						<div class="padding-category"><img src="resources/member/commonMember.png" alt=""></div>
+						<div class="padding-category"><img src="resources/img/member/commonMember.png" alt=""></div>
 						<span>일반회원</span>
 					</div>
 					<div class="member-select-category gray-round-box" id="kindBoss">
-						<div class="padding-category"><img src="resources/member/adminMember.png" alt=""></div>
+						<div class="padding-category"><img src="resources/img/member/adminMember.png" alt=""></div>
 						<span>사장회원</span>
 					</div>
 				</div>

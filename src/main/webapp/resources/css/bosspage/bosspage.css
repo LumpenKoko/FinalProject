@@ -103,6 +103,17 @@ display: flex;
     font-weight: 700;
 }
 
+#boss-drawal-modal{
+    width: 426px;
+    height: auto;
+    text-align: center;
+    border: 1px solid #BABABA;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+
+
 
 
 

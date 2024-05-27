@@ -81,7 +81,7 @@
                                 <button onclick="" id="boss-edit">수정</button>
                             </div>
                             <div id="edit-option">
-                                <button style="margin-right: auto;">비밀번호 변경</button>
+                                <button style="margin-right: auto;" onclick="">비밀번호 변경</button>
                                 <button>가게 삭제 및 탈퇴</button>
                             </div>
                         </div>
@@ -89,7 +89,34 @@
                     </div>
                 </div>
             </div>
+            
+            <div id="boss-drawal-modal">
+                <div>
+                    <p style="font-weight: 700; font-size: 30px;">가게 삭제 및 탈퇴</p>
+                </div>
+                <div>
+                    탈퇴하신 후에는 해당 회원정보로<br>
+                    활동 하실수 없습니다.<br>
+                    작성하신 게시물에 대해서는<br>
+                    일괄 삭제됨을 알려드리며<br>
+                    정보 복구가 불가능한점<br>
+                    양해 부탁드립니다.<br><br>
+                    다시 사이트의 이용을위해선<br>
+                    귀하의 사업자 번호와 실명인증을<br>
+                    통해 다시 가입을 해주셔야<br>
+                    정상적인 이용이 가능합니다.<br><br>
+                    정말로 탈퇴를 하시겠습니까?
+                </div>
+                <div>
+                    <p>비밀번호</p>
+                    <input type="password">
+                </div>
+                <div>
+                    <button>탈퇴</button>
+                    <button>취소</button>
+                </div>
 
+            </div>
 
             <%@ include file="../common/footer.jsp" %>
 

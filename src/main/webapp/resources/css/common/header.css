@@ -2,15 +2,14 @@
     box-sizing: border-box;
     width: 1920px;
     height: 120px;
-    margin: 0px auto 10PX auto;
+    margin: 10px auto;
     display: flex;
     align-items: center;
     justify-content: space-between; /* space-between사용 */
     padding: 0 40px;
     border-bottom: 1px solid var(--border-color);
     background-color: var(--white-color);
-    position: fixed;
-    z-index: 10;
+ 
 }
 
 /* 로고 섹션 */

@@ -1,6 +1,9 @@
 package com.kh.mng.location.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import com.kh.mng.common.model.vo.Attachment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +29,8 @@ public class Location {
 	private Date modifyDate;
 	private boolean status;
     private int userNo;
-	private int locationCategoryNo;
+	private String locationCategoryNo;
+	private ArrayList<Attachment> atList;
+	private ArrayList<EnterGrade> enterList;
 	
 }

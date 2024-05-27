@@ -140,6 +140,10 @@
     border-radius: var(--outer-border-radius);
 }
 
+.search-content-box:hover{
+    border: 1px solid var(--main-color);
+}
+
 .search-content-box>img{
     width: 50%;   
     height: 250px;

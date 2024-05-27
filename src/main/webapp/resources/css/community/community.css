@@ -372,9 +372,10 @@
     right: 50px;
 }
 
-.header {
+.headerbar{
     position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+    z-index: 10;
+    top: 0px;
+    background-color: white;
+    height: 140px;
 }

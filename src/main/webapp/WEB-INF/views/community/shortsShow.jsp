@@ -9,16 +9,19 @@
 	<link rel="stylesheet" href="resources/css/community/community.css"/>
 </head>
 <body>
-    <%@ include file="../common/header.jsp"%>
+    <div class="headerbar">
+        <%@ include file="../common/header.jsp"%>
+    </div>
 	<div class="wrapper">
         <div class="main">
+            <div style="height: 100px;"></div>
             <div id="container"></div>
             <div id="loader">Loading...</div>
         </div>
     </div>
 
     <script>
-        const container = document.getElementById('container');
+        const container = document.getElementById('container'); 
         const loader = document.getElementById('loader');
 
         let currentDivIndex = 0;
@@ -121,7 +124,8 @@
         function scrollToDiv(index) {
             if (index >= 0 && index < divs.length) {
                 const targetDiv = divs[index];
-                const targetPosition = targetDiv.offsetTop;
+                const headerHeight = document.querySelector('.headerbar').offsetHeight;
+                const targetPosition = targetDiv.offsetTop - headerHeight;
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'

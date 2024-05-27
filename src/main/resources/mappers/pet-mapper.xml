@@ -16,15 +16,13 @@
 	</resultMap>
 
 	<select id="selectPet" resultMap="petResult">
-		SELECT P.PET_NO,
+		SELECT
 		PET_NAME,
 		PET_BIRTHDAY,
 		PET_GENDER,
-		USER_NO,
 		PET_SIZE_NO
-		FROM PET P
-		WHERE USER_NO =
-		#{userNo}
+		FROM PET
+		WHERE USER_NO = #{userNo}
 	</select>
 
 	<update id="updatePet">

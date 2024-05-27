@@ -20,12 +20,4 @@ public class Pet {
 	private char petGender;
 	private int userNo;
 	private int petSizeNo;
-
-	public Pet(String petName, Date petBirthday, char petGender, int petSizeNo) {
-		super();
-		this.petName = petName;
-		this.petBirthday = petBirthday;
-		this.petGender = petGender;
-		this.petSizeNo = petSizeNo;
-	}
 }

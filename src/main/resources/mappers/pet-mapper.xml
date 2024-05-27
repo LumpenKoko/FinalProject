@@ -30,24 +30,27 @@
 	<update id="updatePet">
 		UPDATE PET
 		SET PET_NAME = #{petName},
-		PET_BIRTHDAY =
-		#{petBirthday},
+		PET_BIRTHDAY = #{petBirthday},
 		PET_GENDER = #{petGender},
 		PET_SIZE_NO = #{petSizeNo}
 		WHERE USER_NO = #{userNo}
 	</update>
 
 	<insert id="insertPet">
-		INSERT INTO PET(
+		INSERT INTO PET (
+		PET_NO,
 		PET_NAME,
 		PET_BIRTHDAY,
 		PET_GENDER,
+		USER_NO,
 		PET_SIZE_NO
 		)
-		VALUES(
+		VALUES (
+		NEXTVAL('SEQ_PET'),
 		#{petName},
 		#{petBirthday},
 		#{petGender},
+		#{userNo},
 		#{petSizeNo}
 		)
 	</insert>

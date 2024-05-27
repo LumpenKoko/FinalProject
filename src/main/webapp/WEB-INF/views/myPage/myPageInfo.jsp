@@ -72,11 +72,11 @@
                                   value="${loginUser.userNickname}" id="userNickname" name="userNickname">
                             </div>
                             <div id="gender-input">
-                                <input type="radio" name="userGender" id="men" value="M">
+                                <input type="radio" name="userGender" id="men" value="M" <% if ("M".equals(loginUser.getUserGender())) { %> checked <% } %>>
                                 <label for="men">남자</label>
-                                <input type="radio" name="userGender" id="women" value="F">
+                                <input type="radio" name="userGender" id="women" value="F" <% if ("F".equals(loginUser.getUserGender())) { %> checked <% } %>>
                                 <label for="women">여자</label>
-                            </div>
+                            </div>                            
                             <div id="birth-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">생년월일</p>
                                 <input type="date" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;

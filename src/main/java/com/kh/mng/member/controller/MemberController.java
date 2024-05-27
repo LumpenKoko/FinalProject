@@ -145,4 +145,18 @@ public class MemberController {
 		return "member/memberEnrollSelect";
 	}
 
+	@RequestMapping("update.mp")
+	public String updateMember(Member m, HttpSession session, Model model) {
+		
+		int result = memberService.updateMember(m);
+		
+		if (result > 0) {
+			session.setAttribute("loginUser", memberService.loginMember(m));
+			session.setAttribute("alertMsg", "개인정보 수정 성공");
+			return "redirect:/myPageInfo.mp";
+		} else {
+			model.addAttribute("errorMsg", "개인정보 수정 실패");
+			return "common/errorPage";
+		}
+	}	
 }

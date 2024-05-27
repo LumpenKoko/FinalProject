@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,16 +20,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
+
 
 @Controller
 public class LocationController {
@@ -48,11 +54,18 @@ public class LocationController {
 		//장소정보와 ,리뷰 정보도
 		// 공간 이미지를 db에서 받아온다. ,리뷰 정보도
 	  	DetailLocation detailLocation =  detailService.selectDetailLocation(spaceNo);
+	  	
+	  	
 	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(spaceNo);
+		System.out.println(reviews);
+	  	
+		//이방법으로 할것!!
+	   //DetailLocation detailLocation2 =detailService.selectDetailLocation2(spaceNo);
+	  	
     	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(spaceNo);
     	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(spaceNo);
 //		System.out.println(detailLocation);
-		System.out.println(reviews);
+	
 		System.out.println(mainImg);
 		System.out.println(detailImg);
 	    
@@ -60,6 +73,7 @@ public class LocationController {
 		model.addAttribute("review",reviews);
 		model.addAttribute("mainImg",mainImg);
 		model.addAttribute("detailImg",detailImg);
+		
 		return "location/detail";
 	}
 	
@@ -133,46 +147,63 @@ public class LocationController {
 	
 	
 	//Review ,file upload
-	@PostMapping("/insertReview")
 	@ResponseBody
-	public String insertBoard(@RequestParam("files")MultipartFile[] upfile,
-			 				  @RequestParam("content") String content,
-			 				  @RequestParam("starCount") String starCount,
+	@PostMapping(value="insertReview")
+	public String insertBoard(List<MultipartFile> files,
+							  ReviewInfo reviewInfo,
 			                  HttpSession session,Model model) {
 	
-		System.out.println(upfile);
-		System.out.println(content);
-		System.out.println(starCount);
-//		
-//		if(!upfile.getOriginalFilename().equals("")) {
-//			String changeName = saveFile(upfile,session);
-//		
-//		}
+	     System.out.println(reviewInfo.getStarCount());
+	     System.out.println(reviewInfo.getContent());
+	     System.out.println(reviewInfo.getSpaceNo());
+	     System.out.println(reviewInfo.getUserNo());
+	     
+		// List<String> changeNamesList = new ArrayList<String>();
+		 Map<String,String>fileNames= new HashMap<String,String>();
+		 String path="resources/img/user/";
+		 if(files!=null) {
+		 	
+		 
+	      	for(MultipartFile f :files) {
+	      		String changeName=saveFile(f,session,"resources/img/user/");
+	      		//changeNamesList.add(changeName);
+	      		fileNames.put(f.getOriginalFilename(),changeName);
+	      	}
+		 }
+ 
+	        int count=detailService.insertReview(reviewInfo,fileNames, path);
+	      	
+	        if(count>0) {
+	        	 return "ok";
+	        }
+	        else {
+	        	return "error";
+	        }
 			
-	   return "ok";
+	
 	
 	}
 	
 	
-	public String saveFile(MultipartFile upfile,HttpSession session) {
-		
+
+	public String saveFile(MultipartFile upfile,HttpSession session,String path) {
+		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 				String originName = upfile.getOriginalFilename();
 				
-			
+				//년월일시분초 
 				String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 				
-			
+				//5자리 랜덤값
 				int ranNum = (int)(Math.random() * 90000) + 10000;
 				
-			
+				//확장자
 				String ext = originName.substring(originName.lastIndexOf("."));
 				
-			
+				//수정된 첨부파일명
 				String changeName = currentTime + ranNum + ext;
 				
-				
-				String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-				
+				//첨부파일을 저장할 폴더의 물리적 경로(session)
+				String savePath = session.getServletContext().getRealPath(path);
 				try {
 					upfile.transferTo(new File(savePath + changeName));
 				} catch (IllegalStateException e) {
@@ -184,7 +215,6 @@ public class LocationController {
 				return changeName;
 		
 	}
-	
 	
 	//로그인 정보 가져오기
 	

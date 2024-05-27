@@ -254,8 +254,8 @@
 				    </div>
 
 					<div class="img-content">
-						<c:forEach begin="1" end="3">
-							<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
+						<c:forEach var="a" items="${r.attachment}">
+							<div class="img-div"><img src="${a.filePath}${a.changeName}" alt="Profile Image"></div>
 						</c:forEach>
 					</div>
 					<div class="content">${r.reviewContent}</div>

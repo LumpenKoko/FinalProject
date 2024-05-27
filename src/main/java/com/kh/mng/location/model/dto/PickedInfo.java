@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class PickedInfo {
 	private int locationNo;
 	private int userNo;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
@@ -145,4 +146,28 @@ public class MemberController {
 		return "member/memberEnrollSelect";
 	}
 
+	@RequestMapping("update.mp")
+	public String updateMember(Member m, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+	    // 세션에서 로그인한 사용자 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+
+	    // 로그인한 사용자 정보에서 사용자 번호 가져오기
+	    int userNo = loginUser.getUserNo();
+
+	    // 사용자 번호를 Member 객체에 설정
+	    m.setUserNo(userNo);
+
+	    // 개인정보 업데이트
+	    int result = memberService.updateMember(m);
+	    
+	    if (result > 0) {
+	        // 업데이트가 성공하면 세션에 다시 로그인한 사용자 정보 설정
+	        session.setAttribute("loginUser", memberService.loginMember(m));
+	        session.setAttribute("alertMsg", "개인정보 수정에 성공하였습니다.");
+	        return "redirect:/myPageInfo.mp";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMsg", "개인정보 수정에 실패하였습니다.");
+	        return "redirect:/myPageInfo.mp";
+	    }
+	}
 }

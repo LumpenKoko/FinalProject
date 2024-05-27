@@ -37,4 +37,7 @@ public class MemberDao {
 		return sqlSession.insert("location.insertLocation", loc);
 	}
 
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
 }

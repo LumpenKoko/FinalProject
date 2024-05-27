@@ -76,22 +76,7 @@ function locationpage(path){
         });
     
         
-        /* 병원 카테고리 선택시 상품등록 안보이도록 */
-
-    
-        // 운영업체/카테고리 select 요소 변경 시
-        $(".location-category").change(function() {
-            var selectedCategory = $(this).val(); // 선택된 카테고리 값 가져오기
         
-            // 만약 선택된 값이 "동물병원"이라면
-            if (selectedCategory === "동물병원") {
-                // 모든 상품등록 관련 요소들 숨기기
-                $(".product-registration").hide();
-            } else {
-                // 선택된 값이 "동물병원"이 아니라면 요소들 보이기
-                $(".product-registration").show();
-            }
-        });
     });
 
     

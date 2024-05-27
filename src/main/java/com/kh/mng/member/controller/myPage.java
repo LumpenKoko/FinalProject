@@ -1,8 +1,13 @@
 package com.kh.mng.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.mng.member.model.vo.Member;
+import com.kh.mng.member.service.MemberService;
 
 @Controller
 public class myPage {

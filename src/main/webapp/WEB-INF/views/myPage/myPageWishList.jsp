@@ -59,26 +59,26 @@
                         <div id="main_main_right">
                             <div id="right1">찜 목록</div>
                             <div id="right2">
-                                <div id="right2-left">
-                                    <img src="resources/img/myPage/cafe.png" onclick="" id="cafe">
+                                <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
+                                    <img src="resources/img/myPage/cafe.png" id="cafe">
                                 </div>
                                 <div id="right2-right" style="height: 80%;">
                                     <div id="right2-right1">
                                         <div id="top">
-                                            <span id="title">샘플 카페 하이 구로하우비점</span>
+                                            <span id="title" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">샘플 카페 하이 구로하우비점</span>
                                             <div id="wishIcon" onclick="changeColor()">♡</div>
                                             <div id="count">45</div>
                                         </div>
-                                        <div id="category">
+                                        <div id="category" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
                                             <span id="category1">분류</span>
                                             <span id="category2">카페</span>
                                         </div>
-                                        <div id="score">
+                                        <div id="score" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
                                             <span id="score1">평점</span>
                                             <span id="score2">4.3</span>
                                             <span id="score3">★★★★★</span>
                                         </div>
-                                        <div id="type">
+                                        <div id="type" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
                                             <span id="type1">종류</span>
                                             <span id="type2">소형견,중형견,고양이</span>
                                         </div>
@@ -86,7 +86,7 @@
                                             <div id="solid2"></div>
                                         </div>
                                     </div>
-                                    <div id="right2-right2">
+                                    <div id="right2-right2" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
                                         <div id="address">
                                             <img src="resources/img/myPage/address.png" id="address1">
                                             <span id="address2">부산광역시 해운대 극성로 북6길</span>
@@ -113,15 +113,6 @@
             </div>
 
             <script>
-                // 복제할 원본 div 요소를 가져옵니다
-                var originalDiv = document.getElementById('right2');
-
-                // 새로운 div를 생성하고 복제한 후 container에 추가합니다
-                for (var i = 0; i < 4; i++) {
-                    var newDiv = originalDiv.cloneNode(true); // true를 전달하여 하위 요소들도 함께 복제합니다
-                    document.getElementById('container').appendChild(newDiv);
-                }
-
                 function changeColor() {
                     var icon = document.getElementById('wishIcon');
                     if (icon.style.color !== 'rgb(254, 139, 148)') {

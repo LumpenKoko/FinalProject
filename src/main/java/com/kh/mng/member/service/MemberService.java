@@ -16,4 +16,7 @@ public interface MemberService {
 	
 	// 사장 회원가입
 	int insertBossMember(Member m, Location loc);
+	
+	// 개인정보 수정
+	int updateMember(Member m);
 }

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.mng.pet.model.vo.Pet;
@@ -22,10 +23,25 @@ public class PetController {
 		
 		if (result > 0) {
 			session.setAttribute("alertMsg", "반려동물 등록에 성공하셨습니다.");
-			return "redirect:/";
+			return "redirect:";
 		} else {
 			model.addAttribute("errorMsg", "반려동물 등록에 실패하셨습니다.");
 			return "common/errorPage";
 		}
+	}
+	
+	@PostMapping("/updatePet.mp")
+	public String updatePet(Pet p, HttpSession session, Model model) {
+		
+		int result = petService.updatePet(p);
+		
+		if (result > 0) {
+			session.setAttribute("pet", p);
+			session.setAttribute("alertMsg", "반려동물 정보 수정 성공");
+			return "redirect:/myPage.me";
+		} else {
+			model.addAttribute("errorMsg", "반려동물 정보 수정 실패");
+			return "common/errorPage";
+		}		
 	}
 }

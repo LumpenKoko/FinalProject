@@ -20,7 +20,8 @@
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="resources/img/myPage/camera.png" onclick="document.getElementById('fileInput').click()" id="camera">
+                                <img src="resources/img/myPage/camera.png"
+                                    onclick="document.getElementById('fileInput').click()" id="camera">
                                 <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
                                 </div>
                                 <input type="file" id="fileInput" style="display: none;">
@@ -59,16 +60,17 @@
                             <div id="right1">
                                 <p id="contentText">아직 등록하신 반려동물이 없으시네요!<br>지금 바로 반려동물을 등록하고 행복한 동행을 시작해보세요.</p>
                                 <button type="submit" id="signUp"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'">반려동물
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'"
+                                    style="cursor: pointer;">반려동물
                                     등록하기</button>
                             </div>
                             <div id="right2">
                                 <h1>반려동물 1</h1>
-                                <div id="right2-container">
+                                <form id="right2-container" action="updatePet.mp">
                                     <div id="right2-left">
                                         <img src="resources/img/myPage/petProfile.png" id="petProfile" onclick="">
                                         <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진 변경 가능</p>
-                                        <button type="submit" id="update">수정</button>
+                                        <button type="button" id="update" style="cursor: pointer;">삭제</button>
                                     </div>
                                     <div id="right2-right" style="display: flex; flex-direction: column;">
                                         <div>
@@ -94,13 +96,15 @@
                                             <input type="radio" name="petGender" id="women" value="F">
                                             <label for="women">여아</label>
                                         </div>
-                                        <button type="submit" id="update" style="margin-top: 50px;">삭제</button>
+                                        <button type="submit" id="update"
+                                            style="margin-top: 50px; cursor: pointer;">수정</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <div id="right3">
                                 <button id="addSignUp"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'">반려동물 추가
+                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'"
+                                    style="cursor: pointer;">반려동물 추가
                                     등록하기</button>
                             </div>
                         </div>

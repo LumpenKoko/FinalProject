@@ -57,7 +57,7 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <form action="insertPet.mp" id="petSignUp" method="POST">
+                            <form action="insertPet.mp" id="petSignUp">
                                 <h1 style="margin-top: 50px; text-align: center;">반려동물 등록</h1>
                                 <p style="margin-top: 40px; font-size: 17px; text-align: center;">반려동물 정보를 입력해<br>행복한 멍냥 가이드를 누려보세요</p>
                                 <div
@@ -72,10 +72,10 @@
                                 </div>
                                 <div style="margin-left: 100px; margin-top: 40px; font-size: 21px;">
                                     <select name="petSizeNo" id="petSizeNo" style="font-size: 17px; padding-left: 30px;">
-                                        <option value="소형견">소형견</option>
-                                        <option value="중형견">중형견</option>
-                                        <option value="대형견">대형견</option>
-                                        <option value="고양이">고양이</option>
+                                        <option value="1">소형견</option>
+                                        <option value="2">중형견</option>
+                                        <option value="3">대형견</option>
+                                        <option value="4">고양이</option>
                                     </select>
                                 </div>
                                 <div style="margin-left: 100px; font-size: 21px; margin-top: 40px;">

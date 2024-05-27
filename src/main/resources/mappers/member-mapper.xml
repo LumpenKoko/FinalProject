@@ -139,7 +139,8 @@
 		       USER_BIRTHDAY = #{userBirthday},
 		       USER_EMAIL = #{userEmail},
 		       MODIFY_DATE = current_timestamp
-		WHERE USER_ID = #{userId}
+		WHERE STATUS = true
+		AND USER_NO = #{userNo}
 	</update>
 
 </mapper>

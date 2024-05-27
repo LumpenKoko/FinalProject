@@ -31,6 +31,7 @@ public class Location {
     private int userNo;
 	private String locationCategoryNo;
 	private ArrayList<Attachment> atList;
+	private Attachment attachment;
 	private ArrayList<EnterGrade> enterList;
 	
 }

@@ -53,7 +53,12 @@
 		<result column="PET_NO" property="petNo"/>
 		<result column="BOARD_NO" property="boardNo"/>
    </resultMap>
-   <!-- 
+   <resultMap type="EnterGrade" id="enterGradeResult">
+		<result column="ENTER_NO" property="enterNo"/>
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="PET_SIZE_NAME" property="petSizeNo"/>
+		<result column="PET_KIND_NAME" property="petSizeNo"/>
+   </resultMap>
 	<select id="selectLocationTop" resultMap="detailLocation">
 		SELECT *
 		FROM (
@@ -63,10 +68,9 @@
 			   ADDRESS,
 			   LOCATION_CATEGORY_NAME
 		  FROM LOCATION LO
-		 INNER JOIN LOCATION_CATEGORY LC
+		  JOIN LOCATION_CATEGORY LC
 		 	   ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
 		 WHERE STATUS = 'true'
-		 ORDER BY LOCATION_STAR
 		<choose>
 			<when test="locNum == 1">
 				AND LC.LOCATION_CATEGORY_NAME = '식당'
@@ -77,8 +81,38 @@
 			<when test="locNum == 3">
 				AND LC.LOCATION_CATEGORY_NAME = '숙소'
 			</when>
-		</choose>)
+		</choose>
+		ORDER BY LOCATION_STAR DESC)
+		LIMIT 1
 	</select>	
 	
- -->
+	<!-- 
+	<select id="selectAttachmentList" resultMap="attachmentResult">
+		SELECT PIC_NO,
+			   ORIGIN_NAME,
+			   CHANGE_NAME,
+			   FILE_PATH
+		FROM PICTURE
+		WHERE LOCATION_NO = #{locationNo}
+		AND STATUS = 'true'
+	</select>	 -->
+	<select id="selectAttachment" resultMap="attachmentResult">
+		SELECT PIC_NO,
+			   ORIGIN_NAME,
+			   CHANGE_NAME,
+			   FILE_PATH
+		FROM PICTURE
+		WHERE LOCATION_NO = #{locationNo}
+		AND STATUS = 'true'
+		AND FILE_LEVEL = 1
+	</select>
+	<select id="selectEngerGradeList" resultMap="enterGradeResult">
+		SELECT PET_SIZE_NAME,
+			   PET_KIND_NAME
+		FROM ENTER_GRADE E
+		JOIN PET_SIZE S ON E.PET_SIZE_NO = S.PET_SIZE_NO
+		JOIN PET_KIND K ON S.PET_KIND_NO = K.PET_KIND_NO
+		WHERE E.LOCATION_NO = #{locationNo}
+		AND STATUS = 'true'
+	</select>	
 </mapper>

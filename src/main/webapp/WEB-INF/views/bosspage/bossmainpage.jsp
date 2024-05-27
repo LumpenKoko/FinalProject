@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
         <script src="resources\js\bosspage\bosspage.js"></script>
+        <script src="resources\js\bosspage\bossMainPage.js"></script>
     </head>
 
     <body>
@@ -65,15 +66,15 @@
                                     <p>이메일</p>
                                     <div>
                                         <input type="email" class="boss-email"> @
-                                        <input type="email" class="boss-email" id="boss-email">
-                                        <select class="boss-email">
+                                        <input type="email" class="boss-email" id="boss-email" placeholder="입력해주세요.">
+                                        <select class="boss-email" onchange="updateEmailDomain()">
                                             <option>직접입력</option>
                                             <option>naver.com</option>
                                             <option>daum.net</option>
                                             <option>gmail.com</option>
                                             <option>hanmail.net</option>
                                         </select>
-                                    </div=>
+                                    </div>
                                 </div>
                             </div>
                             <div>

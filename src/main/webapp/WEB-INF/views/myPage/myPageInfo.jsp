@@ -51,38 +51,43 @@
                         </div>
                     </div>
                     <div id="right">
-                        <form id="main_main_right" action="">
+                        <form id="main_main_right" action="update.mp">
                             <h1 style="margin-top: 50px; color: #FE8B94; text-align: center;">개인정보 수정</h1>
                             <div id="id-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</p>
-                                <input type="text" placeholder="userId" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
-                                  height: 50px; text-align: left; padding-left: 20px;">
+                                <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
+                                  height: 50px; text-align: left; padding-left: 20px;"
+                                  value="${loginUser.userId}" id="userId" name="userId">
                             </div>
                             <div id="name-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">이름</p>
-                                <input type="text" placeholder="userName" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
-                                  height: 50px; text-align: left; padding-left: 20px;">
+                                <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
+                                  height: 50px; text-align: left; padding-left: 20px;"
+                                  value="${loginUser.userName}" id="userName" name="userName">
                             </div>
                             <div id="nickName-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">닉네임</p>
-                                <input type="text" placeholder="nickName" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
-                                  height: 50px; text-align: left; padding-left: 20px;">
+                                <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
+                                  height: 50px; text-align: left; padding-left: 20px;"
+                                  value="${loginUser.userNickname}" id="userNickname" name="userNickname">
                             </div>
                             <div id="gender-input">
-                                <input type="radio" name="gender" id="men" value="남자">
+                                <input type="radio" name="userGender" id="men" value="M">
                                 <label for="men">남자</label>
-                                <input type="radio" name="gender" id="women" value="여자">
+                                <input type="radio" name="userGender" id="women" value="F">
                                 <label for="women">여자</label>
                             </div>
                             <div id="birth-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">생년월일</p>
-                                <input type="text" placeholder="1998-11-20" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
-                                  height: 50px; text-align: left; padding-left: 20px;">
+                                <input type="date" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
+                                  height: 50px; text-align: left; padding-left: 20px;"
+                                  value="${loginUser.userBirthday}" id="userBirthday" name="userBirthday">
                             </div>
                             <div id="email-input"
                                 style="display: flex; margin-left: 70px; margin-top: 50px; justify-content: space-between;">
-                                <input type="text" placeholder="userEmail" style="width: 300px; height: 50px; border-radius: 15px;
-                                 border: 1px solid #bababa; padding-left: 20px;">
+                                <input type="text" style="width: 300px; height: 50px; border-radius: 15px;
+                                 border: 1px solid #bababa; padding-left: 20px;"
+                                 value="${loginUser.userEmail}" id="userEmail" name="userEmail">
                                 <p style="font-size: 22px;">@</p>
                                 <select id="website"
                                     style="border-radius: 15px; width: 300px; border: 1px solid #bababa; margin-right: 165px; padding-left: 20px;">

@@ -20,4 +20,10 @@ public class CommunityServiceImpl implements CommunityService{
 		return 0;
 	}
 
+	@Override
+	public int addComment() {
+		communityDao.addComment(sqlSession);
+		return 0;
+	}
+
 }

@@ -48,22 +48,22 @@ public class LocationController {
 
 	
 	@GetMapping("/detail")
-	public String DetailLocation(@RequestParam(value="spaceNo",defaultValue="1") int spaceNo,Model model) {
+	public String DetailLocation(@RequestParam(value="locationNo",defaultValue="1") int locationNo,Model model) {
 		
-		System.out.println(spaceNo);
+		System.out.println(locationNo);
 		//장소정보와 ,리뷰 정보도
 		// 공간 이미지를 db에서 받아온다. ,리뷰 정보도
-	  	DetailLocation detailLocation =  detailService.selectDetailLocation(spaceNo);
+	  	DetailLocation detailLocation =  detailService.selectDetailLocation(locationNo);
 	  	
 	  	
-	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(spaceNo);
+	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo);
 		System.out.println(reviews);
 	  	
 		//이방법으로 할것!!
 	   //DetailLocation detailLocation2 =detailService.selectDetailLocation2(spaceNo);
 	  	
-    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(spaceNo);
-    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(spaceNo);
+    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(locationNo);
+    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(locationNo);
 //		System.out.println(detailLocation);
 	
 		System.out.println(mainImg);
@@ -147,15 +147,26 @@ public class LocationController {
 	
 	
 	//Review ,file upload
+	
+	
 	@ResponseBody
-	@PostMapping(value="insertReview")
-	public String insertBoard(List<MultipartFile> files,
+	@GetMapping(value="list.re",produces="application/json; charset:utf-8")
+	public String selectReview(@RequestParam(value="locationNo") int locationNo) {
+	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo);
+		System.out.println(reviews);
+		return new Gson().toJson(reviews);
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value="insert.re")
+	public String insertReview(List<MultipartFile> files,
 							  ReviewInfo reviewInfo,
 			                  HttpSession session,Model model) {
 	
 	     System.out.println(reviewInfo.getStarCount());
 	     System.out.println(reviewInfo.getContent());
-	     System.out.println(reviewInfo.getSpaceNo());
+	     System.out.println(reviewInfo.getLocationNo());
 	     System.out.println(reviewInfo.getUserNo());
 	     
 		// List<String> changeNamesList = new ArrayList<String>();
@@ -179,13 +190,8 @@ public class LocationController {
 	        else {
 	        	return "error";
 	        }
-			
+	 }
 	
-	
-	}
-	
-	
-
 	public String saveFile(MultipartFile upfile,HttpSession session,String path) {
 		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 				String originName = upfile.getOriginalFilename();
@@ -213,6 +219,27 @@ public class LocationController {
 				}
 				
 				return changeName;
+		
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value="delete.re",produces="application/json; charset:utf-8")
+	public String deleteReview(@RequestBody ReviewInfo reveiwInfo) {
+	
+		
+		System.out.println("삭제: "+reveiwInfo);
+		int count=detailService.deleteReview(reveiwInfo);
+		
+		if(count>=0) {
+			return "ok";
+		}
+		else {
+			return "fail";
+		}
+		
+		
+		
 		
 	}
 	

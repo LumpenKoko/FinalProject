@@ -58,6 +58,7 @@ function reviewSelect(callback){
         data:{locationNo:spaceNo},
         success:function(response){
             callback(response);
+            drawPaging(response)
         },
         error:function(){
             console.log("리뷰 조회 실패")
@@ -109,7 +110,8 @@ function reviewPaging(currentPage){
         },
         success:function(response){
             drawReivew(response)
-            console.log(response)
+            //페이지네이션 그리기
+            drawPaging(response)
         },
         error:function(){
             console.log("페이징 처리 실패")
@@ -122,24 +124,24 @@ function reviewPaging(currentPage){
 //화살표
 
 
-function reviewArrayPaging(currentPage){
-      console.log("누르기전"+currentPage)
-    $.ajax({
-        type:"GET",
-        url:contextPath+"/paging.re",
-        data:{locationNo:spaceNo,
-             currentPage:currentPage
-        },
-        success:function(response){
-            console.log("누른후:"+response)
-           // drawPaging(response)
-            currentPage=parseInt(response)+1
-            reviewPaging(currentPage);
-        },
-        error:function(){
-            console.log("페이징 실패")
-        }
+// function reviewArrayPaging(currentPage){
+//       console.log("누르기전"+currentPage)
+//     $.ajax({
+//         type:"GET",
+//         url:contextPath+"/paging.re",
+//         data:{locationNo:spaceNo,
+//              currentPage:currentPage
+//         },
+//         success:function(response){
+//             console.log("누른후:"+response)
+//            // drawPaging(response)
+//             currentPage=parseInt(response)+1
+//             reviewPaging(currentPage);
+//         },
+//         error:function(){
+//             console.log("페이징 실패")
+//         }
 
-    })
+//     })
 
-}
+// }

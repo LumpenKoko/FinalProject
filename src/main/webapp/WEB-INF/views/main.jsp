@@ -9,8 +9,9 @@
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/main/main.css"/>
 <script src="resources/js/main/main.js"></script>
+<script src="resources/js/main/mainAjax.js"></script>
 </head>
-<body>
+<body onload="init('<%=request.getContextPath()%>')">
 	
 	<%@ include file="./common/header.jsp"%>
 	<!-- if문 등록해야 함 -->
@@ -80,73 +81,11 @@
 			<div id="search-ranking" class="gray-round-box">
 				<span>반려동물과 좋은 추억을 남길 장소를 추천해드려요 </span>
 				<div>
-					<img src="resources/img/main/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+					<img id="place-img" src="resources/img/main/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
 					
 					<!-- 추천 컨텐츠 세 개를 전부 감싸는 박스 -->
-					<div>
-						<!-- 추천 컨텐츠 박스 하나 -->
-						<div class="search-ranking-content gray-round-box">
-							<img src="resources/img/main/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
-							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
-							<div>
-								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
-								<div id="search-ranking-rating">
-									<div>4.3</div>
-									<div>
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-									</div>
-								</div>
-								<hr>
-								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
-								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
-							</div>
-						</div>
+					<div id="search-contents-wrap">
 
-						<div class="search-ranking-content gray-round-box">
-							<img src="resources/img/main/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
-							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
-							<div>
-								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
-								<div id="search-ranking-rating">
-									<div>4.3</div>
-									<div>
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-									</div>
-								</div>
-								<hr>
-								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
-								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
-							</div>
-						</div>
-
-						<div class="search-ranking-content gray-round-box">
-							<img src="resources/img/main/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
-							<!-- 컨텐츠 박스 안의 텍스트 전체를 감싸는 상자 -->
-							<div>
-								<span id="search-ranking-content-title">샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페샘플 카페</span>
-								<div id="search-ranking-rating">
-									<div>4.3</div>
-									<div>
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-										<img class="ranking-star-img" src="resources/img/main/KakaoTalk_20240507_002829702_08.png" alt="">
-									</div>
-								</div>
-								<hr>
-								<div id="search-ranking-address">부산광역시 해운대 극성로 북6길</div>
-								<div id="search-ranking-category">소형견, 중형견, 대형견</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

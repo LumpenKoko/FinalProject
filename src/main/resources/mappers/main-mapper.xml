@@ -21,7 +21,7 @@
 		<result column="USER_PHONE" property="userPhone"/>
 		<result column="USER_KIND" property="userKind"/>
 </resultMap>
-   <resultMap type="DetailLocation" id="detailLocation">
+   <resultMap type="Location" id="location">
 	<result column="LOCATION_NO" property="locationNo"/>
 	<result column="LOCATION_NAME" property="locationName"/>
 	<result column="LOCATION_PHONE" property="locationPhone"/>
@@ -34,8 +34,7 @@
 	<result column="ROOM_INFO" property="roomInfo"/>
 	<result column="DAYS" property="day"/>
 	<result column="CAPACITY" property="capacity"/>
-	<result column="LOCATION_CATEGORY_NO" property="locatonCategoryNo"/>
-	<result column="CATEGORY_NAME" property="categoryName"/>
+	<result column="CATEGORY_NAME" property="locationCategoryNo"/>
 	<result column="START_TIME" property="startTime"/>
 	<result column="END_TIME" property="endTime"/>
 	<result column="REST_STATUS" property="restStatus"/>
@@ -53,32 +52,64 @@
 		<result column="PET_NO" property="petNo"/>
 		<result column="BOARD_NO" property="boardNo"/>
    </resultMap>
-   <!-- 
-	<select id="selectLocationTop" resultMap="detailLocation">
+   <resultMap type="EnterGrade" id="enterGradeResult">
+		<result column="ENTER_NO" property="enterNo"/>
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="PET_SIZE_NAME" property="petSizeNo"/>
+		<result column="PET_KIND_NAME" property="petKindName"/>
+   </resultMap>
+	<select id="selectLocationTop" resultMap="location">
 		SELECT *
 		FROM (
 		SELECT LOCATION_NO,
 			   LOCATION_NAME,
 			   LOCATION_STAR,
 			   ADDRESS,
-			   LOCATION_CATEGORY_NAME
+			   CATEGORY_NAME
 		  FROM LOCATION LO
-		 INNER JOIN LOCATION_CATEGORY LC
+		  JOIN LOCATION_CATEGORY LC
 		 	   ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
 		 WHERE STATUS = 'true'
-		 ORDER BY LOCATION_STAR
 		<choose>
 			<when test="locNum == 1">
-				AND LC.LOCATION_CATEGORY_NAME = '식당'
+				AND LC.CATEGORY_NAME = '식당'
 			</when>
 			<when test="locNum == 2">
-				AND LC.LOCATION_CATEGORY_NAME = '카페'
+				AND LC.CATEGORY_NAME = '카페'
 			</when>
 			<when test="locNum == 3">
-				AND LC.LOCATION_CATEGORY_NAME = '숙소'
+				AND LC.CATEGORY_NAME = '숙소'
 			</when>
-		</choose>)
+		</choose>
+		ORDER BY LOCATION_STAR DESC)
+		LIMIT 1
 	</select>	
 	
- -->
+	<!-- 
+	<select id="selectAttachmentList" resultMap="attachmentResult">
+		SELECT PIC_NO,
+			   ORIGIN_NAME,
+			   CHANGE_NAME,
+			   FILE_PATH
+		FROM PICTURE
+		WHERE LOCATION_NO = #{locationNo}
+		AND STATUS = 'true'
+	</select>	 -->
+	<select id="selectAttachment" resultMap="attachmentResult">
+		SELECT PIC_NO,
+			   ORIGIN_NAME,
+			   CHANGE_NAME,
+			   FILE_PATH
+		FROM PICTURE
+		WHERE LOCATION_NO = #{locationNo}
+		AND FILE_LEVEL = 1
+	</select>
+	<select id="selectEnterGradeList" resultMap="enterGradeResult">
+		SELECT PET_SIZE_NAME,
+			   PET_KIND_NAME
+		FROM ENTER_GRADE E
+		JOIN PET_SIZE S ON E.PET_SIZE_NO = S.PET_SIZE_NO
+		JOIN PET_KIND K ON S.PET_KIND_NO = K.PET_KIND_NO
+		WHERE E.LOCATION_NO = #{locationNo}
+	</select>	
 </mapper>

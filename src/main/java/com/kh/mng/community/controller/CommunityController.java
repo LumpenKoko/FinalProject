@@ -1,10 +1,20 @@
 package com.kh.mng.community.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kh.mng.community.service.CommunityService;
+import com.kh.mng.community.service.CommunityServiceImpl;
 
 @Controller
 public class CommunityController {
+	
+	@Autowired
+	private CommunityService communityService;
+	
 	@RequestMapping("/community")
 	public String communityMain() {
 		return "community/communityMain";
@@ -12,7 +22,7 @@ public class CommunityController {
 	
 	@RequestMapping(value="shortsView.bo")
 	public String detailShortsView() {
-		
+		new CommunityServiceImpl().selectListCount();
 		return "community/shortsShow";
 	}
 	
@@ -31,8 +41,14 @@ public class CommunityController {
 		return "community/writingPage";
 	}
 	
-	@RequestMapping(value="shortsBoard.bo")
-	public String shortsBoard() {
-		return "community/shortsBoard";
+	@ResponseBody
+	@RequestMapping(value="addComment.sh")
+	public String addComment(@RequestParam(value="comment") String comment) {
+		if (communityService.addComment() > 0) {
+			return comment;
+		} else {
+			return "db에 등록 실패한 경우"; //처리 미완성
+		}
+		
 	}
 }

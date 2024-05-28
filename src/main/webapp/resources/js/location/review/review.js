@@ -69,14 +69,21 @@ function fileList(files){
 
 function reviewData(){
   const formData= new FormData();
-  const starCount=document.querySelector(".star");
-  console.log(starCount);
+  const starCount=document.querySelector('input[name="rating"]:checked');
   const content=document.querySelector("#review-content");
-  const files=document.querySelector("#fileInput");
+  const fileInput=document.querySelector("#fileInput");
+ 
+    for(let file of fileInput.files){
+      formData.append('files',file)
+    }
   
+
+  formData.append('userNo',2);
+  formData.append('spaceNo',spaceNo)
   formData.append('starCount',starCount.value)
   formData.append('content',content.value)
-  formData.append('files',files)
+  
+ 
   return formData
   
 }

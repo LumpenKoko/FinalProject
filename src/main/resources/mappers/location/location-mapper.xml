@@ -67,6 +67,8 @@
 
     </select>
     
+    
+    
     <insert id="insertLocation">
       INSERT INTO LOCATION
          (

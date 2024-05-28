@@ -2,6 +2,9 @@ package com.kh.mng.location.model.vo;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+
+import com.kh.mng.common.model.vo.Attachment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +26,7 @@ public class Review {
 	private double locationStar;//장소 평균평점
 	private int userNo;
 	private String ownerReplyContent;//사장님 답글
-	private Date ownerEnroll;//사장님 답글 입력 날짜
+	private Date ownerEnroll;//사장님 답글 입력 답글
+    private ArrayList<Attachment> attachment; //첨부파일
+    
 }

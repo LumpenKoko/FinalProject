@@ -29,7 +29,7 @@ public class MainDao {
 //	}
 	
 	public Attachment selectAttachment(SqlSessionTemplate sqlSession, Location loc) {
-		return sqlSession.selectOne("mainMapper.selectAttachmentList", loc);
+		return sqlSession.selectOne("mainMapper.selectAttachment", loc);
 	}
 	
 	public ArrayList<EnterGrade> selectEnterGradeList(SqlSessionTemplate sqlSession, Location loc) {

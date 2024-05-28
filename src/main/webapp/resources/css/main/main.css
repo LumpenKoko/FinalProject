@@ -184,6 +184,7 @@
     height: 100%;
     border-radius: var(--outer-border-radius);
     margin-right: 30px;
+    object-fit: cover;
 }
 
 .search-ranking-content>div{

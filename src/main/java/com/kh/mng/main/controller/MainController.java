@@ -24,6 +24,13 @@ public class MainController {
 		return new Gson().toJson(list);
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(value="topBoard.ma", produces="application/json; charset-UTF-8")
+//	public String ajaxSelectBoardMainList() {
+//		ArrayList<Location> list = mainService.ajaxSelectBoardMainList();
+//		return new Gson().toJson(list);
+//	}
+	
 //	@ResponseBody // ?
 //	@RequestMapping(value = "rlist.bo", produces="application/json; charset-UTF-8")
 //	// json 형식에 관한 설정은 produces 에 넣어줌

@@ -33,7 +33,7 @@
             item.className = 'shorts-view makeCenter';
             item.innerHTML = `
             <div class="shorts-content" id="shorts-content`+ num + `">
-                <video controls width="720" height="1080">
+                <video controls autoplay muted width="720" height="1080">
                     <source src="resources/video/test.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -46,21 +46,24 @@
             </div>
             <div id="shorts-comment`+ num + `" class="shorts-comment tmp-box flex-box">
                 <div class="tmp-box" style="width: 100%; height: 100%">
-                    <div class="tmp-box row-box">
+                    <div class="tmp-box row-box style=height: 10%">
                         <h1>댓글</h1>
                         <div style="color: var(--border-color)">56</div>
                     </div>
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
-                    </div>    
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
-                    </div>    
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
-                    </div>    
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
+                    <div class="tmp-box" style="height: 80%">
+                        은성: 웃기다
+                        <hr>
+                        은성: 웃기다
+                        <hr>
+                        은성: 웃기다
+                        <hr>
+                        은성: 웃기다
+                        <hr>
+                        은성: 웃기다
+                    </div>  
+                    <div class="tmp-box" style="height: 10%">
+                        <input type="text" placeholder="bornin1102"></input>
+                        <button>댓글달기</button>
                     </div>    
                 </div>
             </div>

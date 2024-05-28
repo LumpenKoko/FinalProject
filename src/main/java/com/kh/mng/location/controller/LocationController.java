@@ -2,6 +2,7 @@ package com.kh.mng.location.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.dto.PickedInfo;
@@ -167,26 +169,32 @@ public class LocationController {
 		
 		
 	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
-		System.out.println(reviews);
-		System.out.println(pi.getCurrentPage());
+	 	
+	 	
+		Map<ArrayList<Review>,PageInfo> pageReview=new HashMap<ArrayList<Review>,PageInfo>();
+		pageReview.put(reviews,pi);
+		System.out.println(new Gson().toJson(pageReview));
+		//Type type = new TypeToken<Map<PageInfo, ArrayList<Review>>>(){}.getType();
+		//System.out.println(new Gson().toJson(pageReview,type ));
+		//return new Gson().toJson(pageReview);
 		return new Gson().toJson(reviews);
 	}
 	
-	@ResponseBody
-	@GetMapping(value="paging.re",produces="application/json; charset=utf-8")
-	public String arrowAjax(@RequestParam(value="locationNo") int locationNo,
-							@RequestParam(value="currentPage",defaultValue="1") int currentPage ) {
-		
-		int reviewCount=detailService.selectReviewCount(locationNo);
-		PageInfo pi =Pagination.getPageInfo(reviewCount,currentPage,10,5);
-		
-		
-	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
-		//System.out.println(reviews);
-		System.out.println(pi.getCurrentPage());
-		System.out.println(pi);
-		return new Gson().toJson(pi.getCurrentPage());
-	}
+//	@ResponseBody
+//	@GetMapping(value="paging.re",produces="application/json; charset=utf-8")
+//	public String arrowAjax(@RequestParam(value="locationNo") int locationNo,
+//							@RequestParam(value="currentPage",defaultValue="1") int currentPage ) {
+//		
+//		int reviewCount=detailService.selectReviewCount(locationNo);
+//		PageInfo pi =Pagination.getPageInfo(reviewCount,currentPage,10,5);
+//		
+//		
+//	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
+//		//System.out.println(reviews);
+//		System.out.println(pi.getCurrentPage());
+//		System.out.println(pi);
+//		return new Gson().toJson(pi.getCurrentPage());
+//	}
 	
 	
 	

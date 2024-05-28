@@ -93,10 +93,13 @@ function reviewData(){
 
 //reivewList
 function drawReivew(review){
+ // const review=Object.keys(reviews)
+  console.log("kkk",review)
+ 
   let reviewContent=document.querySelector("#review-content-box");
   let reviewBody="";
   for(let r of review){
-   
+    console.log("ㅇㅇㅇㅇ",r);
     let imgs="";
     let reply="";
     let reviewStar='';
@@ -153,7 +156,8 @@ function drawReivew(review){
 
 
 //페이징 부분 비동기 처리
-function drawPaging(reviewPi){
+function drawPaging(pi){
+  reviewPi= Object.values(pi)
   let pageDiv=document.querySelector("#page-div");
   let previousButton="";
   let nextButton="";

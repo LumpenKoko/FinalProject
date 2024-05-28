@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.model.dao.MainDao;
 
@@ -42,6 +43,11 @@ public class MainServiceImpl implements MainService{
 //		Location hotel = mainDao.selectLocationTop(sqlSession, locNum3);
 //		hotel.setAtList(mainDao.selectAttachment(sqlSession, hotel));
 		return list;
+	}
+
+	@Override
+	public ArrayList<Board> ajaxSelectBoardMainList(int type) {
+		return mainDao.ajaxSelectBoardMainList(sqlSession, type);
 	}
 
 }

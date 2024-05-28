@@ -3,7 +3,12 @@ function init(path){
     contextPath = path;
 
     selectPlaceTop();
+    selectCommunityTop();
 }
+
+// function sendToPage(url){
+//     location.href = contextPath + url;
+// }
 
 // ***장소 추천***
 function selectPlaceTop(){
@@ -61,13 +66,89 @@ function drawPlaceTop(locationList){
 }
 
 // ***커뮤니티 글 추천***
+function selectCommunityTop(){
+    let boardBox = document.querySelector("#community-ranking>div");
+    for(i = 1; i <= 3; i++){
+        let box = selectBoardDetailTop(i);
+        boardBox.appendChild(box);
+    }
+}
 
 // 인기 조회글 ajax
-// function selectPlaceTop(){
-//     ajaxGetData(contextPath + "/topPlace.ma", 
-//     "",
-//     function(result){drawPlaceTop(result)});
-// }
+function selectBoardDetailTop(i){
+    ajaxGetData(contextPath + "/topBoard.ma?type=" + i,
+    "",
+    function(result){drawBoardDetailTop(i, result)});
+}
+
+function drawBoardDetailTop(type, boardList){
+    let communityRankingBox = document.createElement("div");
+    communityRankingBox.className = "community-ranking-box";
+
+    let communityTable = document.createElement('table');
+
+    let board = "";
+
+    board += `<tr><th colspan="2">`;
+    switch(type){
+        case 1 : 
+            board += '인기 조회글';
+            break;
+        case 2 :
+            board += '인기 추천글';
+            break;
+        case 3 :
+            board += '댓글 최다순';
+            break;
+    }
+    board += `</th></tr>`;
+    communityTable.innerHTML = board;
+
+    for (i = 0; i < boardList.length; i++){
+        let boardRanking = document.createElement('tr');
+        boardRanking.className = "community-ranking-box-content";
+        boardRanking.onclick = function(){
+            location.href = contextPath + "/detailView.bo?bno=" + boardList[i].boardNo;
+        }
+
+        let boardDetail = "";
+
+        // 순위
+        boardDetail += `<td id="community-ranking-box-ranking">`+ i + 1 + `</td>`;
+
+        // 내용-제목
+        boardDetail += `<td id="community-ranking-box-content">
+                            <div class="community-ranking-box-title">
+                                <div>`
+        boardDetail += boardList[i].boardTitle + `</div>`;
+
+        // 내용-댓글수
+        boardDetail += `<span>[`+boardList[i].replyCount+`]</span></div>`;
+
+        // 내용-작성자
+        boardDetail += `<div class="community-ranking-box-member">`+boardList[i].userNo+`</div></td>`;
+        boardRanking.innerHTML = boardDetail;
+
+        communityTable.append(boardRanking);
+    }
+    communityRankingBox.appendChild(communityTable);
+
+
+
+//         `<tr class="community-ranking-box-content">`
+//             `<td id="community-ranking-box-ranking">`5`</td>
+//             <td id="community-ranking-box-content">
+//                 <div class="community-ranking-box-title">
+//                     <div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+//                     <span>[20]</span>
+//                 </div>
+//                 <div class="community-ranking-box-member">쿠키언니</div>
+//             </td>
+//         </tr>
+
+//     </table>
+// </div>`
+}
 
 
 

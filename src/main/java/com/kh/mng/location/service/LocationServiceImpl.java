@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.dao.PickedDao;
 import com.kh.mng.location.model.dao.ReviewDao;
@@ -32,7 +33,6 @@ public class LocationServiceImpl implements LocationService {
 	private PickedDao pickedDao;
 	private DetailDao detailDao;
 	private ReviewDao reviewDao;
-	private Object changNamesList;
 	 
 	@Autowired
 	public  LocationServiceImpl (SqlSessionTemplate sqlSession,
@@ -42,6 +42,39 @@ public class LocationServiceImpl implements LocationService {
 		this.detailDao=detailDao;
 		this.reviewDao=reviewDao;
 	}
+	
+//	@Override
+//	public DetailLocation2 selectDetailLocation2(int spaceNo) {
+//		
+//		DetailLocation2 detailLocation=detailDao.selectDetailLocation2(sqlSession,spaceNo);
+//		ArrayList<LocationOption> locationoption=detailDao.selectLocationList(sqlSession,detailLocation.getLocationNo());
+//		ArrayList<OperationTime> operationTime=detailDao.selectOperationTime(sqlSession,detailLocation.getLocationNo());
+//		ArrayList<PetKindGrade> petKindGrade=detailDao.selectOperationTime(sqlSession,detailLocation.getLocationNo());
+//		ArrayList<Attachment> attchment = detailDao.selectAttachMent(sqlSession,detailLocation.getLocationNo());
+//		detailLocation.setLocationOption(locationoption);
+//		detailLocation.setOperationTime(operationTime);
+//		detailLocation.setPetKindNo(petKindGrade);// 이 다오에서만 조인문 
+//		detailLocation.setAttachMent(attchment);
+//		
+//		return detailLocation;
+//	}
+
+	@Override
+	public ArrayList<DetailLocationAttachment> selectDetailMainImg(int locationNo) {
+	
+		return detailDao.selectMainImg(sqlSession, locationNo);
+	}
+
+	@Override
+	public ArrayList<DetailLocationAttachment> selectDetailDetailImg(int locationNo) {
+	
+		return detailDao.selectDetailImg(sqlSession, locationNo);
+	}
+
+	
+	
+	
+	//찜관련 서비스
 	
 	@Override
 	public int pickedStatus(PickedInfo pickedInfo) {
@@ -64,31 +97,18 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public DetailLocation selectDetailLocation(int spaceNo) {
+	public DetailLocation selectDetailLocation(int locationNo) {
 		
-		return detailDao.selectDetailLocation(sqlSession,spaceNo);
+		return detailDao.selectDetailLocation(sqlSession,locationNo);
 	}
 	
-//	@Override
-//	public DetailLocation2 selectDetailLocation2(int spaceNo) {
-//		
-//		DetailLocation2 detailLocation=detailDao.selectDetailLocation2(sqlSession,spaceNo);
-//		ArrayList<LocationOption> locationoption=detailDao.selectLocationList(sqlSession,detailLocation.getLocationNo());
-//		ArrayList<OperationTime> operationTime=detailDao.selectOperationTime(sqlSession,detailLocation.getLocationNo());
-//		ArrayList<PetKindGrade> petKindGrade=detailDao.selectOperationTime(sqlSession,detailLocation.getLocationNo());
-//		ArrayList<Attachment> attchment = detailDao.selectAttachMent(sqlSession,detailLocation.getLocationNo());
-//		detailLocation.setLocationOption(locationoption);
-//		detailLocation.setOperationTime(operationTime);
-//		detailLocation.setPetKindNo(petKindGrade);// 이 다오에서만 조인문 
-//		detailLocation.setAttachMent(attchment);
-//		
-//		return detailLocation;
-//	}
-
+	
+	//리뷰 관련 서비스
+	
 	@Override
-	public ArrayList<Review> selectDetailReviewList(int spaceNo) {
+	public ArrayList<Review> selectDetailReviewList(int locationNo,PageInfo pi) {
 		
-		 ArrayList<Review> reviews=reviewDao.selectReviewList(sqlSession,spaceNo);
+		 ArrayList<Review> reviews=reviewDao.selectReviewList(sqlSession,locationNo, pi);
 		 
 		 for(Review review:reviews) {
 			 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
@@ -99,32 +119,17 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	
-
 	@Override
-	public ArrayList<DetailLocationAttachment> selectDetailMainImg(int spaceNo) {
-	
-		return detailDao.selectMainImg(sqlSession, spaceNo);
-	}
-
-	@Override
-	public ArrayList<DetailLocationAttachment> selectDetailDetailImg(int spaceNo) {
-	
-		return detailDao.selectDetailImg(sqlSession, spaceNo);
-	}
-
-	
-	
-	@Override
-	//@Transactional
+	@Transactional //??
 	public int insertReview(ReviewInfo reviewInfo, Map<String,String> changeNamesList,String path) {
 	
-		int count1=detailDao.insertReview(sqlSession,reviewInfo);
+		int count1=reviewDao.insertReview(sqlSession,reviewInfo);
 		int count2=1;
 		if(count1>0) {
 			 if(!changeNamesList.isEmpty()) {
 				  for(Map.Entry<String, String> files : changeNamesList.entrySet()) {
 					  FileInfo fileInfo =new FileInfo(files.getKey(),files.getValue(),path);
-					  count2=detailDao.insertReviewAttachMent(sqlSession,fileInfo);
+					  count2= reviewDao.insertReviewAttachMent(sqlSession,fileInfo);
 					  count2*=count2;
 				  }
 			}
@@ -132,6 +137,20 @@ public class LocationServiceImpl implements LocationService {
 	
 		
 		return count1*count2;
+	}
+
+	@Override
+	public int deleteReview(ReviewInfo reveiwInfo) {
+		
+		int count=reviewDao.deleteDao(sqlSession,reveiwInfo);
+		
+		return count;
+	}
+
+	@Override
+	public int selectReviewCount(int locatonNo) {
+		
+		return reviewDao.selectReviewCount(sqlSession,locatonNo);
 	}
 
 }

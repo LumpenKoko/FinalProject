@@ -36,20 +36,20 @@
 		    <c:set var="i" value="0"/>
 			<c:set var="k" value="0"/>
 
-			<div id="headerImg" class="header-img" style="background: url('${mainImg.get(i).filePath}${mainImg.get(i).changeName}')  no-repeat center center/cover;">
+			<div id="headerImg" class="header-img" style="background: url('resources/img/공간2.png')  no-repeat center center/cover;">
 				
 				
 				<c:set var="maxSize" value="${mainImg.size()}"/>
 
 				<div class="head-img-pre">
-					<button onclick="moveImg('${i=(i==0)?maxSize-1:i-1}','${mainImg.get((i%maxSize)).filePath}${mainImg.get(i).changeName}')">&gt;</button>
+					<button onclick="moveImg('')">&gt;</button>
 					<!-- <input type="text" value="${k=i}" hidden> -->
 				</div>
 				 <div class="overlay">
 					<h1 class="gugi-regular">${location.locationName}</h1>
 				</div>
 				<div class="head-img-next">
-					<button onclick="moveImg('${k=(k==(maxSize-1))?0:k+1}','${mainImg.get((k%maxSize)).filePath}${mainImg.get(k).changeName}')">&lt;</button>
+					<button onclick="moveImg('')">&lt;</button>
 				</div>
 				 <input type="text" value="${i=k}" hidden>
 			</div>
@@ -235,49 +235,53 @@
 				</div>
 
                 <!--내용-->
+				<div id="review-content-box">
 				<c:forEach var="r" items="${review}">
+			
 					<div class="review-section">
-					<div class="profile-star">
-						<div class="profile">
-							<div class="img-div"><img src="resources/img/tori.jpg" alt="Profile Image"></div>
-							<div><span class="title">${r.userName}</span><br>
-								<span>${r.enrollDate}</span>
+						<div class="profile-star">
+							<div class="profile">
+								<div class="img-div"><img src="resources/img/김지원.jpg" alt="Profile Image"></div>
+								<div><span class="title">${r.userName}</span><br>
+									<span>${r.enrollDate}</span>
+								</div>
+							</div>
+
+							<div>
+								<span  style="color:#FE8B94;">
+									<c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
+								</span>
+								<span><a href="#">수정</a>|<a  onclick="reviewDelete('${r.reviewNo}')">삭제</a></span>
 							</div>
 						</div>
 
-						<div>
-						  <span  style="color:#FE8B94;">
-							 <c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
-						  </span>
-							<span><a href="#">수정</a>|<a href="#">삭제</a></span>
+						<div class="img-content">
+							<c:forEach var="a" items="${r.attachment}">
+								<div class="img-div"><img src="${a.filePath}${a.changeName}" alt="Profile Image"></div>
+							</c:forEach>
 						</div>
-				    </div>
-
-					<div class="img-content">
-						<c:forEach var="a" items="${r.attachment}">
-							<div class="img-div"><img src="${a.filePath}${a.changeName}" alt="Profile Image"></div>
-						</c:forEach>
+						<div class="content">${r.reviewContent}</div>
 					</div>
-					<div class="content">${r.reviewContent}</div>
-				</div>
 
-				<!-- 답글이 있을때만 처리-->
-				<c:if test="${r.ownerReplyContent != null}">
-					<div style="align-items: right;">
-						<div class="review-section reply">
-						
-							<div class="reply-master">
-								<div class="title master">사장님</div>
-								<div>${r.ownerEnroll}</div>
+				 <!-- 답글이 있을때만 처리-->
+					<c:if test="${r.ownerReplyContent != null}">
+						<div style="align-items: right;">
+							<div class="review-section reply">
+							
+								<div class="reply-master">
+									<div class="title master">사장님</div>
+									<div>${r.ownerEnroll}</div>
+								</div>
+								<div class="content master-reply">${r.ownerReplyContent}</div>
 							</div>
-							<div class="content master-reply">${r.ownerReplyContent}</div>
 						</div>
-				</div>
-			 </c:if>
+					</c:if>
+			
 			   </c:forEach>
+			</div>
 
 			<!--test리뷰 내용영역-->
-			<c:forEach begin="1" end="2">
+			<!--<c:forEach begin="1" end="2">
 				
 				<div class="review-section">
 					<div class="profile-star">
@@ -289,7 +293,7 @@
 						</div>
 
 						<div>
-							<span  style="color:#FE8B94;">★★★★★</span>
+							<span style="color:#FE8B94;">★★★★★</span>
 							<span><a href="#">수정</a>|<a href="#">삭제</a></span>
 						</div>
 				    </div>
@@ -306,10 +310,10 @@
 					   </c:forEach>
 					</div>
 
-	         	</div> 
+	         	</div>
 
-				 <!--답글 영역-->
-				 <!-- 답글이 있을때만 처리 -->
+				 답글 영역
+				 답글이 있을때만 처리 
 
 				 <div style="align-items: right;">
 						<div class="review-section reply">
@@ -327,13 +331,13 @@
 						</div>
 			       </div>
 			</c:forEach>
-
+	      	-->
 				<!--리뷰 작성 영역-->
 				<div class="review-section">
 					<div class="enroll-div">
 						<div class="enroll-profile">
 							<div class="img-div">
-								<img src="resources/img/tori.jpg" alt="Profile Image">
+								<img src="resources/img/김지원.jpg" alt="Profile Image">
 							</div>
 							<div class="star-rating">
 								<input type="radio" class="star" name="rating"  value="1">
@@ -364,19 +368,56 @@
 				</div>
                    
 				<!--페이지 처리 영역-->
-				<div class="page-div">
-					<div id="previous-button" class="prv-button">
-						<a href="#" class="page-button">◀</a>
+					 <div id="page-div" class="page-div">
+						<c:choose>
+							<c:when test="${reviewPi.currentPage eq 1}">
+								<div id="previous-button" class="prv-button">
+									<li class="disabled"><a class="page-button">◀</a></li>
+							    </div >
+							</c:when>
+							
+							<c:otherwise>
+								<div id="previous-button" class="prv-button">
+									<li><a class="page-button" onclick="reviewArrayPaging('${reviewPi.currentPage-1}')">◀</a></li>
+							    </div>
+							
+							</c:otherwise>
+						</c:choose>
+						
+						<c:forEach var="p" begin="${reviewPi.startPage }" end="${reviewPi.endPage }">
+							<li class="page-item"><a class="page-link" onclick="reviewPaging('${p}')">${p}</a></li>
+						</c:forEach>
+						
+						<c:choose>
+							<c:when test="${reviewPi.currentPage eq reviewPi.maxPage}">
+								<div id="next-button" class="next-button">
+									<li class="disabled"><a class="page-button">▶</a></li>
+							    </div >
+							</c:when>
+							
+							<c:otherwise>
+								<div id="next-button" class="next-button">
+									<li ><a  class="page-button" onclick="reviewArrayPaging('${reviewPi.currentPage+1}')">▶</a></li>
+							    </div>
+							
+							</c:otherwise>
+						</c:choose>
 					</div>
-					
-					<!--페이징 처리(페이징 객체 받아올것)-->
-					<% for (int i=1; i<=10; i++) {%>
-						<div><a href="#" class="number"><%=i%></a></div>
-					<%}%>
-					<div id="previous-button" class="next-button">
-						<a href="#" class="page-button">▶</a>
-					</div>
-				</div>
+				
+				   <!--  	<div class="page-div">
+						<div id="previous-button" class="prv-button">
+							<li class="disabled"><a href="#" class="page-button">◀</a></li>
+						</div>
+						
+						
+						 <for문
+						
+							<div><li class="disabled"><a href="#" class="number">i</a></li></div>
+						
+						<div id="previous-button" class="next-button">
+							<li class="disabled"><a href="#" class="page-button">▶</a></li>
+						</div>
+					</div>-->
 			</div>
 			
 		</div>

@@ -25,6 +25,7 @@ public class Review {
 	private String userName;
 	private double locationStar;//장소 평균평점
 	private int userNo;
+	private int locationNo;
 	private String ownerReplyContent;//사장님 답글
 	private Date ownerEnroll;//사장님 답글 입력 답글
     private ArrayList<Attachment> attachment; //첨부파일

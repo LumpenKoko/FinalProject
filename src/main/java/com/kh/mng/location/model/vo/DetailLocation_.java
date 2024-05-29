@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DetailLocation {
+public class DetailLocation_ {
 	private int locationNo;//장소 번호
 	private String locationName;//장소 이름
 	private String locationPhone;//장소 전화번호

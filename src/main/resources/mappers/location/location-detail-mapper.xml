@@ -21,6 +21,7 @@
    
    
    <resultMap type="LocationOption" id="locationOption">
+        <result column="LOCATION_OPTION_NO" property="locationOptionNo"/>
    		<result column="GOODS" property="goods"/>
    		<result column="GOODS_PRICE" property="goodPrice"/>
    		<result column="ROOM_INFO" property="roomInfo"/>
@@ -72,7 +73,9 @@
     </select>
     
     <select id="selectLocationOptionList" resultMap="locationOption">
-    		SELECT GOODS,
+    		SELECT 
+    			   LOCATION_OPTION_NO,
+    		       GOODS,
     			   GOODS_PRICE,
     			   ROOM_INFO,
     			   ROOM_STATUS,
@@ -82,7 +85,8 @@
    </select>
    
     <select id="selectOperationTimeList" resultMap="operationTime">
-    	  SELECT  START_TIME,
+    	  SELECT  
+    	          START_TIME,
     	  		  END_TIME,
     	  		  DAYS,
     	  		  REST_STATUS

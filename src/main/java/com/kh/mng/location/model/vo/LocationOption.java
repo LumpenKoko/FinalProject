@@ -19,9 +19,10 @@ import lombok.ToString;
 //장소 옵션
 public class LocationOption {
 
+	private int locationOptionNo;
 	private String goods;//상품이름
 	private String goodPrice;//상품가격
 	private String roomInfo;//객실 정보
-	private boolean status; //수용상태
+	private boolean roomStatus; //수용상태
     private int capacity;//수용인원
 }

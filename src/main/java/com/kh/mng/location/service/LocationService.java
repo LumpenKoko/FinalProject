@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
@@ -21,7 +22,8 @@ public interface LocationService {
 	int pickedCount(int locationNo);
 	int insertPicked(PickedInfo pickedInfo);
 	int deletePicked(PickedInfo pickedInfo);
-	DetailLocation selectDetailLocation(int locationNo);
+	DetailLocation_ selectDetailLocation_(int locationNo);
+	public DetailLocation selectDetailLocation(int locationNo);
 	ArrayList<Review> selectDetailReviewList(int locationNo,PageInfo pi);
 	ArrayList<DetailLocationAttachment> selectDetailMainImg(int locationNo);
 	ArrayList<DetailLocationAttachment> selectDetailDetailImg(int locationNo);

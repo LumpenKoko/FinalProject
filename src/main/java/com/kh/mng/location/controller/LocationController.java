@@ -31,11 +31,13 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
-import com.kh.mng.location.model.vo.DetailLocation;
+import com.kh.mng.location.model.dto.ReviewPage;
+import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
+import com.kh.mng.location.model.vo.DetailLocation; 
 
 
 @Controller
@@ -57,7 +59,7 @@ public class LocationController {
 		System.out.println(locationNo);
 		//장소정보와 ,리뷰 정보도
 		// 공간 이미지를 db에서 받아온다. ,리뷰 정보도
-	  	DetailLocation detailLocation =  detailService.selectDetailLocation(locationNo);
+	  //	DetailLocation_ detailLocation =  detailService.selectDetailLocation_(locationNo);
 	  	
 	  	
 		int reviewCount=detailService.selectReviewCount(locationNo);
@@ -66,21 +68,28 @@ public class LocationController {
 		System.out.println(reviews);
 	  	
 		//이방법으로 할것!!
-	   //DetailLocation detailLocation2 =detailService.selectDetailLocation2(spaceNo);
+        DetailLocation detailLocations =detailService.selectDetailLocation(locationNo);
+		System.out.println(detailLocations);
+		
+		
+		
 	  	
-    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(locationNo);
-    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(locationNo);
+//    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(locationNo);
+//    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(locationNo);
 //		System.out.println(detailLocation);
 	
-		System.out.println(mainImg);
-		System.out.println(detailImg);
-	    
-		model.addAttribute("location",detailLocation);
-		model.addAttribute("mainImg",mainImg);
-		model.addAttribute("detailImg",detailImg);
+//		System.out.println(mainImg);
+//		System.out.println(detailImg);
+//	    
+//		model.addAttribute("location",detailLocation);
+//		model.addAttribute("mainImg",mainImg);
+//		model.addAttribute("detailImg",detailImg);
 		
 		model.addAttribute("reviewPi",pi);
 		model.addAttribute("review",reviews);
+		
+		
+		model.addAttribute("l",detailLocations);
 		
 		return "location/detail";
 	}
@@ -169,15 +178,16 @@ public class LocationController {
 		
 		
 	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
+	 	ReviewPage reivewPage =new ReviewPage();
+	 	reivewPage.setPage(pi);
+	 	reivewPage.setReviews(reviews);
 	 	
-	 	
-		Map<ArrayList<Review>,PageInfo> pageReview=new HashMap<ArrayList<Review>,PageInfo>();
-		pageReview.put(reviews,pi);
-		System.out.println(new Gson().toJson(pageReview));
+	
+		//System.out.println(new Gson().toJson(pageReview));
 		//Type type = new TypeToken<Map<PageInfo, ArrayList<Review>>>(){}.getType();
-		//System.out.println(new Gson().toJson(pageReview,type ));
+		System.out.println(new Gson().toJson(reivewPage ));
 		//return new Gson().toJson(pageReview);
-		return new Gson().toJson(reviews);
+		return new Gson().toJson(reivewPage);
 	}
 	
 //	@ResponseBody

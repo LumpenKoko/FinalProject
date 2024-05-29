@@ -1,10 +1,27 @@
 let contextPath;
-function init(path){
+let loginUser;
+function init(path, user){
     contextPath = path;
+    loginUser = user;
 
     selectPlaceTop();
-    selectCommunityTop();
+
+    for(i = 1; i <= 3; i++){
+        selectBoardDetailTop(i);
+    }
+
+    if (loginUser !== null){
+        selectRegistPetModal(loginUser);
+    }
+
 }
+
+function selectRegistPetModal(loginUser){
+    console.log("들어왔어요")
+    let button = document.querySelector("#regist-pet-button");
+    button.click;
+}
+
 
 // function sendToPage(url){
 //     location.href = contextPath + url;
@@ -65,27 +82,24 @@ function drawPlaceTop(locationList){
     }
 }
 
-// ***커뮤니티 글 추천***
-function selectCommunityTop(){
-    let boardBox = document.querySelector("#community-ranking>div");
-    for(i = 1; i <= 3; i++){
-        let box = selectBoardDetailTop(i);
-        boardBox.appendChild(box);
-    }
-}
-
 // 인기 조회글 ajax
-function selectBoardDetailTop(i){
-    ajaxGetData(contextPath + "/topBoard.ma?type=" + i,
+function selectBoardDetailTop(type){
+    ajaxGetData(contextPath + "/topBoard.ma?type=" + type,
     "",
-    function(result){drawBoardDetailTop(i, result)});
+    function(result){drawBoardDetailTop(type, result)});
 }
 
 function drawBoardDetailTop(type, boardList){
+    let boardBox = document.querySelector("#community-ranking>div");
+
     let communityRankingBox = document.createElement("div");
     communityRankingBox.className = "community-ranking-box";
 
     let communityTable = document.createElement('table');
+    communityTable.className = "community-ranking-table";
+
+    boardBox.append(communityRankingBox);
+    communityRankingBox.appendChild(communityTable);
 
     let board = "";
 
@@ -103,18 +117,34 @@ function drawBoardDetailTop(type, boardList){
     }
     board += `</th></tr>`;
     communityTable.innerHTML = board;
-
+    // let communityTable;
+    // switch(type){
+    //     case 1 : 
+    //         communityTable = document.querySelector("#table-count");
+    //         break;
+    //     case 2 : 
+    //         communityTable = document.querySelector("#table-good");
+    //         break;
+    //     case 3 : 
+    //         communityTable = document.querySelector("#table-reply");
+    //         break;
+    // }
+    
     for (i = 0; i < boardList.length; i++){
+        board = boardList[i];
+        
         let boardRanking = document.createElement('tr');
         boardRanking.className = "community-ranking-box-content";
-        boardRanking.onclick = function(){
-            location.href = contextPath + "/detailView.bo?bno=" + boardList[i].boardNo;
+
+        boardRanking.onclick = function(board){
+            location.href = contextPath + "/detailView.bo?bno=" + board.boardNo;
         }
+        communityTable.append(boardRanking);
 
         let boardDetail = "";
 
         // 순위
-        boardDetail += `<td id="community-ranking-box-ranking">`+ i + 1 + `</td>`;
+        boardDetail += `<td id="community-ranking-box-ranking">`+ (i + 1) + `</td>`;
 
         // 내용-제목
         boardDetail += `<td id="community-ranking-box-content">
@@ -128,10 +158,9 @@ function drawBoardDetailTop(type, boardList){
         // 내용-작성자
         boardDetail += `<div class="community-ranking-box-member">`+boardList[i].userNo+`</div></td>`;
         boardRanking.innerHTML = boardDetail;
-
-        communityTable.append(boardRanking);
+        console.log(boardRanking)
     }
-    communityRankingBox.appendChild(communityTable);
+    
 
 
 

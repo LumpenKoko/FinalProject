@@ -25,9 +25,29 @@ public class MainDao {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectEnterGradeList", loc);
 	}
 	
-	public ArrayList<Board> ajaxSelectBoardMainList(SqlSessionTemplate sqlSession, int type){
-		return (ArrayList)sqlSession.selectList("mainMapper.ajaxSelectBoardMainList", type);
+	public ArrayList<Board> ajaxSelectBoardCountList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("mainMapper.ajaxSelectBoardCountList");
 	}
+	
+	public ArrayList<Board> selectGoodCountList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("mainMapper.selectGoodCountList");
+	}
+	
+	// 댓글수 많은 것 boardNo 5개
+	public ArrayList<Board> selectReplyCountList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("mainMapper.selectReplyCountList");
+	}
+	
+	// 넘긴 boardNo에 해당하는 게시글 하나
+	public Board ajaxSelectBoardMain(SqlSessionTemplate sqlSession, int boardNo){
+		return sqlSession.selectOne("mainMapper.ajaxSelectBoardMain", boardNo);
+	}
+	
+	// 넘긴 boardNo에 해당하는 댓글수
+	public int selectReplyCount(SqlSessionTemplate sqlSession, int boardNo){
+		return sqlSession.selectOne("mainMapper.selectReplyCount", boardNo);
+	}
+	
 //	1. COUNT 순서대로 조회한 걸 DESC
 //	2. BOARD_NO을 가진 GOOD을 COUNT 해서 GOOD 개수 기준으로 DESC
 //	3. BOARD_NO을 가진 REPLY를 COUNT 해서 REPLY 개수 기준으로 DESC

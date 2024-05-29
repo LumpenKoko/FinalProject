@@ -29,11 +29,20 @@ public class MainController {
 	@RequestMapping(value="topBoard.ma", produces="application/json; charset-UTF-8")
 	public String ajaxSelectBoardMainList(int type) {
 		System.out.println(type);
-		ArrayList<Board> list = mainService.ajaxSelectBoardMainList(type);
-		System.out.println("여긴 들어왔니?");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		switch(type) {
+		case 1 :
+			list = mainService.ajaxSelectBoardCountList();
+			break;
+		case 2 :
+			list = mainService.ajaxSelectBoardGoodList();
+			break;
+		case 3 :
+			list = mainService.ajaxSelectBoardReplyList();
+			break;
 		}
+
 		return new Gson().toJson(list);
 	}
 	

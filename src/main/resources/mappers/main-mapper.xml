@@ -69,6 +69,7 @@
 		<result column="USER_NAME" property="userNo"/>
 		<result column="BOARD_CATEGORY_NAME" property="boardCategoryNo"/>
 		<result column="REPLY_COUNT" property="replyCount"/>
+		<result column="GOOD_COUNT" property="goodCount"/>
    </resultMap>
 	<select id="selectLocationTop" resultMap="location">
 		SELECT *
@@ -124,6 +125,65 @@
 		JOIN PET_KIND K ON S.PET_KIND_NO = K.PET_KIND_NO
 		WHERE E.LOCATION_NO = #{locationNo}
 	</select>	
+	
+	
+	<select id="ajaxSelectBoardCountList" resultMap="boardResult">
+		SELECT *
+		  FROM (SELECT BOARD_NO,
+					   BOARD_TITLE,
+					   USER_NAME,
+					   COUNT
+				  FROM BOARD B
+				  JOIN MEMBER M ON M.USER_NO = B.USER_NO
+				 ORDER BY COUNT DESC)
+		LIMIT 5
+	</select>
+	<select id="selectGoodCountList" resultMap="boardResult">
+		SELECT *
+		FROM (SELECT BOARD_NO,
+				     COUNT(*) AS GOOD_COUNT
+			    FROM GOOD
+			   GROUP BY BOARD_NO
+			ORDER BY GOOD_COUNT DESC)
+		LIMIT 5
+	</select>
+	<select id="ajaxSelectBoardMain" resultMap="boardResult">
+		SELECT BOARD_NO,
+			   BOARD_TITLE,
+			   USER_NAME
+		  FROM BOARD B
+		  JOIN MEMBER M ON M.USER_NO = B.USER_NO
+		  WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectReplyCountList" resultMap="boardResult">
+		SELECT *
+		FROM (SELECT BOARD_NO,
+				     COUNT(*) AS REPLY_COUNT
+			    FROM REPLY
+			   GROUP BY BOARD_NO
+			ORDER BY REPLY_COUNT DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="selectReplyCount" resultType="_int">
+		SELECT COUNT(*) AS REPLY_COUNT
+		FROM REPLY
+		WHERE BOARD_NO = #{boardNo}
+			   
+	</select>
+	<!-- 
+	<select id="ajaxSelectBoardGoodList" resultMap="boardResult">
+		SELECT *
+		FROM (SELECT *
+			    FROM (SELECT BOARD_NO,
+						     COUNT(*) AS GOOD_COUNT
+					    FROM BOARD B
+					    JOIN GOOD G ON B.BOARD_NO = G.BOARD_NO)
+			ORDER BY GOOD_COUNT)
+		LIMIT 5
+	</select>	 -->
+	<!-- 
 	<select id="ajaxSelectBoardMainList" resultMap="boardResult">
 		SELECT *
 		  FROM (SELECT BOARD_NO,
@@ -157,4 +217,5 @@
 			</choose>
 		LIMIT 5
 	</select>	
+	 -->
 </mapper>

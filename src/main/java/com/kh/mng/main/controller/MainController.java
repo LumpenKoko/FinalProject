@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.service.MainServiceImpl;
 
@@ -24,12 +25,26 @@ public class MainController {
 		return new Gson().toJson(list);
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value="topBoard.ma", produces="application/json; charset-UTF-8")
-//	public String ajaxSelectBoardMainList() {
-//		ArrayList<Location> list = mainService.ajaxSelectBoardMainList();
-//		return new Gson().toJson(list);
-//	}
+	@ResponseBody
+	@RequestMapping(value="topBoard.ma", produces="application/json; charset-UTF-8")
+	public String ajaxSelectBoardMainList(int type) {
+		System.out.println(type);
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		switch(type) {
+		case 1 :
+			list = mainService.ajaxSelectBoardCountList();
+			break;
+		case 2 :
+			list = mainService.ajaxSelectBoardGoodList();
+			break;
+		case 3 :
+			list = mainService.ajaxSelectBoardReplyList();
+			break;
+		}
+
+		return new Gson().toJson(list);
+	}
 	
 //	@ResponseBody // ?
 //	@RequestMapping(value = "rlist.bo", produces="application/json; charset-UTF-8")

@@ -58,6 +58,19 @@
 		<result column="PET_SIZE_NAME" property="petSizeNo"/>
 		<result column="PET_KIND_NAME" property="petKindName"/>
    </resultMap>
+   <resultMap type="Board" id="boardResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="COUNT" property="count"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="EDIT_DATE" property="editDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="USER_NAME" property="userNo"/>
+		<result column="BOARD_CATEGORY_NAME" property="boardCategoryNo"/>
+		<result column="REPLY_COUNT" property="replyCount"/>
+		<result column="GOOD_COUNT" property="goodCount"/>
+   </resultMap>
 	<select id="selectLocationTop" resultMap="location">
 		SELECT *
 		FROM (
@@ -112,4 +125,97 @@
 		JOIN PET_KIND K ON S.PET_KIND_NO = K.PET_KIND_NO
 		WHERE E.LOCATION_NO = #{locationNo}
 	</select>	
+	
+	
+	<select id="ajaxSelectBoardCountList" resultMap="boardResult">
+		SELECT *
+		  FROM (SELECT BOARD_NO,
+					   BOARD_TITLE,
+					   USER_NAME,
+					   COUNT
+				  FROM BOARD B
+				  JOIN MEMBER M ON M.USER_NO = B.USER_NO
+				 ORDER BY COUNT DESC)
+		LIMIT 5
+	</select>
+	<select id="selectGoodCountList" resultMap="boardResult">
+		SELECT *
+		FROM (SELECT BOARD_NO,
+				     COUNT(*) AS GOOD_COUNT
+			    FROM GOOD
+			   GROUP BY BOARD_NO
+			ORDER BY GOOD_COUNT DESC)
+		LIMIT 5
+	</select>
+	<select id="ajaxSelectBoardMain" resultMap="boardResult">
+		SELECT BOARD_NO,
+			   BOARD_TITLE,
+			   USER_NAME
+		  FROM BOARD B
+		  JOIN MEMBER M ON M.USER_NO = B.USER_NO
+		  WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectReplyCountList" resultMap="boardResult">
+		SELECT *
+		FROM (SELECT BOARD_NO,
+				     COUNT(*) AS REPLY_COUNT
+			    FROM REPLY
+			   GROUP BY BOARD_NO
+			ORDER BY REPLY_COUNT DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="selectReplyCount" resultType="_int">
+		SELECT COUNT(*) AS REPLY_COUNT
+		FROM REPLY
+		WHERE BOARD_NO = #{boardNo}
+			   
+	</select>
+	<!-- 
+	<select id="ajaxSelectBoardGoodList" resultMap="boardResult">
+		SELECT *
+		FROM (SELECT *
+			    FROM (SELECT BOARD_NO,
+						     COUNT(*) AS GOOD_COUNT
+					    FROM BOARD B
+					    JOIN GOOD G ON B.BOARD_NO = G.BOARD_NO)
+			ORDER BY GOOD_COUNT)
+		LIMIT 5
+	</select>	 -->
+	<!-- 
+	<select id="ajaxSelectBoardMainList" resultMap="boardResult">
+		SELECT *
+		  FROM (SELECT BOARD_NO,
+					   BOARD_TITLE,
+					   USER_NAME,
+					   REPLY_COUNT
+				  FROM BOARD B
+				  JOIN MEMBER M ON M.USER_NO = B.USER_NO
+				  JOIN (SELECT BOARD_NO,
+							   COUNT(*) AS REPLY_COUNT
+						  FROM REPLY
+					  GROUP BY BOARD_NO
+						HAVING BOARD_NO = #{boardNo}) R
+						    ON B.BOARD_NO = R.BOARD_NO
+			<choose>
+				<when test="type == 1">
+					ORDER BY COUNT DESC)
+				</when>
+				<when test="type == 2">
+					JOIN (SELECT BOARD_NO,
+								 COUNT(*) AS GOOD_COUNT
+							FROM GOOD
+						GROUP BY BOARD_NO
+						  HAVING BOARD_NO = #{boardNo}) G
+						      ON B.BOARD_NO = G.BOARD_NO
+					ORDER BY GOOD_COUNT DESC)
+				</when>
+				<when test="type == 3">
+					ORDER BY REPLY_COUNT DESC)
+				</when>
+			</choose>
+		LIMIT 5
+	</select>	
+	 -->
 </mapper>

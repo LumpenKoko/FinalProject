@@ -1,9 +1,31 @@
 let contextPath;
-function init(path){
+let loginUser;
+function init(path, user){
     contextPath = path;
+    loginUser = user;
 
     selectPlaceTop();
+
+    for(i = 1; i <= 3; i++){
+        selectBoardDetailTop(i);
+    }
+
+    if (loginUser !== null){
+        selectRegistPetModal(loginUser);
+    }
+
 }
+
+function selectRegistPetModal(loginUser){
+    console.log("들어왔어요")
+    let button = document.querySelector("#regist-pet-button");
+    button.click;
+}
+
+
+// function sendToPage(url){
+//     location.href = contextPath + url;
+// }
 
 // ***장소 추천***
 function selectPlaceTop(){
@@ -60,14 +82,102 @@ function drawPlaceTop(locationList){
     }
 }
 
-// ***커뮤니티 글 추천***
-
 // 인기 조회글 ajax
-// function selectPlaceTop(){
-//     ajaxGetData(contextPath + "/topPlace.ma", 
-//     "",
-//     function(result){drawPlaceTop(result)});
-// }
+function selectBoardDetailTop(type){
+    ajaxGetData(contextPath + "/topBoard.ma?type=" + type,
+    "",
+    function(result){drawBoardDetailTop(type, result)});
+}
+
+function drawBoardDetailTop(type, boardList){
+    let boardBox = document.querySelector("#community-ranking>div");
+
+    let communityRankingBox = document.createElement("div");
+    communityRankingBox.className = "community-ranking-box";
+
+    let communityTable = document.createElement('table');
+    communityTable.className = "community-ranking-table";
+
+    boardBox.append(communityRankingBox);
+    communityRankingBox.appendChild(communityTable);
+
+    let board = "";
+
+    board += `<tr><th colspan="2">`;
+    switch(type){
+        case 1 : 
+            board += '인기 조회글';
+            break;
+        case 2 :
+            board += '인기 추천글';
+            break;
+        case 3 :
+            board += '댓글 최다순';
+            break;
+    }
+    board += `</th></tr>`;
+    communityTable.innerHTML = board;
+    // let communityTable;
+    // switch(type){
+    //     case 1 : 
+    //         communityTable = document.querySelector("#table-count");
+    //         break;
+    //     case 2 : 
+    //         communityTable = document.querySelector("#table-good");
+    //         break;
+    //     case 3 : 
+    //         communityTable = document.querySelector("#table-reply");
+    //         break;
+    // }
+    
+    for (i = 0; i < boardList.length; i++){
+        board = boardList[i];
+        
+        let boardRanking = document.createElement('tr');
+        boardRanking.className = "community-ranking-box-content";
+
+        boardRanking.onclick = function(board){
+            location.href = contextPath + "/detailView.bo?bno=" + board.boardNo;
+        }
+        communityTable.append(boardRanking);
+
+        let boardDetail = "";
+
+        // 순위
+        boardDetail += `<td id="community-ranking-box-ranking">`+ (i + 1) + `</td>`;
+
+        // 내용-제목
+        boardDetail += `<td id="community-ranking-box-content">
+                            <div class="community-ranking-box-title">
+                                <div>`
+        boardDetail += boardList[i].boardTitle + `</div>`;
+
+        // 내용-댓글수
+        boardDetail += `<span>[`+boardList[i].replyCount+`]</span></div>`;
+
+        // 내용-작성자
+        boardDetail += `<div class="community-ranking-box-member">`+boardList[i].userNo+`</div></td>`;
+        boardRanking.innerHTML = boardDetail;
+        console.log(boardRanking)
+    }
+    
+
+
+
+//         `<tr class="community-ranking-box-content">`
+//             `<td id="community-ranking-box-ranking">`5`</td>
+//             <td id="community-ranking-box-content">
+//                 <div class="community-ranking-box-title">
+//                     <div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
+//                     <span>[20]</span>
+//                 </div>
+//                 <div class="community-ranking-box-member">쿠키언니</div>
+//             </td>
+//         </tr>
+
+//     </table>
+// </div>`
+}
 
 
 

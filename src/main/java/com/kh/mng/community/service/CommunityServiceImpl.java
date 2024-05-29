@@ -19,11 +19,15 @@ public class CommunityServiceImpl implements CommunityService{
 	public int selectListCount() {
 		return 0;
 	}
+	
+	@Override
+	public String getVideo(int videoId) {
+		return communityDao.getVideo(sqlSession, videoId);
+	}
 
 	@Override
 	public int addComment(String comment) {
-		communityDao.addComment(sqlSession, comment);
-		return 0;
+		return communityDao.addComment(sqlSession, comment);
 	}
 
 }

@@ -4,8 +4,20 @@ function reviewInsert(){
    // const dataTransfer = new DataTransfer();
     let reviewButton=document.querySelector('#review-submit');
     reviewButton.onclick = () =>{
-
+        if(userNo==-1){
+            alert("로그인을 먼저해주세요~")
+            return false;
+        }
         const formData= reviewData();
+        if(formData==null){
+            alert("별점을 찍어주세요");
+            return false;
+        }
+
+        if(confirm("작성하시겠습니까?")){
+        }else{
+            return false;
+        }
 
         $.ajax({
             type:"POST",
@@ -71,7 +83,24 @@ function reviewSelect(callback){
 
 //리뷰 삭제 비동기
 //onclick="reviewDelete({userNo:2,locationNo:'${r.locationNo}',reviewNo:'${r.reviewNo}'}
-function reviewDelete(num){
+function reviewDelete(num,reviewUserNo){
+   
+    if(userNo==-1){
+        alert("로그인을 먼저해주세요~")
+        return false;
+    }
+
+    if(userNo!=reviewUserNo){
+        alert("본인리뷰만 삭제할수 있습니다.")
+        return false;
+    }
+
+    if(confirm("삭제하시겠습니까??")){
+		alert("삭제되었습니다.");
+	}else{
+		return false;
+	}
+
         console.log("리뷰 번호"+num);
         $.ajax({
             type:"POST",

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dto.FileInfo;
+import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.vo.Review;
 
@@ -47,6 +48,11 @@ public class ReviewDao {
 	public int selectReviewCount(SqlSessionTemplate sqlSession,int locationNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("review.reviewCount",locationNo);
+	}
+
+	public int selectReply(SqlSessionTemplate sqlSession,ReplyInfo reply) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("review.insertReply",reply);
 	}
 	
 }

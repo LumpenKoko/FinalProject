@@ -13,22 +13,26 @@
 				<link rel="stylesheet" href="resources/css/detail/review.css" />
 				<link rel="stylesheet" href="resources/css/detail/room.css" />
 				<link rel="stylesheet" href="resources/css/detail/review_star.css" />
+				<link rel="stylesheet" href="resources/css/detail/reply.css" />
 				<script type="text/javascript"
 					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 
 				<script src='resources/js/location/ajax/init.js'></script>
 				<script src='resources/js/location/ajax/pickAjax.js'></script>
 				<script src='resources/js/location/ajax/reviewAjax.js'></script>
+				<script src='resources/js/location/ajax/replyAjax.js'></script>
 				<script src='resources/js/location/pick/pick.js'></script>
 				<script src='resources/js/location/map/map.js'></script>
 				<script src='resources/js/location/map/hostpital-map.js'></script>
 				<script src='resources/js/location/location.js'></script>
 				<script src='resources/js/location/review/review.js'></script>
+				<script src='resources/js/location/review/reply.js'></script>
+			
 
 		</head>
 		<%@ include file="../common/header.jsp" %>
 
-			<body onload="init('<%=contextPath%>',2)">
+			<body onload="init('<%=contextPath%>','${userNo}')">
 
 
 				<div class="wrapper detail-wrapper">
@@ -82,18 +86,21 @@
 									<div>
 										<div class="content">${l.categoryName}</div>
 										<div class="content">${l.locationPhone}</div>
-										<c:forEach var="o" items="${l.operationTime}">
-											<div class="content">시작시간:${o.startTime}</div>
-											<div class="content">종료시간:${o.endTime}</div>
-											<div class="content">체크인/체크아웃:${o.day}</div>
-										</c:forEach>
-
+										<!-- 장소별로 식별-->
+										<c:if test="{l.locationCategoryNo eq 4}">
+											<c:forEach var="o" items="${l.operationTime}">
+												<div class="content">시작시간:${o.startTime}</div>
+												<div class="content">종료시간:${o.endTime}</div>
+												<div class="content">체크인/체크아웃:${o.day}</div>
+											</c:forEach>
+									   </c:if>
 									</div>
 									<div>
+
+										<div>반려동물 등급</div>
 										<c:forEach var="k" items="${l.petKindGrade}">
 											<div>
-												<h3>반려동물 등급</h3>
-												<span>${k.petSizeName}</span>:
+												<span>${k.petSizeName}</span>
 												<span>${k.petKindName}</span>
 											</div>
 										</c:forEach>
@@ -128,6 +135,7 @@
 
 						<!-- 장소 종류에따라 처리-->
 
+						<c:if test="${l.locationCategoryNo != 4}">
 						<!--상품 정보-->
 						<div class="section">
 							<div class="title">상품 정보</div>
@@ -141,6 +149,9 @@
 								</div>
 							</c:forEach>
 						</div>
+						</c:if>
+
+					<c:if test="${l.locationCategoryNo == 4}">
 
 						<!--객실 정보-->
 						<c:forEach var="r" items="${l.locationOption}">
@@ -151,7 +162,7 @@
 										<img src="resources/img/tori.jpg" />
 									</div>
 									<div class="room-info">
-										<div class="title" style="color:var(--main-color);">${r.roomInfo}</div>
+										<div class="title" style="color:var(--main-color);">${r.goods}</div>
 										<div class="title price">${r.goodPrice}</div>
 										<div style="width:100%">
 											<hr>
@@ -173,7 +184,7 @@
 									</div>
 								</div>
 							</div>
-
+						  
 							<!-- The Modal  ${r.locationOptionNo}-->
 
 							<div class="modal fade wrapper" id="myModal${r.locationOptionNo}">
@@ -241,7 +252,7 @@
 							</div>
 						</c:forEach>
 
-
+					 </c:if>
 
 
 
@@ -298,7 +309,7 @@
 													<c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
 												</span>
 												<span><a href="#">수정</a>|<a
-														onclick="reviewDelete('${r.reviewNo}')">삭제</a></span>
+														onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
 											</div>
 										</div>
 
@@ -309,8 +320,16 @@
 											</c:forEach>
 										</div>
 										<div class="content">${r.reviewContent}</div>
+
+										<!--사장님 답글 영역-->
+										<div><a id="reply-button" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글</a></div>
+										<div id="master-reply-div${r.reviewNo}" class="master-reply-input show-reply">
+											<textarea id="reply-content${r.reviewNo}" class="master-reply-content"></textarea>
+											<button class="master-reply-button" onclick="insertReplyAjax('${r.reviewNo}')">작성하기</button>
+										</div>
 									</div>
 
+									 
 									<!-- 답글이 있을때만 처리-->
 									<c:if test="${r.ownerReplyContent != null}">
 										<div style="align-items: right;">

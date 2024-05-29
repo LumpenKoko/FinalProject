@@ -98,7 +98,7 @@ display: flex;
     height: 40px;
     text-align: left;
 }
-.boss-email{
+.boss-email, .boss-domain{
     width: 31%;
     height: 40px;
     border-radius: 15px;
@@ -195,6 +195,36 @@ display: flex;
 }
 .remove-checkbox{
     display: ruby;
+}
+
+/*비밀번호 변경 모달창*/
+#login-form>div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#save-id{
+    cursor: pointer;
+}
+
+.minibox-wrap>hr{
+    border: 1px solid var(--border-color);
+    margin: 30px 0px;
+}
+
+#search-id-password{
+    display: flex;
+    justify-content: space-around;
+}
+
+#search-id-password>div{
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#search-id-password>div:hover{
+    color: var(--main-color);
 }
 
 

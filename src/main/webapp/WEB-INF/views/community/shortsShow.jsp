@@ -71,6 +71,7 @@
                     videoId: num
                 },
                 success: function(response) {
+                    console.log(response);
                     const videoContainer = document.getElementById('video-container' + num);
                     videoContainer.innerHTML = `
                         <video controls autoplay muted width="720" height="1080">

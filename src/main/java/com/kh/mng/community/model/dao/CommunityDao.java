@@ -5,9 +5,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CommunityDao {
+	
+	public String getVideo(SqlSessionTemplate sqlSession, int videoId) {
+		return sqlSession.selectOne("shortsMapper.getVideo", videoId);
+	}
 
 	public int addComment(SqlSessionTemplate sqlSession, String comment) {
-		return 0;
+		return sqlSession.insert("shortsMapper.shortsCommentEnroll", comment);
 		
 	}
 

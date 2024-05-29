@@ -44,6 +44,7 @@
  		<mapper resource="/mappers/search-mapper.xml"/>
  		<mapper resource="/mappers/main-mapper.xml"/>
  		<mapper resource="/mappers/location/location-detail-mapper.xml"/>
+ 		<mapper resource="/mappers/community/shorts-mapper.xml"/>
  	</mappers>
  	
     

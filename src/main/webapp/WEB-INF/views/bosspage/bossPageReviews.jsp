@@ -54,10 +54,8 @@
                             </div>
                             <!-- 답글 내용 -->
                             <div id="rpple-complete" style="display: none;">
-                                <div class="rpple-date">asdfgsdfg</div>
-                                <button onclick="onDeleteClick()" class="rpple-removal">
-                                    삭제
-                                </button>
+                                <div class="rpple-date" id="replyContent"></div>
+                                <button onclick="onDeleteClick()" class="rpple-removal">삭제</button>
                             </div>
                         </div>
                     </div>
@@ -74,24 +72,22 @@
                             <th id="coupon-title">쿠폰명</th>
                             <th id="coupon-expiration">유효기간(일)</th>
                             <th id="coupon-count">사용 / 발매</th>
-                            <th id="coupon-admin">발매 개수</th>
+                            <th id="coupon-admin">증정 개수</th>
                         </tr>
                         <tr id="coupon-table-content">
                             <th id="checkbox"><input type="checkbox" name="" id=""></th>
                             <th id="content-title">멍냥식당 고객감사 2000원 할인</th>
                             <th id="content-expiration">14일</th>
                             <th id="content-count" style="margin-right: 60px;">6 / 10</th>
-                            <th id="-"><button style="background-size: 8px;
-                                    background-image: url(resources/img/myPage/-.png);">
-                                </button></th>
-                            <th id="content-admin">&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;</th>
-                            <th id="+"><button style="background-size: 20px;
-                                background-image: url(resources/img/myPage/+.png);">
-                                </button></th>
+                            <th id="-"><button style="background-size: 8px; background-image: url(resources/img/myPage/-.png);" onclick="decreaseCount();">
+                            </button></th>
+                            <th id="content-admin">1</th>
+                            <th id="+"><button style="background-size: 20px; background-image: url(resources/img/myPage/+.png);" onclick="increaseCount();">
+                            </button></th>
                         </tr>
                     </table>
                     <div id="modal-body-end">
-                        <button style="background-color: #FE8B94; color: white; margin-left: 50px;">
+                        <button style="background-color: #FE8B94; color: white; margin-left: 50px;" onclick="issueCoupon()">
                             발급
                         </button>
                         <button style="background-color: white; margin-right: 50px;" id="cancel" onclick="closeModal()">

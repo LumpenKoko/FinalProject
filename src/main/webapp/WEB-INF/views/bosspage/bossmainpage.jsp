@@ -90,7 +90,7 @@
                         </div>
                         <div style="border-top: 3px solid #BABABA; margin-top: 70px; margin-bottom: 30px;"></div>
                         <div id="edit-option">
-                            <button style="margin-right: auto;" onclick="">비밀번호 변경</button>
+                            <button style="margin-right: auto;" onclick="showPasswordModal()">비밀번호 변경</button>
                             <button onclick="showRemoveModal()">가게 삭제 및 탈퇴</button>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
             </div>
             <div class="boss-remove-button">
                 <button class="boss-remove" onclick="checkPassword()" disabled>탈퇴</button>
-                <button onclick="hideRemoveModal()">취소</button>
+                <button onclick="hideModal('boss-remove-modal')">취소</button>
             </div>
         </div>
     

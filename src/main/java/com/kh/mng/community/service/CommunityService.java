@@ -4,5 +4,5 @@ public interface CommunityService {
 	
 	int selectListCount();
 
-	int addComment();
+	int addComment(String comment);
 }

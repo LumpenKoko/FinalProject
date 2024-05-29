@@ -1,10 +1,18 @@
 package com.kh.mng.location.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.location.model.dto.FileInfo;
+import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.vo.DetailLocation_;
+import com.kh.mng.location.model.vo.LocationOption;
+import com.kh.mng.location.model.vo.OperationTime;
+import com.kh.mng.location.model.vo.PetKindGrade;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 
@@ -12,18 +20,48 @@ import com.kh.mng.location.model.vo.DetailLocationAttachment;
 @Repository
 public class DetailDao {
 
-	public DetailLocation selectDetailLocation(SqlSessionTemplate sqlSession,int spaceNo) {
+	public DetailLocation_ selectDetailLocation_(SqlSessionTemplate sqlSession,int locationNo) {
 	
-		return sqlSession.selectOne("location.selectDetailList",spaceNo);
+		return sqlSession.selectOne("location.selectDetailList",locationNo);
 	}
 
-	public ArrayList<DetailLocationAttachment> selectMainImg(SqlSessionTemplate sqlSession, int spaceNo) {
+	public ArrayList<DetailLocationAttachment> selectMainImg(SqlSessionTemplate sqlSession, int locationNo) {
 	  
-		return (ArrayList) sqlSession.selectList("attachment.selectMainAttachment",spaceNo);
+		return (ArrayList) sqlSession.selectList("attachment.selectMainAttachment",locationNo);
 	}
-	public ArrayList<DetailLocationAttachment> selectDetailImg(SqlSessionTemplate sqlSession, int spaceNo) {
+	public ArrayList<DetailLocationAttachment> selectDetailImg(SqlSessionTemplate sqlSession, int locationNo) {
 		  
-		return (ArrayList) sqlSession.selectList("attachment.selectdetailAttachment",spaceNo);
+		return (ArrayList) sqlSession.selectList("attachment.selectdetailAttachment",locationNo);
+	}
+
+	
+	
+	//DB에서 여러 값들 가져오기
+	public DetailLocation selectDetailLocation(SqlSessionTemplate sqlSession, int locationNo) {
+		
+		return sqlSession.selectOne("detail.selectDetailLocation", locationNo);
+	}
+
+	public ArrayList<LocationOption> selectLocationOptionList(SqlSessionTemplate sqlSession, int locationNo) {
+		
+		return (ArrayList) sqlSession.selectList("detail.selectLocationOptionList", locationNo);
+	}
+
+
+
+	public ArrayList<Attachment> selectAttachMentList(SqlSessionTemplate sqlSession, int locationNo) {
+	
+		return (ArrayList) sqlSession.selectList("detail.selectAttachMentList",locationNo);
+	}
+
+	public ArrayList<OperationTime> selectOperationTimeList(SqlSessionTemplate sqlSession, int locationNo) {
+	
+		return  (ArrayList) sqlSession.selectList("detail.selectOperationTimeList",locationNo);
+	}
+
+	public ArrayList<PetKindGrade> selectPetKindGradeList(SqlSessionTemplate sqlSession, int locationNo) {
+		
+		return  (ArrayList) sqlSession.selectList("detail.selectPetKindGradeList",locationNo);
 	}
 
 }

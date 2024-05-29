@@ -18,17 +18,25 @@
    	  <result column="USER_NO" property="userNo"/>
    	  <result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"/>
    	  <result column="OWNER_ENROLL" property="ownerEnroll"/>
+   	    <result column="LOCATION_NO" property="locationNo"/>
    </resultMap>
    
-    <select id="selectDetailReviewList" resultMap="detailReview">
-    	
-		   SELECT   R.REVIEW_NO,
+   
+   <resultMap type="Attachment" id="reviewAttachment">
+	   		<result column="ORIGIN_NAME" property="originName"/>
+	   		<result column="CHANGE_NAME" property="changeName"/>
+	   		<result column="FILE_PATH" property="filePath"/>
+  </resultMap>
+   
+   <select id="selectDetailReviewList" resultMap="detailReview">
+     SELECT   R.REVIEW_NO,
 	    	   	    REVIEW_STAR,
 	    	        REVIEW_CONTENT,
     			    R.ENROLL_DATE,
     			    USER_NAME,
     			    L.LOCATION_STAR,
     			    R.USER_NO,
+    			    R.LOCATION_NO,
     			    O.ENROLL_DATE AS OWNER_ENROLL,
     			    O.OWNER_REPLY_CONTENT
 		    	    FROM REVIEW R
@@ -38,10 +46,76 @@
 		    	    ON (R.USER_NO = M.USER_NO)
 		    	    LEFT JOIN OWNER_REPLY O
 		    	    ON (R.REVIEW_NO = O.REVIEW_NO)
-		    	    WHERE L.LOCATION_NO = #{spaceNo} AND L.STATUS = true
-    	    
+		    	    WHERE L.LOCATION_NO = #{locationNo}
+		    	    ORDER BY R.REVIEW_NO DESC
+   </select>
+    
+    <select id="selectAttachment" resultMap="reviewAttachment">
+    		SELECT ORIGIN_NAME,
+    			   CHANGE_NAME,
+    			   FILE_PATH 
+    			   FROM PICTURE
+    			   WHERE REVIEW_NO = #{reviewNo}
+   </select>
+    
+      <insert id="insertReview">
+    		INSERT INTO 
+    		REVIEW 
+    		  (REVIEW_NO,
+    		  REVIEW_STAR,
+    		  REVIEW_CONTENT,
+    		  ENROLL_DATE,
+    		  MODIFY_DATE,
+    		  USER_NO,
+    		  LOCATION_NO
+    		  )
+    		VALUES(
+    			NEXTVAL('SEQ_REV'),
+    			#{starCount},
+    			#{content},
+    			DEFAULT,
+    			DEFAULT,
+    			#{userNo},
+    			#{locationNo}
+    		);
+    </insert>
+    
+     <insert id="insertAttachment" >
+         INSERT INTO
+         PICTURE(
+         	PIC_NO,
+         	ORIGIN_NAME,
+         	CHANGE_NAME,
+         	FILE_PATH,
+         	FILE_LEVEL,
+         	REVIEW_NO
+         )
+         VALUES
+           (NEXTVAL('SEQ_PIC'),
+           #{originName},
+           #{changeName},
+           #{path},
+           DEFAULT,
+           CURRVAL('SEQ_REV')
+          )
+         
+    </insert>
+    
+    <delete id="deleteReview" >
+    	
+    	DELETE FROM REVIEW 
+    		         WHERE (USER_NO = #{userNo}
+    				  AND LOCATION_NO = #{locationNo})
+    				  AND REVIEW_NO = #{reviewNo}
+    
+    </delete>
+    
+    <select id="reviewCount" resultType="_int">
+    	SELECT COUNT(*) FROM REVIEW
+    		WHERE LOCATION_NO = #{locationNo}
+    
     </select>
 
  	</mapper>
- 
+ 	
  

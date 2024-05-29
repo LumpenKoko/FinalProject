@@ -15,20 +15,26 @@
  		<typeAlias type="com.kh.mng.member.model.vo.Member" alias="Member" />
  		<typeAlias type="com.kh.mng.pet.model.vo.Pet" alias="Pet" />
  		<typeAlias type="com.kh.mng.location.model.vo.Picked" alias="Picked"/>
- 		<typeAlias type="com.kh.mng.location.model.vo.DetailLocation" alias="DetailLocation"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.DetailLocation_" alias="DetailLocation_"/>
  		<typeAlias type="com.kh.mng.location.model.vo.Review" alias="Review"/>
  		<typeAlias type="com.kh.mng.location.model.vo.DetailLocationAttachment" alias="DetailLocationAttachment"/>
  		<typeAlias type="com.kh.mng.common.model.vo.Attachment" alias="Attachment"/>
- 		<typeAlias type="com.kh.mng.picture.model.vo.Picture" alias="Picture"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.EnterGrade" alias="EnterGrade"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.Location" alias="Location"/>
+ 		<typeAlias type="com.kh.mng.community.model.vo.Board" alias="Board"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.DetailLocation" alias="DetailLocation"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.LocationOption" alias="LocationOption"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.OperationTime" alias="OperationTime"/>
+ 		<typeAlias type="com.kh.mng.location.model.vo.PetKindGrade" alias="PetkindGrade"/>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
  		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
+ 		<typeAlias type="com.kh.mng.picture.model.vo.Picture" alias="Picture"/>
  		
  	</typeAliases> 
  	
  	
 
- 	
- 	<mappers>
+  	<mappers>
  		<mapper resource="/mappers/member-mapper.xml"/>
  		<mapper resource="/mappers/pet-mapper.xml"/>
  		<mapper resource="/mappers/location/picked-mapper.xml"/>
@@ -37,6 +43,8 @@
  		<mapper resource="/mappers/location/attachment-mapper.xml"/>
  		<mapper resource="/mappers/search-mapper.xml"/>
  		<mapper resource="/mappers/main-mapper.xml"/>
+ 		<mapper resource="/mappers/location/location-detail-mapper.xml"/>
+ 		<mapper resource="/mappers/community/shorts-mapper.xml"/>
  		<mapper resource="/mappers/picture-mapper.xml"/>
  	</mappers>
  	

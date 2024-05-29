@@ -8,7 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ReviewInfo {
-	private int starCount;
-	private String content;
-	
+	   int userNo;
+	   int locationNo;
+	   int reviewNo;
+       int starCount;
+       String content;
+       
 }

@@ -19,7 +19,6 @@
                 <div class="title-box flex-box short-title-height">
                     <div class="minibox-title">쇼츠</div>
                     <div>
-                        <a href="<%=request.getContextPath()%>/shortsBoard.bo"><button class="common-button white-button">더보기</button></a>
                         <a href="<%=request.getContextPath()%>/enrollShorts.bo"><button class="common-button pink-button">쇼츠 등록</button></a>
                     </div>
                 </div>
@@ -95,7 +94,7 @@
                             <div class="content-box">
                                 <div class="profile">
                                     <div class="img-div">
-                                        <img src="resources/img/tori.jpg">
+                                        <img src="resources/img/review/tori.jpg">
                                     </div>
                                     <div>쿠키언니</div>
                                     <div>2024.00.00</div> 
@@ -116,7 +115,7 @@
                                 </div>
                             </div>
                              <div class="img-box">
-                               <img src="resources/img/tori.jpg">
+                               <img src="resources/img/review/tori.jpg">
                             </div>
                         </div>
                     </div>
@@ -143,7 +142,7 @@
             <div class="board-search">
                 <div class="category-div">
                     <select  class=" select-box" name="kind" id="kind" class="category-kind">
-                        <option value="" aria-readonly="true">==제목+본문==</option>
+                        <option value="" disabled>제목+본문</option>
                         <option value="">여행/숙소</option>
                         <option value="">Q&A</option>
                         <option value="">Java</option>

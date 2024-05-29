@@ -6,7 +6,7 @@
   
    <mapper namespace="location">
   	
-    <resultMap type="DetailLocation" id="detailLocation">
+    <resultMap type="DetailLocation_" id="detailLocation">
 		<result column="LOCATION_NO" property="locationNo"/>
 		<result column="LOCATION_NAME" property="locationName"/>
 		<result column="LOCATION_PHONE" property="locationPhone"/>
@@ -66,6 +66,8 @@
 		  ON (L.LOCATION_NO=P.LN) WHERE L.LOCATION_NO = #{locationNo} AND STATUS = true
 
     </select>
+    
+    
     
     <insert id="insertLocation">
       INSERT INTO LOCATION

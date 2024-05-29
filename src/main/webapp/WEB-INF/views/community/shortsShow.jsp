@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<%@ include file="../common/common-file.jsp" %>
-	<link rel="stylesheet" href="resources/css/community/community.css"/>
+    <%@ include file="../common/common-file.jsp" %>
+    <link rel="stylesheet" href="resources/css/community/community.css"/>
 </head>
 <body>
     <div class="headerbar">
         <%@ include file="../common/header.jsp"%>
     </div>
-	<div class="wrapper">
+    <div class="wrapper">
         <div class="main">
             <div style="height: 100px;"></div>
             <div id="container"></div>
@@ -27,45 +27,63 @@
         let currentDivIndex = 0;
         let isScrolling = false;
 
-        // 더미 데이터 생성 함수
+        // 더미 데이터 생성 함수 (동영상 Ajax로 가져옴)
         function createItem(num) {
             const item = document.createElement('div');
             item.className = 'shorts-view makeCenter';
             item.innerHTML = `
             <div class="shorts-content" id="shorts-content`+ num + `">
-                <video controls width="720" height="1080">
-                    <source src="resources/video/test.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <div id="video-container` + num + `">
+                    Loading video...
+                </div>
                 <div class="text-overlay">
-                    <div class="tmp-box">
+                    <div>
                         <b>썸네일 설명들</b>
                     <button class="comment-button" data-index="`+ num + `" data-toggle="true">댓글보기</button>
                     </div>
                 </div>
             </div>
             <div id="shorts-comment`+ num + `" class="shorts-comment tmp-box flex-box">
-                <div class="tmp-box" style="width: 100%; height: 100%">
-                    <div class="tmp-box row-box">
+                <div style="width: 100%; height: 100%">
+                    <div class="row-box style=height: 10%">
                         <h1>댓글</h1>
                         <div style="color: var(--border-color)">56</div>
                     </div>
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
-                    </div>    
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
-                    </div>    
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
-                    </div>    
-                    <div class="tmp-box">
-                        은성: 개웃기네 ㅋㅋ
+                    <div id ="comments-list"; style="height: 80%">
+                        댓글 들어가는 곳..
+                    </div>  
+                    <div style="height: 10%">
+                        <textarea id="comment-text" placeholder="댓글을 입력하세요"></textarea>
+                        <button id="submit-comment">댓글달기</button>
                     </div>    
                 </div>
             </div>
             `;
+            loadVideo(num);  // 1부터 시작함
             return item;
+        }
+
+        // Ajax로 동영상을 가져와서 동영상 요소 생성
+        function loadVideo(num) {
+            $.ajax({
+                url: '<%=request.getContextPath()%>/getVideo.sh', // 일단 임시로 영상 url만 가져옴(추후 변경 필요)
+                data: {
+                    videoId: num
+                },
+                success: function(response) {
+                    console.log(response);
+                    const videoContainer = document.getElementById('video-container' + num);
+                    videoContainer.innerHTML = `
+                        <video controls autoplay muted width="720" height="1080">
+                            <source src="` + response + `" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    `;
+                },
+                error: function() {
+                    alert("동영상을 로드하는 데 실패했습니다.");
+                }
+            });
         }
 
         // 댓글 오른쪽으로 나오게 하는 함수
@@ -85,7 +103,34 @@
                     $("#shorts-comment" + index).animate({right: '10%'}, 'slow');
                     $("#shorts-content" + index).animate({left: '10%'}, 'slow');
                 }
-                
+            });
+
+            $('#submit-comment').click(function() {
+                const commentText = $('#comment-text').val().trim();  // 공백 제거
+
+                if (commentText === "") {
+                    alert("댓글을 입력하세요.");
+                    return;
+                }
+
+                $.ajax({
+                    url: '<%=request.getContextPath()%>/addComment.sh',
+                    data: {
+                        comment: commentText
+                    },
+                    success: function(response) {
+                        const newComment = $('<div class="tmp-box"></div>').text(response);
+                        if(response === null) {
+                            alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
+                        } else {
+                            $('#comments-list').append(newComment);
+                            $('#comment-text').val('');
+                        }
+                    },
+                    error: function() {
+                        alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
+                    }
+                });
             });
         });
 
@@ -157,6 +202,5 @@
         observer.observe(loader);
         scrollToDiv(0);  // 초기 스크롤 위치 설정
     </script>
-    
 </body>
 </html>

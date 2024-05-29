@@ -8,6 +8,10 @@
     border-radius: var(--inner-border-radius);
 }
 
+#header{
+    margin-bottom: 0px;
+}
+
 /* 반려동물 등록 장려 모달창 */
 #regist-pet-button{
     display: none;
@@ -180,6 +184,7 @@
     height: 100%;
     border-radius: var(--outer-border-radius);
     margin-right: 30px;
+    object-fit: cover;
 }
 
 .search-ranking-content>div{
@@ -278,7 +283,7 @@
     margin: 10px;
 }
 
-.community-ranking-box>table{
+.community-ranking-table{
     /* table-layout: fixed; */
     width: 100%;
 }

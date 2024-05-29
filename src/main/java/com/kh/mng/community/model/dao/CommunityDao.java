@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommunityDao {
 
-	public int addComment(SqlSessionTemplate sqlSession) {
+	public int addComment(SqlSessionTemplate sqlSession, String comment) {
 		return 0;
 		
 	}

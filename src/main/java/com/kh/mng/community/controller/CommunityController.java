@@ -47,7 +47,7 @@ public class CommunityController {
 		if (communityService.addComment() > 0) {
 			return comment;
 		} else {
-			return "db에 등록 실패한 경우"; //처리 미완성
+			return comment; // 임시용(나중에 null로 바꿔야함)
 		}
 		
 	}

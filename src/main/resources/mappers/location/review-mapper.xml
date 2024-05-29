@@ -18,6 +18,7 @@
    	  <result column="USER_NO" property="userNo"/>
    	  <result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"/>
    	  <result column="OWNER_ENROLL" property="ownerEnroll"/>
+   	    <result column="LOCATION_NO" property="locationNo"/>
    </resultMap>
    
    
@@ -35,6 +36,7 @@
     			    USER_NAME,
     			    L.LOCATION_STAR,
     			    R.USER_NO,
+    			    R.LOCATION_NO,
     			    O.ENROLL_DATE AS OWNER_ENROLL,
     			    O.OWNER_REPLY_CONTENT
 		    	    FROM REVIEW R
@@ -44,7 +46,8 @@
 		    	    ON (R.USER_NO = M.USER_NO)
 		    	    LEFT JOIN OWNER_REPLY O
 		    	    ON (R.REVIEW_NO = O.REVIEW_NO)
-		    	    WHERE L.LOCATION_NO = #{spaceNo} AND L.STATUS = true
+		    	    WHERE L.LOCATION_NO = #{locationNo}
+		    	    ORDER BY R.REVIEW_NO DESC
    </select>
     
     <select id="selectAttachment" resultMap="reviewAttachment">
@@ -55,7 +58,7 @@
     			   WHERE REVIEW_NO = #{reviewNo}
    </select>
     
-      <select id="insertReview" resultType="_int">
+      <insert id="insertReview">
     		INSERT INTO 
     		REVIEW 
     		  (REVIEW_NO,
@@ -63,7 +66,6 @@
     		  REVIEW_CONTENT,
     		  ENROLL_DATE,
     		  MODIFY_DATE,
-    		  STATUS,
     		  USER_NO,
     		  LOCATION_NO
     		  )
@@ -72,14 +74,13 @@
     			#{starCount},
     			#{content},
     			DEFAULT,
-    			NULL,
     			DEFAULT,
     			#{userNo},
-    			#{spaceNo}
+    			#{locationNo}
     		);
-    </select>
+    </insert>
     
-     <select id="insertAttachment" resultType="_int">
+     <insert id="insertAttachment" >
          INSERT INTO
          PICTURE(
          	PIC_NO,
@@ -98,6 +99,21 @@
            CURRVAL('SEQ_REV')
           )
          
+    </insert>
+    
+    <delete id="deleteReview" >
+    	
+    	DELETE FROM REVIEW 
+    		         WHERE (USER_NO = #{userNo}
+    				  AND LOCATION_NO = #{locationNo})
+    				  AND REVIEW_NO = #{reviewNo}
+    
+    </delete>
+    
+    <select id="reviewCount" resultType="_int">
+    	SELECT COUNT(*) FROM REVIEW
+    		WHERE LOCATION_NO = #{locationNo}
+    
     </select>
 
  	</mapper>

@@ -2,6 +2,7 @@ package com.kh.mng.location.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.vo.DetailLocation;
@@ -56,7 +60,9 @@ public class LocationController {
 	  	DetailLocation detailLocation =  detailService.selectDetailLocation(locationNo);
 	  	
 	  	
-	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo);
+		int reviewCount=detailService.selectReviewCount(locationNo);
+		PageInfo pi =Pagination.getPageInfo(reviewCount,1,10,5);
+	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
 		System.out.println(reviews);
 	  	
 		//이방법으로 할것!!
@@ -70,9 +76,11 @@ public class LocationController {
 		System.out.println(detailImg);
 	    
 		model.addAttribute("location",detailLocation);
-		model.addAttribute("review",reviews);
 		model.addAttribute("mainImg",mainImg);
 		model.addAttribute("detailImg",detailImg);
+		
+		model.addAttribute("reviewPi",pi);
+		model.addAttribute("review",reviews);
 		
 		return "location/detail";
 	}
@@ -108,7 +116,7 @@ public class LocationController {
 	
 	 //공간 찜 전체개수
 	@ResponseBody
-	@PostMapping(value="count",produces="application/json; charset:utf-8")
+	@PostMapping(value="count",produces="application/json; charset=utf-8")
 	public String pickedCount(@RequestBody PickedInfo pickedInfo) {
 			 
 			System.out.println("pickedCount:"+pickedInfo);
@@ -124,7 +132,7 @@ public class LocationController {
 	
 	//유저가 찜하기 
 	@ResponseBody
-	@PostMapping(value="pick",produces="application/json; charset:utf-8")
+	@PostMapping(value="pick",produces="application/json; charset=utf-8")
 	public String pick(@RequestBody PickedInfo pickedInfo) {
 		System.out.println("pickedSErver:"+pickedInfo);
 //		
@@ -149,13 +157,45 @@ public class LocationController {
 	//Review ,file upload
 	
 	
+	
+	//여기서 페이징 처리
 	@ResponseBody
-	@GetMapping(value="list.re",produces="application/json; charset:utf-8")
-	public String selectReview(@RequestParam(value="locationNo") int locationNo) {
-	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo);
-		System.out.println(reviews);
+	@GetMapping(value="list.re",produces="application/json; charset=utf-8")
+	public String selectReview(@RequestParam(value="locationNo") int locationNo,
+							@RequestParam(value="currentPage",defaultValue="1") int currentPage ) {
+		
+		int reviewCount=detailService.selectReviewCount(locationNo);
+		PageInfo pi =Pagination.getPageInfo(reviewCount,currentPage,10,5);
+		
+		
+	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
+	 	
+	 	
+		Map<ArrayList<Review>,PageInfo> pageReview=new HashMap<ArrayList<Review>,PageInfo>();
+		pageReview.put(reviews,pi);
+		System.out.println(new Gson().toJson(pageReview));
+		//Type type = new TypeToken<Map<PageInfo, ArrayList<Review>>>(){}.getType();
+		//System.out.println(new Gson().toJson(pageReview,type ));
+		//return new Gson().toJson(pageReview);
 		return new Gson().toJson(reviews);
 	}
+	
+//	@ResponseBody
+//	@GetMapping(value="paging.re",produces="application/json; charset=utf-8")
+//	public String arrowAjax(@RequestParam(value="locationNo") int locationNo,
+//							@RequestParam(value="currentPage",defaultValue="1") int currentPage ) {
+//		
+//		int reviewCount=detailService.selectReviewCount(locationNo);
+//		PageInfo pi =Pagination.getPageInfo(reviewCount,currentPage,10,5);
+//		
+//		
+//	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
+//		//System.out.println(reviews);
+//		System.out.println(pi.getCurrentPage());
+//		System.out.println(pi);
+//		return new Gson().toJson(pi.getCurrentPage());
+//	}
+	
 	
 	
 	@ResponseBody
@@ -224,17 +264,24 @@ public class LocationController {
 	
 	
 	@ResponseBody
-	@PostMapping(value="delete.re",produces="application/json; charset:utf-8")
-	public String deleteReview(@RequestBody ReviewInfo reveiwInfo) {
+	@PostMapping(value="delete.re")
+	public String deleteReview(int reviewNo,int userNo,int locationNo) {
 	
+		ReviewInfo reviewInfo= new ReviewInfo();
+		reviewInfo.setLocationNo(locationNo);
+		reviewInfo.setReviewNo(reviewNo);
+		reviewInfo.setUserNo(userNo);
 		
-		System.out.println("삭제: "+reveiwInfo);
-		int count=detailService.deleteReview(reveiwInfo);
+		
+		System.out.println("삭제: "+reviewInfo);
+		int count=detailService.deleteReview(reviewInfo);
 		
 		if(count>=0) {
+			System.out.println("count:"+count);
 			return "ok";
 		}
 		else {
+			System.out.println("count:"+count);
 			return "fail";
 		}
 		

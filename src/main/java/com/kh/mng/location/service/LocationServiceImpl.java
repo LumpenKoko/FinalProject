@@ -16,6 +16,7 @@ import com.kh.mng.location.model.dao.PickedDao;
 import com.kh.mng.location.model.dao.ReviewDao;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
@@ -151,6 +152,12 @@ public class LocationServiceImpl implements LocationService {
 	public int selectReviewCount(int locatonNo) {
 		
 		return reviewDao.selectReviewCount(sqlSession,locatonNo);
+	}
+
+	@Override
+	public int insertReply(ReplyInfo reply) {
+		// TODO Auto-generated method stub
+		return reviewDao.selectReply(sqlSession,reply);
 	}
 
 }

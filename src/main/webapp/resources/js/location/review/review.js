@@ -73,6 +73,10 @@ function fileList(files) {
 function reviewData() {
   const formData = new FormData();
   const starCount = document.querySelector('input[name="rating"]:checked');
+
+  if(starCount==null){
+    return null;
+  }
   const content = document.querySelector("#review-content");
   const fileInput = document.querySelector("#fileInput");
 
@@ -147,7 +151,17 @@ function drawReivew(review) {
 						</div>
             <div class="img-content">`+ imgs + `</div>
             <div class="content">${r.reviewContent}</div>
+
+            <!--사장님 답글 영역-->
+            <div><a id="reply-button" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글</a></div>
+            <div id="master-reply-div${r.reviewNo}" class="master-reply-input show-reply">
+              <textarea id="reply-content${r.reviewNo}" class="master-reply-content"></textarea>
+              <button class="master-reply-button" onclick=" insertReplyAjax('${r.reviewNo}')">작성하기</button>
+            </div>
 					</div>
+
+         
+
         `+ reply
   }
 

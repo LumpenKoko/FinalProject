@@ -100,9 +100,13 @@
                     },
                     success: function(response) {
                         const newComment = $('<div class="tmp-box"></div>').text(response);
-                        $('#comments-list').append(newComment);
+                        if(response === null) {
+                            alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
+                        } else {
+                            $('#comments-list').append(newComment);
 
-                        $('#comment-text').val('');
+                            $('#comment-text').val('');
+                        }
                     },
                     error: function() {
                         alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");

@@ -83,3 +83,39 @@ function locationpage(path){
     
 }
 
+// 입력 정보 저장하기
+function saveData() {
+    var storeName = document.getElementsByName("상호명")[0].value;
+    var phone = document.getElementsByName("가게전화번호")[0].value;
+    var description = document.querySelector("#storeinfo textarea").value;
+
+    // 데이터를 LocalStorage에 저장
+    localStorage.setItem("storeName", storeName);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("description", description);
+
+    // 등록 완료 팝업 표시
+    alert("사업장 등록 완료하였습니다.");
+}
+
+// 페이지 로드 시 저장된 데이터 불러오기
+function loadData() {
+    if (localStorage.getItem("storeName")) {
+        document.getElementsByName("상호명")[0].value = localStorage.getItem("storeName");
+    }
+    if (localStorage.getItem("phone")) {
+        document.getElementsByName("가게전화번호")[0].value = localStorage.getItem("phone");
+    }
+    if (localStorage.getItem("description")) {
+        document.querySelector("#storeinfo textarea").value = localStorage.getItem("description");
+    }
+}
+
+// 버튼 클릭 이벤트 리스너 추가
+document.addEventListener("DOMContentLoaded", function() {
+    // '등록' 버튼에 클릭 이벤트 리스너 추가
+    document.querySelector(".upload-bt").addEventListener("click", saveData);
+
+    // 페이지 로드 시 저장된 데이터 불러오기
+    loadData();
+});

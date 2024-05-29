@@ -147,29 +147,39 @@ function hideRemoveModal() {
 }
 
 /* 비밀번호 변경 모달창 */
-function showPasswordResetModal() {
-    document.getElementById('password-reset-modal').style.display = 'block';
-    document.getElementById('password-reset-modal-overlay').style.display = 'block';
+function showPasswordModal() {
+    document.getElementById('modal-overlay').style.display = 'flex';
+    document.querySelector('.minibox-wrap').style.display = 'block';
 }
 
-function hidePasswordResetModal() {
-    document.getElementById('password-reset-modal').style.display = 'none';
-    document.getElementById('password-reset-modal-overlay').style.display = 'none';
+function hidePasswordModal() {
+    document.querySelector('.minibox-wrap').style.display = 'none';
+    document.getElementById('modal-box-overlay').style.display = 'none';
 }
 
-/* 비밀번호 재설정 확인 */
-document.getElementById('password-reset-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const newPassword = document.getElementById('new-password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    const errorMessage = document.querySelector('.minibox-mini-title .error-message-nomargin');
-
-    if (newPassword !== confirmPassword) {
-        errorMessage.style.display = 'block';
-    } else {
-        errorMessage.style.display = 'none';
-        // 비밀번호 변경 로직 추가
-        alert('비밀번호가 성공적으로 변경되었습니다.');
-        hidePasswordResetModal();
+// 배경을 클릭하면 모든 모달창을 숨기는 이벤트 리스너
+document.getElementById('modal-overlay').addEventListener('click', function(event) {
+    // 이벤트가 오버레이에서 발생했는지 확인
+    if (event.target === this) {
+        // 모든 모달창을 숨김
+        hideModal('boss-remove-modal');
+        hideModal('minibox-wrap');
+        // 오버레이 자체도 숨김
+        this.style.display = 'none';
     }
-}); 
+});
+
+// 모달창 열기 및 닫기 함수
+function hideModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+    }
+    document.getElementById('modal-overlay').style.display = 'none';
+}
+
+function hideModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+    document.getElementById('modal-overlay').classList.remove('active');
+    
+}

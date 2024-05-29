@@ -66,7 +66,7 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="EDIT_DATE" property="editDate"/>
 		<result column="STATUS" property="status"/>
-		<result column="USER_NAME" property="userNo"/>
+		<result column="USER_NICKNAME" property="userNo"/>
 		<result column="BOARD_CATEGORY_NAME" property="boardCategoryNo"/>
 		<result column="REPLY_COUNT" property="replyCount"/>
 		<result column="GOOD_COUNT" property="goodCount"/>
@@ -131,7 +131,7 @@
 		SELECT *
 		  FROM (SELECT BOARD_NO,
 					   BOARD_TITLE,
-					   USER_NAME,
+					   USER_NICKNAME,
 					   COUNT
 				  FROM BOARD B
 				  JOIN MEMBER M ON M.USER_NO = B.USER_NO
@@ -150,7 +150,7 @@
 	<select id="ajaxSelectBoardMain" resultMap="boardResult">
 		SELECT BOARD_NO,
 			   BOARD_TITLE,
-			   USER_NAME
+			   USER_NICKNAME
 		  FROM BOARD B
 		  JOIN MEMBER M ON M.USER_NO = B.USER_NO
 		  WHERE BOARD_NO = #{boardNo}

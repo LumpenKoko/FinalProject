@@ -10,17 +10,17 @@ function init(path, user){
         selectBoardDetailTop(i);
     }
 
-    if (loginUser !== null){
-        selectRegistPetModal(loginUser);
-    }
+    // if (loginUser !== null){
+    //     selectRegistPetModal(loginUser);
+    // }
 
 }
 
-function selectRegistPetModal(loginUser){
-    console.log("들어왔어요")
-    let button = document.querySelector("#regist-pet-button");
-    button.click;
-}
+// function selectRegistPetModal(loginUser){
+//     console.log("들어왔어요")
+//     let button = document.querySelector("#regist-pet-button");
+//     button.click;
+// }
 
 
 // function sendToPage(url){
@@ -36,7 +36,7 @@ function selectPlaceTop(){
 
 function drawPlaceTop(locationList){
     let placeImg = document.querySelector("#place-img");
-    placeImg.src = contextPath + "/" + locationList[0].attachment.filePath + locationList[0].attachment.changeName;
+    placeImg.src = locationList[0].attachment.filePath + locationList[0].attachment.changeName;
 
     let searchContentsWrap = document.querySelector("#search-contents-wrap");
 
@@ -52,7 +52,7 @@ function drawPlaceTop(locationList){
 
         // 장소 사진
         place += `<img src="`;
-        place += contextPath + "/" + loc.attachment.filePath + loc.attachment.changeName;
+        place += loc.attachment.filePath + loc.attachment.changeName;
         place += `" alt="">`;
 
         // 텍스트를 감싸는 박스, 장소 이름

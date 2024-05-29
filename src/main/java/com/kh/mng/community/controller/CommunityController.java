@@ -58,7 +58,8 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping(value="getVideo.sh")
 	public String loadShorts(@RequestParam(value="videoId") int videoId) {
-		return communityService.getVideo(videoId); // 임시로 url만 가져옴
+//		communityService.getVideo(videoId); // 임시로 url만 가져옴
+		return "resources/video/test.mp4";
 	 }
 	
 	@ResponseBody

@@ -28,12 +28,13 @@ public class DetailLocation {
 	private int locationCategoryNo;//카테고리 번호
 	private String categoryName;//카테고리 명
 	private ArrayList<LocationOption> locationOption; //장소 옵션들
-    private ArrayList<Attachment> attachMent; //메인첨부파일들
     private ArrayList<OperationTime>operationTime;//운영시간
     
     //출입등급,반려동물크기,반려동물 분류를 조인시킨 값들
     private ArrayList<PetKindGrade> petKindGrade;
   
+     //메인 첨부파일들
+    private ArrayList<Attachment> attachMent; //메인첨부파일들
 
    
     

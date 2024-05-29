@@ -17,8 +17,8 @@ import com.kh.mng.location.model.dao.ReviewDao;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
-import com.kh.mng.location.model.vo.DetailLocation2;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.LocationOption;
@@ -43,21 +43,21 @@ public class LocationServiceImpl implements LocationService {
 		this.reviewDao=reviewDao;
 	}
 	
-//	@Override
-//	public DetailLocation2 selectDetailLocation2(int spaceNo) {
-//		
-//		DetailLocation2 detailLocation=detailDao.selectDetailLocation2(sqlSession,spaceNo);
-//		ArrayList<LocationOption> locationoption=detailDao.selectLocationList(sqlSession,detailLocation.getLocationNo());
-//		ArrayList<OperationTime> operationTime=detailDao.selectOperationTime(sqlSession,detailLocation.getLocationNo());
-//		ArrayList<PetKindGrade> petKindGrade=detailDao.selectOperationTime(sqlSession,detailLocation.getLocationNo());
-//		ArrayList<Attachment> attchment = detailDao.selectAttachMent(sqlSession,detailLocation.getLocationNo());
-//		detailLocation.setLocationOption(locationoption);
-//		detailLocation.setOperationTime(operationTime);
-//		detailLocation.setPetKindNo(petKindGrade);// 이 다오에서만 조인문 
-//		detailLocation.setAttachMent(attchment);
-//		
-//		return detailLocation;
-//	}
+	@Override
+	public DetailLocation selectDetailLocation(int locationNo) {
+		
+		DetailLocation detailLocation=detailDao.selectDetailLocation(sqlSession,locationNo);
+		ArrayList<LocationOption> locationOption=detailDao.selectLocationOptionList(sqlSession,detailLocation.getLocationNo());
+		ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
+		ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
+		ArrayList<Attachment> attchment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+		detailLocation.setLocationOption(locationOption);
+		detailLocation.setOperationTime(operationTime);
+		detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 
+		detailLocation.setAttachMent(attchment);
+		
+		return detailLocation;
+	}
 
 	@Override
 	public ArrayList<DetailLocationAttachment> selectDetailMainImg(int locationNo) {
@@ -97,9 +97,9 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public DetailLocation selectDetailLocation(int locationNo) {
+	public DetailLocation_ selectDetailLocation_(int locationNo) {
 		
-		return detailDao.selectDetailLocation(sqlSession,locationNo);
+		return detailDao.selectDetailLocation_(sqlSession,locationNo);
 	}
 	
 	

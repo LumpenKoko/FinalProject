@@ -57,8 +57,8 @@ function reviewSelect(callback){
         url:contextPath+"/list.re",
         data:{locationNo:spaceNo},
         success:function(response){
-            callback(response);
-            drawPaging(response)
+            callback(response.reviews);
+            drawPaging(response.page)
         },
         error:function(){
             console.log("리뷰 조회 실패")
@@ -109,9 +109,9 @@ function reviewPaging(currentPage){
              currentPage:currentPage
         },
         success:function(response){
-            drawReivew(response)
+            drawReivew(response.reviews)
             //페이지네이션 그리기
-            drawPaging(response)
+            drawPaging(response.page)
         },
         error:function(){
             console.log("페이징 처리 실패")

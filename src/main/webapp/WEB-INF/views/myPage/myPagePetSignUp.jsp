@@ -59,7 +59,8 @@
                         <div id="main_main_right">
                             <form action="insertPet.mp" id="petSignUp">
                                 <h1 style="margin-top: 50px; text-align: center;">반려동물 등록</h1>
-                                <p style="margin-top: 40px; font-size: 17px; text-align: center;">반려동물 정보를 입력해<br>행복한 멍냥 가이드를 누려보세요</p>
+                                <p style="margin-top: 40px; font-size: 17px; text-align: center;">반려동물 정보를 입력해<br>행복한 멍냥
+                                    가이드를 누려보세요</p>
                                 <div
                                     style="margin-left: 100px; margin-top: 30px; font-size: 21px; display: flex; flex-direction: column;">
                                     <div style="margin-top: 40px;">
@@ -67,11 +68,13 @@
                                         <span style="color: #FE8B94; float: left; margin-bottom: 0px;">*</span>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="이름을 입력하세요" id="petName" style="font-size: 17px; padding-left: 30px;" name="petName">
+                                        <input type="text" placeholder="이름을 입력하세요" id="petName"
+                                            style="font-size: 17px; padding-left: 30px;" name="petName">
                                     </div>
                                 </div>
                                 <div style="margin-left: 100px; margin-top: 40px; font-size: 21px;">
-                                    <select name="petSizeNo" id="petSizeNo" style="font-size: 17px; padding-left: 30px;">
+                                    <select name="petSizeNo" id="petSizeNo"
+                                        style="font-size: 17px; padding-left: 30px;">
                                         <option value="1">소형견</option>
                                         <option value="2">중형견</option>
                                         <option value="3">대형견</option>
@@ -80,7 +83,9 @@
                                 </div>
                                 <div style="margin-left: 100px; font-size: 21px; margin-top: 40px;">
                                     <span style="float: left;">생일</span><br>
-                                    <input type="date" id="petBirthday" style="font-size: 17px; padding-left: 30px; padding-right: 30px;" name="petBirthday">
+                                    <input type="date" id="petBirthday"
+                                        style="font-size: 17px; padding-left: 30px; padding-right: 30px;"
+                                        name="petBirthday">
                                 </div>
                                 <div id="gender-input">
                                     <input type="radio" name="petGender" id="men" value="M">
@@ -111,51 +116,34 @@
             </div>
 
             <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var nameInput = document.getElementById('nameInput');
-                    var nameHidden = document.getElementById('nameHidden');
+                document.getElementById('imgFileInput').addEventListener('change', function (event) {
+                    var file = event.target.files[0]; // 파일 가져오기
 
-                    // 페이지 로드시 이름 입력 필드의 상태를 확인합니다.
-                    checkNameInput();
+                    if (file) {
+                        // 파일이 선택되었을 때에만 처리
+                        // 원래 이름
+                        var originName = file.name;
+                        console.log(file);
+                        // 서버에 저장될 파일의 이름 생성
+                        var changeName = Date.now() + '_' + originName;
+                        // 서버에 저장될 파일의 경로 설정
+                        var filePath = 'resources/uploads/' + changeName;
+                        // 파일 레벨 설정 (예: 사용자 입력, 고정 값 등)
+                        var fileLevel = 1;
 
-                    // 이름 입력란의 값이 변경될 때마다 이벤트를 감지합니다.
-                    nameInput.addEventListener('input', function () {
-                        // 입력값이 변경될 때마다 상태를 확인합니다.
-                        checkNameInput();
-                    });
+                        // 추출한 값들을 서버로 전송
+                        // AJAX 등을 사용하여 서버로 전송하고 값을 전달합니다.
 
-                    function checkNameInput() {
-                        // 입력값이 비어있는지 확인합니다.
-                        if (nameInput.value === '') {
-                            // 입력값이 비어있다면 필수 항목 메시지를 표시합니다.
-                            nameHidden.style.display = 'inline';
-                        } else {
-                            // 입력값이 있는 경우 필수 항목 메시지를 숨깁니다.
-                            nameHidden.style.display = 'none';
+                        // 이미지 미리보기 업데이트
+                        var imgReader = new FileReader();
+                        imgReader.onload = function (e) {
+                            document.getElementById('imgInput').style.backgroundImage = "url('" + e.target.result + "')";
                         }
+                        imgReader.readAsDataURL(file); // FileReader를 통해 파일을 읽어옵니다.
+                    } else {
+                        // 파일이 선택되지 않은 경우 처리
+                        console.error('파일이 선택되지 않았습니다.');
                     }
-                });
-
-                document.getElementById('imgFileInput').addEventListener('change', function () {
-                    var imgFile = this.files[0]; // imgFileInput에서 파일을 가져옵니다.
-                    var imgReader = new FileReader();
-
-                    imgReader.onload = function (e) {
-                        document.getElementById('imgInput').style.backgroundImage = "url('" + e.target.result + "')";
-                    }
-
-                    imgReader.readAsDataURL(imgFile); // FileReader를 통해 파일을 읽어옵니다.
-                });
-
-                document.getElementById('fileInput').addEventListener('change', function () {
-                    var profileFile = this.files[0]; // fileInput에서 파일을 가져옵니다.
-                    var profileReader = new FileReader();
-
-                    profileReader.onload = function (e) {
-                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-                    }
-
-                    profileReader.readAsDataURL(profileFile); // FileReader를 통해 파일을 읽어옵니다.
                 });
             </script>
 

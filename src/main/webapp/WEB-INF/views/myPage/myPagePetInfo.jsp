@@ -66,40 +66,62 @@
                             </div>
                             <div id="right2">
                                 <h1>반려동물 1</h1>
-                                <form id="right2-container" action="updatePet.mp">
-                                    <div id="right2-left">
-                                        <img src="resources/img/myPage/petProfile.png" id="petProfile" onclick="">
-                                        <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진 변경 가능</p>
-                                        <button type="button" id="update" style="cursor: pointer;">삭제</button>
-                                    </div>
-                                    <div id="right2-right" style="display: flex; flex-direction: column;">
-                                        <div>
-                                            <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">이름</p>
-                                            <input type="text" id="petName" placeholder="이름">
+                                <c:forEach items="${petList}" var="pet" varStatus="loop">
+                                    <form class="petForm${loop.index}" id="right2-container" method="post" action="updatePet.mp"
+                                        data-index="${loop.index}">
+                                        <div id="right2-container" class="right2-container-${loop.index}">
+                                            <div id="right2-left">
+                                                <img src="resources/img/myPage/petProfile.png" id="petProfile"
+                                                    onclick="">
+                                                <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진
+                                                    변경 가능</p>
+                                                <button type="button" class="delete"
+                                                    style="cursor: pointer;">삭제</button>
+                                            </div>
+                                            <div id="right2-right" style="display: flex; flex-direction: column;">
+                                                <div>
+                                                    <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">이름
+                                                    </p>
+                                                    <input type="text" class="petName" name="petName"
+                                                        value="${pet.petName}">
+                                                </div>
+                                                <div style="margin-top: 30px;">
+                                                    <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">생일
+                                                    </p>
+                                                    <input type="date" class="petBirthday" name="petBirthday"
+                                                        value="${pet.petBirthday}">
+                                                </div>
+                                                <div style="margin-top: 30px;">
+                                                    <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">크기
+                                                    </p>
+                                                    <select name="petSizeNo" class="petSizeNo">
+                                                        <option value="1" ${pet.petSizeNo eq '1' ? 'selected' : '' }>소형견
+                                                        </option>
+                                                        <option value="2" ${pet.petSizeNo eq '2' ? 'selected' : '' }>중형견
+                                                        </option>
+                                                        <option value="3" ${pet.petSizeNo eq '3' ? 'selected' : '' }>대형견
+                                                        </option>
+                                                        <option value="4" ${pet.petSizeNo eq '4' ? 'selected' : '' }>고양이
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="gender-input" id="gender-input${loop.index}">
+                                                    <input type="radio" name="petGender${loop.index}"
+                                                        id="men${loop.index}" value="M" ${pet.petGender eq 'M'
+                                                        ? 'checked' : '' } class="petGender">
+                                                    <label for="men${loop.index}">남아</label>
+                                                    <input type="radio" name="petGender${loop.index}"
+                                                        id="women${loop.index}" value="F" ${pet.petGender eq 'F'
+                                                        ? 'checked' : '' } class="petGender">
+                                                    <label for="women${loop.index}">여아</label>
+                                                </div>
+                                                <button type="submit" class="update update-${loop.index}"
+                                                    style="margin-top: 50px; cursor: pointer;">수정</button>
+                                            </div>
                                         </div>
-                                        <div style="margin-top: 30px;">
-                                            <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">생일</p>
-                                            <input type="date" id="petBirthday">
-                                        </div>
-                                        <div style="margin-top: 30px;">
-                                            <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">크기</p>
-                                            <select name="petSizeNo" id="petSizeNo">
-                                                <option value="소형견">소형견</option>
-                                                <option value="중형견">중형견</option>
-                                                <option value="대형견">대형견</option>
-                                                <option value="고양이">고양이</option>
-                                            </select>
-                                        </div>
-                                        <div id="gender-input">
-                                            <input type="radio" name="petGender" id="men" value="M">
-                                            <label for="men">남아</label>
-                                            <input type="radio" name="petGender" id="women" value="F">
-                                            <label for="women">여아</label>
-                                        </div>
-                                        <button type="submit" id="update"
-                                            style="margin-top: 50px; cursor: pointer;">수정</button>
-                                    </div>
-                                </form>
+                                    </form>
+                                </c:forEach>
+
                             </div>
                             <div id="right3">
                                 <button id="addSignUp"
@@ -123,6 +145,37 @@
 
                     reader.readAsDataURL(file);
                 });
+
+                function petUpdate(event) {
+                    const btn = event.target; // 클릭된 버튼을 참조합니다.
+                    const form = btn.closest('.petForm${loop.index}'); // 클릭된 버튼의 부모 폼 요소를 가져옵니다.
+
+                    // 폼의 인덱스 값을 가져옵니다.
+                    const formIndex = form.dataset.index;
+
+                    // 체크된 라디오 버튼을 감싸는 div 요소를 선택합니다.
+                    const genderInput = form.querySelector('.gender-input');
+
+                    // 체크된 라디오 버튼을 확인하고 해당 라디오 버튼의 name 속성을 변경합니다.
+                    const checkedRadio = genderInput.querySelector('input:checked');
+                    console.log(checkedRadio);
+                    if (checkedRadio) {
+                        checkedRadio.setAttribute('name',  `petGender${formIndex}`);
+                    }
+
+                    // 나머지 필드들에 대해서도 name 속성을 변경합니다.
+                    form.querySelector('.petName').setAttribute('name', `petName${formIndex}`);
+                    form.querySelector('.petBirthday').setAttribute('name', `petBirthday${formIndex}`);
+                    form.querySelector('.petSizeNo').setAttribute('name', `petSizeNo${formIndex}`);
+
+                    console.log(checkedRadio);
+                    form.submit(); // 폼 제출
+                }
+
+                document.querySelectorAll('.update').forEach(btn => {
+                    btn.addEventListener('click', petUpdate);
+                });
+
             </script>
 
             <%@ include file="../common/footer.jsp" %>

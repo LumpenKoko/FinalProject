@@ -32,4 +32,5 @@ public interface LocationService {
 	int deleteReview(ReviewInfo reveiwInfo);
 	int selectReviewCount(int locationNo);
 	int insertReply(ReplyInfo reply);
+	ArrayList<Review> selectCategoryReviewList(ReviewInfo review, PageInfo pi);
 }

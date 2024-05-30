@@ -13,5 +13,6 @@ public class ReviewInfo {
 	   int reviewNo;
        int starCount;
        String content;
+       String type;
        
 }

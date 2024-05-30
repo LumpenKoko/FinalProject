@@ -118,7 +118,7 @@ function toggleRemoveButton() {
     removeButton.disabled = !confirmYes.checked;
 }
 
-function checkPassword() {
+function checkPassword(contextPath) {
     const correctPassword = '1234'; // 실제 비밀번호로 교체해야 함
     const inputPassword = document.getElementById('password-input').value;
     const message = document.querySelector('.pwd-checkMessage');
@@ -130,7 +130,7 @@ function checkPassword() {
         // 탈퇴 처리 로직 추가
         alert('탈퇴 처리되었습니다.');
         setTimeout(() => {
-            window.location.href = 'http://localhost:8555/mng/';
+            window.location.href =contextPath;
         }, 100); // 100ms 딜레이 후에 페이지 이동
     }
 }

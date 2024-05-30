@@ -3,10 +3,14 @@
 //클릭함수
 function clickHeart(data,pickedCount){
      //console.log("클릭함수호출:"+data.status);
-  
-
+    
     const heart=document.getElementById("heart");
     heart.onclick=()=>{
+        if(userNo==-1){
+            alert("로그인을 먼저 해주세요")
+            return false;
+         }
+    
        // console.log("클릭됨"+data.status);
         userPicked(data,(status)=>{
 
@@ -77,7 +81,12 @@ function userPicked(data,callback){
         data: JSON.stringify(data),
         success:function(result){
             console.log("picked")
-           // console.log(result)
+            if(result=='y'){
+                alert("공감되었습니다.")
+            }
+            else{
+                alert("공감해제되었습니다.")
+            }
             callback(result)
         },
         error:function(error){

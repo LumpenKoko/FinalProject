@@ -25,7 +25,7 @@ public class DetailLocation {
 	private double locationStar;//장소 평점
 	private String reservationLink;//예약 링크
 	private String address;//장소 주소
-	private int locationCategoryNo;//카테고리 번호
+	private String locationCategoryNo;//카테고리 번호
 	private String categoryName;//카테고리 명
 	private ArrayList<LocationOption> locationOption; //장소 옵션들
     private ArrayList<OperationTime>operationTime;//운영시간
@@ -34,7 +34,10 @@ public class DetailLocation {
     private ArrayList<PetKindGrade> petKindGrade;
   
      //메인 첨부파일들
-    private ArrayList<Attachment> attachMent; //메인첨부파일들
+    private ArrayList<Attachment> mainAttachMent; 
+    
+   //서브 첨부파일들
+    private ArrayList<Attachment> detailAttachMent;
 
    
     

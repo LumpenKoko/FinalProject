@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
@@ -30,4 +31,5 @@ public interface LocationService {
 	int insertReview(ReviewInfo reviewInfo, Map<String,String> changeNamesList,String path);
 	int deleteReview(ReviewInfo reveiwInfo);
 	int selectReviewCount(int locationNo);
+	int insertReply(ReplyInfo reply);
 }

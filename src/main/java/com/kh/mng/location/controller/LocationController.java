@@ -30,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.dto.ReviewPage;
 import com.kh.mng.location.model.vo.DetailLocation_;
@@ -37,6 +38,7 @@ import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
+import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.location.model.vo.DetailLocation; 
 
 
@@ -54,7 +56,7 @@ public class LocationController {
 
 	
 	@GetMapping("/detail")
-	public String DetailLocation(@RequestParam(value="locationNo",defaultValue="1") int locationNo,Model model) {
+	public String DetailLocation(@RequestParam(value="locationNo",defaultValue="1") int locationNo,Model model,HttpSession session) {
 		
 		System.out.println(locationNo);
 		//장소정보와 ,리뷰 정보도
@@ -71,7 +73,14 @@ public class LocationController {
         DetailLocation detailLocations =detailService.selectDetailLocation(locationNo);
 		System.out.println(detailLocations);
 		
-		
+		//로그인 유저 정보 가져오기
+		Member loginUser= (Member)session.getAttribute("loginUser");
+		if(loginUser==null) {
+			model.addAttribute("userNo",-1);
+		}
+		else {
+			model.addAttribute("userNo",loginUser.getUserNo());
+		}
 		
 	  	
 //    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(locationNo);
@@ -87,8 +96,6 @@ public class LocationController {
 		
 		model.addAttribute("reviewPi",pi);
 		model.addAttribute("review",reviews);
-		
-		
 		model.addAttribute("l",detailLocations);
 		
 		return "location/detail";
@@ -300,7 +307,40 @@ public class LocationController {
 		
 	}
 	
-	//로그인 정보 가져오기
+	//사장님답글 insert
+	@ResponseBody
+	@PostMapping(value="reply.in")
+	public String replyInsert(ReplyInfo reply) {
+		
+		System.out.println(reply.getContent());
+		int count = detailService.insertReply(reply);
+		
+		return "response";
+	}
+	
+	
+//	//분류별 리뷰 분류
+//	@ResponseBody
+//	@PostMapping(value="review.ca")
+//	public String reviewCategory(ReviewInfo info) {
+//		
+//	}
+//	
+	
+	//로그인 정보 가져오기-->실패
+	@ResponseBody
+	@GetMapping(value="user.ge")
+	public String getLoginUserNo(HttpSession session) {
+		
+		Member loginUser= (Member)session.getAttribute("loginUser");
+		if(loginUser==null) {
+			return "-1";
+		}
+		else {
+			return loginUser.getUserNo()+"";
+		}
+		
+	}
 	
 	
 }

@@ -90,7 +90,7 @@
          #{businessNo},
          #{address},
          #{userNo},
-         #{locationCategoryNo}
+         CAST(#{locationCategoryNo} AS INTEGER)
          )
    </insert>
   

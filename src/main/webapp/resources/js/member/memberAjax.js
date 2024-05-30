@@ -1,7 +1,6 @@
 let contextPath;
 function init(path){
     contextPath = path;
-    console.log("여기도 안 들어와?")
 }
 
 function ajaxGetData(url, data, callback){

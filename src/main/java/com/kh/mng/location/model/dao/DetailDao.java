@@ -48,11 +48,17 @@ public class DetailDao {
 	}
 
 
-
+  //메인이미지
 	public ArrayList<Attachment> selectAttachMentList(SqlSessionTemplate sqlSession, int locationNo) {
 	
-		return (ArrayList) sqlSession.selectList("detail.selectAttachMentList",locationNo);
+		return (ArrayList) sqlSession.selectList("detail.selectMainAttachMentList",locationNo);
 	}
+	
+	public ArrayList<Attachment> selectDetailAttachMentList(SqlSessionTemplate sqlSession, int locationNo) {
+		
+		return (ArrayList) sqlSession.selectList("detail.selectDetailAttachMentList",locationNo);
+	}
+
 
 	public ArrayList<OperationTime> selectOperationTimeList(SqlSessionTemplate sqlSession, int locationNo) {
 	

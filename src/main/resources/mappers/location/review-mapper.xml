@@ -115,6 +115,23 @@
     		WHERE LOCATION_NO = #{locationNo}
     
     </select>
+    
+    <insert id="insertReply">
+    	INSERT INTO
+    	       OWNER_REPLY
+    	       (OWNER_REPLY_NO,
+    	        REVIEW_NO,
+    	        ENROLL_DATE,
+    	        OWNER_REPLY_CONTENT
+    	        )
+    	        VALUES
+    	        (NEXTVAL('SEQ_OWRE'),
+    	         #{reviewNo},
+    	         DEFAULT,
+    	         #{content}
+    	        )
+    
+    </insert>
 
  	</mapper>
  	

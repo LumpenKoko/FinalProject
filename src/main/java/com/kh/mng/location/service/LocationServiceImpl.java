@@ -16,6 +16,7 @@ import com.kh.mng.location.model.dao.PickedDao;
 import com.kh.mng.location.model.dao.ReviewDao;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
+import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
@@ -44,17 +45,20 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
+	@Transactional
 	public DetailLocation selectDetailLocation(int locationNo) {
 		
 		DetailLocation detailLocation=detailDao.selectDetailLocation(sqlSession,locationNo);
 		ArrayList<LocationOption> locationOption=detailDao.selectLocationOptionList(sqlSession,detailLocation.getLocationNo());
 		ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
 		ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<Attachment> attchment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+		ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+		ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
 		detailLocation.setLocationOption(locationOption);
 		detailLocation.setOperationTime(operationTime);
 		detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 
-		detailLocation.setAttachMent(attchment);
+		detailLocation.setMainAttachMent(mainAttachment);
+		detailLocation.setDetailAttachMent(detailAttchment);
 		
 		return detailLocation;
 	}
@@ -151,6 +155,12 @@ public class LocationServiceImpl implements LocationService {
 	public int selectReviewCount(int locatonNo) {
 		
 		return reviewDao.selectReviewCount(sqlSession,locatonNo);
+	}
+
+	@Override
+	public int insertReply(ReplyInfo reply) {
+		// TODO Auto-generated method stub
+		return reviewDao.selectReply(sqlSession,reply);
 	}
 
 }

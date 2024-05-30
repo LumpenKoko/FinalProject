@@ -512,7 +512,7 @@
                                     </div>
                                 </div>
                                 <div id="upload-location">
-                                    <button class="upload-bt">등록</button>
+                                    <button class="upload-bt" onclick="">등록</button>
                                 </div>
                             </div>
 

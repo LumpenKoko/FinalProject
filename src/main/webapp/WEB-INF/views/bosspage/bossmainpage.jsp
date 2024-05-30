@@ -9,6 +9,7 @@
         <%@ include file="../common/common-file.jsp"%>
         <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <link rel="stylesheet" href="resources/css/common/minibox.css"/>
         <script src="resources\js\bosspage\bosspage.js"></script>
         <script src="resources\js\bosspage\bossMainPage.js"></script>
     </head>
@@ -38,9 +39,9 @@
                                 <p class="privacy-title">성별</p>
                                 <div>남자</div>
                             </div>
-                            <div >
+                            <div>
                                 <p class="privacy-title">휴대폰번호</p>
-                                <div>010-3169-2477</div>
+                                <div id="phone-display">010-3169-2477</div>
                                 <button class="change-phone-button" onclick="showPhoneChange()">수정</button>
                             </div>
                             <div id="change-phone-container" style="display: inline; display: none;">
@@ -48,7 +49,7 @@
                                     <button class="change-phone" onclick="updatePhoneNumber()">변경</button>
                                 </div>
                                 <div style="margin-bottom: 20px;">
-                                    <input type="text" style="width: 100%; border-radius: 15px; border: 1px solid #BABABA; padding: 20px;">
+                                    <input type="text" id="boss-phone-input" style="width: 100%; border-radius: 15px; border: 1px solid #BABABA; padding: 20px;" placeholder="'-' 을 포함한 휴대폰 번호를 입력해 주세요.">
                                 </div>
                             </div>
                             <div>
@@ -65,21 +66,23 @@
                             </div>
                             <div>
                                 <p class="privacy-title">이메일</p>
-                                <div>jjaman3@naver.com</div>
+                                <div id="email-display">jjaman3@naver.com</div>
                                 <button class="change-email-button" onclick="showEmailChange()">수정</button>
                             </div>
-                            <div id="change-personal">
+                            <div id="change-personal" style="display: none;">
                                 <div style="margin-top: 10px; display: block;">
                                     <button class="change-email" onclick="updateEmail()">변경</button>
                                     <div style="gap: 10px;">
-                                        <input type="email" class="boss-email"> @
-                                        <input type="email" class="boss-email" id="boss-email" placeholder="입력해주세요.">
+                                        <input type="text" id="email-local-part" class="boss-email">
+                                        <span>@</span>
+                                        <input type="email" id="boss-email" class="boss-domain" placeholder="">
                                         <select class="boss-email" onchange="updateEmailDomain()">
-                                            <option>직접입력</option>
-                                            <option>naver.com</option>
-                                            <option>daum.net</option>
-                                            <option>gmail.com</option>
-                                            <option>hanmail.net</option>
+                                            <option value="선택해주세요">선택해주세요</option>
+                                            <option value="직접입력">직접입력</option>
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="daum.net">daum.net</option>
+                                            <option value="gmail.com">gmail.com</option>
+                                            <option value="hanmail.net">hanmail.net</option>
                                         </select>
                                     </div>
                                 </div>
@@ -87,13 +90,13 @@
                         </div>
                         <div style="border-top: 3px solid #BABABA; margin-top: 70px; margin-bottom: 30px;"></div>
                         <div id="edit-option">
-                            <button style="margin-right: auto;" onclick="">비밀번호 변경</button>
+                            <button style="margin-right: auto;" onclick="showPasswordModal()">비밀번호 변경</button>
                             <button onclick="showRemoveModal()">가게 삭제 및 탈퇴</button>
                         </div>
                     </div>
                 </div>
         </div>
-        <!-- 가게 삭제 및 탈퇴 모당창 -->
+        <!-- 가게 삭제 및 탈퇴 모달창 -->
         <div class="modal-overlay" id="modal-overlay"></div>
         <div id="boss-remove-modal">
             <div>
@@ -128,8 +131,33 @@
                 <input type="password" id="password-input" placeholder="비밀번호를 입력하세요.">
             </div>
             <div class="boss-remove-button">
-                <button class="boss-remove" onclick="checkPassword()" disabled>탈퇴</button>
-                <button onclick="hideRemoveModal()">취소</button>
+                <button class="boss-remove" onclick="checkPassword('<%=contextPath%>')" disabled>탈퇴</button>
+                <button onclick="hideModal('boss-remove-modal')">취소</button>
+            </div>
+        </div>
+    
+        <div class="wrapper">
+            <div class="minibox-wrap">
+                <div class="minibox-title">비밀번호 재설정</div>
+                <div class="minibox-text">
+                    가입된 아이디 : jjjj@naver.com <br>
+                    사용하실 비밀번호를 재설정 해주세요.
+                </div>
+    
+                <form action="" id="login-form">
+                    <div class="minibox-mini-title">
+                        <span class="error-message-nomargin">비밀번호가 일치하지 않습니다.</span>
+                    </div>
+                    
+                    <input type="password" class="minibox-input" placeholder="비밀번호 입력">
+                    <input type="password" class="minibox-input" placeholder="비밀번호 확인">
+    
+                    <div class="minibox-mini-title">
+                        <span class="error-message-nomargin">비밀번호 변경에 실패하였습니다. 다시 입력해주세요.</span>
+                    </div>
+                    
+                    <button type="submit" class="common-button pink-button minibox-full-button">확인</button>
+                </form>
             </div>
         </div>
 

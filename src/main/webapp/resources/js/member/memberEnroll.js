@@ -46,6 +46,8 @@ function checkId(){
     }
 }
 
+
+
 // 비밀번호 정규식 검사
 function checkPwd(){
     let pwd = document.querySelector("[name='userPwd']");

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.service.MainServiceImpl;
 
@@ -28,7 +29,6 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value="topBoard.ma", produces="application/json; charset-UTF-8")
 	public String ajaxSelectBoardMainList(int type) {
-		System.out.println(type);
 		ArrayList<Board> list = new ArrayList<Board>();
 		
 		switch(type) {
@@ -46,12 +46,10 @@ public class MainController {
 		return new Gson().toJson(list);
 	}
 	
-//	@ResponseBody // ?
-//	@RequestMapping(value = "rlist.bo", produces="application/json; charset-UTF-8")
-//	// json 형식에 관한 설정은 produces 에 넣어줌
-//	public String ajaxSelectReplyList(int bno) {
-//		ArrayList<Reply> list = boardService.selectReplyList(bno);
-//		
-//		return new Gson().toJson(list);
-//	}
+	@ResponseBody
+	@RequestMapping(value="topShorts.ma", produces="application/json; charset-UTF-8")
+	public String ajaxSelectShortsList() {
+		ArrayList<Shorts> list = mainService.ajaxSelectShortsList();
+		return new Gson().toJson(list);
+	}
 }

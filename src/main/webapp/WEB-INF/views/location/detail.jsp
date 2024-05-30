@@ -13,22 +13,26 @@
 				<link rel="stylesheet" href="resources/css/detail/review.css" />
 				<link rel="stylesheet" href="resources/css/detail/room.css" />
 				<link rel="stylesheet" href="resources/css/detail/review_star.css" />
+				<link rel="stylesheet" href="resources/css/detail/reply.css" />
 				<script type="text/javascript"
 					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
 
 				<script src='resources/js/location/ajax/init.js'></script>
 				<script src='resources/js/location/ajax/pickAjax.js'></script>
 				<script src='resources/js/location/ajax/reviewAjax.js'></script>
+				<script src='resources/js/location/ajax/replyAjax.js'></script>
 				<script src='resources/js/location/pick/pick.js'></script>
 				<script src='resources/js/location/map/map.js'></script>
 				<script src='resources/js/location/map/hostpital-map.js'></script>
 				<script src='resources/js/location/location.js'></script>
 				<script src='resources/js/location/review/review.js'></script>
+				<script src='resources/js/location/review/reply.js'></script>
+			
 
 		</head>
 		<%@ include file="../common/header.jsp" %>
 
-			<body onload="init('<%=contextPath%>',2)">
+			<body onload="init('<%=contextPath%>','${userNo}')">
 
 
 				<div class="wrapper detail-wrapper">
@@ -38,10 +42,10 @@
 					<c:set var="k" value="0" />
 
 					<div id="headerImg" class="header-img"
-						style="background: url('resources/img/공간2.png')  no-repeat center center/cover;">
+						style="background: url('${l.mainAttachMent.get(0).filePath}${l.mainAttachMent.get(0).changeName}')  no-repeat center center/cover;">
 
 
-						<c:set var="maxSize" value="${mainImg.size()}" />
+						<c:set var="maxSize" value="" />
 
 						<div class="head-img-pre">
 							<button onclick="moveImg('')">&gt;</button>
@@ -53,7 +57,7 @@
 						<div class="head-img-next">
 							<button onclick="moveImg('')">&lt;</button>
 						</div>
-						<input type="text" value="${i=k}" hidden>
+						<input type="text" value="" hidden>
 					</div>
 
 
@@ -80,24 +84,29 @@
 								<div class="title">상세정보 </div>
 								<div class="detail-information detail-content">
 									<div>
-										<div class="content">${l.categoryName}</div>
+										<div class="content"><h5>${l.categoryName}</h5></div>
 										<div class="content">${l.locationPhone}</div>
-										<c:forEach var="o" items="${l.operationTime}">
-											<div class="content">시작시간:${o.startTime}</div>
-											<div class="content">종료시간:${o.endTime}</div>
-											<div class="content">체크인/체크아웃:${o.day}</div>
-										</c:forEach>
-
+										<!-- 장소별로 식별-->
+										<c:if test="{l.locationCategoryNo eq 4}">
+											<c:forEach var="o" items="${l.operationTime}">
+												<div class="content">시작시간:${o.startTime}</div>
+												<div class="content">종료시간:${o.endTime}</div>
+												<div class="content">체크인/체크아웃:${o.day}</div>
+											</c:forEach>
+									   </c:if>
 									</div>
 									<div>
-										<c:forEach var="k" items="${l.petKindGrade}">
-											<div>
-												<h3>반려동물 등급</h3>
-												<span>${k.petSizeName}</span>:
-												<span>${k.petKindName}</span>
-											</div>
-										</c:forEach>
-										<div class="content">${location.categoryName}</div>
+
+										<div><h5>반려동물 출입등급</h5></div>
+										<div class="content">
+											<c:forEach var="k" items="${l.petKindGrade}">
+												<span>
+													${k.petSizeName},
+													${k.petKindName}
+												</span>
+											</c:forEach>
+										</div><br>
+										<div><h5>${l.locationName}</h5></div>
 										<div class="content">${l.address}</div>
 										<div class="content">${l.reservationLink}</div>
 									</div>
@@ -119,15 +128,15 @@
 						<div class="section">
 							<div class="title">시설 상세</div>
 							<div class="img-space">
-								<c:forEach var="i" items="${l.attachMent}">
-									<div class="img-div"><img src="${i.filePath}{i.changeName}" alt="Profile Image">
-									</div>
+								<c:forEach var="i" items="${l.detailAttachMent}">
+									<div class="img-div"><img src="${i.filePath}${i.changeName}" alt="Profile Image"></div>
 								</c:forEach>
 							</div>
 						</div>
 
 						<!-- 장소 종류에따라 처리-->
 
+						<c:if test="${l.locationCategoryNo != 4}">
 						<!--상품 정보-->
 						<div class="section">
 							<div class="title">상품 정보</div>
@@ -141,17 +150,22 @@
 								</div>
 							</c:forEach>
 						</div>
+						</c:if>
+
+					<c:if test="${l.locationCategoryNo == 4}">
 
 						<!--객실 정보-->
 						<c:forEach var="r" items="${l.locationOption}">
 							<div class="section room">
 								<div class="title">객실 정보</div>
 								<div class="room-section room-information">
-									<div class="img-div">
-										<img src="resources/img/tori.jpg" />
+									<div class="img-space">
+										<c:forEach var="i" items="${l.detailAttachMent}">
+											<div class="img-div "><img src="${i.filePath}${i.changeName}" alt="Profile Image"></div>
+										</c:forEach>
 									</div>
 									<div class="room-info">
-										<div class="title" style="color:var(--main-color);">${r.roomInfo}</div>
+										<div class="title" style="color:var(--main-color);">${r.goods}</div>
 										<div class="title price">${r.goodPrice}</div>
 										<div style="width:100%">
 											<hr>
@@ -173,7 +187,7 @@
 									</div>
 								</div>
 							</div>
-
+						  
 							<!-- The Modal  ${r.locationOptionNo}-->
 
 							<div class="modal fade wrapper" id="myModal${r.locationOptionNo}">
@@ -185,9 +199,9 @@
 										<div class="modal-body room-modal">
 											<div class="title">객실 상세</div>
 											<div class="img-modal-div">
-												<c:forEach var="m" items="${l.attachMent}">
-													<div class="img-modal"><img src="${m.filePath}{m.changeName}"
-															alt="Profile Image"></div>
+												<c:forEach var="m" items="${l.detailAttachMent}">
+													<div class="img-modal"><img src="${m.filePath}${m.changeName}"
+													 alt="Profile Image"></div>
 												</c:forEach>
 											</div>
 											<table>
@@ -241,7 +255,7 @@
 							</div>
 						</c:forEach>
 
-
+					 </c:if>
 
 
 
@@ -273,9 +287,9 @@
 									<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
-									<li><a href="#">최신순</a></li>
-									<li><a href="#">높은 평점순</a></li>
-									<li><a href="#">낮은 평점순</a></li>
+									<li><a  onclick="reviewCategory('최신순')">최신순</a></li>
+									<li><a  onclick="reviewCategory('최신순')">높은 평점순</a></li>
+									<li><a  onclick="reviewCategory('최신순')">낮은 평점순</a></li>
 								</ul>
 							</div>
 
@@ -298,7 +312,7 @@
 													<c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
 												</span>
 												<span><a href="#">수정</a>|<a
-														onclick="reviewDelete('${r.reviewNo}')">삭제</a></span>
+														onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
 											</div>
 										</div>
 
@@ -309,11 +323,20 @@
 											</c:forEach>
 										</div>
 										<div class="content">${r.reviewContent}</div>
+
+										<!--사장님 답글 영역-->
+										<div><a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
+											 <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
+										<div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">
+											<textarea id="reply-content${r.reviewNo}" class="master-reply-content"></textarea>
+											<button class="master-reply-button" onclick="insertReplyAjax('${r.reviewNo}')">작성하기</button>
+										</div>
 									</div>
 
+									 
 									<!-- 답글이 있을때만 처리-->
 									<c:if test="${r.ownerReplyContent != null}">
-										<div style="align-items: right;">
+										<div id="master-reply-content${r.reviewNo}" class="master-reply-input"style="align-items: right;">
 											<div class="review-section reply">
 
 												<div class="reply-master">

@@ -38,23 +38,22 @@
                 </div>
                 <div class="text-overlay">
                     <div>
-                        <b>썸네일 설명들</b>
                     <button class="comment-button" data-index="`+ num + `" data-toggle="true">댓글보기</button>
                     </div>
                 </div>
             </div>
             <div id="shorts-comment`+ num + `" class="shorts-comment tmp-box flex-box">
                 <div style="width: 100%; height: 100%">
-                    <div class="row-box style=height: 10%">
+                    <div class="row-box" style="height: 10%">
                         <h1>댓글</h1>
                         <div style="color: var(--border-color)">56</div>
                     </div>
-                    <div id ="comments-list"; style="height: 80%">
+                    <div id="comments-list`+ num +`" style="height: 80%">
                         댓글 들어가는 곳..
                     </div>  
                     <div style="height: 10%">
-                        <textarea id="comment-text" placeholder="댓글을 입력하세요"></textarea>
-                        <button id="submit-comment">댓글달기</button>
+                        <textarea id="comment-text`+ num +`" placeholder="댓글을 입력하세요"></textarea>
+                        <button id="submit-comment`+ num +`">댓글달기</button>
                     </div>    
                 </div>
             </div>
@@ -86,7 +85,7 @@
             });
         }
 
-        // 댓글 오른쪽으로 나오게 하는 함수
+        // 댓글 관련 함수들
         $(document).ready(function(){
             let isVisible = false;
 
@@ -105,8 +104,9 @@
                 }
             });
 
-            $('#submit-comment').click(function() {
-                const commentText = $('#comment-text').val().trim();  // 공백 제거
+            $(document).on('click', '[id^="submit-comment"]', function() {
+                const num = this.id.replace('submit-comment', '');
+                const commentText = $('#comment-text' + num).val().trim();
 
                 if (commentText === "") {
                     alert("댓글을 입력하세요.");
@@ -119,12 +119,12 @@
                         comment: commentText
                     },
                     success: function(response) {
-                        const newComment = $('<div class="tmp-box"></div>').text(response);
                         if(response === null) {
                             alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
                         } else {
-                            $('#comments-list').append(newComment);
-                            $('#comment-text').val('');
+                            const newComment = $('<div class="tmp-box"></div>').text(response);
+                            $('#comments-list' + num).append(newComment);
+                            $('#comment-text' + num).val('');
                         }
                     },
                     error: function() {

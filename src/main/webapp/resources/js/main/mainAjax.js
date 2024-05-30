@@ -31,6 +31,7 @@ function init(path, user){
 
 // ***장소 추천***
 function selectPlaceTop(){
+    
     ajaxGetData(contextPath + "/topPlace.ma", 
     "",
     function(result){drawPlaceTop(result)});

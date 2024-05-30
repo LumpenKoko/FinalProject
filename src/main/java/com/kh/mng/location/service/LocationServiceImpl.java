@@ -163,4 +163,16 @@ public class LocationServiceImpl implements LocationService {
 		return reviewDao.selectReply(sqlSession,reply);
 	}
 
+	@Override
+	public ArrayList<Review> selectCategoryReviewList(ReviewInfo reivew, PageInfo pi) {
+			ArrayList<Review> reviews=reviewDao.selectCategoryReviewList(sqlSession,reivew, pi);
+		 
+		 for(Review review:reviews) {
+			 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+			 review.setAttachment(attachMents);
+		 }
+		
+		return reviews;
+	}
+
 }

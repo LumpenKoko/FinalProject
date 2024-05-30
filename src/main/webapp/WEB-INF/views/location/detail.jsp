@@ -287,9 +287,9 @@
 									<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
-									<li><a  onclick="reviewCategory('최신순')">최신순</a></li>
-									<li><a  onclick="reviewCategory('최신순')">높은 평점순</a></li>
-									<li><a  onclick="reviewCategory('최신순')">낮은 평점순</a></li>
+									<li><a  onclick="reviewCategory('o')">최신순</a></li>
+									<li><a  onclick="reviewCategory('h')">높은 평점순</a></li>
+									<li><a  onclick="reviewCategory('l')">낮은 평점순</a></li>
 								</ul>
 							</div>
 
@@ -302,7 +302,7 @@
 											<div class="profile">
 												<div class="img-div"><img src="resources/img/김지원.jpg"
 														alt="Profile Image"></div>
-												<div><span class="title">${r.userName}</span><br>
+												<div><span class="title">${r.userNickName}</span><br>
 													<span>${r.enrollDate}</span>
 												</div>
 											</div>

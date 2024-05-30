@@ -22,7 +22,7 @@ public class Review {
 	private int reviewStar; //리뷰 평점
 	private String  reviewContent;
 	private Date enrollDate;
-	private String userName;
+	private String userNickName;
 	private double locationStar;//장소 평균평점
 	private int userNo;
 	private int locationNo;

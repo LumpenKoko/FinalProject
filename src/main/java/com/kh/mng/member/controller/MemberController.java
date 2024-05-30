@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -52,7 +53,7 @@ public class MemberController {
 			// 일반 회원인 경우
 			if(loginUser.getUserKind().equals("N")) {
 				session.setAttribute("loginUser", loginUser);
-				mv.setViewName("main");	
+				mv.setViewName("redirect:/");	
 			// 사장 회원인 경우
 			} else {
 				session.setAttribute("loginUser", loginUser);
@@ -75,13 +76,11 @@ public class MemberController {
 	@GetMapping("checkId.me")
 	public String checkMemberId(String userId) {
 		int result = memberService.checkMemberId(userId);
-		
 		if (result > 0) {
 			return "NNNNY";
 		} else {
 			return "NNNNN";
 		}
-
 	}
 	
 	// 일반회원가입

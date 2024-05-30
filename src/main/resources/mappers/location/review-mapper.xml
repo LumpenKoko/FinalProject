@@ -13,7 +13,7 @@
    	  <result column="REVIEW_STAR" property="reviewStar"/>
    	  <result column="REVIEW_CONTENT" property="reviewContent"/>
    	  <result column="ENROLL_DATE" property="enrollDate"/>
-   	  <result column="USER_NAME" property="userName"/>
+   	  <result column="USER_NICKNAME" property="userNickName"/>
    	  <result column="LOCATION_STAR" property="locationStar"/>
    	  <result column="USER_NO" property="userNo"/>
    	  <result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"/>
@@ -33,7 +33,7 @@
 	    	   	    REVIEW_STAR,
 	    	        REVIEW_CONTENT,
     			    R.ENROLL_DATE,
-    			    USER_NAME,
+    			    USER_NICKNAME,
     			    L.LOCATION_STAR,
     			    R.USER_NO,
     			    R.LOCATION_NO,
@@ -132,6 +132,40 @@
     	        )
     
     </insert>
+    
+    <select id="selectCategoryReviewList" resultMap="detailReview">
+    		   SELECT  R.REVIEW_NO,
+	    	   	    REVIEW_STAR,
+	    	        REVIEW_CONTENT,
+    			    R.ENROLL_DATE,
+    			    USER_NAME,
+    			    L.LOCATION_STAR,
+    			    R.USER_NO,
+    			    R.LOCATION_NO,
+    			    O.ENROLL_DATE AS OWNER_ENROLL,
+    			    O.OWNER_REPLY_CONTENT
+		    	    FROM REVIEW R
+		    	    JOIN LOCATION L
+		    	    ON (R.LOCATION_NO = L.LOCATION_NO)
+		    	    JOIN MEMBER M
+		    	    ON (R.USER_NO = M.USER_NO)
+		    	    LEFT JOIN OWNER_REPLY O
+		    	    ON (R.REVIEW_NO = O.REVIEW_NO)
+		    	    WHERE L.LOCATION_NO = #{locationNo}
+		    	   <choose>
+						<when test='type == "o"'>
+							 ORDER BY O.ENROLL_DATE DESC
+						</when>
+						<when test='type == "h"'>
+							 ORDER BY REVIEW_STAR DESC
+						</when>
+						<when test='type == "l"'>
+							 ORDER BY REVIEW_STAR
+						</when>
+				  </choose>
+		    	    
+		    	  
+    </select>
 
  	</mapper>
  	

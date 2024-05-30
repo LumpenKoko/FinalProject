@@ -3,24 +3,11 @@ function init(path){
     contextPath = path;
 }
 
-function ajaxGetData(url, data, callback){
-    $.ajax({
-        url: url,
-        data: data,
-        success: function (result) {
-            callback(result)
-        },
-        error: function () {
-            console.log("정보를 불러오는데 실패 했습니다.");
-        }
-    })
-}
-
 
 // 아이디 중복 확인
-function checkDoubleId(contextPath){
+function checkDoubleId(){
     let userIdInput = document.querySelector("#user-id");
-
+    console.log(contextPath)
     ajaxGetData(contextPath + "/checkId.me", 
         {userId: userIdInput.value}, 
         function(result){checkIdSuccess(result)});
@@ -37,4 +24,17 @@ function checkIdSuccess(result) {
         idMessage.style.color = "black";
     }
     
+}
+
+function ajaxGetData(url, data, callback){
+    $.ajax({
+        url: url,
+        data: data,
+        success: function (result) {
+            callback(result);
+        },
+        error: function () {
+            console.log("정보를 불러오는데 실패 했습니다.");
+        }
+    })
 }

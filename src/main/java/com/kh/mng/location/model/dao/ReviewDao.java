@@ -16,13 +16,13 @@ import com.kh.mng.location.model.vo.Review;
 @Repository
 public class ReviewDao {
 
-	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession,int spaceNo,PageInfo pi){
+	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession,int locationNo,PageInfo pi){
 		
 		int offset=(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
-		sqlSession.selectList("review.selectDetailReviewList", spaceNo,rowBounds); //페이징 처리할 정보
+		//sqlSession.selectList("review.selectDetailReviewList", locationNo,rowBounds); //페이징 처리할 정보
 		
-		return (ArrayList)sqlSession.selectList("review.selectDetailReviewList",spaceNo,rowBounds);
+		return (ArrayList)sqlSession.selectList("review.selectDetailReviewList",locationNo,rowBounds);
 	}
 
 	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession, int reviewNo) {
@@ -53,6 +53,14 @@ public class ReviewDao {
 	public int selectReply(SqlSessionTemplate sqlSession,ReplyInfo reply) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("review.insertReply",reply);
+	}
+
+	public ArrayList<Review> selectCategoryReviewList(SqlSessionTemplate sqlSession, ReviewInfo reivew, PageInfo pi) {
+		int offset=(pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		System.out.println(reivew);
+		
+		return (ArrayList)sqlSession.selectList("review.selectCategoryReviewList",reivew,rowBounds);
 	}
 	
 }

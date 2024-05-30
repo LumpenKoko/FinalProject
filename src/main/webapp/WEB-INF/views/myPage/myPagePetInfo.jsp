@@ -25,10 +25,15 @@
                                 <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
                                 </div>
                                 <input type="file" id="fileInput" style="display: none;">
-                                <p id="nickName">토리형</p>
+                                <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
                                 <div id="solid"></div>
                                 <p id="pets">반려동물</p>
-                                <p id="petProfileName">토리</p>
+                                <c:forEach var="pet" items="${petList}" varStatus="loop">
+                                    <span id="petProfileName"
+                                        style="text-align: center; overflow: initial; white-space: initial;">
+                                        ${pet.petName}<c:if test="${not loop.last}">&nbsp;&</c:if>
+                                    </span>
+                                </c:forEach>
                             </div>
                             <div id="main_main_left2">
                                 <div id="mainList"
@@ -67,8 +72,8 @@
                             <div id="right2">
                                 <h1>반려동물 1</h1>
                                 <c:forEach items="${petList}" var="pet" varStatus="loop">
-                                    <form class="petForm${loop.index}" id="right2-container" method="post" action="updatePet.mp"
-                                        data-index="${loop.index}">
+                                    <form class="petForm${loop.index}" id="right2-container" method="post"
+                                        action="updatePet.mp" data-index="${loop.index}">
                                         <div id="right2-container" class="right2-container-${loop.index}">
                                             <div id="right2-left">
                                                 <img src="resources/img/myPage/petProfile.png" id="petProfile"
@@ -106,19 +111,20 @@
                                                     </select>
                                                 </div>
                                                 <div class="gender-input" id="gender-input${loop.index}">
-                                                    <input type="radio" name="petGender${loop.index}"
-                                                        id="men${loop.index}" value="M" ${pet.petGender eq 'M'
-                                                        ? 'checked' : '' } class="petGender">
+                                                    <input type="radio" name="petGender" id="men${loop.index}" value="M"
+                                                        ${pet.petGender eq 'M' ? 'checked' : '' } class="petGender">
                                                     <label for="men${loop.index}">남아</label>
-                                                    <input type="radio" name="petGender${loop.index}"
-                                                        id="women${loop.index}" value="F" ${pet.petGender eq 'F'
-                                                        ? 'checked' : '' } class="petGender">
+                                                    <input type="radio" name="petGender" id="women${loop.index}"
+                                                        value="F" ${pet.petGender eq 'F' ? 'checked' : '' }
+                                                        class="petGender">
                                                     <label for="women${loop.index}">여아</label>
                                                 </div>
                                                 <button type="submit" class="update update-${loop.index}"
-                                                    style="margin-top: 50px; cursor: pointer;">수정</button>
+                                                    style="margin-top: 50px; cursor: pointer;"
+                                                    onclick="updatePet(petNo)">수정</button>
                                             </div>
                                         </div>
+                                        <input type="text" hidden name="petNo" value="${pet.petNo}">
                                     </form>
                                 </c:forEach>
 
@@ -146,36 +152,27 @@
                     reader.readAsDataURL(file);
                 });
 
-                function petUpdate(event) {
-                    const btn = event.target; // 클릭된 버튼을 참조합니다.
-                    const form = btn.closest('.petForm${loop.index}'); // 클릭된 버튼의 부모 폼 요소를 가져옵니다.
-
-                    // 폼의 인덱스 값을 가져옵니다.
-                    const formIndex = form.dataset.index;
-
-                    // 체크된 라디오 버튼을 감싸는 div 요소를 선택합니다.
-                    const genderInput = form.querySelector('.gender-input');
-
-                    // 체크된 라디오 버튼을 확인하고 해당 라디오 버튼의 name 속성을 변경합니다.
-                    const checkedRadio = genderInput.querySelector('input:checked');
-                    console.log(checkedRadio);
-                    if (checkedRadio) {
-                        checkedRadio.setAttribute('name',  `petGender${formIndex}`);
-                    }
-
-                    // 나머지 필드들에 대해서도 name 속성을 변경합니다.
-                    form.querySelector('.petName').setAttribute('name', `petName${formIndex}`);
-                    form.querySelector('.petBirthday').setAttribute('name', `petBirthday${formIndex}`);
-                    form.querySelector('.petSizeNo').setAttribute('name', `petSizeNo${formIndex}`);
-
-                    console.log(checkedRadio);
-                    form.submit(); // 폼 제출
+                function updatePet(petNo) {
+                    var formData = {
+                        petNo: eval(petNo),
+                        petName: document.querySelector('.petName[data-index="' + index + '"]').value,
+                        petBirthday: document.querySelector('.petBirthday[data-index="' + index + '"]').value,
+                        petSizeNo: document.querySelector('.petSizeNo[data-index="' + index + '"]').value,
+                        petGender: document.querySelector('input[name="petGender' + index + '"]:checked').value
+                    };
                 }
 
-                document.querySelectorAll('.update').forEach(btn => {
-                    btn.addEventListener('click', petUpdate);
-                });
+                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
 
+                // 반려동물 이름을 표시할 요소
+                var petNamesElement = document.getElementById("petNames");
+
+                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
+                for (var i = 0; i < petNames.length; i++) {
+                    var petNameElement = document.createElement("p");
+                    petNameElement.textContent = petNames[i];
+                    petNamesElement.appendChild(petNameElement);
+                }
             </script>
 
             <%@ include file="../common/footer.jsp" %>

@@ -17,12 +17,14 @@
 
 	<select id="selectPet" resultMap="petResult">
 		SELECT
+		PET_NO,
 		PET_NAME,
 		PET_BIRTHDAY,
 		PET_GENDER,
 		PET_SIZE_NO
 		FROM PET
 		WHERE USER_NO = #{userNo}
+		ORDER BY PET_NO ASC;
 	</select>
 
 	<update id="updatePet">
@@ -32,6 +34,7 @@
 		PET_GENDER = #{petGender},
 		PET_SIZE_NO = #{petSizeNo}
 		WHERE USER_NO = #{userNo}
+		AND PET_NO = #{petNo}
 	</update>
 
 	<insert id="insertPet">

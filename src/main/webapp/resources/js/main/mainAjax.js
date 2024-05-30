@@ -10,6 +10,8 @@ function init(path, user){
         selectBoardDetailTop(i);
     }
 
+    selectShortsTop();
+
     // if (loginUser !== null){
     //     selectRegistPetModal(loginUser);
     // }
@@ -179,6 +181,48 @@ function drawBoardDetailTop(type, boardList){
 // </div>`
 }
 
+
+// ***쇼츠 추천***
+function selectShortsTop(){
+    ajaxGetData(contextPath + "/topShorts.ma", 
+    "",
+    function(result){drawShortsTop(result)});
+}
+
+function drawShortsTop(shortsList){
+    let shortsRanking = document.querySelector("#shorts-ranking>div");
+    
+    for(let shorts of shortsList){
+        let shortsRankingContent = document.createElement('div');
+        shortsRankingContent.className = "shorts-ranking-content";
+        shortsRanking.append(shortsRankingContent);
+
+        shortsRankingContent.onclick = function(){
+            location.href = contextPath + "/shortsView.bo?sno=" + shorts.shortsNo;
+        }
+
+        shortsBox = "";
+
+        // 썸네일 이미지
+        shortsBox += `<div><img src=` + shorts.attachment.filePath + shorts.attachment.changeName + ` alt=""></div>`;
+
+        // 내용
+        shortsBox += `<div class="shorts-ranking-text">
+                            <div class="shorts-ranking-text-title">
+                                <div class="shorts-ranking-text-user">`
+        shortsBox += shorts.userNo;
+        shortsBox += `</div>
+                          <div class="shorts-ranking-text-date">`
+        shortsBox += shorts.enrollDate;
+        shortsBox += `</div></div>
+                          <div class="shorts-ranking-text-content">`
+        shortsBox += shorts.shortsContent;
+        shortsBox += `</div></div></div>`
+
+        shortsRankingContent.innerHTML = shortsBox;
+    }
+
+}
 
 
 

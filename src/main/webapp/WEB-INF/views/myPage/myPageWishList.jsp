@@ -23,12 +23,17 @@
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
                                 <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
-                                <input type="file" id="fileInput" style="display: none;">
+                                    <input type="file" id="fileInput" style="display: none;">
                                 </div>
-                                <p id="nickName">토리형</p>
+                                <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
                                 <div id="solidMain"></div>
                                 <p id="pets">반려동물</p>
-                                <p id="petProfileName">토리</p>
+                                <c:forEach var="pet" items="${petList}" varStatus="loop">
+                                    <span id="petProfileName"
+                                        style="text-align: center; overflow: initial; white-space: initial;">
+                                        ${pet.petName}<c:if test="${not loop.last}">&nbsp;&</c:if>
+                                    </span>
+                                </c:forEach>
                             </div>
                             <div id="main_main_left2">
                                 <div id="main" onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한
@@ -59,26 +64,33 @@
                         <div id="main_main_right">
                             <div id="right1">찜 목록</div>
                             <div id="right2">
-                                <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
+                                <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                    style="cursor: pointer;">
                                     <img src="resources/img/myPage/cafe.png" id="cafe">
                                 </div>
                                 <div id="right2-right" style="height: 80%;">
                                     <div id="right2-right1">
                                         <div id="top">
-                                            <span id="title" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">샘플 카페 하이 구로하우비점</span>
+                                            <span id="title"
+                                                onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                                style="cursor: pointer;">샘플 카페 하이 구로하우비점</span>
                                             <div id="wishIcon" onclick="changeColor()">♡</div>
                                             <div id="count">45</div>
                                         </div>
-                                        <div id="category" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
+                                        <div id="category"
+                                            onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                            style="cursor: pointer;">
                                             <span id="category1">분류</span>
                                             <span id="category2">카페</span>
                                         </div>
-                                        <div id="score" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
+                                        <div id="score" onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                            style="cursor: pointer;">
                                             <span id="score1">평점</span>
                                             <span id="score2">4.3</span>
                                             <span id="score3">★★★★★</span>
                                         </div>
-                                        <div id="type" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
+                                        <div id="type" onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                            style="cursor: pointer;">
                                             <span id="type1">종류</span>
                                             <span id="type2">소형견,중형견,고양이</span>
                                         </div>
@@ -86,7 +98,9 @@
                                             <div id="solid2"></div>
                                         </div>
                                     </div>
-                                    <div id="right2-right2" onclick="location.href='<%=request.getContextPath()%>/detail'" style="cursor: pointer;">
+                                    <div id="right2-right2"
+                                        onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                        style="cursor: pointer;">
                                         <div id="address">
                                             <img src="resources/img/myPage/address.png" id="address1">
                                             <span id="address2">부산광역시 해운대 극성로 북6길</span>
@@ -134,6 +148,18 @@
 
                     reader.readAsDataURL(file);
                 });
+
+                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
+
+                // 반려동물 이름을 표시할 요소
+                var petNamesElement = document.getElementById("petNames");
+
+                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
+                for (var i = 0; i < petNames.length; i++) {
+                    var petNameElement = document.createElement("p");
+                    petNameElement.textContent = petNames[i];
+                    petNamesElement.appendChild(petNameElement);
+                }
             </script>
 
             <%@ include file="../common/footer.jsp" %>

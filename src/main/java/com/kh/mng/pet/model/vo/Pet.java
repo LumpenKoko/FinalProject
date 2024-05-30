@@ -17,7 +17,7 @@ public class Pet {
 	private int petNo;
 	private String petName;
 	private Date petBirthday;
-	private char petGender;
+	private String petGender;
 	private int userNo;
 	private int petSizeNo;
 }

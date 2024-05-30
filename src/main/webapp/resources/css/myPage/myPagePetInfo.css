@@ -221,14 +221,7 @@
     margin-top: 50px;
 }
 
-#petProfile {
-    width: 300px;
-    height: 300px;
-    border-radius: none;
-    cursor: pointer;
-}
-
-#update {
+#right2-left .delete {
     margin-top: 30px;
     width: 300px;
     height: 50px;
@@ -240,7 +233,26 @@
     border-radius: 15px;
 }
 
-#petName {
+#petProfile {
+    width: 300px;
+    height: 300px;
+    border-radius: none;
+    cursor: pointer;
+}
+
+.update {
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    background-color: #FE8B94;
+    color: white;
+    border: 1px solid #bababa;
+    border-radius: 15px;
+}
+
+.petName {
     float: left;
     border: 1px solid #bababa;
     border-radius: 15px;
@@ -248,7 +260,7 @@
     height: 40px;
 }
 
-#petBirthday {
+.petBirthday {
     float: left;
     border: 1px solid #bababa;
     border-radius: 15px;
@@ -256,7 +268,7 @@
     height: 40px;
 }
 
-#petSizeNo {
+.petSizeNo {
     float: left;
     border: 1px solid #bababa;
     border-radius: 15px;
@@ -264,7 +276,7 @@
     height: 40px;   
 }
 
-#gender-input {
+#right2-right .gender-input {
     width: 80%;
     display: inline;
     margin-top: 30px;

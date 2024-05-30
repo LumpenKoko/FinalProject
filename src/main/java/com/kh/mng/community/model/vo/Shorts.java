@@ -1,7 +1,8 @@
 package com.kh.mng.community.model.vo;
 
 import java.sql.Date;
-import java.sql.Time;
+
+import com.kh.mng.common.model.vo.Attachment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +19,9 @@ public class Shorts {
 	private int shortsNo; //숏츠번호
 	private String shortsContent; //숏츠내용
 	private int count; //조회수
-	private Date EnrollDate; //작성날짜
-	private Date ModifyDate; //수정날짜
+	private Date enrollDate; //작성날짜
+	private Date modifyDate; //수정날짜
 	private boolean status; //숏츠상태
-	private int userNo; //회웝번호
+	private String userNo; //회웝번호
+	private Attachment attachment; // 썸네일 첨부파일
 }

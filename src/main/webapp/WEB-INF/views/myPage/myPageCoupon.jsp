@@ -13,37 +13,43 @@
 
     <body>
 
-        <%@ include file="../common/header.jsp"%>
+        <%@ include file="../common/header.jsp" %>
 
             <div class="wrapper main_wrapper">
                 <div class="main_main">
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
-                                <img src="resources/img/myPage/camera.png" onclick="document.getElementById('fileInput').click()" id="camera">
+                                <img src="resources/img/myPage/camera.png"
+                                    onclick="document.getElementById('fileInput').click()" id="camera">
                                 <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
                                 </div>
                                 <input type="file" id="fileInput" style="display: none;">
-                                <p id="nickName">토리형</p>
+                                <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
                                 <div id="solid"></div>
                                 <p id="pets">반려동물</p>
-                                <p id="petProfileName">토리</p>
+                                <c:forEach var="pet" items="${petList}" varStatus="loop">
+                                    <span id="petProfileName"
+                                        style="text-align: center; overflow: initial; white-space: initial;">
+                                        ${pet.petName}<c:if test="${not loop.last}">&nbsp;&</c:if>
+                                    </span>
+                                </c:forEach>
                             </div>
                             <div id="main_main_left2">
-                                <div id="mainList" 
+                                <div id="mainList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
                                 </div>
-                                <div id="wishList" 
+                                <div id="wishList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
                                 </div>
-                                <div id="coupon" 
+                                <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
                                 </div>
-                                <div id="boardList" 
+                                <div id="boardList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'">게시글 / 쇼츠 목록
                                 </div>
-                                <div id="info"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">개인정보
+                                <div id="info" onclick="location.href='<%=request.getContextPath()%>/myPageInfo.mp'">
+                                    개인정보
                                 </div>
                                 <div style="border-style: none;" id="petInfo"
                                     onclick="location.href='<%=request.getContextPath()%>/myPagePetInfo.mp'">반려동물 정보
@@ -85,7 +91,7 @@
             <script>
                 // 복제할 원본 div 요소를 가져옵니다
                 var originalDiv = document.getElementById('right2');
-            
+
                 // 새로운 div를 생성하고 복제한 후 container에 추가합니다
                 for (var i = 0; i < 2; i++) {
                     var newDiv = originalDiv.cloneNode(true); // true를 전달하여 하위 요소들도 함께 복제합니다
@@ -102,6 +108,18 @@
 
                     reader.readAsDataURL(file);
                 });
+
+                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
+
+                // 반려동물 이름을 표시할 요소
+                var petNamesElement = document.getElementById("petNames");
+
+                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
+                for (var i = 0; i < petNames.length; i++) {
+                    var petNameElement = document.createElement("p");
+                    petNameElement.textContent = petNames[i];
+                    petNamesElement.appendChild(petNameElement);
+                }
             </script>
 
             <%@ include file="../common/footer.jsp" %>

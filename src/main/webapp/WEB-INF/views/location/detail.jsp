@@ -42,10 +42,10 @@
 					<c:set var="k" value="0" />
 
 					<div id="headerImg" class="header-img"
-						style="background: url('resources/img/공간2.png')  no-repeat center center/cover;">
+						style="background: url('${l.mainAttachMent.get(0).filePath}${l.mainAttachMent.get(0).changeName}')  no-repeat center center/cover;">
 
 
-						<c:set var="maxSize" value="${mainImg.size()}" />
+						<c:set var="maxSize" value="" />
 
 						<div class="head-img-pre">
 							<button onclick="moveImg('')">&gt;</button>
@@ -57,7 +57,7 @@
 						<div class="head-img-next">
 							<button onclick="moveImg('')">&lt;</button>
 						</div>
-						<input type="text" value="${i=k}" hidden>
+						<input type="text" value="" hidden>
 					</div>
 
 
@@ -84,7 +84,7 @@
 								<div class="title">상세정보 </div>
 								<div class="detail-information detail-content">
 									<div>
-										<div class="content">${l.categoryName}</div>
+										<div class="content"><h5>${l.categoryName}</h5></div>
 										<div class="content">${l.locationPhone}</div>
 										<!-- 장소별로 식별-->
 										<c:if test="{l.locationCategoryNo eq 4}">
@@ -97,14 +97,16 @@
 									</div>
 									<div>
 
-										<div>반려동물 등급</div>
-										<c:forEach var="k" items="${l.petKindGrade}">
-											<div>
-												<span>${k.petSizeName}</span>
-												<span>${k.petKindName}</span>
-											</div>
-										</c:forEach>
-										<div class="content">${location.categoryName}</div>
+										<div><h5>반려동물 출입등급</h5></div>
+										<div class="content">
+											<c:forEach var="k" items="${l.petKindGrade}">
+												<span>
+													${k.petSizeName},
+													${k.petKindName}
+												</span>
+											</c:forEach>
+										</div><br>
+										<div><h5>${l.locationName}</h5></div>
 										<div class="content">${l.address}</div>
 										<div class="content">${l.reservationLink}</div>
 									</div>
@@ -126,9 +128,8 @@
 						<div class="section">
 							<div class="title">시설 상세</div>
 							<div class="img-space">
-								<c:forEach var="i" items="${l.attachMent}">
-									<div class="img-div"><img src="${i.filePath}{i.changeName}" alt="Profile Image">
-									</div>
+								<c:forEach var="i" items="${l.detailAttachMent}">
+									<div class="img-div"><img src="${i.filePath}${i.changeName}" alt="Profile Image"></div>
 								</c:forEach>
 							</div>
 						</div>
@@ -158,9 +159,9 @@
 							<div class="section room">
 								<div class="title">객실 정보</div>
 								<div class="room-section room-information">
-									<div class="img-div">
-										<img src="resources/img/tori.jpg" />
-									</div>
+									<c:forEach var="i" items="${l.detailAttachMent}">
+										<div class="img-div"><img src="${i.filePath}${i.changeName}" alt="Profile Image"></div>
+									</c:forEach>
 									<div class="room-info">
 										<div class="title" style="color:var(--main-color);">${r.goods}</div>
 										<div class="title price">${r.goodPrice}</div>
@@ -196,9 +197,9 @@
 										<div class="modal-body room-modal">
 											<div class="title">객실 상세</div>
 											<div class="img-modal-div">
-												<c:forEach var="m" items="${l.attachMent}">
-													<div class="img-modal"><img src="${m.filePath}{m.changeName}"
-															alt="Profile Image"></div>
+												<c:forEach var="m" items="${l.detailAttachMent}">
+													<div class="img-modal"><img src="${m.filePath}${m.changeName}"
+													 alt="Profile Image"></div>
 												</c:forEach>
 											</div>
 											<table>

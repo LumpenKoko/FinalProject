@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollAdmin.css"/>
 <script src="resources/js/member/memberEnroll.js"></script>
-<script src="resources/js/ajax/memberAjax.js"></script>
+<script src="resources/js/member/memberAjax.js"></script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -146,7 +146,7 @@
 
                     <input type="text" name="address" id="input-address">
 
-                    <button type="submit" id="check-phone-button" class="common-button pink-button minibox-full-button">사업자 정보 인증</button>
+                    <button type="submit" id="check-admin-button" class="common-button pink-button minibox-full-button">사업자 정보 인증</button>
                 <!-- </form> -->
 
                 <div id="checked-boss-info" class="common-button">사업자 정보 인증이 완료되었습니다.</div>

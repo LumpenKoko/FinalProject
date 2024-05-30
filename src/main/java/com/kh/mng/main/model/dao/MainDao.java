@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.EnterGrade;
 import com.kh.mng.location.model.vo.Location;
 
@@ -18,7 +19,7 @@ public class MainDao {
 	}
 
 	public Attachment selectAttachment(SqlSessionTemplate sqlSession, Location loc) {
-		return sqlSession.selectOne("mainMapper.selectAttachment", loc);
+		return sqlSession.selectOne("mainMapper.selectAttachmentLocation", loc);
 	}
 	
 	public ArrayList<EnterGrade> selectEnterGradeList(SqlSessionTemplate sqlSession, Location loc) {
@@ -46,6 +47,14 @@ public class MainDao {
 	// 넘긴 boardNo에 해당하는 댓글수
 	public int selectReplyCount(SqlSessionTemplate sqlSession, int boardNo){
 		return sqlSession.selectOne("mainMapper.selectReplyCount", boardNo);
+	}
+	
+	public ArrayList<Shorts> ajaxSelectShortsList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("mainMapper.ajaxSelectShortsList");
+	}
+	
+	public Attachment selectAttachmentShorts(SqlSessionTemplate sqlSession, Shorts s) {
+		return sqlSession.selectOne("mainMapper.selectAttachmentShorts", s);
 	}
 	
 //	1. COUNT 순서대로 조회한 걸 DESC

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.model.dao.MainDao;
 
@@ -93,6 +94,16 @@ public class MainServiceImpl implements MainService{
 		}
 		
 		return replyList;
+	}
+
+	@Override
+	public ArrayList<Shorts> ajaxSelectShortsList() {
+		ArrayList<Shorts> list = mainDao.ajaxSelectShortsList(sqlSession);
+		
+		for (Shorts s : list) {
+			s.setAttachment(mainDao.selectAttachmentShorts(sqlSession, s));
+		}
+		return list;
 	}
 
 }

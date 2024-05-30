@@ -159,9 +159,11 @@
 							<div class="section room">
 								<div class="title">객실 정보</div>
 								<div class="room-section room-information">
-									<c:forEach var="i" items="${l.detailAttachMent}">
-										<div class="img-div"><img src="${i.filePath}${i.changeName}" alt="Profile Image"></div>
-									</c:forEach>
+									<div class="img-space">
+										<c:forEach var="i" items="${l.detailAttachMent}">
+											<div class="img-div "><img src="${i.filePath}${i.changeName}" alt="Profile Image"></div>
+										</c:forEach>
+									</div>
 									<div class="room-info">
 										<div class="title" style="color:var(--main-color);">${r.goods}</div>
 										<div class="title price">${r.goodPrice}</div>
@@ -285,9 +287,9 @@
 									<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
-									<li><a href="#">최신순</a></li>
-									<li><a href="#">높은 평점순</a></li>
-									<li><a href="#">낮은 평점순</a></li>
+									<li><a  onclick="reviewCategory('최신순')">최신순</a></li>
+									<li><a  onclick="reviewCategory('최신순')">높은 평점순</a></li>
+									<li><a  onclick="reviewCategory('최신순')">낮은 평점순</a></li>
 								</ul>
 							</div>
 
@@ -323,8 +325,9 @@
 										<div class="content">${r.reviewContent}</div>
 
 										<!--사장님 답글 영역-->
-										<div><a id="reply-button" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글</a></div>
-										<div id="master-reply-div${r.reviewNo}" class="master-reply-input show-reply">
+										<div><a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
+											 <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
+										<div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">
 											<textarea id="reply-content${r.reviewNo}" class="master-reply-content"></textarea>
 											<button class="master-reply-button" onclick="insertReplyAjax('${r.reviewNo}')">작성하기</button>
 										</div>
@@ -333,7 +336,7 @@
 									 
 									<!-- 답글이 있을때만 처리-->
 									<c:if test="${r.ownerReplyContent != null}">
-										<div style="align-items: right;">
+										<div id="master-reply-content${r.reviewNo}" class="master-reply-input"style="align-items: right;">
 											<div class="review-section reply">
 
 												<div class="reply-master">

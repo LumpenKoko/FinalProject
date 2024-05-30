@@ -319,6 +319,14 @@ public class LocationController {
 	}
 	
 	
+//	//분류별 리뷰 분류
+//	@ResponseBody
+//	@PostMapping(value="review.ca")
+//	public String reviewCategory(ReviewInfo info) {
+//		
+//	}
+//	
+	
 	//로그인 정보 가져오기-->실패
 	@ResponseBody
 	@GetMapping(value="user.ge")

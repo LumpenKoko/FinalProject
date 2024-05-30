@@ -115,7 +115,7 @@ function drawReivew(review) {
 
     if (r.ownerReplyContent != null) {
 
-      reply += `<div style="align-items: right;">
+      reply += `<div id="master-reply-content${r.reviewNo}" class="master-reply-input"  style="align-items: right;">
                  <div class="review-section reply">
         
                     <div class="reply-master">
@@ -153,8 +153,9 @@ function drawReivew(review) {
             <div class="content">${r.reviewContent}</div>
 
             <!--사장님 답글 영역-->
-            <div><a id="reply-button" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글</a></div>
-            <div id="master-reply-div${r.reviewNo}" class="master-reply-input show-reply">
+            <div><a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
+                 <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
+            <div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">
               <textarea id="reply-content${r.reviewNo}" class="master-reply-content"></textarea>
               <button class="master-reply-button" onclick=" insertReplyAjax('${r.reviewNo}')">작성하기</button>
             </div>

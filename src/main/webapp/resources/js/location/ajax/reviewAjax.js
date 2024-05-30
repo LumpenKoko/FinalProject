@@ -150,27 +150,25 @@ function reviewPaging(currentPage){
 
 }
 
-//화살표
+//리뷰 뷴류별정렬 비동기 처리
 
+function reviewCategory(type){
 
-// function reviewArrayPaging(currentPage){
-//       console.log("누르기전"+currentPage)
-//     $.ajax({
-//         type:"GET",
-//         url:contextPath+"/paging.re",
-//         data:{locationNo:spaceNo,
-//              currentPage:currentPage
-//         },
-//         success:function(response){
-//             console.log("누른후:"+response)
-//            // drawPaging(response)
-//             currentPage=parseInt(response)+1
-//             reviewPaging(currentPage);
-//         },
-//         error:function(){
-//             console.log("페이징 실패")
-//         }
+    $.ajax({
+        type:"GET",
+        url:contextPath+"/review.ca",
+        data:{locationNo:spaceNo,
+             type:type
+        },
+        success:function(response){
+            drawReivew(response.reviews)
+            //페이지네이션 그리기
+            drawPaging(response.page)
+        },
+        error:function(){
+            console.log("페이징 처리 실패")
+        }
 
-//     })
+    })
 
-// }
+}

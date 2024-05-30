@@ -53,7 +53,7 @@ public class LocationServiceImpl implements LocationService {
 		ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
 		ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
 		ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<Attachment> detailAttchment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+		ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
 		detailLocation.setLocationOption(locationOption);
 		detailLocation.setOperationTime(operationTime);
 		detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 

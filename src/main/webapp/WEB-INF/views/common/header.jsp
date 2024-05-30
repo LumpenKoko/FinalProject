@@ -42,11 +42,15 @@
         <ul>
             <li><span>지도</span></li>
 
-            <li><a href="<%=contextPath%>/bossMainPage.bm">보스페이지</a></li>
-
-            <li><a href="<%=contextPath%>/community">커뮤니티</a></li>
-            <li><a href="<%=contextPath%>/myPageMain.mp">대시보드</a></li>
-
+            <c:choose>
+                <c:when test="${not empty loginUser && loginUser.userKind eq 'Y'}">
+                    <li><a href="<%=contextPath%>/bossMainPage.bm">보스페이지</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="<%=contextPath%>/community">커뮤니티</a></li>
+                    <li><a href="<%=contextPath%>/myPageMain.mp">대시보드</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 

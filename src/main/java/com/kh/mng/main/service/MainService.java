@@ -3,6 +3,7 @@ package com.kh.mng.main.service;
 import java.util.ArrayList;
 
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 
 public interface MainService {
@@ -17,4 +18,7 @@ public interface MainService {
 	
 	// 커뮤니티의 댓글수가 많은 글들 5위까지 가져옴
 	ArrayList<Board> ajaxSelectBoardReplyList();
+	
+	// 조회수 높은 쇼츠 3위까지 가져옴
+	ArrayList<Shorts> ajaxSelectShortsList();
 }

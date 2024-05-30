@@ -89,7 +89,7 @@
 			<div id="search-ranking" class="gray-round-box">
 				<span>반려동물과 좋은 추억을 남길 장소를 추천해드려요 </span>
 				<div>
-					<img id="place-img" src="resources/img/main/daan-evers-tKN1WXrzQ3s-unsplash.jpg" alt="">
+					<img id="place-img" src="" alt="">
 					
 					<!-- 추천 컨텐츠 세 개를 전부 감싸는 박스 -->
 					<div id="search-contents-wrap">
@@ -129,42 +129,7 @@
 			<div id="shorts-ranking" class="gray-round-box">
 				<span>인기 멍냥이 쇼츠</span>
 				<div>
-					<div class="shorts-ranking-content">
-						<div>
-							<img src="resources/img/main/KakaoTalk_20240502_183702147.jpg" alt="">
-						</div>
-						<div class="shorts-ranking-text">
-							<div class="shorts-ranking-text-title">
-								<div class="shorts-ranking-text-user">쿠키언니</div>
-								<div class="shorts-ranking-text-date">2024.05.12</div>
-							</div>
-							<div class="shorts-ranking-text-content">쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 </div>
-						</div>
-					</div>
-					<div class="shorts-ranking-content">
-						<div>
-							<img src="resources/img/main/KakaoTalk_20240502_183702147.jpg" alt="">
-						</div>
-						<div class="shorts-ranking-text">
-							<div class="shorts-ranking-text-title">
-								<div class="shorts-ranking-text-user">쿠키언니</div>
-								<div class="shorts-ranking-text-date">2024.05.12</div>
-							</div>
-							<div class="shorts-ranking-text-content">쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 </div>
-						</div>
-					</div>
-					<div class="shorts-ranking-content">
-						<div>
-							<img src="resources/img/main/KakaoTalk_20240502_183702147.jpg" alt="">
-						</div>
-						<div class="shorts-ranking-text">
-							<div class="shorts-ranking-text-title">
-								<div class="shorts-ranking-text-user">쿠키언니</div>
-								<div class="shorts-ranking-text-date">2024.05.12</div>
-							</div>
-							<div class="shorts-ranking-text-content">쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 쿠키 데리고 처음으로 한강공원 갔는데 </div>
-						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>

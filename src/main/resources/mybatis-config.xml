@@ -26,6 +26,7 @@
  		<typeAlias type="com.kh.mng.location.model.vo.LocationOption" alias="LocationOption"/>
  		<typeAlias type="com.kh.mng.location.model.vo.OperationTime" alias="OperationTime"/>
  		<typeAlias type="com.kh.mng.location.model.vo.PetKindGrade" alias="PetkindGrade"/>
+ 		<typeAlias type="com.kh.mng.community.model.vo.Shorts" alias="Shorts"/>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
  		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
  		

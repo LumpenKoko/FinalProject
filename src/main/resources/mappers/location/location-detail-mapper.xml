@@ -95,13 +95,23 @@
     </select>
     
     
-    <select id="selectAttachMentList" resultMap="locationAttachment">
+    <select id="selectMainAttachMentList" resultMap="locationAttachment">
     	 SELECT ORIGIN_NAME,
     			   CHANGE_NAME,
     			   FILE_PATH 
     			   FROM PICTURE
-    			   WHERE LOCATION_NO = #{locationNo}
+    			   WHERE LOCATION_NO = #{locationNo} AND  FILE_LEVEL = 1
     </select>
+    
+        
+    <select id="selectDetailAttachMentList" resultMap="locationAttachment">
+    	 SELECT ORIGIN_NAME,
+    			   CHANGE_NAME,
+    			   FILE_PATH 
+    			   FROM PICTURE
+    			   WHERE LOCATION_NO = #{locationNo} AND  FILE_LEVEL = 2
+    </select>
+    
     <select id="selectPetKindGradeList" resultMap="petKindGrade">
           SELECT PET_SIZE_NAME,
           		 PET_KIND_NAME

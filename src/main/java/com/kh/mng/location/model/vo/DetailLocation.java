@@ -34,7 +34,10 @@ public class DetailLocation {
     private ArrayList<PetKindGrade> petKindGrade;
   
      //메인 첨부파일들
-    private ArrayList<Attachment> attachMent; //메인첨부파일들
+    private ArrayList<Attachment> mainAttachMent; 
+    
+   //서브 첨부파일들
+    private ArrayList<Attachment> detailAttachMent;
 
    
     

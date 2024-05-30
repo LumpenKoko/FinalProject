@@ -39,4 +39,9 @@ public class bossPageController {
 	public String bossCouponPage() {
 		return "bosspage/bossCouponPage";
 	}
+	
+	@RequestMapping(value="chatPage.cp")
+	public String chatPage() {
+		return "chat/chat";
+	}
 }

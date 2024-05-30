@@ -28,7 +28,7 @@
                 <a href="<%=request.getContextPath()%>/bossPageReviews.bp">리뷰 관리</a>
             </div>
             <div class="chatlist">
-                <a href="">채팅 관리</a>
+                <a href="<%=request.getContextPath()%>/chatPage.cp">채팅 관리</a>
             </div>
         </div>
         

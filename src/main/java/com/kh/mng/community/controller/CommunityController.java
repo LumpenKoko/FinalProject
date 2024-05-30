@@ -63,13 +63,15 @@ public class CommunityController {
 	 }
 	
 	@ResponseBody
-	@RequestMapping(value="addComment.sh")
+	@RequestMapping(value="addComment.sh", produces="application/text;charset=utf-8")
 	public String addComment(@RequestParam(value="comment") String comment) {
+		/*
 		if (communityService.addComment(comment) > 0) {
 			return comment;
 		} else {
-			return comment; // 임시용(나중에 null로 바꿔야함)
+			return null; // 임시용(나중에 null로 바꿔야함)
 		}
-		
+		*/
+		return comment;
 	}
 }

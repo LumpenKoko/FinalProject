@@ -4,22 +4,23 @@ let userNo;
 let spaceNo;
 let statusResult='';
 
-
 //비동기처리 초기화 함수
-function init(path,userNum){
-    // heartClick();
-  
-    const url = new URL(urlStrPicked);
-    const urlParams =url.searchParams
-  
-
+ function init(path,userNum){
+    // heartClck();
+     
+   contextPath=path;
+   // const urlParams =url.searchParams
+    userNo=userNum;
 
     //path와 유저,공간번호 초기화
+    const url = new URL(urlStrPicked);
+    const urlParams =url.searchParams
+    spaceNo=urlParams.get('locationNo')
 
-    spaceNo= urlParams.get('locationNo')
-    contextPath=path;
-    userNo=userNum
-   // userNo=userNum;;
+   console.log(contextPath)
+   console.log(userNo)
+   console.log(spaceNo)
+   
 
   //로그인 정보 가져오는 비동기 함수
 
@@ -48,7 +49,7 @@ function init(path,userNum){
 
 //로그인정보 가져오기
 //  async function getLoginUser(contextPath){ 
-//     let userNum;
+  
 //     try {
 //       const response = await fetch(contextPath+"/user.ge"); // 로그인 정보를 가져올 API 엔드포인트
 //       if (!response.ok) {
@@ -56,9 +57,9 @@ function init(path,userNum){
 //       }
 //         loginInfo = await response.json();
 //         console.log("비동기"+loginInfo);
-//         userNum=parseInt(loginInfo);
-//         console.log(userNo);
-//         return userNum;
+//         //parseInt(loginInfo);
+//         //console.log(userNo);
+//         return parseInt(loginInfo);
 //     } catch (error) {
 //          console.error('정보를가져오지 못했습니다.', error);
 //       return -1;
@@ -67,18 +68,21 @@ function init(path,userNum){
 // }
 
   //   let userNum=-1;
-  // $.ajax({
-  //   type:"GET",
-  //   url:contextPath+"/user.ge",
-  //   success:function(response){
-  //      console.log("비동기로그인:",response)
-  //      userNo=parseInt(response);
-  //      console.log(userNo)
-  //      userNum= userNo;
-  //   },
-  //   error:function(){
-  //       console.log("로그인 여부 조회 실패")
-  //   }
-   
-  // })
+
+  function getLoginUser(contextPath){
+
+    $.ajax({
+      type:"GET",
+      url:contextPath+"/user.ge",
+      success:function(response){
+        console.log("비동기로그인:",response)
+        userNo=parseInt(response);
+        console.log("response"+userNo)
+      },
+      error:function(){
+          console.log("로그인 여부 조회 실패")
+      }
+    
+    })
   
+}

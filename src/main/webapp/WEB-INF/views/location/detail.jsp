@@ -9,14 +9,16 @@
 			<title>Insert title here</title>
 			<%@ include file="../common/common-file.jsp" %>
 
+
 				<link rel="stylesheet" href="resources/css/detail/detail.css" />
 				<link rel="stylesheet" href="resources/css/detail/review.css" />
 				<link rel="stylesheet" href="resources/css/detail/room.css" />
 				<link rel="stylesheet" href="resources/css/detail/review_star.css" />
 				<link rel="stylesheet" href="resources/css/detail/reply.css" />
+				
 				<script type="text/javascript"
 					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
-
+                 
 				<script src='resources/js/location/ajax/init.js'></script>
 				<script src='resources/js/location/ajax/pickAjax.js'></script>
 				<script src='resources/js/location/ajax/reviewAjax.js'></script>

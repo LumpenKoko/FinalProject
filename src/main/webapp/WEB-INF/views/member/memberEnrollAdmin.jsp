@@ -11,7 +11,7 @@
 <script src="resources/js/member/memberEnroll.js"></script>
 <script src="resources/js/member/memberAjax.js"></script>
 </head>
-<body>
+<body onload="init('<%=request.getContextPath()%>')">
 	<%@ include file="../common/header.jsp"%>
 	
     <div class="wrapper">

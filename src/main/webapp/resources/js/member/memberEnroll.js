@@ -31,7 +31,7 @@ function clickAgree(){
 function checkId(){
     let id = document.querySelector("[name='userId']");
     let idMessage = document.querySelector("#id-message");
-    const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/;
+    const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+~\-={}[\]:;"'<>,.?/|\\`]{8,14}$/;
     if(!regExp.test(id.value)){
         if (id.value == ""){
             idMessage.innerHTML = "";
@@ -52,7 +52,7 @@ function checkId(){
 function checkPwd(){
     let pwd = document.querySelector("[name='userPwd']");
     let pwdMessage = document.querySelector("#pwd-message");
-    const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,14}$/;
+    const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+~\-={}[\]:;"'<>,.?/|\\`]{8,14}$/;
     if(!regExp.test(pwd.value)){
         if (pwd.value == ""){
             pwdMessage.innerHTML = "";

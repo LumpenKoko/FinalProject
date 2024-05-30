@@ -13,7 +13,7 @@
    	  <result column="REVIEW_STAR" property="reviewStar"/>
    	  <result column="REVIEW_CONTENT" property="reviewContent"/>
    	  <result column="ENROLL_DATE" property="enrollDate"/>
-   	  <result column="USER_NAME" property="userName"/>
+   	  <result column="USER_NICKNAME" property="userNickName"/>
    	  <result column="LOCATION_STAR" property="locationStar"/>
    	  <result column="USER_NO" property="userNo"/>
    	  <result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"/>
@@ -33,7 +33,7 @@
 	    	   	    REVIEW_STAR,
 	    	        REVIEW_CONTENT,
     			    R.ENROLL_DATE,
-    			    USER_NAME,
+    			    USER_NICKNAME,
     			    L.LOCATION_STAR,
     			    R.USER_NO,
     			    R.LOCATION_NO,

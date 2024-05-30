@@ -146,7 +146,7 @@ function drawReivew(review) {
 
 							<div>
                 <span  style="color:#FE8B94;">`+ reviewStar + `</span>
-                <span><a href="#">수정</a>|<a onclick="reviewDelete('${r.reviewNo}')">삭제</a></span>
+                <span><a href="#">수정</a>|<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
 							</div>
 						</div>
             <div class="img-content">`+ imgs + `</div>

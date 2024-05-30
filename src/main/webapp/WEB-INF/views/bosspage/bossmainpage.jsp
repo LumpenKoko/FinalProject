@@ -131,7 +131,7 @@
                 <input type="password" id="password-input" placeholder="비밀번호를 입력하세요.">
             </div>
             <div class="boss-remove-button">
-                <button class="boss-remove" onclick="checkPassword()" disabled>탈퇴</button>
+                <button class="boss-remove" onclick="checkPassword('<%=contextPath%>')" disabled>탈퇴</button>
                 <button onclick="hideModal('boss-remove-modal')">취소</button>
             </div>
         </div>

@@ -60,7 +60,9 @@
                         <form id="main_main_right" action="update.mp">
                             <h1 style="margin-top: 50px; color: #FE8B94; text-align: center;">개인정보 수정</h1>
                             <div id="id-input">
-                                <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</p>
+                                <span style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</span>
+                                <span id="hiddenId" style="color: red; font-size: 15px;"><b>경고!</b> 사용할 수 없는 아이디
+                                    입니다.</span><br>
                                 <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
                                   height: 50px; text-align: left; padding-left: 20px;" value="${loginUser.userId}"
                                     id="userId" name="userId">
@@ -141,6 +143,25 @@
                     petNameElement.textContent = petNames[i];
                     petNamesElement.appendChild(petNameElement);
                 }
+            </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    // userId 입력값이 변경될 때마다 호출되는 함수
+                    $("#userId").on("input", function () {
+                        var userId = $(this).val().trim(); // 입력된 아이디 (양쪽 공백 제거)
+
+                        // 정규식을 사용하여 아이디가 숫자와 영어로만 이루어져 있고, 숫자와 영어가 무조건 1개 이상씩 들어가고, 8글자 이상 15글자 이하인지 확인
+                        var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,15}$/;
+                        if (regex.test(userId)) { // 조건을 만족할 경우
+                            $("#hiddenId").hide(); // 경고 메시지 숨기기
+                        } else { // 조건을 만족하지 않을 경우
+                            $("#hiddenId").show(); // 경고 메시지 표시하기
+                        }
+                    });
+                });
             </script>
 
             <%@ include file="../common/footer.jsp" %>

@@ -1,5 +1,4 @@
 package com.kh.mng.community.controller;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -8,25 +7,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.vo.Shorts;
+import com.google.gson.Gson;
+import com.kh.mng.community.model.vo.TotalShortsInfo;
 import com.kh.mng.community.service.CommunityService;
 import com.kh.mng.community.service.CommunityServiceImpl;
-import com.kh.mng.location.model.dto.ReviewInfo;
 
 @Controller
 public class CommunityController {
@@ -54,8 +49,6 @@ public class CommunityController {
 	
 	//페이징 처리 비동기
 	
-	
-	
 	@RequestMapping(value="shortsView.bo")
 	public String detailShortsView() {
 		new CommunityServiceImpl().selectListCount();
@@ -78,22 +71,27 @@ public class CommunityController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="getVideo.sh")
+	@GetMapping(value="getVideo.sh")
 	public String loadShorts(@RequestParam(value="videoId") int videoId) {
-//		communityService.getVideo(videoId); // 임시로 url만 가져옴
-		return "resources/video/test.mp4";
+		TotalShortsInfo totalShortsInfo = new TotalShortsInfo();
+		
+		totalShortsInfo = communityService.getVideoInfo(videoId);
+		
+		int shortsNum = totalShortsInfo.getShortsNo();
+		
+		totalShortsInfo.setLikeCount(communityService.getVideoLikeCount(shortsNum));
+		totalShortsInfo.setReplyCount(communityService.getVideoReplyCount(shortsNum));
+		
+		return new Gson().toJson(totalShortsInfo);
 	 }
 	
 	@ResponseBody
-	@RequestMapping(value="addComment.sh", produces="application/text;charset=utf-8")
+	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")
 	public String addComment(@RequestParam(value="comment") String comment) {
-		/*
 		if (communityService.addComment(comment) > 0) {
 			return comment;
 		} else {
-			return null; // 임시용(나중에 null로 바꿔야함)
+			return null;
 		}
-		*/
-		return comment;
 	}
 }

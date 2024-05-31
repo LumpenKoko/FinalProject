@@ -5,30 +5,66 @@
   
   <mapper namespace="shortsMapper">
   
-  	<select id="getVideo">
+  	<resultMap type="TotalShortsInfo" id="shortsInfo">
+		<result column="SHORTS_NO" property="shortsNo"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="SHORTS_CONTENT" property="shortsContent"/>
+		<result column="V.FILE_PATH" property="shortsPath"/>
+		<result column="V.CHANGE_NAME" property="shortsName"/>
+		<result column="USER_NICKNAME" property="userNickname"/>
+		<result column="P.FILE_PATH" property="profilePath"/>
+		<result column="P.CHANGE_NAME" property="profileName"/>
+		<result column="TMP" property="likeCount"/>
+		<result column="TMP" property="replyCount"/>
+   </resultMap>
+  
+  	<select id="getVideoInfo" resultMap="shortsInfo">
+  		SELECT SHORTS_NO,
+	   				ENROLL_DATE,
+	   				SHORTS_CONTENT,
+	   				V.FILE_PATH,
+	   				V.CHANGE_NAME,
+	   				USER_NICKNAME,
+	   				P.FILE_PATH,
+	   				P.CHANGE_NAME
+	            FROM SHORTS S
+	            
+	            JOIN VIDEO V
+	            ON S.SHORTS_NO=V.SHORTS_NO
+	            
+	            JOIN MEMBER M
+	            ON S.USER_NO=M.USER_NO
+	            
+	            JOIN PICTURE P
+	            ON S.USER_NO=P.USER_NO
+	             
+	            ORDER BY id DESC
+    			LIMIT 1 OFFSET (#{number} - 1);
+  	</select>
   	
+  	<select id="getVideoLikeCount" resultMap="shortsInfo">
+  		SELECT 
+		    COUNT(G.USER_NO) AS LIKE_COUNT
+		FROM 
+		    SHORTS S
+		JOIN 
+		    GOOD G ON S.SHORTS_NO = G.SHORTS_NO
+		WHERE 
+		    S.SHORTS_NO = #{shortsNo}
+  	</select>
+  	
+  	<select id="getVideoReplyCount" resultMap="shortsInfo">
+  		SELECT 
+		    COUNT(R.REPLY_NO) AS REPLY_COUNT
+		FROM 
+		    SHORTS S
+		JOIN 
+		    REPLY R ON S.SHORTS_NO = R.SHORTS_NO
+		WHERE 
+		    S.SHORTS_NO = #{shortsNo}
   	</select>
     
     <insert id="shortsCommentEnroll">
-    		INSERT INTO 
-    		REPLY 
-    		  (REVIEW_NO,
-    		  REVIEW_STAR,
-    		  REVIEW_CONTENT,
-    		  ENROLL_DATE,
-    		  MODIFY_DATE,
-    		  USER_NO,
-    		  LOCATION_NO
-    		  )
-    		VALUES(
-    			NEXTVAL('SEQ_REV'),
-    			#{starCount},
-    			#{content},
-    			DEFAULT,
-    			DEFAULT,
-    			#{userNo},
-    			#{locationNo}
-    			
-    		);
+    		
     </insert>
   </mapper>

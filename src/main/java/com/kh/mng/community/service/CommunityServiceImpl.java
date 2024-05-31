@@ -10,6 +10,8 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dao.CommunityDao;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.TotalShortsInfo;
+
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
@@ -23,11 +25,6 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public int selectListCount() {
 		return 0;
-	}
-	
-	@Override
-	public String getVideo(int videoId) {
-		return communityDao.getVideo(sqlSession, videoId);
 	}
 
 	@Override
@@ -56,5 +53,26 @@ public class CommunityServiceImpl implements CommunityService{
 		return count;
 	}
 	
+	public TotalShortsInfo getVideoInfo(int videoId) {
+		return communityDao.getVideoInfo(sqlSession, videoId);
+	}
+
+	@Override
+	public int getVideoLikeCount(int shortsNum) {
+		return communityDao.getVideoLikeCount(sqlSession, shortsNum);
+	}
+
+	@Override
+	public int getVideoReplyCount(int shortsNum) {
+		return communityDao.getVideoReplyCount(sqlSession, shortsNum);
+	}
+
+	@Override
+	public String getVideo(int videoId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
 

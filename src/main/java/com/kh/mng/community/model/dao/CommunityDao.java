@@ -5,22 +5,31 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.TotalShortsInfo;
+
 
 @Repository
 public class CommunityDao {
 	
-	public String getVideo(SqlSessionTemplate sqlSession, int videoId) {
-		return sqlSession.selectOne("shortsMapper.getVideo", videoId);
+	public TotalShortsInfo getVideoInfo(SqlSessionTemplate sqlSession, int videoId) {
+		return sqlSession.selectOne("shortsMapper.getVideoInfo", videoId);
+	}
+	
+	public int getVideoLikeCount(SqlSessionTemplate sqlSession, int shortsNum) {
+		return sqlSession.selectOne("shortsMapper.getVideoLikeCount", shortsNum);
+	}
+
+	public int getVideoReplyCount(SqlSessionTemplate sqlSession, int shortsNum) {
+		return sqlSession.selectOne("shortsMapper.getVideoReplyCount", shortsNum);
 	}
 
 	public int addComment(SqlSessionTemplate sqlSession, String comment) {
 		return sqlSession.insert("shortsMapper.shortsCommentEnroll", comment);
-		
 	}
+
 
 	public ArrayList<Shorts> selectShortsList(SqlSessionTemplate sqlSession,PageInfo pi) {
 		
@@ -39,5 +48,7 @@ public class CommunityDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("communityMapper.selectShortsCount");
 	}
+
+	
 
 }

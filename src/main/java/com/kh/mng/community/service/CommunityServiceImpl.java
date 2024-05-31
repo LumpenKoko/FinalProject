@@ -12,7 +12,7 @@ import com.kh.mng.community.model.dao.CommunityDao;
 
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
-import com.kh.mng.community.model.vo.TotalShortsInfo;
+
 
 
 @Service
@@ -56,6 +56,7 @@ public class CommunityServiceImpl implements CommunityService{
 		return count;
 	}
 	
+	@Override
 	public TotalShortsInfo getVideoInfo(int videoId) {
 		return communityDao.getVideoInfo(sqlSession, videoId);
 	}
@@ -72,25 +73,9 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	@Override
-
-	public String getVideo(int videoId) {
+     public String getVideo(int videoId) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-
-	public TotalShortsInfo getVideoInfo(int videoId) {
-		return communityDao.getVideoInfo(sqlSession, videoId);
-	}
-
-	@Override
-	public int getVideoLikeCount(int shortsNum) {
-		return communityDao.getVideoLikeCount(sqlSession, shortsNum);
-	}
-
-	@Override
-	public int getVideoReplyCount(int shortsNum) {
-		return communityDao.getVideoReplyCount(sqlSession, shortsNum);
 	}
 
 

@@ -62,6 +62,16 @@
     font-weight: bold;
 }
 
+#order-by-box{
+    display: none;
+}
+
+/* order-by-box 아이디를 가진 요소가 display-block 클래스를 가진 경우 */
+#order-by-box.display-block{
+    display: block;
+}
+
+
 
 /* 검색 결과 컨텐츠 테두리 */
 #search-result-box{

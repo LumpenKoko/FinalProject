@@ -25,27 +25,57 @@ public class SearchController {
 		return "search/searchPage";
 	}
 	
-	@GetMapping("searchKeyword.pl")
-	public String searchKeyword(@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword, Model model) {
-		/*
-		 * 검색 시 필요한 데이터
-		 * - 현재 페이지 값
-		 * - 검색한 키워드
-		 * - 필터링 항목
-		 * - 정렬 기준
-		 * 
-		 * - 헤더 검색 시 필터링 결과, 키워드 결과는 남아 있어야 함
-		 * 
-		 */
-//		int locationCount = searchService.selectLocationListCount();
-//		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
-//		ArrayList<Location> list = searchService.selectLocationList();
+	/*
+	 * 검색 시 필요한 데이터
+	 * - 현재 페이지 값
+	 * - 검색한 키워드
+	 * - 필터링 항목
+	 * - 정렬 기준
+	 *
+	 * - 헤더 검색 시 필터링 결과, 키워드 결과는 남아 있어야 함
+	 */
+//	@GetMapping("searchKeyword.pl")
+//	public String searchPage(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+//								String keyword, Model model) {
 //		
+////		int locationCount = searchService.selectLocationListCount();
+////		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
+////		
+////		ArrayList<Location> list = searchService.selectSearchLocationList(keyword, pi);
+////		
+////		for(Location loc : list) {
+////			System.out.println(loc);
+////			System.out.println(loc.getEnterList());
+////			System.out.println(loc.getOpTime());
+////			System.out.println(loc.getAttachment());
+////		}
+//		
+//		model.addAttribute("keyword", list);
+//		
+//		return "search/searchPage";
+//	}
+	
+	@GetMapping("searchKeyword.pl")
+	public String searchKeyword(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+								String keyword, Model model) {
+		
+		int locationCount = searchService.selectLocationListCount();
+		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
+		
+		ArrayList<Location> list = searchService.selectSearchLocationList(keyword, pi);
+		
+//		for(Location loc : list) {
+//			System.out.println(loc);
+//			System.out.println(loc.getEnterList());
+//			System.out.println(loc.getOpTime());
+//			System.out.println(loc.getAttachment());
+//		}
+		
+		// 찜 개수 가져와야 함
+		
+		model.addAttribute("locationList", list);
+		
 		return "search/searchPage";
 	}
 	
-	@RequestMapping("test")
-	public String test() {
-		return "bosspage/bossCouponPage";
-	}
 }

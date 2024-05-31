@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dao.CommunityDao;
-
+import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
@@ -49,12 +50,35 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return shorts;
 	}
+	
 
 	@Override
 	public int selectShortsCount() {
 		
 		int count =communityDao.selectShortsCount(sqlSession);
 		return count;
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi) {
+		
+		 ArrayList<CommunityBoard> boards=communityDao.selectBoardList(sqlSession,boardPi);
+		 if(!boards.isEmpty()) {
+			 for(CommunityBoard board:boards) {
+				 ArrayList<Attachment> attachment=communityDao.selectBoardAttachMent(sqlSession,board.getBoardNo());
+				 int count =communityDao.selectBoardApplyCount(sqlSession,board.getBoardNo());
+				 board.setAttahment(attachment);
+				 board.setCount(count);
+			 }
+		 }
+		
+		return boards;
+	}
+	@Override
+	public int selectBoardCount(){
+		
+		return communityDao.selectBoardCount(sqlSession);
 	}
 	
 	@Override

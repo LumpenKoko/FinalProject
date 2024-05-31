@@ -32,7 +32,7 @@
  		<typeAlias type="com.kh.mng.picture.model.vo.Picture" alias="Picture"/>
  		<typeAlias type="com.kh.mng.community.model.vo.TotalShortsInfo" alias="TotalShortsInfo"/>
  		<typeAlias type="com.kh.mng.community.model.vo.ShortsReply" alias="ShortsReply"/>
- 		
+ 		<typeAlias type="com.kh.mng.community.model.vo.CommunityBoard" alias="CommunityBoard"/>
  	</typeAliases> 
  	
  	
@@ -49,7 +49,8 @@
  		<mapper resource="/mappers/location/location-detail-mapper.xml"/>
  		<mapper resource="/mappers/community/shorts-mapper.xml"/>
  		<mapper resource="/mappers/picture-mapper.xml"/>
- 	    <mapper resource="/mappers/community/community-mapper.xml"/>
+ 	    <mapper resource="/mappers/community/community-shorts-mapper.xml"/>
+ 	    <mapper resource="/mappers/community/community-board-mapper.xml"/>
  	</mappers>
  	
     

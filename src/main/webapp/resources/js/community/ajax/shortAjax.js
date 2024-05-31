@@ -5,7 +5,7 @@ function pagIngShorts(currentPage){
     $.ajax({
         url:contextPath+"/shorts",
         data:{
-            pageNo:currentPage
+            shortsPageNo:currentPage
         },
         success:function(response){
             drawShorts(response.shorts)

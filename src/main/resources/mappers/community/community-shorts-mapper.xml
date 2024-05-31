@@ -3,13 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="communityMapper">
+  <mapper namespace="communityShortsMapper">
 	  <resultMap type="Shorts" id="selectShorts">
 	  	 <result column="SHORTS_NO" property="shortsNo"></result>
 	  	 <result column="SHORTS_CONTENT" property="shortsContent"></result>
-	  	 <result column="count" property="count"></result>
+	  	 <result column="COUNT" property="count"></result>
 	  	 <result column="ENROLL_DATE" property="enrollDate"></result>
-	  	 <result column="modifyDate" property="modifyDate"></result>
+	  	 <result column="MODIFY_DATE" property="modifyDate"></result>
 	  	 <result column="STATUS" property="status"></result>
 	  	 <result column="USER_NICKNAME" property="userNo"></result>
 	  </resultMap>
@@ -20,7 +20,7 @@
 	   		<result column="FILE_PATH" property="filePath"></result>
 	   </resultMap>
   
-  	<select id="communitySelectList" resultMap="selectShorts">
+  	<select id="communityShortsSelectList" resultMap="selectShorts">
   	      SELECT 
   	          SHORTS_NO,
   	          SHORTS_CONTENT,

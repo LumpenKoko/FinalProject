@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="communityBoardMapper">
+	  <resultMap type="CommunityBoard" id="selectBoards">
+	  	 <result column="BOARD_TITLE" property="boardTitle"></result>
+	  	 <result column="BOARD_CONTENT" property="boardContent"></result>
+	  	 <result column="COUNT" property="count"></result>
+	  	 <result column="CREATE_DATE" property="createDate"></result>
+	  	 <result column="EDIT_DATE" property="editDate"></result>
+	  	 <result column="STATUS" property="status"></result>
+	  	 <result column="USER_NICKNAME" property="userNickName"></result>
+	  	 <result column="CATEGORY_NAME" property="categoryName"></result>
+	  	 <result column="USER_NO" property="userNo"></result>
+	  	 <result column="BOARD_CATEGORY_NO" property="locationCategoryNo"></result>
+	  </resultMap>
+	  
+	   <resultMap type="Attachment" id="boardAttachment">
+	   		<result column="ORIGIN_NAME" property="originName"></result>
+	   		<result column="CHANGE_NAME" property="changeName"></result>
+	   		<result column="FILE_PATH" property="filePath"></result>
+	   </resultMap>
+  
+  	<select id="selectBoardList" resultMap="selectBoards">
+  	  	SELECT B.BOARD_NO,
+  	  	       B.BOARD_TITLE,
+  	  		   B.BOARD_CONTENT,
+  	  		   B.COUNT,
+  	  		   B.CREATE_DATE,
+  	  		   B.EDIT_DATE,
+  	  		   B.STATUS,
+  	  		   M.USER_NICKNAME,
+  	  		   C.CATEGORY_NAME,
+  	  		   B.USER_NO,
+  	  		   C.BOARD_CATEGORY_NO
+  	  		   FROM BOARD B
+  	  		   JOIN MEMBER M
+  	  		   ON (B.USER_NO = M.USER_NO)
+  	  		   JOIN BOARD_CATEGORY C
+  	  		   ON (B.BOARD_CATEGORY_NO = C.BOARD_CATEGORY_NO)
+  	  		   WHERE B.STATUS = true
+  	  		   
+  	 </select>
+  	
+  	
+  	<select id="selectBoardAttachment" resultMap="boardAttachment">
+  	 
+  		        SELECT
+					ORIGIN_NAME,
+					CHANGE_NAME,
+					FILE_PATH
+					FROM PICTURE
+		         WHERE Board_NO = #{boardNo}
+		        AND FILE_LEVEL = 1
+	</select>
+	
+	<select id="selectBoardApplyCount" resultType="_int">
+			SELECT 
+			  COUNT(*)
+			  FROM REPLY
+			  WHERE BOARD_NO = #{boardNo}
+			
+	</select>
+	
+	<select id="selectBoardCount" resultType="_int">
+	
+		SELECT COUNT(*)
+				FROM Board
+	</select>
+  	
+   
+   
+  </mapper>

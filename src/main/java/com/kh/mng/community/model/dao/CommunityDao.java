@@ -11,6 +11,8 @@ import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 
+import com.kh.mng.community.model.vo.TotalShortsInfo;
+
 @Repository
 public class CommunityDao {
 	
@@ -49,6 +51,6 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.selectShortsCount");
 	}
 
-	
+	}
 
 }

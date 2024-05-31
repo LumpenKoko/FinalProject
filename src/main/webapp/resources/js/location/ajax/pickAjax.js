@@ -49,7 +49,7 @@ function pickedCount(data,callback){
 //찜 상태 가져오는 비동기 함수
 
 function pickedState(data,callback){
-    console.log(data);
+  
     $.ajax({
         type:"post",
         url:contextPath+"/state",

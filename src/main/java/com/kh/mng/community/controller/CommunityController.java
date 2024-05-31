@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.community.model.dto.ShortPage;
 import com.kh.mng.community.model.vo.Shorts;
 import com.google.gson.Gson;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
@@ -33,24 +34,47 @@ public class CommunityController {
 	private CommunityService communityService;
 	
 	@GetMapping("/community")
-	public String communityMain(@RequestParam(value="spaceNo",defaultValue="1") int pageNo,  Model model) {
+	public String communityMain(@RequestParam(value="pageNo",defaultValue="1") int pageNo,  Model model) {
 		
-		System.out.println(pageNo);
 		//쇼츠 목록 가져오기
 		int shortsCount=communityService.selectShortsCount();
-		
+		System.out.println(pageNo);
 		PageInfo pi =Pagination.getPageInfo(shortsCount,pageNo,10,10);
 		ArrayList<Shorts> shorts =communityService.selectShortsList(pi);
 		
-		System.out.println(shorts);
-		//게시글 목록 가져오기
+		//게시판 목록 가져오기
+		
+		
+		
+		
+	
 		model.addAttribute("shorts",shorts);
 		model.addAttribute("communityPi",pi);
+		
+		
 		
 		return "community/communityMain";
 	}
 	
 	//페이징 처리 비동기
+	@ResponseBody
+	@GetMapping(value="shorts", produces="application/json; charset:utf-8")
+	public String getShorts(int pageNo) {
+		System.out.println(pageNo);
+		int shortsCount=communityService.selectShortsCount();
+		
+		PageInfo pi =Pagination.getPageInfo(shortsCount,pageNo,10,10);
+		ArrayList<Shorts> shorts =communityService.selectShortsList(pi);
+		ShortPage pages=new ShortPage();
+		pages.setPage(pi);
+		pages.setShorts(shorts);
+		
+		return new Gson().toJson(pages);
+		
+	}
+	
+	
+	
 	
 	@RequestMapping(value="shortsView.bo")
 	public String detailShortsView() {

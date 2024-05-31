@@ -19,8 +19,8 @@
    </resultMap>
   
   	<select id="getVideoInfo" resultMap="shortsInfo">
-  		SELECT SHORTS_NO,
-	   				ENROLL_DATE,
+  		SELECT S.SHORTS_NO,
+	   				S.ENROLL_DATE,
 	   				SHORTS_CONTENT,
 	   				V.FILE_PATH,
 	   				V.CHANGE_NAME,
@@ -38,11 +38,11 @@
 	            JOIN PICTURE P
 	            ON S.USER_NO=P.USER_NO
 	             
-	            ORDER BY id DESC
+	            ORDER BY S.SHORTS_NO DESC
     			LIMIT 1 OFFSET (#{number} - 1);
   	</select>
   	
-  	<select id="getVideoLikeCount" resultMap="shortsInfo">
+  	<select id="getVideoLikeCount" resultType="_int">
   		SELECT 
 		    COUNT(G.USER_NO) AS LIKE_COUNT
 		FROM 
@@ -53,7 +53,7 @@
 		    S.SHORTS_NO = #{shortsNo}
   	</select>
   	
-  	<select id="getVideoReplyCount" resultMap="shortsInfo">
+  	<select id="getVideoReplyCount" resultType="_int">
   		SELECT 
 		    COUNT(R.REPLY_NO) AS REPLY_COUNT
 		FROM 

@@ -180,7 +180,7 @@ function drawPaging(reviewPi) {
   if (reviewPi.currentPage == 1) {
     previousButton = `
     <div id="previous-button" class="prv-button">
-      <li class="disabled"><a class="page-button">◀</a></li>
+      <li class="page-disabled"><a class="page-button">◀</a></li>
     </div >
   `
   }
@@ -202,7 +202,7 @@ function drawPaging(reviewPi) {
   if (reviewPi.currentPage == reviewPi.maxPage) {
     nextButton = `
     <div id="next-button" class="next-button">
-				<li class="disabled"><a class="page-button">▶</a></li>
+				<li class="page-disabled"><a class="page-button">▶</a></li>
 		</div >
   `
   }

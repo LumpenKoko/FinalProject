@@ -18,7 +18,6 @@ import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
-import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
@@ -49,17 +48,18 @@ public class LocationServiceImpl implements LocationService {
 	public DetailLocation selectDetailLocation(int locationNo) {
 		
 		DetailLocation detailLocation=detailDao.selectDetailLocation(sqlSession,locationNo);
-		ArrayList<LocationOption> locationOption=detailDao.selectLocationOptionList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
-		detailLocation.setLocationOption(locationOption);
-		detailLocation.setOperationTime(operationTime);
-		detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 
-		detailLocation.setMainAttachMent(mainAttachment);
-		detailLocation.setDetailAttachMent(detailAttchment);
-		
+		if(detailLocation!=null) {
+			ArrayList<LocationOption> locationOption=detailDao.selectLocationOptionList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
+			detailLocation.setLocationOption(locationOption);
+			detailLocation.setOperationTime(operationTime);
+			detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 
+			detailLocation.setMainAttachMent(mainAttachment);
+			detailLocation.setDetailAttachMent(detailAttchment);
+		}
 		return detailLocation;
 	}
 
@@ -100,25 +100,20 @@ public class LocationServiceImpl implements LocationService {
 		return pickedDao.deletePicked(sqlSession,pickedInfo);
 	}
 
-	@Override
-	public DetailLocation_ selectDetailLocation_(int locationNo) {
-		
-		return detailDao.selectDetailLocation_(sqlSession,locationNo);
-	}
-	
-	
+
 	//리뷰 관련 서비스
 	
 	@Override
+	@Transactional
 	public ArrayList<Review> selectDetailReviewList(int locationNo,PageInfo pi) {
 		
 		 ArrayList<Review> reviews=reviewDao.selectReviewList(sqlSession,locationNo, pi);
-		 
-		 for(Review review:reviews) {
-			 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
-			 review.setAttachment(attachMents);
+		 if(!reviews.isEmpty()) {
+			 for(Review review:reviews) {
+				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 review.setAttachment(attachMents);
+			 }
 		 }
-		
 		return reviews;
 	}
 	
@@ -159,19 +154,20 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public int insertReply(ReplyInfo reply) {
-		// TODO Auto-generated method stub
+	
 		return reviewDao.selectReply(sqlSession,reply);
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Review> selectCategoryReviewList(ReviewInfo reivew, PageInfo pi) {
-			ArrayList<Review> reviews=reviewDao.selectCategoryReviewList(sqlSession,reivew, pi);
-		 
-		 for(Review review:reviews) {
-			 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
-			 review.setAttachment(attachMents);
-		 }
-		
+		ArrayList<Review> reviews=reviewDao.selectCategoryReviewList(sqlSession,reivew, pi);
+		if(!reviews.isEmpty()) {
+			 for(Review review:reviews) {
+				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 review.setAttachment(attachMents);
+			 }
+		}
 		return reviews;
 	}
 

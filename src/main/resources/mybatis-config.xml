@@ -15,7 +15,7 @@
  		<typeAlias type="com.kh.mng.member.model.vo.Member" alias="Member" />
  		<typeAlias type="com.kh.mng.pet.model.vo.Pet" alias="Pet" />
  		<typeAlias type="com.kh.mng.location.model.vo.Picked" alias="Picked"/>
- 		<typeAlias type="com.kh.mng.location.model.vo.DetailLocation_" alias="DetailLocation_"/>
+ 
  		<typeAlias type="com.kh.mng.location.model.vo.Review" alias="Review"/>
  		<typeAlias type="com.kh.mng.location.model.vo.DetailLocationAttachment" alias="DetailLocationAttachment"/>
  		<typeAlias type="com.kh.mng.common.model.vo.Attachment" alias="Attachment"/>
@@ -48,6 +48,7 @@
  		<mapper resource="/mappers/location/location-detail-mapper.xml"/>
  		<mapper resource="/mappers/community/shorts-mapper.xml"/>
  		<mapper resource="/mappers/picture-mapper.xml"/>
+ 	    <mapper resource="/mappers/community/community-mapper.xml"/>
  	</mappers>
  	
     

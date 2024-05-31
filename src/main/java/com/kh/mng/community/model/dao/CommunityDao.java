@@ -51,6 +51,6 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.selectShortsCount");
 	}
 
-	}
+	
 
 }

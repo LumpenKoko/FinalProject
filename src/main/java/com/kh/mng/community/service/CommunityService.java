@@ -5,8 +5,6 @@ import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 
-import com.kh.mng.community.model.vo.TotalShortsInfo;
-
 public interface CommunityService {
 	
 	int selectListCount();
@@ -20,8 +18,13 @@ public interface CommunityService {
 	int selectShortsCount();
 	
 	TotalShortsInfo getVideoInfo(int videoId);
+	
 
 	int getVideoLikeCount(int shortsNum);
 
 	int getVideoReplyCount(int shortsNum);
+	
+	
+
+
 }

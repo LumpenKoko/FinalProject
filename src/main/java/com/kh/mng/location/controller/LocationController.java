@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kh.mng.common.model.vo.PageInfo;
@@ -33,7 +32,6 @@ import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.dto.ReviewPage;
-import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
@@ -83,16 +81,6 @@ public class LocationController {
 		}
 		
 	  	
-//    	ArrayList<DetailLocationAttachment> mainImg= detailService.selectDetailMainImg(locationNo);
-//    	ArrayList<DetailLocationAttachment> detailImg= detailService.selectDetailDetailImg(locationNo);
-//		System.out.println(detailLocation);
-	
-//		System.out.println(mainImg);
-//		System.out.println(detailImg);
-//	    
-//		model.addAttribute("location",detailLocation);
-//		model.addAttribute("mainImg",mainImg);
-//		model.addAttribute("detailImg",detailImg);
 		
 		model.addAttribute("reviewPi",pi);
 		model.addAttribute("review",reviews);

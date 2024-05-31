@@ -12,6 +12,10 @@
     margin-bottom: 0px;
 }
 
+#basic-info{
+    display: none;
+}
+
 /* 반려동물 등록 장려 모달창 */
 #regist-pet-button{
     display: none;

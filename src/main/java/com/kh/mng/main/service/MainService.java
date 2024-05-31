@@ -21,4 +21,7 @@ public interface MainService {
 	
 	// 조회수 높은 쇼츠 3위까지 가져옴
 	ArrayList<Shorts> ajaxSelectShortsList();
+	
+	// userNo에 해당하는 반려동물의 수 가져옴
+	int ajaxSelectPetCount(int userNo);
 }

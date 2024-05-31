@@ -80,6 +80,7 @@
 		<result column="STATUS" property="status"/>
 		<result column="USER_NICKNAME" property="userNo"/>
    </resultMap>
+
 	<select id="selectLocationTop" resultMap="location">
 		SELECT *
 		FROM (
@@ -208,6 +209,13 @@
 		LIMIT 3
 			   
 	</select>
+	
+	<select id="ajaxSelectPetCount" resultType="_int">
+		SELECT COUNT(*) AS PET_COUNT
+		FROM PET 
+		WHERE USER_NO = #{userNo}
+	</select>
+	
 
 	<!-- 
 	<select id="ajaxSelectBoardGoodList" resultMap="boardResult">

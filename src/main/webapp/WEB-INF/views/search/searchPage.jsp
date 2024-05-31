@@ -8,10 +8,11 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/search/searchPage.css"/>
+<script src="resources/js/search/search.js"></script>
+<script src="resources/js/search/searchAjax.js"></script>
 </head>
-<body>
+<body onload="init('<%=request.getContextPath()%>')">
 	<%@ include file="../common/header.jsp"%>
-	
     <div class="wrapper">
 		<div class="main">
             <!-- 검색 필터링 -->
@@ -45,8 +46,7 @@
                 <div class="category-box gray-round-box">
                     <!-- category-box-content div 클릭 시 박스 체크 되도록 js 만들어야 함 -->
                     <div class="category-box-content category-big">
-                        <label for="filter-place">장소 카테고리</label>
-                        <input type="checkbox" id="filter-place" class="checkbox-color-pink">
+                        <span for="filter-place" style="margin: auto 0px;">장소 카테고리</span>
                     </div>
                     <div class="category-box-content">
                         <label for="filter-restaurant">식당</label>
@@ -85,7 +85,7 @@
                 <div id="search-title-box">
                     <div id="search-title-text">검색 결과</div>
                     <div id="search-order-by">
-                        <div id="order-by-title">
+                        <div id="order-by-title" onclick="showOrderBox()">
                             <span>정렬기준</span>
                             <img src="resources/img/searchpage/open-icon.png" alt="">
                         </div>
@@ -97,496 +97,62 @@
                     </div>
                 </div>
 
-                <!-- 장소 검색 결과 컨텐츠 -->
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
+                <c:forEach var="loc" items="${locationList}">
+                    <div class="search-content-box gray-round-box" onclick="moveToLocationDetail('<%=contextPath%>', '${loc.locationNo}')">
+                        <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
+                        <div class="search-content">
+                            <div class="content-title">
+                                <span>${loc.locationName}</span>
                                 <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
+                                    <img src="resources/img/searchpage/like-pre.png" alt="">
+                                    <span>45</span>
                                 </div>
                             </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
+                            <div class="content-upper-box">
+                                <div>
+                                    <span class="font-bold">분류</span>
+                                    <span>${loc.locationCategoryNo}</span>
+                                </div>
+                                <div>
+                                    <span class="font-bold">평점</span>
+                                    <span>${loc.locationStar}</span>
+                                    <div>
+                                        <img src="resources/img/searchpage/rating-star.png" alt="">
+                                        <img src="resources/img/searchpage/rating-star.png" alt="">
+                                        <img src="resources/img/searchpage/rating-star.png" alt="">
+                                        <img src="resources/img/searchpage/rating-star.png" alt="">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="font-bold">종류</span>
+                                    <span>
+                                        <c:forEach var="size" items="${loc.enterList}">
+                                            ${size.petSizeNo} 
+                                        </c:forEach>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
+                            <hr>
+                            <div class="content-lower-box">
+                                <div>
+                                    <img src="resources/img/searchpage/location.png" alt="">
+                                    <span>${loc.address}</span>
+                                </div>
+                                <div>
+                                    <img src="resources/img/searchpage/phone.png" alt="">
+                                    <span>${loc.locationPhone}</span>
+                                </div>
+                                <div>
+                                    <img src="resources/img/searchpage/time.png" alt="">
+                                    <span>영업 중 22:00 종료</span>
+                                    <span class="close-red">영업 종료</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
 
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-content-box gray-round-box">
-                    <img src="resources/img/searchpage/search-place.jpg" alt="">
-                    <div class="search-content">
-                        <div class="content-title">
-                            <span>샘플 카페 구로하우비점 샘플 카페 구로하우비점</span>
-                            <div>
-                                <img src="resources/img/searchpage/like-pre.png" alt="">
-                                <span>45</span>
-                            </div>
-                        </div>
-                        <div class="content-upper-box">
-                            <div>
-                                <span class="font-bold">분류</span>
-                                <span>카페</span>
-                            </div>
-                            <div>
-                                <span class="font-bold">평점</span>
-                                <span>4.3</span>
-                                <div>
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                    <img src="resources/img/searchpage/rating-star.png" alt="">
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-bold">종류</span>
-                                <span>소형견, 중형견, 고양이</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="content-lower-box">
-                            <div>
-                                <img src="resources/img/searchpage/location.png" alt="">
-                                <span>서울특별시 구로구 신도림동 도림로6길 신도림현대아파트 104동 2103호</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/phone.png" alt="">
-                                <span>010-1234-5678</span>
-                            </div>
-                            <div>
-                                <img src="resources/img/searchpage/time.png" alt="">
-                                <span>영업 중 22:00 종료</span>
-                                <span class="close-red">영업 종료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        
                 <!-- 페이징 바 -->
                 <div id="paging-bar">
                     <img src="resources/img/searchpage/paging-left.png" alt="">

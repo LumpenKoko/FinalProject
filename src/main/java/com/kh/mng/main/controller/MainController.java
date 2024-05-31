@@ -12,6 +12,7 @@ import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.service.MainServiceImpl;
+import com.kh.mng.pet.model.vo.Pet;
 
 @Controller
 public class MainController {
@@ -52,4 +53,18 @@ public class MainController {
 		ArrayList<Shorts> list = mainService.ajaxSelectShortsList();
 		return new Gson().toJson(list);
 	}
+	
+	@ResponseBody
+	@RequestMapping("registPetModal.ma")
+	public String ajaxSelectPetCount(int userNo) {
+		System.out.println(userNo);
+		int result = mainService.ajaxSelectPetCount(userNo);
+		System.out.println(result);
+		if (result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
+	}
+	
 }

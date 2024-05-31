@@ -106,4 +106,9 @@ public class MainServiceImpl implements MainService{
 		return list;
 	}
 
+	@Override
+	public int ajaxSelectPetCount(int userNo) {
+		return mainDao.ajaxSelectPetCount(sqlSession, userNo);
+	}
+
 }

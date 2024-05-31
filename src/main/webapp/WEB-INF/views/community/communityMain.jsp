@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOCTYPE html>
-        <html>
-
         <head>
             <meta charset="UTF-8">
             <title>Insert title here</title>
             <%@ include file="../common/common-file.jsp" %>
-                <link rel="stylesheet" href="resources/css/community/community.css" />
-
+                <link rel="stylesheet" href="resources/css/community/community.css"/>
+                <script src='resources/js/community/ajax/init.js'></script>
+                <script src='resources/js/community/ajax/shortAjax.js'></script>
+                <script src='resources/js/community/shorts/shorts.js'></script>
         </head>
+         <%@ include file="../common/header.jsp"%>
 
-        <body>
-            <%@ include file="../common/header.jsp" %>
+        <body onload="init('<%=contextPath%>')">
                 <div class="wrapper community-wrap">
                     <div class="main community-main">
 
@@ -29,7 +29,7 @@
 
                             <div class="short-content">
                                 <!--그리드-->
-                                <div class="grid-box short-area">
+                                <div id="short-content" class="grid-box short-area">
                                     <c:forEach var="s" items="${shorts}">
                                         <a href="<%=contextPath%>/shortsView.bo?shortNo=${s.shortsNo}">
                                             <div class="short-img-div">
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <!--페이지 처리 영역-->
-                                <div class="page-div">
+                                <div id="page-div" class="page-div">
                                     <c:choose>
                                         <c:when test="${communityPi.currentPage eq 1}">
                                             <div id="previous-button" class="prv-button">
@@ -59,7 +59,7 @@
                                         <c:otherwise>
                                             <div id="previous-button" class="prv-button">
                                                 <li><a class="page-button"
-                                                        onclick="communityPaging('${reviewPi.currentPage-1}')">◀</a>
+                                                        onclick="pagIngShorts('${communityPi.currentPage-1}')">◀</a>
                                                 </li>
                                             </div>
                                         </c:otherwise>
@@ -67,7 +67,7 @@
                                     </c:choose>
                                     <!--페이징 처리(페이징 객체 받아올것)-->
                                     <c:forEach var="p" begin="${communityPi.startPage }" end="${communityPi.endPage }">
-                                        <li class="page-item"><a class="page-link" onclick="communityPaging('${p}')">${p}</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pagIngShorts('${p}')">${p}</a></li>
                                     </c:forEach>
 
                                     <c:choose>
@@ -79,7 +79,7 @@
                                         <c:otherwise>
                                             <div id="next-button" class="next-button">
                                                 <li><a class="page-button"
-                                                        onclick="communityPaging('${communityPi.currentPage+1}')">▶</a>
+                                                        onclick="pagIngShorts('${communityPi.currentPage+1}')">▶</a>
                                                 </li>
                                             </div>
                                         </c:otherwise>

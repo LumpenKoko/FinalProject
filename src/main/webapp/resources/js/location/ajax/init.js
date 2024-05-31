@@ -1,4 +1,3 @@
-const urlStrPicked = window.location.href;
 let contextPath;
 let userNo;
 let spaceNo;
@@ -8,11 +7,12 @@ let statusResult='';
  function init(path,userNum){
     // heartClck();
      
-   contextPath=path;
+    contextPath=path;
    // const urlParams =url.searchParams
     userNo=userNum;
 
     //path와 유저,공간번호 초기화
+    const urlStrPicked = window.location.href;
     const url = new URL(urlStrPicked);
     const urlParams =url.searchParams
     spaceNo=urlParams.get('locationNo')
@@ -27,10 +27,10 @@ let statusResult='';
 
    ///찜
 
-   //페이지 로딩될때 이공간에대한 전체 찜개수 먼저 불러온다.
-   pickedCount({locationNo:spaceNo},(count)=>{
-     setPickedCount(count);
-   });
+    //페이지 로딩될때 이공간에대한 전체 찜개수 먼저 불러온다.
+     pickedCount({locationNo:spaceNo},(count)=>{
+      setPickedCount(count);
+  });
 
    //페이지 로딩될때 유저의 찜한 상태를 가져온다.
    pickedState({locationNo:spaceNo,userNo:userNo},(status)=>{
@@ -39,9 +39,13 @@ let statusResult='';
      
    })
 
+   
+   
+
+   //하트를 누르면 하트개수 추가
    clickHeart({locationNo:spaceNo,userNo:userNo},pickedCount);
 
-   //review
+   //review작성 함수
    reviewInsert();
 
 }

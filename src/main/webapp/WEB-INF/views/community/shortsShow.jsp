@@ -38,7 +38,7 @@
                 </div>
                 <div class="text-overlay">
                     <div>
-                    <button class="comment-button" data-index="`+ num + `" data-toggle="true">댓글보기</button>
+                        <button class="comment-button" data-index="`+ num + `" data-toggle="true">댓글보기</button>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <div style="height: 10%">
                         <textarea id="comment-text`+ num +`" placeholder="댓글을 입력하세요"></textarea>
                         <button id="submit-comment`+ num +`">댓글달기</button>
-                    </div>    
+                    </div>
                 </div>
             </div>
             `;
@@ -70,11 +70,12 @@
                     videoId: num
                 },
                 success: function(response) {
-                    console.log(response);
+                    const totalShortsInfo = JSON.parse(response);
+
                     const videoContainer = document.getElementById('video-container' + num);
                     videoContainer.innerHTML = `
                         <video controls autoplay muted width="720" height="1080">
-                            <source src="` + response + `" type="video/mp4">
+                            <source src="` + totalShortsInfo.shortsPath + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     `;

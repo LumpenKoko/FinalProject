@@ -38,7 +38,7 @@
                 </div>
                 <div class="text-overlay">
                     <div>
-                        <button class="comment-button" data-index="`+ num + `" data-toggle="true">댓글보기</button>
+                        <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn"`+ num +`>댓글보기</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     const videoContainer = document.getElementById('video-container' + num);
                     videoContainer.innerHTML = `
                         <video controls autoplay muted width="720" height="1080">
-                            <source src="` + totalShortsInfo.shortsPath + `" type="video/mp4">
+                            <source src="` + totalShortsInfo.shortsPath + totalShortsInfo.shortsName + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     `;
@@ -99,12 +99,73 @@
                 if (toggle === "true") {
                     $("#shorts-comment" + index).animate({right: '30%'}, 'slow');
                     $("#shorts-content" + index).animate({left: '30%'}, 'slow');
+                    loadReply();
                 } else {
                     $("#shorts-comment" + index).animate({right: '10%'}, 'slow');
                     $("#shorts-content" + index).animate({left: '10%'}, 'slow');
                 }
             });
 
+            // 댓글 로드하는 함수
+            /*
+            function loadReply(){
+                $.ajax({
+                    url: '<%=request.getContextPath()%>/loadReply.sh',
+                    data: {
+                        num: num
+                    },
+                    success: function(response) {
+                        const replyList = JSON.parse(response);
+
+                        if(response === null) {
+                            const newComment = $('<div class="tmp-box"></div>').text("아직 댓글이 없어요ㅠㅠ");
+                            $('#comments-list' + num).append(newComment);
+                        } else {
+                            for (let i = 0; i < replyList.length; i++){
+                                const newComment = $('<div class="tmp-box"></div>').text(replyList[i].content);
+                                $('#comments-list' + num).append(newComment);
+                            }
+                        }
+                    },
+                    error: function() {
+                        alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
+                    }
+                });
+            }
+            */
+
+            // 댓글 가져오는 함수
+            $(document).on('click', '[id^="show-reply-btn"]', function() {
+                const num = this.id.replace('show-reply-btn', '');
+
+                $.ajax({
+                    url: '<%=request.getContextPath()%>/loadReply.sh',
+                    data: {
+                        num: num
+                    },
+                    success: function(response) {
+                        const replyList = JSON.parse(response);
+
+                        if(response === null) {
+                            const newComment = $('<div class="tmp-box"></div>').text("아직 댓글이 없어요ㅠㅠ");
+                            $('#comments-list' + num).append(newComment);
+                        } else {
+                            for (let i = 0; i < replyList.length; i++){
+                                const newComment = $('<div class="tmp-box"></div>').text(replyList[i].content);
+                                $('#comments-list' + num).append(newComment);
+                            }
+                        }
+                    },
+                    error: function() {
+                        alert("skrr");
+                    }
+                });
+            });
+
+
+            
+
+            // 댓글 입력하는 함수
             $(document).on('click', '[id^="submit-comment"]', function() {
                 const num = this.id.replace('submit-comment', '');
                 const commentText = $('#comment-text' + num).val().trim();
@@ -117,6 +178,7 @@
                 $.ajax({
                     url: '<%=request.getContextPath()%>/addComment.sh',
                     data: {
+                        num: num,
                         comment: commentText
                     },
                     success: function(response) {

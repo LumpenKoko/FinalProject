@@ -11,6 +11,7 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dao.CommunityDao;
 
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 
@@ -31,8 +32,8 @@ public class CommunityServiceImpl implements CommunityService{
 
 
 	@Override
-	public int addComment(String comment) {
-		return communityDao.addComment(sqlSession, comment);
+	public int addComment(int videoId, String comment) {
+		return communityDao.addComment(sqlSession, videoId, comment);
 	}
 
 	@Override
@@ -76,6 +77,12 @@ public class CommunityServiceImpl implements CommunityService{
      public String getVideo(int videoId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public ArrayList<ShortsReply> loadReply(int shortsNum) {
+		return communityDao.loadReply(sqlSession, shortsNum);
 	}
 
 

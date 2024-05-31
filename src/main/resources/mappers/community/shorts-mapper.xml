@@ -14,8 +14,16 @@
 		<result column="USER_NICKNAME" property="userNickname"/>
 		<result column="P.FILE_PATH" property="profilePath"/>
 		<result column="P.CHANGE_NAME" property="profileName"/>
-		<result column="TMP" property="likeCount"/>
-		<result column="TMP" property="replyCount"/>
+   </resultMap>
+   
+   <resultMap type="ShortsReply" id="shortsReply">
+		<result column="REPLY_NO" property="replyNo"/>
+		<result column="ENROLL_DATE," property="enrollDate"/>
+		<result column="REPLY_CONTENT," property="replyContent"/>
+		<result column="REPLY_RE_NO," property="replyReNo"/>
+		<result column="USER_NICKNAME," property="userNickname"/>
+		<result column="FILE_PATH," property="FilePath"/>
+		<result column="CHANGE_NAME" property="changeName"/>
    </resultMap>
   
   	<select id="getVideoInfo" resultMap="shortsInfo">
@@ -62,6 +70,21 @@
 		    REPLY R ON S.SHORTS_NO = R.SHORTS_NO
 		WHERE 
 		    S.SHORTS_NO = #{shortsNo}
+  	</select>
+  	
+  	<select id="loadReply" resultType="shortsReply">
+  		SELECT REPLY_NO,
+			R.ENROLL_DATE,
+			REPLY_CONTENT,
+			REPLY_RE_NO,
+			M.USER_NICKNAME,
+			P.FILE_PATH,
+			P.CHANGE_NAME
+		FROM SHORTS S
+		JOIN REPLY ON S.SHORTS_NO = R.SHORTS_NO
+		JOIN MEMBER M R.USER_NO = M.USER_NO
+		JOIN PICTURE M.USER_NO = P.USER_NO
+		WHERE S.SHORTS_NO = #{shortsNo}
   	</select>
     
     <insert id="shortsCommentEnroll">

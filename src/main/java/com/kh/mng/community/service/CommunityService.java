@@ -2,6 +2,7 @@ package com.kh.mng.community.service;
 import java.util.ArrayList;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 
@@ -9,7 +10,7 @@ public interface CommunityService {
 	
 	int selectListCount();
 
-	int addComment(String comment);
+	int addComment(int videoId, String comment);
 
 	String getVideo(int videoId);
 
@@ -23,6 +24,8 @@ public interface CommunityService {
 	int getVideoLikeCount(int shortsNum);
 
 	int getVideoReplyCount(int shortsNum);
+
+	ArrayList<ShortsReply> loadReply(int shortsNum);
 	
 	
 

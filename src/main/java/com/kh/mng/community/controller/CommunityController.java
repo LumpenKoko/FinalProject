@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.ShortsReply;
 import com.google.gson.Gson;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 import com.kh.mng.community.service.CommunityService;
@@ -90,11 +91,25 @@ public class CommunityController {
 	
 	@ResponseBody
 	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")
-	public String addComment(@RequestParam(value="comment") String comment) {
-		if (communityService.addComment(comment) > 0) {
+	public String addComment(@RequestParam(value="videoId, comment") int videoId, String comment) {
+		if (communityService.addComment(videoId, comment) > 0) {
 			return comment;
 		} else {
 			return null;
 		}
+	}
+	
+	@ResponseBody
+	@GetMapping(value="loadReply.sh", produces="application/json; charset=utf-8")
+	public String loadReply(@RequestParam(value="num") int videoId){
+		TotalShortsInfo totalShortsInfo = new TotalShortsInfo();
+		
+		totalShortsInfo = communityService.getVideoInfo(videoId);
+		
+		int shortsNum = totalShortsInfo.getShortsNo();
+		
+		ArrayList<ShortsReply> replyList = new ArrayList<ShortsReply>();
+		replyList = communityService.loadReply(shortsNum);
+		return new Gson().toJson(replyList);
 	}
 }

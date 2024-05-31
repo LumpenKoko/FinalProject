@@ -31,6 +31,7 @@
  		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
  		<typeAlias type="com.kh.mng.picture.model.vo.Picture" alias="Picture"/>
  		<typeAlias type="com.kh.mng.community.model.vo.TotalShortsInfo" alias="TotalShortsInfo"/>
+ 		<typeAlias type="com.kh.mng.community.model.vo.ShortsReply" alias="ShortsReply"/>
  		
  	</typeAliases> 
  	

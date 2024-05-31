@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dto.ShortPage;
+import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.google.gson.Gson;
@@ -35,22 +36,25 @@ public class CommunityController {
 	private CommunityService communityService;
 	
 	@GetMapping("/community")
-	public String communityMain(@RequestParam(value="pageNo",defaultValue="1") int pageNo,  Model model) {
+	public String communityMain(@RequestParam(value="shortsPageNo",defaultValue="1") int shortsPageNo,  
+			@RequestParam(value="boardPage",defaultValue="1") int boardPage, Model model) {
 		
+		System.out.println(shortsPageNo);
 		//쇼츠 목록 가져오기
 		int shortsCount=communityService.selectShortsCount();
-		System.out.println(pageNo);
-		PageInfo pi =Pagination.getPageInfo(shortsCount,pageNo,10,10);
-		ArrayList<Shorts> shorts =communityService.selectShortsList(pi);
+		PageInfo shortsPi =Pagination.getPageInfo(shortsCount,shortsPageNo,10,10);
+		ArrayList<Shorts> shorts =communityService.selectShortsList(shortsPi);
 		
 		//게시판 목록 가져오기
+		int boardCount=communityService.selectBoardCount();
+		PageInfo boardPi =Pagination.getPageInfo(boardCount,boardPage,10,10);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi);
 		
-		
-		
-		
+		System.out.println(boards);
+		System.out.println(boardPi);
 	
 		model.addAttribute("shorts",shorts);
-		model.addAttribute("communityPi",pi);
+		model.addAttribute("communityPi",shortsPi);
 		
 		
 		

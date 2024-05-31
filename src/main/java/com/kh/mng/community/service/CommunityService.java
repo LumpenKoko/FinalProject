@@ -1,6 +1,7 @@
 package com.kh.mng.community.service;
 import java.util.ArrayList;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
@@ -26,6 +27,10 @@ public interface CommunityService {
 	int getVideoReplyCount(int shortsNum);
 
 	ArrayList<ShortsReply> loadReply(int shortsNum);
+
+	int selectBoardCount();
+
+	ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi);
 	
 	
 

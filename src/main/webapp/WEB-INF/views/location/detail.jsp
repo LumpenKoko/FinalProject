@@ -451,7 +451,7 @@
 								<c:choose>
 									<c:when test="${reviewPi.currentPage eq 1}">
 										<div id="previous-button" class="prv-button">
-											<li class="disabled"><a class="page-button">◀</a></li>
+											<li class="page-disabled"><a class="page-button">◀</a></li>
 										</div>
 									</c:when>
 
@@ -472,7 +472,7 @@
 								<c:choose>
 									<c:when test="${reviewPi.currentPage eq reviewPi.maxPage}">
 										<div id="next-button" class="next-button">
-											<li class="disabled"><a class="page-button">▶</a></li>
+											<li class="page-disabled"><a class="page-button">▶</a></li>
 										</div>
 									</c:when>
 

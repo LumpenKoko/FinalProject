@@ -9,7 +9,7 @@ function pagIngShorts(currentPage){
         },
         success:function(response){
             drawShorts(response.shorts)
-            drawPage(response.page)
+            drawShortsPage(response.page)
         },
         error:function(){
             console.log("에러")

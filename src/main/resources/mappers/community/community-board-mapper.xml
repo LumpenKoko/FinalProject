@@ -22,6 +22,11 @@
 	   		<result column="CHANGE_NAME" property="changeName"></result>
 	   		<result column="FILE_PATH" property="filePath"></result>
 	   </resultMap>
+	   
+	   <resultMap type="BoardCategory" id="boardCategoryList">
+	      <result column="BOARD_CATEGORY_NO" property="categoryNo"></result>
+	       <result column="CATEGORY_NAME" property="categoryName"></result>
+	   </resultMap>
   
   	<select id="selectBoardList" resultMap="selectBoards">
   	  	SELECT B.BOARD_NO,
@@ -41,6 +46,12 @@
   	  		   JOIN BOARD_CATEGORY C
   	  		   ON (B.BOARD_CATEGORY_NO = C.BOARD_CATEGORY_NO)
   	  		   WHERE B.STATUS = true
+  	  		   <choose>
+  	  		   		<when test='boardcategoryNo!=0'>
+ 						AND  C.BOARD_CATEGORY_NO = #{boardCategoryNo}
+  	  		   		</when>
+  	  		   
+  	  		   </choose>
   	  		   
   	 </select>
   	
@@ -58,7 +69,7 @@
 	
 	<select id="selectBoardApplyCount" resultType="_int">
 			SELECT 
-			  COUNT(*)
+			  COUNT(*) 
 			  FROM REPLY
 			  WHERE BOARD_NO = #{boardNo}
 			
@@ -67,9 +78,21 @@
 	<select id="selectBoardCount" resultType="_int">
 	
 		SELECT COUNT(*)
-				FROM Board
+				FROM BOARD
+				<choose>
+  	  		   		<when test='boardcategoryNo!=0'>
+ 						WHERE BOARD_CATEGORY_NO = #{boardCategoryNo}
+  	  		   		</when>
+  	  		   
+  	  		   </choose>
+  	  		   
 	</select>
-  	
+	
+	<select id="selectBoardCategoryList" resultMap="boardCategoryList">
+		SELECT BOARD_CATEGORY_NO ,CATEGORY_NAME
+				FROM BOARD_CATEGORY;
+	</select>
+	
    
    
   </mapper>

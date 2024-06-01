@@ -55,7 +55,7 @@ ol,ul,li{
 .wrapper {
 	width: var(--wrapper-width);
 	margin:30px auto;
-	white-space: nowrap;
+	/* white-space: nowrap; */
 }
 
 /*main태그 */
@@ -63,7 +63,7 @@ ol,ul,li{
 	/*width:calc(100% - 600px);*/
 	width: var(--main-width);
 	margin:0 auto;
-	white-space: nowrap;
+	/* white-space: nowrap; */
 	
 }
 

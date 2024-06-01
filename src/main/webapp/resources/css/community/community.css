@@ -39,6 +39,7 @@
 /*공통 타이틀 영역*/
 .community-main .title-box{
     width:100%;
+    white-space: initial;
     background-color: var(--background-color);
     border-style: none;
     border-radius: var(--outer-border-radius)  var(--outer-border-radius) 0 0;
@@ -56,9 +57,16 @@
 
 .community-main .flex-box{
     display:flex;
+    white-space: initial;
     justify-content: space-between;
 }
-
+.community-main .flex-category-box{
+    display:flex;
+    white-space: initial;
+    overflow: auto;
+    justify-content: space-evenly;
+    gap:10px;
+}
 
 
 

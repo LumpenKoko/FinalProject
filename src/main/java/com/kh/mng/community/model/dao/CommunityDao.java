@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
@@ -52,17 +53,17 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityShortsMapper.selectShortsCount");
 	}
 	
-	public ArrayList<CommunityBoard> selectBoardList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<CommunityBoard> selectBoardList(SqlSessionTemplate sqlSession, PageInfo pi, int boardCategoryNo) {
 		
 		int offset=(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("communityBoardMapper.selectBoardList",null,rowBounds);
+		return (ArrayList)sqlSession.selectList("communityBoardMapper.selectBoardList",boardCategoryNo,rowBounds);
 	}
 	
-	public int selectBoardCount(SqlSessionTemplate sqlSession) {
+	public int selectBoardCount(SqlSessionTemplate sqlSession, int boardCategoryNo) {
 		
-		return sqlSession.selectOne("communityBoardMapper.selectBoardCount");
+		return sqlSession.selectOne("communityBoardMapper.selectBoardCount",boardCategoryNo);
 	}
 	
 	public ArrayList<Attachment> selectBoardAttachMent(SqlSessionTemplate sqlSession,int boardNo) {
@@ -74,6 +75,14 @@ public class CommunityDao {
 		
 		return sqlSession.selectOne("communityBoardMapper.selectBoardApplyCount",boardNo);
 	}
+
+	public ArrayList<BoardCategory> selectBoardCategoryList(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList) sqlSession.selectList("communityBoardMapper.selectBoardCategoryList");
+	}
+
+
+
 
 //    public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {
 //		List<ShortsReply> replyList = sqlSession.selectList("shortsMapper.loadReply", shortsNum);

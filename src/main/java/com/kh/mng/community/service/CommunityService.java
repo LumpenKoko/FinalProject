@@ -1,6 +1,7 @@
 package com.kh.mng.community.service;
 import java.util.ArrayList;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
@@ -28,11 +29,11 @@ public interface CommunityService {
 
 	ArrayList<ShortsReply> loadReply(int shortsNum);
 
-	int selectBoardCount();
+	int selectBoardCount(int boardCategoryNo);
 
-	ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi);
-	
-	
+	ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi, int boardCategoryNo);
+
+	ArrayList<BoardCategory> selectBoardCategoryList();
 
 
 }

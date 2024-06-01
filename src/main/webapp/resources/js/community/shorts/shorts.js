@@ -7,7 +7,7 @@ function drawShorts(shorts){
       shortContent+=`<a href="${contextPath}/shortsView.bo?shortNo=${s.shortsNo}">
             <div class="short-img-div">
                 <div class="short-img">
-                    <img src="${(s.attachment==null)?"resources/img/default/cat1.jpg":s.attachment.filePath+s.attachment.changeName}">
+                    <img src="${s.attachment.filePath+s.attachment.changeName}">
                     <div class="img-detail">
                         <div style="font-weight: bold; font-size:20px;">${s.userNo}
                         </div><br>
@@ -21,13 +21,13 @@ function drawShorts(shorts){
    shortContentDiv.innerHTML=shortContent;
 }
 
-function drawPage(communityPi){
-    let pageDiv=document.querySelector("#page-div");
+function drawShortsPage(shortsPi){
+    let pageDiv=document.querySelector("#page-shorts-div");
     let previousButton="";
     let pageNums="";
     let nextButton="";
 
-    if(communityPi.currentPage==1){
+    if(shortsPi.currentPage==1){
         previousButton=`
             <div id="previous-button" class="prv-button">
                 <li class="page-disabled"><a class="page-button">◀</a></li>
@@ -38,20 +38,20 @@ function drawPage(communityPi){
         previousButton=`
             <div id="previous-button" class="prv-button">
                 <li><a class="page-button"
-                    onclick="pagIngShorts('${communityPi.currentPage-1}')">◀</a>
+                    onclick="pagIngShorts('${shortsPi.currentPage-1}')">◀</a>
                 </li>
             </div>
         `
     }
 
 
-    for(let p=communityPi.startPage; p<=communityPi.endPage; p++){
+    for(let p=shortsPi.startPage; p<=shortsPi.endPage; p++){
         pageNums+=`
             <li class="page-item"><a class="page-link" onclick="pagIngShorts('${p}')">${p}</a></li>
         `
     }
 
-    if(communityPi.currentPage == communityPi.maxPage){
+    if(shortsPi.currentPage == shortsPi.maxPage){
         nextButton=`
          <div id="next-button" class="next-button"><li><a class="page-button">▶</a></li></div>
         `
@@ -60,7 +60,7 @@ function drawPage(communityPi){
     else{
         nextButton=`
          <li><a class="page-button"
-             onclick="pagIngShorts('${communityPi.currentPage+1}')">▶</a>
+             onclick="pagIngShorts('${shortsPi.currentPage+1}')">▶</a>
           </li>
         `
     }

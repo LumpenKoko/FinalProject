@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.community.model.dto.BoardPage;
 import com.kh.mng.community.model.dto.ShortPage;
+import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
@@ -37,46 +39,91 @@ public class CommunityController {
 	
 	@GetMapping("/community")
 	public String communityMain(@RequestParam(value="shortsPageNo",defaultValue="1") int shortsPageNo,  
-			@RequestParam(value="boardPage",defaultValue="1") int boardPage, Model model) {
+			@RequestParam(value="boardPageNo",defaultValue="1") int boardPageNo, 
+			@RequestParam(value="boardCategoryNo",defaultValue="0") int  boardCategoryNo,
+			Model model) {
 		
 		System.out.println(shortsPageNo);
+		System.out.println("BoardNo:"+boardPageNo);
 		//쇼츠 목록 가져오기
 		int shortsCount=communityService.selectShortsCount();
 		PageInfo shortsPi =Pagination.getPageInfo(shortsCount,shortsPageNo,10,10);
 		ArrayList<Shorts> shorts =communityService.selectShortsList(shortsPi);
 		
+	
 		//게시판 목록 가져오기
-		int boardCount=communityService.selectBoardCount();
-		PageInfo boardPi =Pagination.getPageInfo(boardCount,boardPage,10,10);
-		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi);
+		int boardCount=communityService.selectBoardCount(boardCategoryNo);
+		PageInfo boardPi =Pagination.getPageInfo(boardCount,boardPageNo,10,10);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi, boardCategoryNo);
+
+		//카테고리 목록 가져오기
+		ArrayList<BoardCategory> boardCategory=communityService.selectBoardCategoryList();
 		
-		System.out.println(boards);
-		System.out.println(boardPi);
 	
 		model.addAttribute("shorts",shorts);
-		model.addAttribute("communityPi",shortsPi);
+		model.addAttribute("shortsPi",shortsPi);
 		
+		model.addAttribute("boards",boards);
+		model.addAttribute("boardPi",boardPi);
+		
+		model.addAttribute("boardCategory",boardCategory);
 		
 		
 		return "community/communityMain";
 	}
 	
-	//페이징 처리 비동기
+	//게시판 페이징처리 비동기
 	@ResponseBody
-	@GetMapping(value="shorts", produces="application/json; charset:utf-8")
-	public String getShorts(int pageNo) {
-		System.out.println(pageNo);
-		int shortsCount=communityService.selectShortsCount();
+	@GetMapping(value="boards", produces="application/json; charset:utf-8")
+	public String selectBoards(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo, int boardPageNo) {
+		 
 		
-		PageInfo pi =Pagination.getPageInfo(shortsCount,pageNo,10,10);
-		ArrayList<Shorts> shorts =communityService.selectShortsList(pi);
-		ShortPage pages=new ShortPage();
-		pages.setPage(pi);
-		pages.setShorts(shorts);
+		//게시판 목록 가져오기
+		int boardCount=communityService.selectBoardCount(boardCategoryNo);
+		PageInfo boardPi =Pagination.getPageInfo(boardCount,boardPageNo,10,10);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi,boardCategoryNo);
+		
+		BoardPage pages = new BoardPage();
+		pages.setPage(boardPi);
+		pages.setBoards(boards);
 		
 		return new Gson().toJson(pages);
 		
 	}
+	
+	//게시글 카테고리 별 처리 비동기
+	@ResponseBody
+	@GetMapping(value="category", produces="application/json; charset:utf-8")
+	public String categoryBoard(int boardCategoryNo) {
+		System.out.println("boardCategoryNo"+boardCategoryNo);
+		int boardCount=communityService.selectBoardCount(boardCategoryNo);
+		PageInfo boardPi =Pagination.getPageInfo(boardCount,1,10,10);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi, boardCategoryNo);
+		BoardPage pages = new BoardPage();
+		pages.setPage(boardPi);
+		pages.setBoards(boards);
+		return new Gson().toJson(pages);
+	}
+	
+	
+	//쇼츠 페이징 처리 비동기
+		@ResponseBody
+		@GetMapping(value="shorts", produces="application/json; charset:utf-8")
+		public String selecShorts(int shortsPageNo) {
+			System.out.println(shortsPageNo);
+			int shortsCount=communityService.selectShortsCount();
+			
+			PageInfo shortsPi =Pagination.getPageInfo(shortsCount,shortsPageNo,10,10);
+			ArrayList<Shorts> shorts =communityService.selectShortsList(shortsPi);
+			ShortPage pages=new ShortPage();
+			pages.setPage(shortsPi);
+			pages.setShorts(shorts);
+			
+			return new Gson().toJson(pages);
+			
+		}
+	
+		
 	
 	
 	

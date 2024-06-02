@@ -4,7 +4,6 @@ const dataTransfer = new DataTransfer();
 
 function fileUpload(_this) {
 
-
   let fileArr = _this.files;
   //console.log(file);
   if (fileArr != null && fileArr.length > 0) {

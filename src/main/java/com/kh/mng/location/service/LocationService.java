@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
@@ -27,7 +28,7 @@ public interface LocationService {
 	ArrayList<DetailLocationAttachment> selectDetailMainImg(int locationNo);
 	ArrayList<DetailLocationAttachment> selectDetailDetailImg(int locationNo);
 	int insertReview(ReviewInfo reviewInfo, Map<String,String> changeNamesList,String path);
-	int deleteReview(ReviewInfo reveiwInfo);
+	ArrayList<Attachment> deleteReview(ReviewInfo reveiwInfo);
 	int selectReviewCount(int locationNo);
 	int insertReply(ReplyInfo reply);
 	ArrayList<Review> selectCategoryReviewList(ReviewInfo review, PageInfo pi);

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.dto.PickedInfo;
@@ -209,10 +211,6 @@ public class LocationController {
 							  ReviewInfo reviewInfo,
 			                  HttpSession session,Model model) {
 	
-	     System.out.println(reviewInfo.getStarCount());
-	     System.out.println(reviewInfo.getContent());
-	     System.out.println(reviewInfo.getLocationNo());
-	     System.out.println(reviewInfo.getUserNo());
 	     
 		// List<String> changeNamesList = new ArrayList<String>();
 		 Map<String,String>fileNames= new HashMap<String,String>();
@@ -270,23 +268,33 @@ public class LocationController {
 	
 	@ResponseBody
 	@PostMapping(value="delete.re")
-	public String deleteReview(int reviewNo,int userNo,int locationNo) {
+	public String deleteReview( HttpSession session,int reviewNo,int userNo,int locationNo) {
 	
 		ReviewInfo reviewInfo= new ReviewInfo();
 		reviewInfo.setLocationNo(locationNo);
 		reviewInfo.setReviewNo(reviewNo);
 		reviewInfo.setUserNo(userNo);
 		
-		
-		System.out.println("삭제: "+reviewInfo);
-		int count=detailService.deleteReview(reviewInfo);
-		
-		if(count>=0) {
-			System.out.println("count:"+count);
-			return "ok";
+		String savePath = session.getServletContext().getRealPath("resources/img/user/");
+		ArrayList<Attachment> deleteAttachment=detailService.deleteReview(reviewInfo);
+		if(deleteAttachment!=null) {
+			if(!deleteAttachment.isEmpty()) {
+			for(Attachment attachment:deleteAttachment) {
+				File file = new File(savePath+attachment.getChangeName());
+			    System.out.println(file.getPath());
+				if(file.exists()) {
+					file.delete();
+					System.out.println("파일 삭제됨");
+				}
+				else {
+					System.out.println("파일삭제실패");
+				}
+			}
+	    }
+		   return "ok";
 		}
 		else {
-			System.out.println("count:"+count);
+	
 			return "fail";
 		}
 		

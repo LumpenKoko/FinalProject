@@ -63,6 +63,11 @@ public class ReviewDao {
 		return (ArrayList)sqlSession.selectList("review.selectCategoryReviewList",reivew,rowBounds);
 	}
 
+	public Attachment selectProfile(SqlSessionTemplate sqlSession, int userNo) {
+		
+		return sqlSession.selectOne("review.selectUserAttachment",userNo);
+	}
+
 
 	
 }

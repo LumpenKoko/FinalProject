@@ -82,6 +82,11 @@ public class CommunityDao {
 		return (ArrayList) sqlSession.selectList("communityBoardMapper.selectBoardCategoryList");
 	}
 
+	public Attachment selectUserProfile(SqlSessionTemplate sqlSession, int userNo) {
+		
+		return sqlSession.selectOne("communityBoardMapper.selectUserAttachment",userNo);
+	}
+
 
 
 

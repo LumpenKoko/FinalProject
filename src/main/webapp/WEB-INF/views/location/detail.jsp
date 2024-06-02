@@ -285,7 +285,11 @@
 							<div class="review-detail">
 								<ul class="detail-ul">
 									<li class="title score">${l.locationStar}</li>
-									<li class="avg-star" style="color:#FE8B94;">★★★★★</li>
+								    <li class="avg-star" style="color:#FE8B94;">
+										<c:forEach var="p" begin="1" end="${l.locationStar+((l.locationStar%1>0.5)?(1-l.locationStar%1)%1:-(l.locationStar%1))}">
+										               ★
+									    </c:forEach>
+									</li>
 									<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
@@ -302,7 +306,7 @@
 									<div class="review-section">
 										<div class="profile-star">
 											<div class="profile">
-												<div class="img-div"><img src="resources/img/김지원.jpg"
+												<div class="img-div"><img src="${r.userProfile.filePath}${r.userProfile.changeName}"
 														alt="Profile Image"></div>
 												<div><span class="title">${r.userNickName}</span><br>
 													<span>${r.enrollDate}</span>
@@ -443,7 +447,7 @@
 											onchange="fileUpload(this)">
 									</div>
 								</div>
-								<div id="file-list">첨푸파일</div>
+								<div id="file-list">첨부파일</div>
 							</div>
 
 							<!--페이지 처리 영역-->

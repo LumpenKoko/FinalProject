@@ -31,5 +31,6 @@ public class CommunityBoard {
 	private int goodCount; // 데이터 조회 시 사용할 추천 횟수
 	private int replyCount; // 데이터 조회 시 사용할 댓글수
 	private ArrayList <Attachment> attahment;//첨부파일
+	private Attachment userProfile;//유저 프로필
 	
 }

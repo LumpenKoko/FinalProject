@@ -137,7 +137,7 @@ function drawReivew(review) {
         <div class="review-section">
 						<div class="profile-star">
 							<div class="profile">
-								<div class="img-div"><img src="resources/img/김지원.jpg" alt="Profile Image"></div>
+								<div class="img-div"><img src="${r.userProfile.filePath}${r.userProfile.changeName}"></div>
 								<div><span class="title">${r.userNickName}</span><br>
 									<span>${r.enrollDate}</span>
 								</div>

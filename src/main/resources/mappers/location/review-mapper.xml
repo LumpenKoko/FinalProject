@@ -27,6 +27,13 @@
 	   		<result column="CHANGE_NAME" property="changeName"/>
 	   		<result column="FILE_PATH" property="filePath"/>
   </resultMap>
+  
+   <resultMap type="Attachment" id="userAttachment">
+	   		<result column="ORIGIN_NAME" property="originName"/>
+	   		<result column="CHANGE_NAME" property="changeName"/>
+	   		<result column="FILE_PATH" property="filePath"/>
+  </resultMap>
+   
    
    <select id="selectDetailReviewList" resultMap="detailReview">
      SELECT   R.REVIEW_NO,
@@ -57,6 +64,14 @@
     			   FROM PICTURE
     			   WHERE REVIEW_NO = #{reviewNo}
    </select>
+   
+     <select id="selectUserAttachment" resultMap="userAttachment">
+    		SELECT ORIGIN_NAME,
+    			   CHANGE_NAME,
+    			   FILE_PATH 
+    			   FROM PICTURE
+    			   WHERE USER_NO = #{userNo}
+    </select>
     
       <insert id="insertReview">
     		INSERT INTO 

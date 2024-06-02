@@ -74,15 +74,24 @@ public class CommunityServiceImpl implements CommunityService{
 		 if(!boards.isEmpty()) {
 			 for(CommunityBoard board:boards) {
 				 ArrayList<Attachment> attachment=communityDao.selectBoardAttachMent(sqlSession,board.getBoardNo());
+				 Attachment userProfile=communityDao.selectUserProfile(sqlSession,board.getUserNo());
 				 if(attachment.isEmpty()) {
 					 Attachment defaultAttachMent = new Attachment();
 					 defaultAttachMent.setFilePath("resources/img/default/");
 					 defaultAttachMent.setChangeName("star.png");
 					 attachment.add(defaultAttachMent);
 				 }
+				 
+				 if(userProfile==null) {
+					 userProfile=new Attachment();
+					 userProfile.setFilePath("resources/img/default/");
+					 userProfile.setChangeName("star.png");
+				 }
+				 
 				 int replyCount =communityDao.selectBoardApplyCount(sqlSession,board.getBoardNo());
 				 board.setAttahment(attachment);
 				 board.setReplyCount(replyCount);
+				 board.setUserProfile(userProfile);
 			 }
 		 }
 		

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
 import com.kh.mng.community.model.dto.ShortPage;
 import com.kh.mng.community.model.vo.BoardCategory;
@@ -40,7 +41,8 @@ public class CommunityController {
 	@GetMapping("/community")
 	public String communityMain(@RequestParam(value="shortsPageNo",defaultValue="1") int shortsPageNo,  
 			@RequestParam(value="boardPageNo",defaultValue="1") int boardPageNo, 
-			@RequestParam(value="boardCategoryNo",defaultValue="0") int  boardCategoryNo,
+			@RequestParam(value="boardCategoryNo",defaultValue="0") int boardCategoryNo,
+			@RequestParam(value="boardContent",defaultValue="default") String boardContent,
 			Model model) {
 		
 		System.out.println(shortsPageNo);
@@ -52,9 +54,13 @@ public class CommunityController {
 		
 	
 		//게시판 목록 가져오기
-		int boardCount=communityService.selectBoardCount(boardCategoryNo);
+		BoardInfo boardInfo=new BoardInfo();
+		boardInfo.setBoardCategoryNo(boardCategoryNo);
+		boardInfo.setBoardContent(boardContent);
+		 
+		int boardCount=communityService.selectBoardCount(boardInfo);
 		PageInfo boardPi =Pagination.getPageInfo(boardCount,boardPageNo,10,10);
-		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi, boardCategoryNo);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi,boardInfo);
 
 		//카테고리 목록 가져오기
 		ArrayList<BoardCategory> boardCategory=communityService.selectBoardCategoryList();
@@ -75,13 +81,19 @@ public class CommunityController {
 	//게시판 페이징처리 비동기
 	@ResponseBody
 	@GetMapping(value="boards", produces="application/json; charset:utf-8")
-	public String selectBoards(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo, int boardPageNo) {
+	public String selectBoards(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo
+			                  ,@RequestParam(value="boardPageNo",defaultValue="1")  int boardPageNo,
+			                   @RequestParam(value="boardContent",defaultValue="default") String boardContent
+			                    ) {
 		 
 		
 		//게시판 목록 가져오기
-		int boardCount=communityService.selectBoardCount(boardCategoryNo);
+		BoardInfo boardInfo=new BoardInfo();
+		boardInfo.setBoardCategoryNo(boardCategoryNo);
+		boardInfo.setBoardContent(boardContent);
+		int boardCount=communityService.selectBoardCount(boardInfo);
 		PageInfo boardPi =Pagination.getPageInfo(boardCount,boardPageNo,10,10);
-		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi,boardCategoryNo);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi,boardInfo);
 		
 		BoardPage pages = new BoardPage();
 		pages.setPage(boardPi);
@@ -94,11 +106,37 @@ public class CommunityController {
 	//게시글 카테고리 별 처리 비동기
 	@ResponseBody
 	@GetMapping(value="category", produces="application/json; charset:utf-8")
-	public String categoryBoard(int boardCategoryNo) {
+	public String categoryBoard(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo,
+			                  @RequestParam(value="boardContent",defaultValue="default") String boardContent) {
 		System.out.println("boardCategoryNo"+boardCategoryNo);
-		int boardCount=communityService.selectBoardCount(boardCategoryNo);
+		BoardInfo boardInfo=new BoardInfo();
+		boardInfo.setBoardCategoryNo(boardCategoryNo);
+		boardInfo.setBoardContent(boardContent);
+		
+		int boardCount=communityService.selectBoardCount( boardInfo);
 		PageInfo boardPi =Pagination.getPageInfo(boardCount,1,10,10);
-		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi, boardCategoryNo);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi,  boardInfo);
+		BoardPage pages = new BoardPage();
+		pages.setPage(boardPi);
+		pages.setBoards(boards);
+		return new Gson().toJson(pages);
+	}
+	
+	//게시글 검색 비동기 처리
+	
+	@ResponseBody
+	@GetMapping(value="search", produces="application/json; charset:utf-8")
+	public String searchBoard(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo,
+			                  @RequestParam(value="boardContent",defaultValue="default") String boardContent) {
+		System.out.println("boardCategoryNo"+boardCategoryNo);
+		System.out.println(boardContent);
+		BoardInfo boardInfo=new BoardInfo();
+		boardInfo.setBoardCategoryNo(boardCategoryNo);
+		boardInfo.setBoardContent(boardContent);
+		
+		int boardCount=communityService.selectBoardCount( boardInfo);
+		PageInfo boardPi =Pagination.getPageInfo(boardCount,1,10,10);
+		ArrayList<CommunityBoard> boards = communityService.selectBoardList(boardPi,  boardInfo);
 		BoardPage pages = new BoardPage();
 		pages.setPage(boardPi);
 		pages.setBoards(boards);

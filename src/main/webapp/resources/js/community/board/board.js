@@ -41,7 +41,7 @@ function drawBoards(boards){
 
 }
 
-function drawBoardPage(boardPi,category){
+function drawBoardPage(boardPi,category,boardContent="default"){
     let pageDivs=document.querySelector("#page-board-div");
     let previousButton="";
     let pageNums="";
@@ -60,7 +60,7 @@ function drawBoardPage(boardPi,category){
         previousButton=`
             <div id="previous-board-button" class="prv-button">
                 <li><a class="page-button"
-                    onclick="pagIngBoard('${boardPi.currentPage-1}','${category}')">◀</a>
+                    onclick="pagIngBoard('${boardPi.currentPage-1}','${category}','${boardContent}')">◀</a>
                 </li>
             </div>
         `
@@ -69,7 +69,7 @@ function drawBoardPage(boardPi,category){
 
     for(let p=boardPi.startPage; p<=boardPi.endPage; p++){
         pageNums+=`
-            <li class="page-item"><a class="page-link" onclick="pagIngBoard('${p}','${category}')">${p}</a></li>
+            <li class="page-item"><a class="page-link" onclick="pagIngBoard('${p}','${category}','${boardContent}')">${p}</a></li>
         `
     }
 
@@ -83,7 +83,7 @@ function drawBoardPage(boardPi,category){
         nextButton=`
         <div id="next-board-button" class="next-button">
             <li><a class="page-button"
-                    onclick="pagIngBoard('${boardPi.currentPage+1}','${category}')">▶</a>
+                    onclick="pagIngBoard('${boardPi.currentPage+1}','${category}','${boardContent}')">▶</a>
             </li>
         </div>
         `
@@ -99,11 +99,32 @@ function drawBoardPage(boardPi,category){
 
 }
 
-
+//카테고리 별 호출 함수
 function onClickCategory(){
   
     const catgegoryButtons= document.querySelectorAll("#category-box div>button");
     const clicked=function(){categoryAjax(this.dataset.categoryno)}
     catgegoryButtons.forEach((buttons)=>{buttons.addEventListener('click',clicked)})
-  }
+}
+
+//검색 호출 함수
+function onSearchBoard(){
+   
+    const searchButton=document.querySelector("#search-button")
+    const clicked=function(){
+        const selectBox =document.querySelector("#kind");
+        const contentBox=document.querySelector("#board-input-content")
+
+        const selectedOption =selectBox.options[selectBox.selectedIndex]
+        const categoryNo=selectedOption.value;
+        const boardContent= contentBox.value
+
+        boardSearchAjax(categoryNo,boardContent)
+
+    }
+    searchButton.onclick=clicked
+
+}
+
+
   

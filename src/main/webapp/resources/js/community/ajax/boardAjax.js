@@ -1,14 +1,15 @@
-function pagIngBoard(currentPage,category=0){
+function pagIngBoard(currentPage,category=0,boardContent="default"){
 
     $.ajax({
         url:contextPath+"/boards",
         data:{
             boardPageNo:currentPage,
-            boardCategoryNo:category
+            boardCategoryNo:category,
+            boardContent:boardContent
         },
         success:function(response){
             drawBoards(response.boards)
-            drawBoardPage(response.page,category)
+            drawBoardPage(response.page,category,boardContent)
         },
         error:function(){
             console.log("에러")
@@ -36,6 +37,22 @@ function categoryAjax(category){
     })
 }
 
-function boardSearchAjax(){
-    
+function boardSearchAjax(category,boardContent){
+
+ 
+    $.ajax({
+        url:contextPath+"/search",
+        data:{
+            boardCategoryNo:category,
+            boardContent:boardContent
+        },
+        success:function(response){
+            drawBoards(response.boards)
+            drawBoardPage(response.page,category,boardContent)
+        },
+        error:function(){
+            console.log("에러")
+        }
+
+    })
 }

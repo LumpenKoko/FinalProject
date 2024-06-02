@@ -35,8 +35,7 @@
                                 <!--그리드-->
                                 <div id="short-content" class="grid-box short-area">
                                     <c:forEach var="s" items="${shorts}">
-                                        <a href="<%=contextPath%>/shortsView.bo?shortNo=${s.shortsNo}">
-                                            <div class="short-img-div">
+                                         <div class="short-img-div" onclick="location.href='<%=contextPath%>/shortsView.bo?shortNo=${s.shortsNo}'">
                                                 <div class="short-img">
                                                     <img src="${s.attachment.filePath}${s.attachment.changeName}">
                                                     <div class="img-detail">
@@ -47,7 +46,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a>
                                     </c:forEach>
                                 </div>
 
@@ -113,8 +111,7 @@
                             <div id="board-content" class="board-content">
                                 <!--게시판 영역-->
                                 <c:forEach var="b" items="${boards}">
-                                    <div class="grid-box board-area">
-
+                                    <div class="grid-box board-area" onclick="location.href='<%=contextPath%>/detailView.bo?boardNo=${b.boardNo}'">
                                         <div class="board-flex-div">
                                             <div class="content-box">
                                                 <div class="profile">
@@ -196,7 +193,7 @@
                                         </select>
                                     </div>
                                     <div class="search-div">
-                                        <input class=" input-box" type="text">
+                                        <input id="board-input-content" class=" input-box" type="text">
                                         <button id="search-button" class="search-button" type="button">🔍</button>
                                     </div>
                                 </div>

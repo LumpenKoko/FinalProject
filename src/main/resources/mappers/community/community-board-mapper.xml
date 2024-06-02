@@ -47,11 +47,17 @@
   	  		   ON (B.BOARD_CATEGORY_NO = C.BOARD_CATEGORY_NO)
   	  		   WHERE B.STATUS = true
   	  		   <choose>
-  	  		   		<when test='boardcategoryNo!=0'>
+  	  		   		<when test='boardCategoryNo!=0 and boardContent=="default"'>
  						AND  C.BOARD_CATEGORY_NO = #{boardCategoryNo}
+  	  		   		</when>
+  	  		   		
+  	  		   		<when test='boardCategoryNo!=0 and boardContent!="default"'>
+ 						AND  C.BOARD_CATEGORY_NO = #{boardCategoryNo}
+ 						AND  B.BOARD_CONTENT LIKE CONCAT('%',#{boardContent},'%')
   	  		   		</when>
   	  		   
   	  		   </choose>
+  	  		   ORDER BY   B.BOARD_NO DESC
   	  		   
   	 </select>
   	
@@ -80,8 +86,13 @@
 		SELECT COUNT(*)
 				FROM BOARD
 				<choose>
-  	  		   		<when test='boardcategoryNo!=0'>
+  	  		   		<when test='boardCategoryNo!=0 and boardContent=="default"'>
  						WHERE BOARD_CATEGORY_NO = #{boardCategoryNo}
+  	  		   		</when>
+  	  		   		
+  	  		     	<when test='boardCategoryNo!=0 and boardContent!="default"'>
+  	  		   		  WHERE BOARD_CATEGORY_NO = #{boardCategoryNo}
+ 					  AND  BOARD_CONTENT LIKE CONCAT('%',#{boardContent},'%')
   	  		   		</when>
   	  		   
   	  		   </choose>

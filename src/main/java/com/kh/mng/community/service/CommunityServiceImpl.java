@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dao.CommunityDao;
+import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
@@ -67,9 +68,9 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	@Override
 	@Transactional
-	public ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi,int boardCategoryNo) {
+	public ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi,BoardInfo boardInfo) {
 		
-		 ArrayList<CommunityBoard> boards=communityDao.selectBoardList(sqlSession,boardPi,boardCategoryNo);
+		 ArrayList<CommunityBoard> boards=communityDao.selectBoardList(sqlSession,boardPi,boardInfo);
 		 if(!boards.isEmpty()) {
 			 for(CommunityBoard board:boards) {
 				 ArrayList<Attachment> attachment=communityDao.selectBoardAttachMent(sqlSession,board.getBoardNo());
@@ -88,9 +89,9 @@ public class CommunityServiceImpl implements CommunityService{
 		return boards;
 	}
 	@Override
-	public int selectBoardCount(int boardCategoryNo){
+	public int selectBoardCount(BoardInfo boardInfo){
 		
-		return communityDao.selectBoardCount(sqlSession,boardCategoryNo);
+		return communityDao.selectBoardCount(sqlSession,boardInfo);
 	}
 	
 	@Override

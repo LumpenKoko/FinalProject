@@ -112,7 +112,14 @@ public class LocationServiceImpl implements LocationService {
 		 if(!reviews.isEmpty()) {
 			 for(Review review:reviews) {
 				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 Attachment userProfile= reviewDao.selectProfile(sqlSession,review.getUserNo());
+				 if(userProfile==null) {
+					userProfile=new Attachment();
+					userProfile.setFilePath("resources/img/default/");
+					userProfile.setChangeName("star.png");
+				  }
 				 review.setAttachment(attachMents);
+				 review.setUserProfile(userProfile);
 			 }
 		 }
 		return reviews;
@@ -148,19 +155,6 @@ public class LocationServiceImpl implements LocationService {
 		int count=reviewDao.deleteReview(sqlSession, reviewInfo);
 		
 		if(count>0) {
-//			if(!reviewAttachMent.isEmpty()) {
-//				for(Attachment attachment:reviewAttachMent) {
-//					File file = new File(attachment.getFilePath()+attachment.getChangeName());
-//				
-//					if(file.exists()) {
-//						file.delete();
-//						System.out.println("파일 삭제됨");
-//					}
-//					else {
-//						System.out.println("파일삭제실패");
-//					}
-//				}
-//		    }
 			return reviewAttachMent;
 		}
 		else {
@@ -189,7 +183,14 @@ public class LocationServiceImpl implements LocationService {
 		if(!reviews.isEmpty()) {
 			 for(Review review:reviews) {
 				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 Attachment userProfile= reviewDao.selectProfile(sqlSession,review.getUserNo());
+				 if(userProfile==null) {
+					userProfile=new Attachment();
+					userProfile.setFilePath("resources/img/default/");
+					userProfile.setChangeName("star.png");
+				  }
 				 review.setAttachment(attachMents);
+				 review.setUserProfile(userProfile);
 			 }
 		}
 		return reviews;

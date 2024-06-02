@@ -23,6 +23,12 @@
 	   		<result column="FILE_PATH" property="filePath"></result>
 	   </resultMap>
 	   
+	     <resultMap type="Attachment" id="userAttachment">
+	   		<result column="ORIGIN_NAME" property="originName"></result>
+	   		<result column="CHANGE_NAME" property="changeName"></result>
+	   		<result column="FILE_PATH" property="filePath"></result>
+	   </resultMap>
+	   
 	   <resultMap type="BoardCategory" id="boardCategoryList">
 	      <result column="BOARD_CATEGORY_NO" property="categoryNo"></result>
 	       <result column="CATEGORY_NAME" property="categoryName"></result>
@@ -72,6 +78,16 @@
 		         WHERE Board_NO = #{boardNo}
 		        AND FILE_LEVEL = 1
 	</select>
+	
+	 <select id="selectUserAttachment" resultMap="userAttachment">
+    		SELECT ORIGIN_NAME,
+    			   CHANGE_NAME,
+    			   FILE_PATH 
+    			   FROM PICTURE
+    			   WHERE USER_NO = #{userNo}
+     </select>
+	
+	
 	
 	<select id="selectBoardApplyCount" resultType="_int">
 			SELECT 

@@ -116,7 +116,7 @@
                                             <div class="content-box">
                                                 <div class="profile">
                                                     <div class="img-div">
-                                                        <img src="resources/img/review/tori.jpg">
+                                                        <img src="${b.userProfile.filePath}${b.userProfile.changeName}">
                                                     </div>
                                                     <div>${b.userNickName}</div>
                                                     <div>${b.createDate}</div>

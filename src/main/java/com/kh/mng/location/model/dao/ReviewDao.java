@@ -40,7 +40,7 @@ public class ReviewDao {
 		return sqlSession.insert("review.insertAttachment",fileInfo);
 	}
 
-	public int deleteDao(SqlSessionTemplate sqlSession,ReviewInfo reviewInfo) {
+	public int deleteReview(SqlSessionTemplate sqlSession,ReviewInfo reviewInfo) {
 	
 		return sqlSession.delete("review.deleteReview",reviewInfo);
 	}
@@ -62,5 +62,7 @@ public class ReviewDao {
 		
 		return (ArrayList)sqlSession.selectList("review.selectCategoryReviewList",reivew,rowBounds);
 	}
+
+
 	
 }

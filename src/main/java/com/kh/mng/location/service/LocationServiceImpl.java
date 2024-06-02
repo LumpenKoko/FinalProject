@@ -1,5 +1,6 @@
 package com.kh.mng.location.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -126,7 +127,7 @@ public class LocationServiceImpl implements LocationService {
 		int count2=1;
 		if(count1>0) {
 			 if(!changeNamesList.isEmpty()) {
-				  for(Map.Entry<String, String> files : changeNamesList.entrySet()) {
+				  for(Map.Entry<String, String> files : changeNamesList.entrySet()){
 					  FileInfo fileInfo =new FileInfo(files.getKey(),files.getValue(),path);
 					  count2= reviewDao.insertReviewAttachMent(sqlSession,fileInfo);
 					  count2*=count2;
@@ -139,11 +140,34 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public int deleteReview(ReviewInfo reveiwInfo) {
+	@Transactional
+	public ArrayList<Attachment>  deleteReview(ReviewInfo  reviewInfo) {
 		
-		int count=reviewDao.deleteDao(sqlSession,reveiwInfo);
+		ArrayList<Attachment> reviewAttachMent =reviewDao.selectAttachmentList(sqlSession,reviewInfo.getReviewNo());
 		
-		return count;
+		int count=reviewDao.deleteReview(sqlSession, reviewInfo);
+		
+		if(count>0) {
+//			if(!reviewAttachMent.isEmpty()) {
+//				for(Attachment attachment:reviewAttachMent) {
+//					File file = new File(attachment.getFilePath()+attachment.getChangeName());
+//				
+//					if(file.exists()) {
+//						file.delete();
+//						System.out.println("파일 삭제됨");
+//					}
+//					else {
+//						System.out.println("파일삭제실패");
+//					}
+//				}
+//		    }
+			return reviewAttachMent;
+		}
+		else {
+			return null;
+		}
+		
+	
 	}
 
 	@Override

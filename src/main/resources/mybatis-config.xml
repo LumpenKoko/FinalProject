@@ -34,8 +34,10 @@
  		<typeAlias type="com.kh.mng.community.model.vo.TotalShortsInfo" alias="TotalShortsInfo"/>
  		<typeAlias type="com.kh.mng.community.model.vo.ShortsReply" alias="ShortsReply"/>
  		<typeAlias type="com.kh.mng.community.model.vo.CommunityBoard" alias="CommunityBoard"/>
-    <typeAlias type="com.kh.mng.community.model.vo.BoardCategory" alias="BoardCategory"/>
-    <typeAlias type="com.kh.mng.location.model.vo.Location" alias="bossLocation"/>
+
+		<typeAlias type="com.kh.mng.community.model.vo.BoardCategory" alias="BoardCategory"/>
+		<typeAlias type="com.kh.mng.location.model.vo.Location" alias="bossLocation"/>
+
 
  	</typeAliases> 
  	

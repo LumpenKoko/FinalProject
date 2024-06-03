@@ -89,10 +89,7 @@ function drawBoardPage(boardPi,category,boardContent="default"){
         `
     }
 
-   
-    console.log(previousButton)
-    console.log(pageNums)
-    console.log(nextButton)
+
     pageDivs.innerHTML=previousButton+pageNums+nextButton;
 
 

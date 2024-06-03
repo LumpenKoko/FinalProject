@@ -1,7 +1,8 @@
 package com.kh.mng.community.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,7 +14,6 @@ import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
-import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 @Repository
@@ -31,8 +31,12 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getVideoReplyCount", shortsNum);
 	}
 
-	public int addComment(SqlSessionTemplate sqlSession, int videoId, String comment) {
-		return sqlSession.insert("shortsMapper.shortsCommentEnroll", videoId);
+	public int addComment(SqlSessionTemplate sqlSession, int userNo, int shortsNo, String comment) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userNo", userNo);
+	    params.put("shortsNo", shortsNo);
+	    params.put("comment", comment);
+	    return sqlSession.insert("shortsMapper.shortsCommentEnroll", params);
 	}
 
 
@@ -85,6 +89,10 @@ public class CommunityDao {
 	public Attachment selectUserProfile(SqlSessionTemplate sqlSession, int userNo) {
 		
 		return sqlSession.selectOne("communityBoardMapper.selectUserAttachment",userNo);
+	}
+
+	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
+		return sqlSession.selectOne("shortsMapper.getShortsNum",videoId);
 	}
 
 

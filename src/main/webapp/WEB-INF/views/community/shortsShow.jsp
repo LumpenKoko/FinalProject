@@ -99,7 +99,7 @@
                 if (toggle === "true") {
                     $("#shorts-comment" + index).animate({right: '30%'}, 'slow');
                     $("#shorts-content" + index).animate({left: '30%'}, 'slow');
-                    loadReply();
+                    // loadReply();
                 } else {
                     $("#shorts-comment" + index).animate({right: '10%'}, 'slow');
                     $("#shorts-content" + index).animate({left: '10%'}, 'slow');
@@ -167,8 +167,14 @@
 
             // 댓글 입력하는 함수
             $(document).on('click', '[id^="submit-comment"]', function() {
-                const num = this.id.replace('submit-comment', '');
+                const loginUserNo = parseInt("<%=loginUser.getUserNo()%>");
+                const num = parseInt(this.id.replace('submit-comment', ''));
                 const commentText = $('#comment-text' + num).val().trim();
+
+                if (loginUserNo === "") {
+                    alert("로그인한 회원만 댓글을 작성할 수 있습니다.");
+                    return;
+                }
 
                 if (commentText === "") {
                     alert("댓글을 입력하세요.");
@@ -178,6 +184,7 @@
                 $.ajax({
                     url: '<%=request.getContextPath()%>/addComment.sh',
                     data: {
+                        userNo: loginUserNo,
                         num: num,
                         comment: commentText
                     },

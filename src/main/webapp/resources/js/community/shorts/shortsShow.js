@@ -1,11 +1,18 @@
 
 let currentDivIndex = 0;
 let isScrolling = false;
+let contextPath;
+let userNo;
+
+function init(contextPath, userNo){
+    contextPath = contextPath;
+    userNo = userNo;
+}
 
 // 댓글 관련 함수들
 $(document).ready(function () {
 
-    let isVisible = false;
+    
 
     $(document).on('click', '.comment-button', function (ev) {
         const btn = ev.target;
@@ -56,7 +63,7 @@ $(document).ready(function () {
         const num = this.id.replace('show-reply-btn', '');
 
         $.ajax({
-            url: '<%=request.getContextPath()%>/loadReply.sh',
+            url: contextPath + '/loadReply.sh',
             data: {
                 num: num
             },
@@ -84,7 +91,7 @@ $(document).ready(function () {
 
     // 댓글 입력하는 함수
     $(document).on('click', '[id^="submit-comment"]', function () {
-        const loginUserNo = parseInt("<%=loginUser.getUserNo()%>");
+        const loginUserNo = parseInt(userNo);
         const num = parseInt(this.id.replace('submit-comment', ''));
         const commentText = $('#comment-text' + num).val().trim();
 
@@ -99,7 +106,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: '<%=request.getContextPath()%>/addComment.sh',
+            url: contextPath +'/addComment.sh',
             data: {
                 userNo: loginUserNo,
                 num: num,
@@ -183,7 +190,7 @@ function createItem(num) {
 // Ajax로 동영상을 가져와서 동영상 요소 생성
 function loadVideo(num) {
     $.ajax({
-        url: '<%=request.getContextPath()%>/getVideo.sh', // 일단 임시로 영상 url만 가져옴(추후 변경 필요)
+        url: contextPath + '/getVideo.sh', // 일단 임시로 영상 url만 가져옴(추후 변경 필요)
         data: {
             videoId: num
         },

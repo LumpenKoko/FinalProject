@@ -35,8 +35,8 @@ public class CommunityServiceImpl implements CommunityService{
 
 
 	@Override
-	public int addComment(int videoId, String comment) {
-		return communityDao.addComment(sqlSession, videoId, comment);
+	public int addComment(int userNo, int shortsNo, String comment) {
+		return communityDao.addComment(sqlSession, userNo, shortsNo, comment);
 	}
 
 	@Override
@@ -135,7 +135,14 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	public ArrayList<ShortsReply> loadReply(int shortsNum) {
-		return communityDao.loadReply(sqlSession, shortsNum);
+//		return communityDao.loadReply(sqlSession, shortsNum);
+		return null;
+	}
+
+
+	@Override
+	public int getShortsNum(int videoId) {
+		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 
 

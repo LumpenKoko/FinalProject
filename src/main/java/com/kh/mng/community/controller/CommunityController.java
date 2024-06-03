@@ -206,6 +206,8 @@ public class CommunityController {
 	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")
 	public String addComment(@RequestParam(value="userNo, videoId, comment") int userNo, int videoId, String comment) {
 		
+		System.out.println(comment);
+		
 		int shortsNum = communityService.getShortsNum(videoId);
 		
 		if (communityService.addComment(userNo, shortsNum, comment) > 0) {

@@ -13,7 +13,7 @@ public interface CommunityService {
 	
 	int selectListCount();
 
-	int addComment(int videoId, String comment);
+	int addComment(int userNo, int videoId, String comment);
 
 	String getVideo(int videoId);
 
@@ -35,6 +35,8 @@ public interface CommunityService {
 	ArrayList<CommunityBoard> selectBoardList(PageInfo boardPi, BoardInfo boardInfo);
 
 	ArrayList<BoardCategory> selectBoardCategoryList();
+
+	int getShortsNum(int videoId);
 
 
 }

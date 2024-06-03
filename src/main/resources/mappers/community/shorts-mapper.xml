@@ -88,6 +88,28 @@
   	</select>
     
     <insert id="shortsCommentEnroll">
-    		
+    	INSERT INTO REPLY
+    		( 
+    		REPLY_NO,
+    		USER_NO,
+    		SHORTS_NO,
+    		REPLY_CONTENT,
+    		CREATE_DATE
+    		)
+    	VALUES
+    		(
+    		NEXTVAL('SEQ_REPLY'),
+    		#{userNo},
+    		#{shortsNo},
+    		#{comment},
+    		DEFAULT
+    		)
     </insert>
+    
+    <select id="getShortsNo" resultType="_int">
+    	SELECT SHORTS_NO
+    	FROM SHORTS
+    	ORDER BY S.SHORTS_NO DESC
+    			LIMIT 1 OFFSET (#{number} - 1);
+    </select>
   </mapper>

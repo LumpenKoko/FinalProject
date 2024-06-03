@@ -39,7 +39,7 @@
                                 <div id="mainList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰</div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록</div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록</div>
                                 <div id="boardList"
@@ -59,9 +59,9 @@
                     <div id="right">
                         <div id="main_main_right">
                             <div id="right1">
-                                <span onclick="location.href='/myPageBoard.mp'" id="board">게시글</span>
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'" id="board">게시글</span>
                                 <span>&nbsp;/&nbsp;</span>
-                                <span onclick="location.href='/myPageShorts.mp'" id="shortsList">쇼츠</span>
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'" id="shortsList">쇼츠</span>
                             </div>
                             <div id="right2"
                                 style="background-size:cover; background-image: url(resources/img/myPage/board.png);">

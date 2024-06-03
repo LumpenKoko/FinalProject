@@ -40,7 +40,7 @@
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록
                                 </div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록

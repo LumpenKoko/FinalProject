@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.pet.model.vo.Pet;
 import com.kh.mng.pet.service.PetService;
@@ -27,6 +29,9 @@ public class myPage {
 	        int userNo = loginUser.getUserNo(); // 사용자 번호
 	        // 사용자 번호를 사용하여 펫 데이터를 불러옴
 	        List<Pet> petList = petService.getPetByUserNo(userNo);
+	        List<Review> ReviewList = petService.getReviewList(userNo);
+            model.addAttribute("ReviewList", ReviewList);
+            System.out.println(ReviewList);
 	        if (petList != null) {
 	            // 펫 데이터를 모델에 추가하여 HTML에 전달
 	            model.addAttribute("petList", petList);
@@ -96,6 +101,9 @@ public class myPage {
 	        int userNo = loginUser.getUserNo(); // 사용자 번호
 	        // 사용자 번호를 사용하여 펫 데이터를 불러옴
 	        List<Pet> petList = petService.getPetByUserNo(userNo);
+	        List<Board> BoardList = petService.getBoardList(userNo);
+	        model.addAttribute("BoardList", BoardList);
+	        System.out.println(BoardList);
 	        if (petList != null) {
 	            // 펫 데이터를 모델에 추가하여 HTML에 전달
 	            model.addAttribute("petList", petList);

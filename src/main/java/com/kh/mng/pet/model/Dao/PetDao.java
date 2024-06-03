@@ -5,8 +5,9 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.pet.model.vo.Pet;
-import com.kh.mng.picture.model.vo.Picture;
 
 @Repository
 public class PetDao {
@@ -22,7 +23,11 @@ public class PetDao {
         return sqlSession.selectList("petMapper.selectPet", userNo);
     }
     
-	public int insertPicture(SqlSessionTemplate sqlSession, Picture pic) {
-		return sqlSession.insert("pictureMapper.insertPicture", pic);
-	}
+    public List<Review> getReviewList(SqlSessionTemplate sqlSession, int userNo) {
+    	return sqlSession.selectList("review.selectMyPageReview", userNo);
+    }
+    
+    public List<Board> getBoardList(SqlSessionTemplate sqlSession, int userNo) {
+    	return sqlSession.selectList("communityBoardMapper.selectBoardList", userNo);
+    }
 }

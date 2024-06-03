@@ -120,6 +120,17 @@
 				FROM BOARD_CATEGORY;
 	</select>
 	
-   
+    <select id="getBoardList" resultMap="boardAttachment">
+  		        SELECT
+					BOARD_NO,
+					BOARD_TITLE,
+					BOARD_CONENT,
+					COUNT,
+					BOARD_CATEGORY_NO,
+					CREATE_DATE
+					FROM BOARD
+		         WHERE USER_NO = #{userNo}
+		         AND STATUS = true
+	</select>
    
   </mapper>

@@ -40,7 +40,7 @@
                                     리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록
                                 </div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
@@ -62,7 +62,7 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <div id="right1">찜 목록</div>
+                            <div id="right1">공감 목록</div>
                             <div id="right2">
                                 <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'"
                                     style="cursor: pointer;">

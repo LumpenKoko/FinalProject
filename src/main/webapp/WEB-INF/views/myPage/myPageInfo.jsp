@@ -39,7 +39,7 @@
                                 <div id="mainList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰</div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록</div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록</div>
                                 <div id="boardList"
@@ -98,7 +98,7 @@
                                 <input type="text" style="width: 300px; height: 50px; border-radius: 15px;
                                  border: 1px solid #bababa; padding-left: 20px;" value="${loginUser.userEmail}"
                                     id="userEmail" name="userEmail">
-                                <p style="font-size: 22px;">@</p>
+                                <p style="font-size: 22px; line-height: 50px;">@</p>
                                 <select id="website"
                                     style="border-radius: 15px; width: 300px; border: 1px solid #bababa; margin-right: 165px; padding-left: 20px;">
                                     <option value="naver.com">naver.com</option>
@@ -148,6 +148,21 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
             <script>
+                // $(document).ready(function () {
+                //     // userId 입력값이 변경될 때마다 호출되는 함수
+                //     $("#userId").on("input", function () {
+                //         var userId = $(this).val().trim(); // 입력된 아이디 (양쪽 공백 제거)
+
+                //         // 정규식을 사용하여 아이디가 숫자와 영어로만 이루어져 있고, 숫자와 영어가 무조건 1개 이상씩 들어가고, 8글자 이상 15글자 이하인지 확인
+                //         var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,15}$/;
+                //         if (regex.test(userId)) { // 조건을 만족할 경우
+                //             $("#hiddenId").hide(); // 경고 메시지 숨기기
+                //         } else { // 조건을 만족하지 않을 경우
+                //             $("#hiddenId").show(); // 경고 메시지 표시하기
+                //         }
+                //     });
+                // });
+
                 $(document).ready(function () {
                     // userId 입력값이 변경될 때마다 호출되는 함수
                     $("#userId").on("input", function () {
@@ -155,11 +170,27 @@
 
                         // 정규식을 사용하여 아이디가 숫자와 영어로만 이루어져 있고, 숫자와 영어가 무조건 1개 이상씩 들어가고, 8글자 이상 15글자 이하인지 확인
                         var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,15}$/;
-                        if (regex.test(userId)) { // 조건을 만족할 경우
-                            $("#hiddenId").hide(); // 경고 메시지 숨기기
-                        } else { // 조건을 만족하지 않을 경우
-                            $("#hiddenId").show(); // 경고 메시지 표시하기
+                        if (regex.test(userId)) { // 조건을 만족하지 않을 경우
+                            $("#hiddenId").hide(); // 경고 메시지 표시하기
+                            return; // 추가된 부분
                         }
+
+                        // Ajax 요청을 통해 서버에 아이디를 전송하고 검증 결과를 받음
+                        $.ajax({
+                            url: "/checkUserId",
+                            method: "POST",
+                            data: { userId: userId },
+                            success: function (data) {
+                                if (data.exists) { // 아이디가 존재할 경우
+                                    $("#hiddenId").show(); // 경고 메시지 표시하기
+                                } else { // 아이디가 존재하지 않을 경우
+                                    $("#hiddenId").hide(); // 경고 메시지 숨기기
+                                }
+                            },
+                            error: function () {
+                                console.error("서버와의 통신 중 오류가 발생했습니다.");
+                            }
+                        });
                     });
                 });
             </script>

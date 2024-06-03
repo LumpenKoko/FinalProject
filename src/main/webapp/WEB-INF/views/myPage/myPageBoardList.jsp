@@ -40,7 +40,7 @@
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록
                                 </div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
@@ -69,34 +69,35 @@
                                 <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'"
                                     id="shorts">쇼츠</span>
                             </div>
-                            <div id="right2" onclick="location.href='<%=request.getContextPath()%>/community'"
-                                style="cursor: pointer;">
-                                <div id="right2-left">
-                                    <div style="height: 45px;">
-                                        <span id="category">여행/숙소</span>
-                                        <span id="title">강화도 애견 펜션 메이비 / 강화도 공원</span>
+                            <c:forEach var="board" items="${BoardList}">
+                                <div id="right2" onclick="location.href='<%=request.getContextPath()%>/community'"
+                                    style="cursor: pointer;">
+                                    <div id="right2-left">
+                                        <div style="height: 45px;">
+                                            <span id="category">${board.categoryNo}</span>
+                                            <span id="title">${board.boardTitle}</span>
+                                        </div>
+                                        <div style="height: 100px;">
+                                            <p id="content">${board.boardContent}</p>
+                                        </div>
+                                        <div id="bottom">
+                                            <span id="watch">${board.count}</span>
+                                            <span id="reply">${board.replyCount}</span>
+                                            <span id="day">${board.createDate}</span>
+                                        </div>
                                     </div>
-                                    <div style="height: 100px;">
-                                        <p id="content">강화도에 아이들한테 특화된 펜션이 있다고 해서 찾아가봤다. 앞에 마당 넓이도 넓고 깨끗하고 괜찮았다.
-                                            강화도에 아이들한테 특화된 펜션이 있다고 해서 찾아가봤다. 앞에 마당 넓이도 넓고 깨끗하고...</p>
-                                    </div>
-                                    <div id="bottom">
-                                        <span id="watch">조회수 30</span>
-                                        <span id="reply">댓글 8</span>
-                                        <span id="day">2024.00.00</span>
+                                    <div id="right2-right">
+                                        <div id="right2-right-top">
+                                            <img src="resources/img/myPage/board.png">
+                                        </div>
+                                        <div id="right2-right-bottom" style="margin-left: 85px;">
+                                            <span style="color: #bababa; cursor: pointer;" onclick="">수정</span>
+                                            <span style="color: #bababa; cursor:default;">｜</span>
+                                            <span style="color: #bababa; cursor: pointer;" onclick="">삭제</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="right2-right">
-                                    <div id="right2-right-top">
-                                        <img src="resources/img/myPage/board.png">
-                                    </div>
-                                    <div id="right2-right-bottom" style="margin-left: 85px;">
-                                        <span style="color: #bababa; cursor: pointer;" onclick="">수정</span>
-                                        <span style="color: #bababa; cursor:default;">｜</span>
-                                        <span style="color: #bababa; cursor: pointer;" onclick="">삭제</span>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                             <div id="right7">
                             </div>
                         </div>

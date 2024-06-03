@@ -182,6 +182,16 @@
 		    	  
     </select>
     
+    <select id="selectMyPageReview" resultMap="detailReview">
+     SELECT	REVIEW_NO,
+     		REVIEW_STAR,
+     		REVIEW_CONTENT,
+     		ENROLL_DATE
+     		FROM REVIEW
+     		WHERE USER_NO = #{userNo}
+     		ORDER BY ENROLL_DATE ASC
+   </select>
+    
  	</mapper>
  	
  

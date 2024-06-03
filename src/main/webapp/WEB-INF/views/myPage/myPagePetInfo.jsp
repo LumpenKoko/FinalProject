@@ -40,7 +40,7 @@
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록
                                 </div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
@@ -81,7 +81,7 @@
                                                 <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진
                                                     변경 가능</p>
                                                 <button type="button" class="delete"
-                                                    style="cursor: pointer;">삭제</button>
+                                                    style="cursor: pointer; margin-top: 35px;">삭제</button>
                                             </div>
                                             <div id="right2-right" style="display: flex; flex-direction: column;">
                                                 <div>
@@ -110,7 +110,7 @@
                                                         </option>
                                                     </select>
                                                 </div>
-                                                <div class="gender-input" id="gender-input${loop.index}">
+                                                <div class="gender-input" id="gender-input${loop.index}" style="display: flex;">
                                                     <input type="radio" name="petGender" id="men${loop.index}" value="M"
                                                         ${pet.petGender eq 'M' ? 'checked' : '' } class="petGender">
                                                     <label for="men${loop.index}">남아</label>

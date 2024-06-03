@@ -57,6 +57,10 @@ public class MainDao {
 		return sqlSession.selectOne("mainMapper.selectAttachmentShorts", s);
 	}
 	
+	public int ajaxSelectPetCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("mainMapper.ajaxSelectPetCount", userNo);
+	}
+	
 //	1. COUNT 순서대로 조회한 걸 DESC
 //	2. BOARD_NO을 가진 GOOD을 COUNT 해서 GOOD 개수 기준으로 DESC
 //	3. BOARD_NO을 가진 REPLY를 COUNT 해서 REPLY 개수 기준으로 DESC

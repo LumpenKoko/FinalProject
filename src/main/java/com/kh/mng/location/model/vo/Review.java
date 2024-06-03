@@ -29,5 +29,6 @@ public class Review {
 	private String ownerReplyContent;//사장님 답글
 	private Date ownerEnroll;//사장님 답글 입력 답글
     private ArrayList<Attachment> attachment; //첨부파일
+    private Attachment userProfile;//유저 프로필
     
 }

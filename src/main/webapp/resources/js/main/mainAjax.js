@@ -1,42 +1,98 @@
 let contextPath;
-let loginUser;
-function init(path, user){
+let registPetTime = "registPetTime";
+
+// body onload 시 실행되는 초기 함수
+function init(path){
     contextPath = path;
-    loginUser = user;
+    
+    document.querySelector("#onload-button").click(); // 반려동물 등록 모달을 위한 트리거 함수 (세션의 유저 정보 넘기기 위함)
+    selectPlaceTop(); // 추천 장소 ajax
 
-    selectPlaceTop();
-
+    // 추천 커뮤니티 게시글
     for(i = 1; i <= 3; i++){
         selectBoardDetailTop(i);
     }
 
-    selectShortsTop();
-
-    // if (loginUser !== null){
-    //     selectRegistPetModal(loginUser);
-    // }
-
+    selectShortsTop(); // 추천 쇼츠
 }
 
-// function selectRegistPetModal(loginUser){
-//     console.log("들어왔어요")
-//     let button = document.querySelector("#regist-pet-button");
-//     button.click;
-// }
 
+// ***반려동물 등록 모달***
+// 모달창 띄우기를 위한 ajax 통신을 해야하는지 검사 후 필요할 시 ajax 통신 실행
+function compareRegistPetTime(userNo, userId){
+    let currentTime = new Date();
+    currentTime = currentTime.setTime(currentTime.getTime());
+    let storageTime = getStorage(userNo+userId+"registPet");
+    if (Number.isNaN(storageTime, currentTime) || (!Number.isNaN(storageTime, currentTime) && currentTime > storageTime)){
+        selectRegistPetModal(userNo);
+    } // 로컬 스토리지에 해당 name의 정보가 없는 경우 NaN이 반환되었음
+}
 
-// function sendToPage(url){
-//     location.href = contextPath + url;
-// }
+    // 모달창 ajax 보내야 하는 조건
+    // 1. storage에 해당 이름의 정보가 없으면 3일간 닫기 누른 적이 없으므로 무조건 떠야함
+    // 2. storage에 해당 이름의 정보가 있는데 저장된 특정 시간을 지난 경우 떠야함
+
+// ajax로 현재 세션의 userNo로 등록된 반려동물 정보가 있는지 검사
+function selectRegistPetModal(userNo){
+    console.log("ajax")
+    ajaxGetData(contextPath + "/registPetModal.ma", 
+    {userNo: userNo}, 
+    function(result){showRegistPetModal(result)});
+}
+
+// ajax 결과가 NNNNN인 경우 반려동물 등록 모달창 띄우기
+function showRegistPetModal(result){
+    console.log("ajax성공")
+    if (result == "NNNNN"){
+        console.log("NNNNN")
+        $("#regist-pet-alarm").show();
+    }
+}
+
+// 3일간 보지 않기가 선택 되었는지 검사 후 선택 된 경우 setStorage에 userNo, userId 넘겨 시간 저장
+function checkRegistPetTime(userNo, userId){
+    let checkBtn = document.querySelector("#check-alarm");
+    if (checkBtn.checked){
+        setExpireStorage(userNo+userId+"registPet", 3);
+    }
+}
+
+// 나중에 등록하기 클릭 시 모달창 없애기
+function hideRegistPetModal(){
+    $("#regist-pet-alarm").hide();
+}
+
+// 지금 등록하기 클릭 시 페이지 넘기기
+function gotoRegistPet(){
+    location.href = contextPath + '/myPagePetSignUp.mp';
+}
+
+// 해당 정보로 로컬 스토리지에 저장
+function setExpireStorage(name, exp){
+    console.log("들어옴")
+    let date = new Date();
+
+    date = date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000); // 현재 시각에 밀리세컨(ms)으로 바꾼 만료일수 더해 만료시간 정의
+    localStorage.setItem(name, date); // 이름과 만료일수 세팅
+}
+
+// 해당 이름으로 저장된 정보 로컬 스토리지에서 가져옴
+function getStorage(name){
+    console.log(parseInt(localStorage.getItem(name)))
+    return parseInt(localStorage.getItem(name));
+}
+
 
 // ***장소 추천***
+// 장소 추천 ajax
 function selectPlaceTop(){
-    
+
     ajaxGetData(contextPath + "/topPlace.ma", 
     "",
     function(result){drawPlaceTop(result)});
 }
 
+// 장소 ajax 성공 시 추천 장소 출력
 function drawPlaceTop(locationList){
     let placeImg = document.querySelector("#place-img");
     placeImg.src = locationList[0].attachment.filePath + locationList[0].attachment.changeName;
@@ -85,6 +141,7 @@ function drawPlaceTop(locationList){
     }
 }
 
+// ***인기 커뮤니티 게시글***
 // 인기 조회글 ajax
 function selectBoardDetailTop(type){
     ajaxGetData(contextPath + "/topBoard.ma?type=" + type,
@@ -92,6 +149,7 @@ function selectBoardDetailTop(type){
     function(result){drawBoardDetailTop(type, result)});
 }
 
+// ajax 성공 시 인기 조회글 출력
 function drawBoardDetailTop(type, boardList){
     let boardBox = document.querySelector("#community-ranking>div");
 
@@ -135,7 +193,6 @@ function drawBoardDetailTop(type, boardList){
     
     for (i = 0; i < boardList.length; i++){
         board = boardList[i];
-        
         let boardRanking = document.createElement('tr');
         boardRanking.className = "community-ranking-box-content";
 
@@ -161,35 +218,18 @@ function drawBoardDetailTop(type, boardList){
         // 내용-작성자
         boardDetail += `<div class="community-ranking-box-member">`+boardList[i].userNo+`</div></td>`;
         boardRanking.innerHTML = boardDetail;
-        console.log(boardRanking)
     }
-    
-
-
-
-//         `<tr class="community-ranking-box-content">`
-//             `<td id="community-ranking-box-ranking">`5`</td>
-//             <td id="community-ranking-box-content">
-//                 <div class="community-ranking-box-title">
-//                     <div>오늘 한강공원 가는데 돗자리 세트 사서 나눠 가지실 분? 오늘 한강공원 가는데 돗자리</div>
-//                     <span>[20]</span>
-//                 </div>
-//                 <div class="community-ranking-box-member">쿠키언니</div>
-//             </td>
-//         </tr>
-
-//     </table>
-// </div>`
 }
 
-
 // ***쇼츠 추천***
+// 쇼츠 ajax
 function selectShortsTop(){
     ajaxGetData(contextPath + "/topShorts.ma", 
     "",
     function(result){drawShortsTop(result)});
 }
 
+// ajax 성공 시 쇼츠 출력
 function drawShortsTop(shortsList){
     let shortsRanking = document.querySelector("#shorts-ranking>div");
     
@@ -225,8 +265,7 @@ function drawShortsTop(shortsList){
 
 }
 
-
-
+// ajax 기본 함수
 function ajaxGetData(url, data, callback){
     $.ajax({
         url: url,
@@ -301,4 +340,49 @@ function ajaxGetData(url, data, callback){
 //     star += `</div></div>`
 // }
 
-// function 
+// $(function() {
+// 	$("#regist-pet-alarm").modal("show");
+// });
+// document.addEventListener("DOMContentLoaded", function() {
+//     var modal = document.getElementById("modal");
+//     modal.classList.add("show");
+// });
+
+// var now = new Date();
+//       now = now.setTime(now.getTime());
+//       // 현재 시각과 스토리지에 저장된 시각을 각각 비교하여
+//       // 시간이 남아 있으면 true, 아니면 false 리턴
+//       return parseInt(localStorage.getItem(name)) > now
+
+// /* 스토리지 제어 함수 정의 */
+// var handleStorage = {
+//     // 스토리지에 데이터 쓰기(이름, 만료일)
+//     setStorage: function (name, exp) {
+//       // 만료 시간 구하기(exp를 ms단위로 변경)
+//       var date = new Date();
+//       date = date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+  
+//       // 로컬 스토리지에 저장하기
+//           // (값을 따로 저장하지 않고 만료 시간을 저장)
+//       localStorage.setItem(name, date)
+//     },
+//     // 스토리지 읽어오기
+//     getStorage: function (name) {
+//       var now = new Date();
+//       now = now.setTime(now.getTime());
+//       // 현재 시각과 스토리지에 저장된 시각을 각각 비교하여
+//       // 시간이 남아 있으면 true, 아니면 false 리턴
+//       return parseInt(localStorage.getItem(name)) > now
+//     }
+//   };
+
+// function selectRegistPetModal(loginUser){
+//     console.log("들어왔어요")
+//     let button = document.querySelector("#regist-pet-button");
+//     button.click;
+// }
+
+
+// function sendToPage(url){
+//     location.href = contextPath + url;
+// }

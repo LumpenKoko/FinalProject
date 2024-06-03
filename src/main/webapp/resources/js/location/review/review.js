@@ -4,7 +4,6 @@ const dataTransfer = new DataTransfer();
 
 function fileUpload(_this) {
 
-
   let fileArr = _this.files;
   //console.log(file);
   if (fileArr != null && fileArr.length > 0) {
@@ -138,8 +137,8 @@ function drawReivew(review) {
         <div class="review-section">
 						<div class="profile-star">
 							<div class="profile">
-								<div class="img-div"><img src="resources/img/김지원.jpg" alt="Profile Image"></div>
-								<div><span class="title">${r.userName}</span><br>
+								<div class="img-div"><img src="${r.userProfile.filePath}${r.userProfile.changeName}"></div>
+								<div><span class="title">${r.userNickName}</span><br>
 									<span>${r.enrollDate}</span>
 								</div>
 							</div>
@@ -180,7 +179,7 @@ function drawPaging(reviewPi) {
   if (reviewPi.currentPage == 1) {
     previousButton = `
     <div id="previous-button" class="prv-button">
-      <li class="disabled"><a class="page-button">◀</a></li>
+      <li class="page-disabled"><a class="page-button">◀</a></li>
     </div >
   `
   }
@@ -202,7 +201,7 @@ function drawPaging(reviewPi) {
   if (reviewPi.currentPage == reviewPi.maxPage) {
     nextButton = `
     <div id="next-button" class="next-button">
-				<li class="disabled"><a class="page-button">▶</a></li>
+				<li class="page-disabled"><a class="page-button">▶</a></li>
 		</div >
   `
   }

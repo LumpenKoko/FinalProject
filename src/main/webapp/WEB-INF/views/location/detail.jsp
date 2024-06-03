@@ -9,14 +9,16 @@
 			<title>Insert title here</title>
 			<%@ include file="../common/common-file.jsp" %>
 
-				<link rel="stylesheet" href="resources/css/detail/detail.css" />
-				<link rel="stylesheet" href="resources/css/detail/review.css" />
-				<link rel="stylesheet" href="resources/css/detail/room.css" />
-				<link rel="stylesheet" href="resources/css/detail/review_star.css" />
-				<link rel="stylesheet" href="resources/css/detail/reply.css" />
+
+				<link rel="stylesheet" href="resources/css/location/detail.css" />
+				<link rel="stylesheet" href="resources/css/location/review.css" />
+				<link rel="stylesheet" href="resources/css/location/room.css" />
+				<link rel="stylesheet" href="resources/css/location/review_star.css" />
+				<link rel="stylesheet" href="resources/css/location/reply.css" />
+				
 				<script type="text/javascript"
 					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
-
+                 
 				<script src='resources/js/location/ajax/init.js'></script>
 				<script src='resources/js/location/ajax/pickAjax.js'></script>
 				<script src='resources/js/location/ajax/reviewAjax.js'></script>
@@ -283,7 +285,11 @@
 							<div class="review-detail">
 								<ul class="detail-ul">
 									<li class="title score">${l.locationStar}</li>
-									<li class="avg-star" style="color:#FE8B94;">★★★★★</li>
+								    <li class="avg-star" style="color:#FE8B94;">
+										<c:forEach var="p" begin="1" end="${l.locationStar+((l.locationStar%1>0.5)?(1-l.locationStar%1)%1:-(l.locationStar%1))}">
+										               ★
+									    </c:forEach>
+									</li>
 									<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
@@ -300,7 +306,7 @@
 									<div class="review-section">
 										<div class="profile-star">
 											<div class="profile">
-												<div class="img-div"><img src="resources/img/김지원.jpg"
+												<div class="img-div"><img src="${r.userProfile.filePath}${r.userProfile.changeName}"
 														alt="Profile Image"></div>
 												<div><span class="title">${r.userNickName}</span><br>
 													<span>${r.enrollDate}</span>
@@ -441,7 +447,7 @@
 											onchange="fileUpload(this)">
 									</div>
 								</div>
-								<div id="file-list">file-list</div>
+								<div id="file-list">첨부파일</div>
 							</div>
 
 							<!--페이지 처리 영역-->
@@ -449,7 +455,7 @@
 								<c:choose>
 									<c:when test="${reviewPi.currentPage eq 1}">
 										<div id="previous-button" class="prv-button">
-											<li class="disabled"><a class="page-button">◀</a></li>
+											<li class="page-disabled"><a class="page-button">◀</a></li>
 										</div>
 									</c:when>
 
@@ -470,7 +476,7 @@
 								<c:choose>
 									<c:when test="${reviewPi.currentPage eq reviewPi.maxPage}">
 										<div id="next-button" class="next-button">
-											<li class="disabled"><a class="page-button">▶</a></li>
+											<li class="page-disabled"><a class="page-button">▶</a></li>
 										</div>
 									</c:when>
 

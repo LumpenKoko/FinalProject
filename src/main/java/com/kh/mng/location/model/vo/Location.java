@@ -30,8 +30,10 @@ public class Location {
 	private boolean status;
     private int userNo;
 	private String locationCategoryNo;
-	private ArrayList<Attachment> atList;
-	private Attachment attachment;
-	private ArrayList<EnterGrade> enterList;
+	private ArrayList<Attachment> atList; // 사진 여러 장
+	private Attachment attachment; // 사진 한 장
+	private ArrayList<EnterGrade> enterList; // 출입 등급
+	private OperationTime opTime; // 운영 시간 한 가지
+	private String currentDay; // 현재 요일
 	
 }

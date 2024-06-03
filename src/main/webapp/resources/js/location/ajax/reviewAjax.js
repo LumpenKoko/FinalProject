@@ -32,18 +32,15 @@ function reviewInsert(){
                 //리뷰기입하면 리뷰입력영역을 다 비어준다.
                 document.querySelector("#review-content").value='';
                 document.querySelector("#img-count").innerHTML=0;
+                document.querySelector("#file-list").innerHTML='';
 
-                let restedFile=document.querySelector("#fileInput");
-              
-                // for(let i=0; i<restedFile.length; i++){
-                //     dataTransfer.items.remove(restedFile[i])
-                //   }
-
-               dataTransfer.clearData();
+                let restedFile=document.querySelector("#fileInput").files;
+                let file_length=restedFile.length;
+                for(let i=0; i<file_length; i++){
+                    dataTransfer.items.remove(restedFile[i])
+                  }
                 restedFile.value='';
-              //  dataTransfer.clearData();
-               // document.selection.clear();
-                console.log("길이:",restedFile.files.length)
+                console.log("길이:",restedFile.length)
                 document.querySelector("#img-background").style.backgroundImage
                 =`url(resources/img/myPage/+.png)`;
               

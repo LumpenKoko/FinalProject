@@ -6,7 +6,7 @@
  
  
 <mapper namespace="searchMapper">
-    <resultMap type="DetailLocation" id="detailLocation">
+    <resultMap type="Location" id="locationResult">
 		<result column="LOCATION_NO" property="locationNo"/>
 		<result column="LOCATION_NAME" property="locationName"/>
 		<result column="LOCATION_PHONE" property="locationPhone"/>
@@ -14,18 +14,72 @@
 		<result column="LOCATION_STAR" property="locationStar"/>
 		<result column="RESERVATION_LINK" property="reservationLink"/>
 		<result column="ADDRESS" property="address"/>
-		<result column="GOODS" property="goods"/>
-		<result column="GOODS_PRICE" property="goodPrice"/>
-		<result column="ROOM_INFO" property="roomInfo"/>
-		<result column="DAYS" property="day"/>
-		<result column="CAPACITY" property="capacity"/>
-		<result column="LOCATION_CATEGORY_NO" property="locatonCategoryNo"/>
-		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="CATEGORY_NAME" property="locationCategoryNo"/>
 		<result column="START_TIME" property="startTime"/>
 		<result column="END_TIME" property="endTime"/>
 		<result column="REST_STATUS" property="restStatus"/>
-		<result column="KIND_NAME" property="kindName"/>
-		
+		<result column="DAYS" property="day"/>
    </resultMap>
-
+   <resultMap type="Attachment" id="attachmentResult">
+		<result column="PIC_NO" property="picNo"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="LOCATION_OPTION_NO" property="locationOptionNo"/>
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="PET_NO" property="petNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+   </resultMap>
+   <resultMap type="EnterGrade" id="enterGradeResult">
+		<result column="ENTER_NO" property="enterNo"/>
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="PET_SIZE_NAME" property="petSizeNo"/>
+		<result column="PET_KIND_NAME" property="petKindName"/>
+   </resultMap>
+   <resultMap type="OperationTime" id="operationTime">
+         <result column="START_TIME" property="startTime"/>
+         <result column="END_TIME" property="endTime"/>
+         <result column="DAYS" property="day"/>
+         <result column="REST_STATUS" property="restStatus"/>
+   	</resultMap>
+   
+   <select id="selectLocationListCount" resultType="_int">
+   		SELECT COUNT(*) AS COUNT
+   		FROM LOCATION
+   		WHERE STATUS = true
+   </select>
+   
+   <select id="selectSearchLocationList" resultMap="locationResult">
+   		SELECT LOCATION_NO,
+   			   LOCATION_NAME,
+   			   LOCATION_PHONE,
+   			   LOCATION_STAR,
+   			   ADDRESS,
+   			   CATEGORY_NAME
+   		FROM LOCATION LO
+   		JOIN LOCATION_CATEGORY LC
+   		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+   		WHERE LO.STATUS = true
+   		AND LOCATION_NAME LIKE '%${keyword}%'
+   </select>
+   <!-- 
+   <select id="selectEnterGradeList" resultMap="enterGradeResult">
+		SELECT PET_SIZE_NAME,
+			   PET_KIND_NAME
+		FROM ENTER_GRADE E
+		JOIN PET_SIZE S ON E.PET_SIZE_NO = S.PET_SIZE_NO
+		JOIN PET_KIND K ON S.PET_KIND_NO = K.PET_KIND_NO
+		WHERE E.LOCATION_NO = #{locationNo}
+	</select> -->
+	
+	<select id="selectOperationTime" resultMap="operationTime">
+		SELECT DAYS,
+			   START_TIME,
+			   END_TIME
+		FROM OPERATION_TIME
+		WHERE LOCATION_NO = #{locationNo}
+		AND DAYS = #{currentDay}
+	</select>
 </mapper>

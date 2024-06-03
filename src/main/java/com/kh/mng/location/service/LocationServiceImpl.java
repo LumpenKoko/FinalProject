@@ -1,5 +1,6 @@
 package com.kh.mng.location.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,6 @@ import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
-import com.kh.mng.location.model.vo.DetailLocation_;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
@@ -49,17 +49,18 @@ public class LocationServiceImpl implements LocationService {
 	public DetailLocation selectDetailLocation(int locationNo) {
 		
 		DetailLocation detailLocation=detailDao.selectDetailLocation(sqlSession,locationNo);
-		ArrayList<LocationOption> locationOption=detailDao.selectLocationOptionList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
-		ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
-		detailLocation.setLocationOption(locationOption);
-		detailLocation.setOperationTime(operationTime);
-		detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 
-		detailLocation.setMainAttachMent(mainAttachment);
-		detailLocation.setDetailAttachMent(detailAttchment);
-		
+		if(detailLocation!=null) {
+			ArrayList<LocationOption> locationOption=detailDao.selectLocationOptionList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+			ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
+			detailLocation.setLocationOption(locationOption);
+			detailLocation.setOperationTime(operationTime);
+			detailLocation.setPetKindGrade(petKindGrade);// 이 다오에서만 조인문 
+			detailLocation.setMainAttachMent(mainAttachment);
+			detailLocation.setDetailAttachMent(detailAttchment);
+		}
 		return detailLocation;
 	}
 
@@ -100,25 +101,27 @@ public class LocationServiceImpl implements LocationService {
 		return pickedDao.deletePicked(sqlSession,pickedInfo);
 	}
 
-	@Override
-	public DetailLocation_ selectDetailLocation_(int locationNo) {
-		
-		return detailDao.selectDetailLocation_(sqlSession,locationNo);
-	}
-	
-	
+
 	//리뷰 관련 서비스
 	
 	@Override
+	@Transactional
 	public ArrayList<Review> selectDetailReviewList(int locationNo,PageInfo pi) {
 		
 		 ArrayList<Review> reviews=reviewDao.selectReviewList(sqlSession,locationNo, pi);
-		 
-		 for(Review review:reviews) {
-			 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
-			 review.setAttachment(attachMents);
+		 if(!reviews.isEmpty()) {
+			 for(Review review:reviews) {
+				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 Attachment userProfile= reviewDao.selectProfile(sqlSession,review.getUserNo());
+				 if(userProfile==null) {
+					userProfile=new Attachment();
+					userProfile.setFilePath("resources/img/default/");
+					userProfile.setChangeName("star.png");
+				  }
+				 review.setAttachment(attachMents);
+				 review.setUserProfile(userProfile);
+			 }
 		 }
-		
 		return reviews;
 	}
 	
@@ -131,7 +134,7 @@ public class LocationServiceImpl implements LocationService {
 		int count2=1;
 		if(count1>0) {
 			 if(!changeNamesList.isEmpty()) {
-				  for(Map.Entry<String, String> files : changeNamesList.entrySet()) {
+				  for(Map.Entry<String, String> files : changeNamesList.entrySet()){
 					  FileInfo fileInfo =new FileInfo(files.getKey(),files.getValue(),path);
 					  count2= reviewDao.insertReviewAttachMent(sqlSession,fileInfo);
 					  count2*=count2;
@@ -144,11 +147,21 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public int deleteReview(ReviewInfo reveiwInfo) {
+	@Transactional
+	public ArrayList<Attachment>  deleteReview(ReviewInfo  reviewInfo) {
 		
-		int count=reviewDao.deleteDao(sqlSession,reveiwInfo);
+		ArrayList<Attachment> reviewAttachMent =reviewDao.selectAttachmentList(sqlSession,reviewInfo.getReviewNo());
 		
-		return count;
+		int count=reviewDao.deleteReview(sqlSession, reviewInfo);
+		
+		if(count>0) {
+			return reviewAttachMent;
+		}
+		else {
+			return null;
+		}
+		
+	
 	}
 
 	@Override
@@ -159,19 +172,27 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public int insertReply(ReplyInfo reply) {
-		// TODO Auto-generated method stub
+	
 		return reviewDao.selectReply(sqlSession,reply);
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Review> selectCategoryReviewList(ReviewInfo reivew, PageInfo pi) {
-			ArrayList<Review> reviews=reviewDao.selectCategoryReviewList(sqlSession,reivew, pi);
-		 
-		 for(Review review:reviews) {
-			 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
-			 review.setAttachment(attachMents);
-		 }
-		
+		ArrayList<Review> reviews=reviewDao.selectCategoryReviewList(sqlSession,reivew, pi);
+		if(!reviews.isEmpty()) {
+			 for(Review review:reviews) {
+				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 Attachment userProfile= reviewDao.selectProfile(sqlSession,review.getUserNo());
+				 if(userProfile==null) {
+					userProfile=new Attachment();
+					userProfile.setFilePath("resources/img/default/");
+					userProfile.setChangeName("star.png");
+				  }
+				 review.setAttachment(attachMents);
+				 review.setUserProfile(userProfile);
+			 }
+		}
 		return reviews;
 	}
 

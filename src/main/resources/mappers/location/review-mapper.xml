@@ -16,9 +16,7 @@
    	  <result column="USER_NICKNAME" property="userNickName"/>
    	  <result column="LOCATION_STAR" property="locationStar"/>
    	  <result column="USER_NO" property="userNo"/>
-   	  <result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"/>
-   	  <result column="OWNER_ENROLL" property="ownerEnroll"/>
-   	    <result column="LOCATION_NO" property="locationNo"/>
+   	   <result column="LOCATION_NO" property="locationNo"/>
    </resultMap>
    
    
@@ -33,6 +31,13 @@
 	   		<result column="CHANGE_NAME" property="changeName"/>
 	   		<result column="FILE_PATH" property="filePath"/>
   </resultMap>
+  
+  <resultMap type="MasterReply" id="masterReply">
+  		<result column="OWNER_REPLY_NO" property="ownerReplyNo"></result>
+  		<result column="ENROLL_DATE" property="enrollDate"></result>
+ 		<result column="REVIEW_NO" property="reviewNo"></result>
+ 		<result column="OWNER_REPLY_CONTENT" property="ownerReplyContent"></result>
+  </resultMap>
    
    
    <select id="selectDetailReviewList" resultMap="detailReview">
@@ -43,16 +48,12 @@
     			    USER_NICKNAME,
     			    L.LOCATION_STAR,
     			    R.USER_NO,
-    			    R.LOCATION_NO,
-    			    O.ENROLL_DATE AS OWNER_ENROLL,
-    			    O.OWNER_REPLY_CONTENT
+    			    R.LOCATION_NO
 		    	    FROM REVIEW R
 		    	    JOIN LOCATION L
 		    	    ON (R.LOCATION_NO = L.LOCATION_NO)
 		    	    JOIN MEMBER M
 		    	    ON (R.USER_NO = M.USER_NO)
-		    	    LEFT JOIN OWNER_REPLY O
-		    	    ON (R.REVIEW_NO = O.REVIEW_NO)
 		    	    WHERE L.LOCATION_NO = #{locationNo}
 		    	    ORDER BY R.REVIEW_NO DESC
    </select>
@@ -181,6 +182,22 @@
 		    	    
 		    	  
     </select>
+    
+    <select id="selectReply" resultMap="masterReply">
+    		SELECT OWNER_REPLY_NO,
+    			   OWNER_REPLY_CONTENT,
+    			   ENROLL_DATE,
+    			   REVIEW_NO
+    			   FROM OWNER_REPLY
+    			   WHERE REVIEW_NO = #{reviewNo}
+    
+    </select>
+    
+    <update id="updateReply">
+    	UPDATE OWNER_REPLY SET OWNER_REPLY_CONTENT = #{content},
+    	 		ENROLL_DATE = CURRENT_DATE
+    			WHERE  REVIEW_NO = #{reviewNo}
+    </update>
     
  	</mapper>
  	

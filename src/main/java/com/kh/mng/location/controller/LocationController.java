@@ -58,7 +58,7 @@ public class LocationController {
 	@GetMapping("/detail")
 	public String DetailLocation(@RequestParam(value="locationNo",defaultValue="1") int locationNo,Model model,HttpSession session) {
 		
-		System.out.println(locationNo);
+	
 		//장소정보와 ,리뷰 정보도
 		// 공간 이미지를 db에서 받아온다. ,리뷰 정보도
 	  //	DetailLocation_ detailLocation =  detailService.selectDetailLocation_(locationNo);
@@ -71,22 +71,27 @@ public class LocationController {
 	  	
 		//이방법으로 할것!!
         DetailLocation detailLocations =detailService.selectDetailLocation(locationNo);
-		System.out.println(detailLocations);
 		
 		//로그인 유저 정보 가져오기
 		Member loginUser= (Member)session.getAttribute("loginUser");
-		if(loginUser==null) {
-			model.addAttribute("userNo",-1);
-		}
-		else {
-			model.addAttribute("userNo",loginUser.getUserNo());
+		String checkedMaster="NNNN";
+		int userNo=-1;
+		
+		if(loginUser!=null) {
+			//사장인지 체크
+			if((loginUser.getUserNo()==detailLocations.getUserNo())&& (detailLocations.getUserKind().equals("Y"))) {
+				checkedMaster="YYYY";
+			}
+			userNo=loginUser.getUserNo();
 		}
 		
-	  	
 		
 		model.addAttribute("reviewPi",pi);
 		model.addAttribute("review",reviews);
 		model.addAttribute("l",detailLocations);
+		model.addAttribute("checkedMaster",checkedMaster);
+		model.addAttribute("reviewCount",reviewCount);
+		model.addAttribute("userNo",userNo);
 		
 		return "location/detail";
 	}
@@ -97,14 +102,12 @@ public class LocationController {
 	@PostMapping(value="state",produces="application/json; charset:utf-8")
 	public String pickedState(@RequestBody PickedInfo pickedInfo) {
 		 
-		System.out.println(pickedInfo);
 		
 		//찜 확인(db거친다)
 		//이 공간에대한 유저 찜 상태 받기
 		int count= detailService.pickedStatus(pickedInfo);
 		char status=' ';
 		
-	    System.out.println(count);
 		//찜 상태검사
 		if(count==0) {
 			status='n';
@@ -114,8 +117,7 @@ public class LocationController {
 			status='y';
 			//count--;
 		}
-	
-		System.out.println("유저 찜 상태:"+status);
+
 	    return new Gson().toJson(status);
 	}
 	
@@ -125,13 +127,10 @@ public class LocationController {
 	@PostMapping(value="count",produces="application/json; charset=utf-8")
 	public String pickedCount(@RequestBody PickedInfo pickedInfo) {
 			 
-			System.out.println("pickedCount:"+pickedInfo);
-			
 			//찜 확인(db거친다)
 		     //이 공간에대한 전채찜 개수 받기
 			int count= detailService.pickedCount(pickedInfo.getLocationNo());
-			System.out.println("공간전체 찜 개수:"+count);
-		
+	
 		    return new Gson().toJson(count);
 	}
 	
@@ -155,7 +154,6 @@ public class LocationController {
 			status='n';
 		}
 		
-		System.out.println("status:"+status);
 	    return new Gson().toJson(status);
 	}
 	

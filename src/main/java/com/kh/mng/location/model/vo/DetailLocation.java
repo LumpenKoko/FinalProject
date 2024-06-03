@@ -27,6 +27,8 @@ public class DetailLocation {
 	private String address;//장소 주소
 	private String locationCategoryNo;//카테고리 번호
 	private String categoryName;//카테고리 명
+	private int userNo;//유저넘버
+	private String userKind;//사장여부
 	private ArrayList<LocationOption> locationOption; //장소 옵션들
     private ArrayList<OperationTime>operationTime;//운영시간
     

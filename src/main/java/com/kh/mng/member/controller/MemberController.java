@@ -77,7 +77,7 @@ public class MemberController {
 			// 사장 회원인 경우
 			} else {
 				session.setAttribute("loginUser", loginUser);
-				mv.setViewName("bosspage/bossmainpage");
+				mv.setViewName("redirect:/bossMainPage.bm");	
 			}
 		}
 

@@ -11,6 +11,7 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.vo.MasterReply;
 import com.kh.mng.location.model.vo.Review;
 
 @Repository
@@ -50,15 +51,26 @@ public class ReviewDao {
 		return sqlSession.selectOne("review.reviewCount",locationNo);
 	}
 
-	public int selectReply(SqlSessionTemplate sqlSession,ReplyInfo reply) {
+	public int insertReply(SqlSessionTemplate sqlSession,ReplyInfo reply) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("review.insertReply",reply);
 	}
+	
+	public int updateReply(SqlSessionTemplate sqlSession, ReplyInfo updateReply) {
+	
+		
+		return sqlSession.update("review.updateReply",updateReply);
+	}
+	
+	public MasterReply selectReply(SqlSessionTemplate sqlSession, int reviewNo) {
+		
+		return sqlSession.selectOne("review.selectReply",reviewNo);
+	}
 
-	public ArrayList<Review> selectCategoryReviewList(SqlSessionTemplate sqlSession, ReviewInfo reivew, PageInfo pi) {
+
+    public ArrayList<Review> selectCategoryReviewList(SqlSessionTemplate sqlSession, ReviewInfo reivew, PageInfo pi) {
 		int offset=(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
-		System.out.println(reivew);
 		
 		return (ArrayList)sqlSession.selectList("review.selectCategoryReviewList",reivew,rowBounds);
 	}
@@ -68,6 +80,8 @@ public class ReviewDao {
 		return sqlSession.selectOne("review.selectUserAttachment",userNo);
 	}
 
+
+	
 
 	
 }

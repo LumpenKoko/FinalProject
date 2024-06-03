@@ -1,23 +1,20 @@
 package com.kh.mng.community.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dto.BoardInfo;
@@ -27,10 +24,9 @@ import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
-import com.google.gson.Gson;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 import com.kh.mng.community.service.CommunityService;
-import com.kh.mng.community.service.CommunityServiceImpl;
+import com.kh.mng.member.model.vo.Member;
 
 @Controller
 public class CommunityController {
@@ -167,9 +163,10 @@ public class CommunityController {
 	
 	
 	@RequestMapping(value="shortsView.bo")
-	public String detailShortsView() {
-		new CommunityServiceImpl().selectListCount();
-		return "community/shortsShow";
+	public ModelAndView detailShortsView(ModelAndView mv, HttpSession session) {
+		mv.addObject("loginUser", (Member)session.getAttribute("loginUser"));
+		mv.setViewName("community/shortsShow");
+		return mv;
 	}
 	
 	@RequestMapping(value="detailView.bo")

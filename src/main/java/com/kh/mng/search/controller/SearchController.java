@@ -1,14 +1,17 @@
 package com.kh.mng.search.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.vo.Location;
@@ -72,10 +75,39 @@ public class SearchController {
 //		}
 		
 		// 찜 개수 가져와야 함
-		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("locationList", list);
 		
 		return "search/searchPage";
+	}
+	
+	@PostMapping("searchPage.pl")
+	public String searchPage(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+							@RequestParam(value="pets[]")List<String> pets, 
+								String keyword, Model model) {
+		System.out.println("들어옴");
+		System.out.println(keyword);
+		System.out.println(pets);
+		int locationCount = searchService.selectLocationListCount();
+		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
+		
+		ArrayList<Location> list = searchService.selectSearchLocationList(keyword, pi);
+
+		// 찜 개수 가져와야 함
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("locationList", list);
+		
+		return "search/searchPage";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="selectLikeInfo.pl", produces="application/json; charset-UTF-8")
+	public String selectUserPick(int userNo, int locationNo) {
+		Location loc = new Location();
+		loc.setUserNo(userNo);
+		loc.setLocationNo(locationNo);
+
+		return new Gson().toJson(searchService.selectUserPick(loc));
 	}
 	
 }

@@ -57,9 +57,8 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping("registPetModal.ma")
 	public String ajaxSelectPetCount(int userNo) {
-		System.out.println(userNo);
 		int result = mainService.ajaxSelectPetCount(userNo);
-		System.out.println(result);
+
 		if (result > 0) {
 			return "NNNNY";
 		} else {

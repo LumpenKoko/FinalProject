@@ -11,7 +11,7 @@
 <script src="resources/js/search/search.js"></script>
 <script src="resources/js/search/searchAjax.js"></script>
 </head>
-<body onload="init('<%=request.getContextPath()%>')">
+<body onload="init('<%=request.getContextPath()%>', '<%=request.getSession().getAttribute("loginUser")%>')">
 	<%@ include file="../common/header.jsp"%>
     <div class="wrapper">
 		<div class="main">
@@ -22,23 +22,23 @@
                     <!-- category-box-content div 클릭 시 박스 체크 되도록 js 만들어야 함 -->
                     <div class="category-box-content category-big">
                         <label for="filter-dog">강아지</label>
-                        <input type="checkbox" id="filter-dog" class="checkbox-color-pink">
+                        <input type="checkbox" id="filter-dog" class="filter-pet checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-dog-small">소형견</label>
-                        <input type="checkbox" id="filter-dog-small" class="checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="1" id="filter-dog-small" class="filter-pet checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-dog-middle">중형견</label>
-                        <input type="checkbox" id="filter-dog-middle" class="checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="2" id="filter-dog-middle" class="filter-pet checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-dog-big">대형견</label>
-                        <input type="checkbox" id="filter-dog-big" class="checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="3" id="filter-dog-big" class="filter-pet checkbox-color-pink">
                     </div>
                     <div id="category-cat" class="category-box-content category-border-none">
                         <label for="filter-cat">고양이</label>
-                        <input type="checkbox" id="filter-cat" class="checkbox-color-pink category-border-none">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="4" id="filter-cat" class="filter-pet checkbox-color-pink category-border-none">
                     </div>
                 </div>
 
@@ -50,31 +50,31 @@
                     </div>
                     <div class="category-box-content">
                         <label for="filter-restaurant">식당</label>
-                        <input type="checkbox" id="filter-restaurant" class="checkbox-color-pink">
+                        <input type="checkbox" value="2" id="filter-restaurant" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-cafe">카페</label>
-                        <input type="checkbox" id="filter-cafe" class="checkbox-color-pink">
+                        <input type="checkbox" value="3" id="filter-cafe" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-hotel">숙소</label>
-                        <input type="checkbox" id="filter-hotel" class="checkbox-color-pink">
+                        <input type="checkbox" value="4" id="filter-hotel" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-event">행사</label>
-                        <input type="checkbox" id="filter-event" class="checkbox-color-pink">
+                        <input type="checkbox" value="5" id="filter-event" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-park">테마파크</label>
-                        <input type="checkbox" id="filter-park" class="checkbox-color-pink">
+                        <input type="checkbox" value="6" id="filter-park" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-hospital">병원</label>
-                        <input type="checkbox" id="filter-hospital" class="checkbox-color-pink">
+                        <input type="checkbox" value="7" id="filter-hospital" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content category-border-none">
                         <label for="filter-etc">기타</label>
-                        <input type="checkbox" id="filter-etc" class="checkbox-color-pink category-border-none">
+                        <input type="checkbox" value="1" id="filter-etc" class="filter-location checkbox-color-pink category-border-none">
                     </div>
                 </div>
             </div>
@@ -103,9 +103,16 @@
                         <div class="search-content">
                             <div class="content-title">
                                 <span>${loc.locationName}</span>
-                                <div>
-                                    <img src="resources/img/searchpage/like-pre.png" alt="">
-                                    <span>45</span>
+                                <div class="pick-box">
+                                    <c:choose>
+                                        <c:when test="${not empty loginUser}">
+                                            <img src="resources/img/searchpage/like-pre.png" alt="">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="" alt="">
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <span>${loc.pickCount}</span>
                                 </div>
                             </div>
                             <div class="content-upper-box">
@@ -150,6 +157,7 @@
                             </div>
                         </div>
                     </div>
+                    <button onclick="ajaxSelectLikeInfo('${loginUser.userNo}', '${loc.locationNo}')" type="button" class="like-btn" style="display: none;"></button>
                 </c:forEach>
 
         
@@ -168,7 +176,6 @@
                     <button>10</button>
                     <img src="resources/img/searchpage/paging-right.png" alt="">
                 </div>
-
             </div>
         </div>
 	</div>

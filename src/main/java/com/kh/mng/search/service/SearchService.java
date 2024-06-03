@@ -11,5 +11,8 @@ public interface SearchService {
 	
 	// 검색 페이지 장소 
 	ArrayList<Location> selectSearchLocationList(String keyword, PageInfo pi);
+	
+	// 사용자 찜 여부
+	int selectUserPick(Location loc);
 }
  

@@ -36,12 +36,18 @@ public class SearchServiceImpl implements SearchService {
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
 			loc.setAttachment(new MainDao().selectAttachment(sqlSession, loc));
+			loc.setPickCount(searchDao.selectPickCount(sqlSession, loc));
 		}
 		// list 해당 운영시간
 		// 현재 요일 넘겨서 해당 요일 운영시간 가져오기
 		// 찜 개수 가져오기
 		
 		return list;
+	}
+
+	@Override
+	public int selectUserPick(Location loc) {
+		return searchDao.selectUserPick(sqlSession, loc);
 	}
 
 }

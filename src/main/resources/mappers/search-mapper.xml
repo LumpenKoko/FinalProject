@@ -19,6 +19,7 @@
 		<result column="END_TIME" property="endTime"/>
 		<result column="REST_STATUS" property="restStatus"/>
 		<result column="DAYS" property="day"/>
+		<result column="PICK_COUNT" property="pickCount"/>
    </resultMap>
    <resultMap type="Attachment" id="attachmentResult">
 		<result column="PIC_NO" property="picNo"/>
@@ -81,5 +82,35 @@
 		FROM OPERATION_TIME
 		WHERE LOCATION_NO = #{locationNo}
 		AND DAYS = #{currentDay}
+	</select>
+	
+	<select id="selectFilterLocationList" resultMap="locationResult">
+		SELECT LOCATION_NO,
+   			   LOCATION_NAME,
+   			   LOCATION_PHONE,
+   			   LOCATION_STAR,
+   			   ADDRESS,
+   			   CATEGORY_NAME
+   		FROM LOCATION LO
+   		JOIN LOCATION_CATEGORY LC
+   		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+   		WHERE LO.STATUS = true
+   		AND LOCATION_NAME LIKE '%${keyword}%'
+   		<foreach collection="params" item="item" open="(" separator="," close=")">
+        	AND PET_SIZE_NAME = '' 
+   		</foreach>
+	</select>
+	
+	<select id="selectPickCount" resultType="_int">
+		SELECT COUNT(*) AS PICK_COUNT
+		FROM PICK
+		WHERE LOCATION_NO = #{locationNo}
+	</select>
+	
+	<select id="selectUserPick" resultType="_int">
+		SELECT COUNT(*) AS PICK
+		FROM PICK
+		WHERE USER_NO = #{userNo}
+		AND LOCATION_NO = #{locationNo}
 	</select>
 </mapper>

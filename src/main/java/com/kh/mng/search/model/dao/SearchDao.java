@@ -33,5 +33,13 @@ public class SearchDao {
 	public OperationTime selectOperationTime(SqlSessionTemplate sqlSession, Location loc){
 		return sqlSession.selectOne("searchMapper.selectOperationTime", loc);
 	}
+	
+	public int selectPickCount(SqlSessionTemplate sqlSession, Location loc) {
+		return sqlSession.selectOne("searchMapper.selectPickCount", loc);
+	}
+	
+	public int selectUserPick(SqlSessionTemplate sqlSession, Location loc) {
+		return sqlSession.selectOne("searchMapper.selectUserPick", loc);
+	}
 
 }

@@ -35,5 +35,6 @@ public class Location {
 	private ArrayList<EnterGrade> enterList; // 출입 등급
 	private OperationTime opTime; // 운영 시간 한 가지
 	private String currentDay; // 현재 요일
+	private int pickCount;
 	
 }

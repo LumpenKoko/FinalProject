@@ -3,6 +3,25 @@ function showOrderBox(){
     let orderBox = document.querySelector("#order-by-box");
     orderBox.classList.toggle('display-block');
 }
+
+function selectOrder(orderNum){
+    switch(orderNum){
+        case 1 :
+            document.querySelector('#order-by-time').checked = true;
+            break;
+        case 2 :
+            document.querySelector('#order-by-star').checked = true;
+            break;
+        case 3 :
+            document.querySelector('#order-by-pick').checked = true;
+            break;
+    }
+}
+
+// 장소 div 선택 시 detail 페이지로 넘어감
+function moveToLocationDetail(contextPath, locNo){
+    location.href = contextPath + "/detail?locationNo=" + locNo;
+}
     // orderBox.style.display = (orderBox.style.display = 'none' ? 'block' : 'none')
     // if (orderBox.style.display == 'none'){
     //     console.log("none")
@@ -11,6 +30,33 @@ function showOrderBox(){
     //     console.log("block")
     //     orderBox.style.display = 'none';
     // }
+
+// function searchFilter(contextPath, keyword){
+//     let petList = document.querySelectorAll('.filter-pet');
+//     let locList = document.querySelectorAll('.filter-location');
+//     // let order = document.querySelector('.order-by-list');
+//     // let cpage;
+
+//     let pets = [];
+//     for (let p of petList){
+//         if (p.checked){
+//             pets.push({petSizeNo : p.value});
+//         }
+//     }
+
+//     let locs = [];
+//     for (let l of locList){
+//         if (l.checked){
+//             locs.push({locationCategoryNo : l.value})
+//         }
+//     }
+//     // let pet = JSON.parse(pets)
+
+//     location.href = contextPath + "/searchKeyword.pl"
+//                     + "?keyword=" + "" + keyword
+//                     + "&pets=" + pets
+//                     + "&locs=" + locs;
+// }
 
 // 강아지 선택 시 강아지 사이즈 전체 선택, 취소
 function clickAllAgree(){
@@ -38,6 +84,3 @@ function clickAgree(){
     }
 }
 
-function moveToLocationDetail(contextPath, locNo){
-    location.href = contextPath + "/detail?locationNo=" + locNo;
-}

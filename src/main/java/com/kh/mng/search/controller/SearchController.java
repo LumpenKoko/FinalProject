@@ -1,17 +1,23 @@
 package com.kh.mng.search.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.search.model.dto.SearchFilter;
 import com.kh.mng.search.service.SearchServiceImpl;
 
 @Controller
@@ -58,7 +64,6 @@ public class SearchController {
 	@GetMapping("searchKeyword.pl")
 	public String searchKeyword(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
 								String keyword, Model model) {
-		
 		int locationCount = searchService.selectLocationListCount();
 		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
 		
@@ -72,10 +77,60 @@ public class SearchController {
 //		}
 		
 		// 찜 개수 가져와야 함
-		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("locationList", list);
 		
 		return "search/searchPage";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="searchPage.pl", produces="application/json; charset-UTF-8")
+	public String searchPage(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+							String petList, String locList, String order, String keyword,
+							Model model, HttpServletRequest request) {
+//							@RequestParam(value="petList") Map<String, SearchFilter> petList, 
+//							@RequestParam(value="locList")List<String> locList,
+//							이런 식으로 List로 받을 게 아니라 그냥 아예 프론트에서 String으로 바꿔서 보낼 것
+        
+		System.out.println(petList);
+		System.out.println(locList);
+		System.out.println("들어옴");
+		System.out.println(keyword);
+//		for (int i = 0; i < petList.size(); i++) {
+//			System.out.println(petList.get(i));
+//		}
+//		System.out.println(locList);
+		System.out.println(order);
+		System.out.println(currentPage);
+		int locationCount = searchService.selectLocationListCount();
+		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
+		
+		SearchFilter sf = new SearchFilter();
+		sf.setKeyword(keyword);
+//		sf.setPetList((ArrayList)petList);
+//		sf.setLocList((ArrayList)locList);
+		sf.setOrder(order);
+		
+		ArrayList<Location> list = searchService.selectFilterLocationList(sf, pi);
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("locationList", list);
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i);
+		}
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="selectLikeInfo.pl", produces="application/json; charset-UTF-8")
+	public String selectUserPick(int userNo, int locationNo) {
+		Location loc = new Location();
+		loc.setUserNo(userNo);
+		loc.setLocationNo(locationNo);
+
+		return new Gson().toJson(searchService.selectUserPick(loc));
 	}
 	
 }

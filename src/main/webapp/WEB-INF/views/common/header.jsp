@@ -68,7 +68,7 @@
         </c:when>
         <c:otherwise>
             <div id="header-search" >
-                <form action="<%=contextPath%>/searchKeyword.pl?cpage=1">
+                <form action="<%=contextPath%>/searchKeyword.pl">
                     <input type="text" name="keyword" placeholder="장소를 검색하세요" style="text-align:left;" value="${keyword}">
                     <button id="header-search-button" type="submit">🔍</button>
                 </form>

@@ -11,7 +11,6 @@ function insertReplyAjax(reviewNo){
 
         },
         success:function(response){
-            console.log(response)
             reviewSelect(drawReivew);
             reply.value=""
         },

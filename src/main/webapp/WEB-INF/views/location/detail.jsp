@@ -18,7 +18,7 @@
 				
 				<script type="text/javascript"
 					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
-                 
+				<script src='resources/js/location/detailMainImg.js'></script>
 				<script src='resources/js/location/ajax/init.js'></script>
 				<script src='resources/js/location/ajax/pickAjax.js'></script>
 				<script src='resources/js/location/ajax/reviewAjax.js'></script>
@@ -26,7 +26,6 @@
 				<script src='resources/js/location/pick/pick.js'></script>
 				<script src='resources/js/location/map/map.js'></script>
 				<script src='resources/js/location/map/hostpital-map.js'></script>
-				<script src='resources/js/location/location.js'></script>
 				<script src='resources/js/location/review/review.js'></script>
 				<script src='resources/js/location/review/reply.js'></script>
 			
@@ -35,34 +34,48 @@
 		<%@ include file="../common/header.jsp" %>
 
 			<body onload="init('<%=contextPath%>','${userNo}')">
-
+			
 
 				<div class="wrapper detail-wrapper">
 					<!--헤더 이미지-->
+				
+				
+                 
+					<div id="headerImg" class="header-img">
 
-					<c:set var="i" value="0" />
-					<c:set var="k" value="0" />
+						<!-- <div class="head-img-pre">
+							<button>&gt;</button>
+						</div> -->
+								
+						<!-- <c:forEach var="h" begin="0" end="${l.mainAttachMent.size()-1}">
+							<input id="radio${h}" type="radio" name="radio-btn" class="radio-button">
+						</c:forEach> -->
 
-					<div id="headerImg" class="header-img"
-						style="background: url('${l.mainAttachMent.get(0).filePath}${l.mainAttachMent.get(0).changeName}')  no-repeat center center/cover;">
-
-
-						<c:set var="maxSize" value="" />
-
-						<div class="head-img-pre">
-							<button onclick="moveImg('')">&gt;</button>
-							<!-- <input type="text" value="${k=i}" hidden> -->
-						</div>
-						<div class="overlay">
+					
+							<div class="slide">
+								<c:forEach var="h" begin="1" end="${l.mainAttachMent.size()}">
+									<img src="${l.mainAttachMent.get(h-1).filePath}${l.mainAttachMent.get(h-1).changeName}">
+								</c:forEach>
+							 </div>
+					
+						
+					     <div class="overlay">
 							<h1 class="gugi-regular">${l.locationName}</h1>
 						</div>
-						<div class="head-img-next">
-							<button onclick="moveImg('')">&lt;</button>
-						</div>
-						<input type="text" value="" hidden>
+
+						<!-- <div class="head-img-next">
+							<button>&lt;</button>
+						</div> -->
+
+						<!-- 					
+							<div class="navigation-manual">
+								<c:forEach var="h" begin="0" end="${l.mainAttachMent.size()-1}">
+									<label for="radio${h}" class="manual-btn">●</label>
+								</c:forEach>
+							</div> -->
+						
 					</div>
-
-
+					
 
 
 					<!--메인영역-->
@@ -89,10 +102,10 @@
 										<div class="content"><h5>${l.categoryName}</h5></div>
 										<div class="content">${l.locationPhone}</div>
 										<!-- 장소별로 식별-->
-										<c:if test="{l.locationCategoryNo eq 4}">
+										<c:if test="${l.locationCategoryNo eq 4}">
 											<c:forEach var="o" items="${l.operationTime}">
-												<div class="content">시작시간:${o.startTime}</div>
-												<div class="content">종료시간:${o.endTime}</div>
+												<div class="content">체크인:${o.startTime}</div>
+												<div class="content">체크아웃:${o.endTime}</div>
 												<div class="content">체크인/체크아웃:${o.day}</div>
 											</c:forEach>
 									   </c:if>
@@ -220,11 +233,11 @@
 
 												<c:forEach var="o" items="${l.operationTime}">
 													<tr>
-														<th>시작시간:</th>
+														<th>체크인:</th>
 														<td>${o.startTime}</td>
 													</tr>
 													<tr>
-														<th>종료시간:</th>
+														<th>체크아웃:</th>
 														<td>${o.endTime}</td>
 													</tr>
 
@@ -290,7 +303,7 @@
 										               ★
 									    </c:forEach>
 									</li>
-									<li class="count" style="color:#c2bcbc;">1204건의 리뷰</li>
+									<li class="count" style="color:#c2bcbc;">${reviewCount}건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
 									<li><a  onclick="reviewCategory('o')">최신순</a></li>
@@ -331,25 +344,34 @@
 										<div class="content">${r.reviewContent}</div>
 
 										<!--사장님 답글 영역-->
-										<div><a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
+										<div>
+										
+											<c:if test="${checkedMaster.equals('YYYY')}">
+												<input id="master-check" type="text" value="YYYYY" hidden disabled>
+												<a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
+											</c:if>
+											 <c:if test="${!checkedMaster.equals('YYYY')}">
+												<input id="master-check" type="text" value="NNNNN" hidden disabled>
+											 </c:if>
 											 <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
 										<div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">
 											<textarea id="reply-content${r.reviewNo}" class="master-reply-content"></textarea>
 											<button class="master-reply-button" onclick="insertReplyAjax('${r.reviewNo}')">작성하기</button>
+											
 										</div>
 									</div>
 
 									 
 									<!-- 답글이 있을때만 처리-->
-									<c:if test="${r.ownerReplyContent != null}">
+									<c:if test="${r.masterReply != null}">
 										<div id="master-reply-content${r.reviewNo}" class="master-reply-input"style="align-items: right;">
 											<div class="review-section reply">
 
 												<div class="reply-master">
 													<div class="title master">사장님</div>
-													<div>${r.ownerEnroll}</div>
+													<div>${r.masterReply.enrollDate}</div>
 												</div>
-												<div class="content master-reply">${r.ownerReplyContent}</div>
+												<div class="content master-reply">${r.masterReply.ownerReplyContent}</div>
 											</div>
 										</div>
 									</c:if>

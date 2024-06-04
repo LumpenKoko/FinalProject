@@ -8,6 +8,40 @@
 	justify-content: space-between;
 }
 
+.header-img .radio-button{
+	display: none;
+}
+
+.header-img .slide{
+	width:100%;
+	height:600px;
+	overflow: hidden;
+	position: relative;
+}
+.header-img .slide >img{
+	width:100%;
+	height:100%;
+	transition: opacity 500ms;
+}
+
+.header-img .navigation-manual{
+	position: absolute;
+	width:100%;
+	height:10%;
+	margin-top:550px;
+	display:flex;
+	justify-content: center;
+	gap:3px;
+
+}
+
+.header-img .navigation-manual .manual-btn{
+   color:white;
+   font-size: 30px;
+   font-weight: bold;
+  
+}
+
 .detail-wrapper .head-img-pre, 
 .detail-wrapper .head-img-next{
     align-items: center;

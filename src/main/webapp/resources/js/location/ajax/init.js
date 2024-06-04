@@ -1,26 +1,21 @@
+const urlStrPicked = window.location.href;
+const url = new URL(urlStrPicked);
+
 let contextPath;
 let userNo;
 let spaceNo;
 let statusResult='';
 
-//비동기처리 초기화 함수
+//초기화 함수
  function init(path,userNum){
-    // heartClck();
-     
+    
     contextPath=path;
-   // const urlParams =url.searchParams
     userNo=userNum;
 
     //path와 유저,공간번호 초기화
-    const urlStrPicked = window.location.href;
-    const url = new URL(urlStrPicked);
     const urlParams =url.searchParams
     spaceNo=urlParams.get('locationNo')
-
-   console.log(contextPath)
-   console.log(userNo)
-   console.log(spaceNo)
-   
+    console.log(spaceNo);
 
   //로그인 정보 가져오는 비동기 함수
 
@@ -40,8 +35,6 @@ let statusResult='';
    })
 
    
-   
-
    //하트를 누르면 하트개수 추가
    clickHeart({locationNo:spaceNo,userNo:userNo},pickedCount);
 
@@ -73,6 +66,13 @@ let statusResult='';
 
   //   let userNum=-1;
 
+
+
+  
+
+
+
+
   function getLoginUser(contextPath){
 
     $.ajax({
@@ -90,3 +90,8 @@ let statusResult='';
     })
   
 }
+
+
+
+ 
+

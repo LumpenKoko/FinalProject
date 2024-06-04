@@ -16,7 +16,7 @@
         </head>
          <%@ include file="../common/header.jsp"%>
 
-        <body onload="init('<%=contextPath%>')">
+        <body onload="init('${contextPath}')">
                 <div class="wrapper community-wrap">
                     <div class="main community-main">
 
@@ -25,7 +25,7 @@
                             <div class="title-box flex-box short-title-height">
                                 <div class="minibox-title">쇼츠</div>
                                 <div>
-                                    <a href="<%=contextPath%>/enrollShorts.bo"><button
+                                    <a href="${contextPath}/enrollShorts.bo"><button
                                             class="common-button pink-button">쇼츠 등록</button></a>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                 <!--그리드-->
                                 <div id="short-content" class="grid-box short-area">
                                     <c:forEach var="s" items="${shorts}">
-                                         <div class="short-img-div" onclick="location.href='<%=contextPath%>/shortsView.bo?shortNo=${s.shortsNo}'">
+                                         <div class="short-img-div" onclick="location.href='${contextPath}/shortsView.bo?shortNo=${s.shortsNo}'">
                                                 <div class="short-img">
                                                     <img src="${s.attachment.filePath}${s.attachment.changeName}">
                                                     <div class="img-detail">
@@ -97,7 +97,7 @@
                                 <div class="flex-box">
                                     <div class="minibox-title">게시판</div>
                                     <div>
-                                        <a href="<%=request.getContextPath()%>/enrollBoard.bo"><button class="common-button pink-button">게시글 등록</button></a>
+                                        <a href="${contextPath}/enrollBoard.bo"><button class="common-button pink-button">게시글 등록</button></a>
                                     </div>
                                 </div>
                                 <div id="category-box" class="flex-category-box">
@@ -111,7 +111,7 @@
                             <div id="board-content" class="board-content">
                                 <!--게시판 영역-->
                                 <c:forEach var="b" items="${boards}">
-                                    <div class="grid-box board-area" onclick="location.href='<%=contextPath%>/detailView.bo?boardNo=${b.boardNo}'">
+                                    <div class="grid-box board-area" onclick="location.href='${contextPath}/detailView.bo?boardNo=${b.boardNo}'">
                                         <div class="board-flex-div">
                                             <div class="content-box">
                                                 <div class="profile">

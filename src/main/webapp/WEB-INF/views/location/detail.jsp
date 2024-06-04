@@ -33,7 +33,7 @@
 		</head>
 		<%@ include file="../common/header.jsp" %>
 
-			<body onload="init('<%=contextPath%>','${userNo}')">
+			<body onload="init('${contextPath}','${userNo}','${checkedMaster}')">
 			
 
 				<div class="wrapper detail-wrapper">
@@ -347,11 +347,11 @@
 										<div>
 										
 											<c:if test="${checkedMaster.equals('YYYY')}">
-												<input id="master-check" type="text" value="YYYYY" hidden disabled>
+												<input class="master-check" type="text" value="YYYYY" hidden >
 												<a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
 											</c:if>
 											 <c:if test="${!checkedMaster.equals('YYYY')}">
-												<input id="master-check" type="text" value="NNNNN" hidden disabled>
+												<input class="master-check" type="text" value="NNNNN" hidden  >
 											 </c:if>
 											 <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
 										<div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">

@@ -56,7 +56,7 @@
                                 </div>
                                 <div id="change-phone-container" style="display: inline; display: none;">
                                     <div>
-                                        <button class="change-phone" onclick="updatePhoneNumber()">변경</button>
+                                        <button class="change-phone" onclick="updatePhoneNumber('${userNo}', '<%=contextPath%>')">변경</button>
                                     </div>
                                     <div style="margin-bottom: 20px;">
                                         <input type="text" id="boss-phone-input"
@@ -86,12 +86,12 @@
                                 </div>
                                 <div id="change-personal" style="display: none;">
                                     <div style="margin-top: 10px; display: block;">
-                                        <button class="change-email" onclick="updateEmail()">변경</button>
+                                        <button class="change-email" onclick="updateEmail('${userNo}','<%=contextPath%>')">변경</button>
                                         <div style="gap: 10px;">
                                             <input type="text" id="email-local-part" class="boss-email">
                                             <span>@</span>
                                             <input type="email" id="boss-email" class="boss-domain" placeholder="">
-                                            <select class="boss-email" onchange="updateEmailDomain()">
+                                            <select class="boss-email" onchange="updateEmailDomain('${userNo}','<%=contextPath%>')">
                                                 <option value="선택해주세요">선택해주세요</option>
                                                 <option value="직접입력">직접입력</option>
                                                 <option value="naver.com">naver.com</option>

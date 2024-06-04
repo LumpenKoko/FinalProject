@@ -1,15 +1,28 @@
-function updatePhoneNumber() {
+// 전화번호 업데이트
+function updatePhoneNumber(userNo,contextPath) {
     const phoneNumberInput = document.getElementById('boss-phone-input');
-    const phoneDisplay = document.getElementById('phone-display');
 
-    // 전화번호 형식을 좀 더 유연하게 변경
     if (!phoneNumberInput.value || !/^\d{2,3}-\d{3,4}-\d{4}$/.test(phoneNumberInput.value)) {
         alert('전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678');
         return;
     }
-
-    phoneDisplay.textContent = phoneNumberInput.value;
-    document.getElementById('change-phone-container').style.display = 'none';
+    console.log(phoneNumberInput.value)
+    $.ajax({
+        url: contextPath+'/updatePhoneNumber.bm',
+        type: 'POST',
+        data: { 
+            phoneNumber: phoneNumberInput.value,
+            userNo: userNo
+         },
+        success: function(response) {
+            alert(response)
+            document.getElementById('phone-display').textContent = phoneNumberInput.value
+            document.getElementById('change-phone-container').style.display = 'none';
+        },
+        error: function(error) {
+            alert('전화번호 변경에 실패했습니다.');
+        }
+    });
 }
 
 function showPhoneChange() {
@@ -23,27 +36,31 @@ function showPhoneChange() {
 }
 
 /* 이메일 업데이트 */
-function updateEmail() {
+function updateEmail(userNo,contextPath) {
     const emailLocalPart = document.getElementById('email-local-part').value;
     const emailDomainPart = document.getElementById('boss-email').value;
-    const emailDisplay = document.getElementById('email-display');
+    const fullEmail = emailLocalPart + '@' + emailDomainPart;
 
-    if (!emailLocalPart) {
-        alert('이메일 앞부분을 입력해주세요.');
+    if (!emailLocalPart || !emailDomainPart || emailDomainPart === '선택해주세요') {
+        alert('이메일을 올바르게 입력해주세요.');
         return;
     }
 
-    if (!emailDomainPart) {
-        alert('이메일 도메인을 입력해주세요.');
-        return;
-    }
-    if (!emailDomainPart || emailDomainPart === '선택해주세요') {
-        alert('이메일 도메인을 입력해주세요.');
-        return;
-    }
-
-    emailDisplay.textContent = emailLocalPart + '@' + emailDomainPart;
-    document.getElementById('change-personal').style.display = 'none';
+    $.ajax({
+        url: contextPath+'/updateEmail.bm',
+        type: 'POST',
+        data:{ email: fullEmail,
+                userNo: userNo
+         },
+        success: function(response) {
+            alert(response);
+            document.getElementById('email-display').textContent = fullEmail;
+            document.getElementById('change-personal').style.display = 'none';
+        },
+        error: function(error) {
+            alert('이메일 변경에 실패했습니다.');
+        }
+    });
 }
 
 /* 이메일 도메인 선택 시 동작 */

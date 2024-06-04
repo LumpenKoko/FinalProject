@@ -67,9 +67,8 @@ public class LocationController {
 		int reviewCount=detailService.selectReviewCount(locationNo);
 		PageInfo pi =Pagination.getPageInfo(reviewCount,1,10,5);
 	  	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
-		System.out.println(reviews);
 	  	
-		//이방법으로 할것!!
+	
         DetailLocation detailLocations =detailService.selectDetailLocation(locationNo);
 		
 		//로그인 유저 정보 가져오기

@@ -122,5 +122,18 @@
 		WHERE STATUS = true
 		AND USER_NO = #{userNo}
 	</update>
+	
+	<update id="updatePhonNo">
+		UPDATE MEMBER
+			SET USER_PHONE = #{phoneNumber}
+		WHERE STATUS = true
+		AND USER_NO = #{userNo}
+	</update>
+	<update id="updateEmail">
+		UPDATE MEMBER
+			SET USER_EMAIL = #{email}
+		WHERE STATUS = true
+		AND USER_NO = #{userNo}
+	</update>
 
 </mapper>

@@ -102,10 +102,10 @@
 										<div class="content"><h5>${l.categoryName}</h5></div>
 										<div class="content">${l.locationPhone}</div>
 										<!-- 장소별로 식별-->
-										<c:if test="{l.locationCategoryNo eq 4}">
+										<c:if test="${l.locationCategoryNo eq 4}">
 											<c:forEach var="o" items="${l.operationTime}">
-												<div class="content">시작시간:${o.startTime}</div>
-												<div class="content">종료시간:${o.endTime}</div>
+												<div class="content">체크인:${o.startTime}</div>
+												<div class="content">체크아웃:${o.endTime}</div>
 												<div class="content">체크인/체크아웃:${o.day}</div>
 											</c:forEach>
 									   </c:if>
@@ -233,11 +233,11 @@
 
 												<c:forEach var="o" items="${l.operationTime}">
 													<tr>
-														<th>시작시간:</th>
+														<th>체크인:</th>
 														<td>${o.startTime}</td>
 													</tr>
 													<tr>
-														<th>종료시간:</th>
+														<th>체크아웃:</th>
 														<td>${o.endTime}</td>
 													</tr>
 

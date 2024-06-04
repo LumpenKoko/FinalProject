@@ -98,7 +98,6 @@ function reviewData() {
 function drawReivew(review) {
   // const review=Object.keys(reviews)
   let checkedBoss=document.querySelector("#master-check").value
-  console.log("kkk", review)
 
   let reviewContent = document.querySelector("#review-content-box");
   let reviewBody = "";

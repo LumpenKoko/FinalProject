@@ -31,7 +31,6 @@ public class MainController {
 	@RequestMapping(value="topBoard.ma", produces="application/json; charset-UTF-8")
 	public String ajaxSelectBoardMainList(int type) {
 		ArrayList<Board> list = new ArrayList<Board>();
-		
 		switch(type) {
 		case 1 :
 			list = mainService.ajaxSelectBoardCountList();
@@ -43,7 +42,6 @@ public class MainController {
 			list = mainService.ajaxSelectBoardReplyList();
 			break;
 		}
-
 		return new Gson().toJson(list);
 	}
 	

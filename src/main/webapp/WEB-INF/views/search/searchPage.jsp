@@ -50,31 +50,31 @@
                     </div>
                     <div class="category-box-content">
                         <label for="filter-restaurant">식당</label>
-                        <input type="checkbox" value="2" id="filter-restaurant" class="filter-location checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="2" id="filter-restaurant" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-cafe">카페</label>
-                        <input type="checkbox" value="3" id="filter-cafe" class="filter-location checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="3" id="filter-cafe" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-hotel">숙소</label>
-                        <input type="checkbox" value="4" id="filter-hotel" class="filter-location checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="4" id="filter-hotel" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-event">행사</label>
-                        <input type="checkbox" value="5" id="filter-event" class="filter-location checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="5" id="filter-event" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-park">테마파크</label>
-                        <input type="checkbox" value="6" id="filter-park" class="filter-location checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="6" id="filter-park" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-hospital">병원</label>
-                        <input type="checkbox" value="7" id="filter-hospital" class="filter-location checkbox-color-pink">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="7" id="filter-hospital" class="filter-location checkbox-color-pink">
                     </div>
                     <div class="category-box-content category-border-none">
                         <label for="filter-etc">기타</label>
-                        <input type="checkbox" value="1" id="filter-etc" class="filter-location checkbox-color-pink category-border-none">
+                        <input type="checkbox" onchange="searchFilter('<%=contextPath%>', '${keyword}')" value="1" id="filter-etc" class="filter-location checkbox-color-pink category-border-none">
                     </div>
                 </div>
             </div>
@@ -90,10 +90,14 @@
                             <img src="resources/img/searchpage/open-icon.png" alt="">
                         </div>
                         <div id="order-by-box">
-                            <div class="order-by-list">최신순</div>
-                            <div class="order-by-list">별점순</div>
-                            <div id="order-by-last" class="order-by-list">찜개수순</div>
+                            <label class="order-by-list" onclick="searchFilter('<%=contextPath%>', '${keyword}')">최신순</label>
+                            <label class="order-by-list" onclick="searchFilter('<%=contextPath%>', '${keyword}')">별점순</label>
+                            <label id="order-by-last" class="order-by-list" onclick="searchFilter('<%=contextPath%>', '${keyword}')">찜개수순</label>
                         </div>
+                        <!-- 이걸 onclick으로 하면 지금 현재 어떤 값이 클릭되어 있는지를 확인하지 못함, select box나 radio로 해야 함 -->
+                        <input type="radio" name="order" id="order-by-time" value="1" style="display: none;">
+                        <input type="radio" name="order" id="order-by-star" value="2" style="display: none;">
+                        <input type="radio" name="order" id="order-by-pick" value="3" style="display: none;">
                     </div>
                 </div>
 
@@ -104,14 +108,7 @@
                             <div class="content-title">
                                 <span>${loc.locationName}</span>
                                 <div class="pick-box">
-                                    <c:choose>
-                                        <c:when test="${not empty loginUser}">
-                                            <img src="resources/img/searchpage/like-pre.png" alt="">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="" alt="">
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <img src="" alt="">
                                     <span>${loc.pickCount}</span>
                                 </div>
                             </div>

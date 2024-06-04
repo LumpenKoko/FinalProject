@@ -65,6 +65,33 @@
    		WHERE LO.STATUS = true
    		AND LOCATION_NAME LIKE '%${keyword}%'
    </select>
+   
+   	<select id="selectFilterLocationList" resultMap="locationResult">
+		SELECT * 
+		FROM (  SELECT LOCATION_NO,
+		   			   LOCATION_NAME,
+		   			   LOCATION_PHONE,
+		   			   LOCATION_STAR,
+		   			   ADDRESS,
+		   			   CATEGORY_NAME
+		   		FROM LOCATION LO
+		   		
+		   		JOIN LOCATION_CATEGORY LC
+		   		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+		   		JOIN ENTER_GRADE E
+		   		ON LO.LOCATION_NO = E.LOCATION_NO
+		   		
+		   		WHERE LO.STATUS = true
+		   		AND LOCATION_NAME LIKE '%${keyword}%'
+		   		<if test='!${petList}.isEmpty'>
+		   		AND PET_SIZE_NO IN
+			   		<foreach collection='#{petList}' item="petSizeNo" open="(" separator="," close=")">
+			        	#{petSizeNo}
+			   		</foreach>
+		   		</if>
+   		)
+	</select>
+	
    <!-- 
    <select id="selectEnterGradeList" resultMap="enterGradeResult">
 		SELECT PET_SIZE_NAME,
@@ -82,23 +109,6 @@
 		FROM OPERATION_TIME
 		WHERE LOCATION_NO = #{locationNo}
 		AND DAYS = #{currentDay}
-	</select>
-	
-	<select id="selectFilterLocationList" resultMap="locationResult">
-		SELECT LOCATION_NO,
-   			   LOCATION_NAME,
-   			   LOCATION_PHONE,
-   			   LOCATION_STAR,
-   			   ADDRESS,
-   			   CATEGORY_NAME
-   		FROM LOCATION LO
-   		JOIN LOCATION_CATEGORY LC
-   		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
-   		WHERE LO.STATUS = true
-   		AND LOCATION_NAME LIKE '%${keyword}%'
-   		<foreach collection="params" item="item" open="(" separator="," close=")">
-        	AND PET_SIZE_NAME = '' 
-   		</foreach>
 	</select>
 	
 	<select id="selectPickCount" resultType="_int">

@@ -8,6 +8,8 @@
 <%@ include file="./common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/main/main.css"/>
+<script src="resources/js/main/mainInit.js"></script>
+<script src="resources/js/main/main.js"></script>
 <script src="resources/js/main/mainAjax.js"></script>
 </head>
 <body onload="init('<%=request.getContextPath()%>')">

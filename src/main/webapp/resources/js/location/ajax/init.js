@@ -5,18 +5,20 @@ let contextPath;
 let userNo;
 let spaceNo;
 let statusResult='';
+let checkedMaster;
 
 //초기화 함수
- function init(path,userNum){
+ function init(path,userNum,checkedMaster){
     
     contextPath=path;
     userNo=userNum;
+    checkedMaster=checkedMaster;
 
     //path와 유저,공간번호 초기화
     const urlParams =url.searchParams
     spaceNo=urlParams.get('locationNo')
     console.log(spaceNo);
-
+    console.log(path)
   //로그인 정보 가져오는 비동기 함수
 
 

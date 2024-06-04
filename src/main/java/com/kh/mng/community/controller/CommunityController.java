@@ -76,7 +76,7 @@ public class CommunityController {
 	
 	//게시판 페이징처리 비동기
 	@ResponseBody
-	@GetMapping(value="boards", produces="application/json; charset:utf-8")
+	@GetMapping(value="boards", produces="application/json; charset=utf-8")
 	public String selectBoards(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo
 			                  ,@RequestParam(value="boardPageNo",defaultValue="1")  int boardPageNo,
 			                   @RequestParam(value="boardContent",defaultValue="default") String boardContent
@@ -101,7 +101,7 @@ public class CommunityController {
 	
 	//게시글 카테고리 별 처리 비동기
 	@ResponseBody
-	@GetMapping(value="category", produces="application/json; charset:utf-8")
+	@GetMapping(value="category", produces="application/json; charset=utf-8")
 	public String categoryBoard(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo,
 			                  @RequestParam(value="boardContent",defaultValue="default") String boardContent) {
 		System.out.println("boardCategoryNo"+boardCategoryNo);
@@ -121,7 +121,7 @@ public class CommunityController {
 	//게시글 검색 비동기 처리
 	
 	@ResponseBody
-	@GetMapping(value="search", produces="application/json; charset:utf-8")
+	@GetMapping(value="search", produces="application/json; charset=utf-8")
 	public String searchBoard(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo,
 			                  @RequestParam(value="boardContent",defaultValue="default") String boardContent) {
 		System.out.println("boardCategoryNo"+boardCategoryNo);
@@ -142,7 +142,7 @@ public class CommunityController {
 	
 	//쇼츠 페이징 처리 비동기
 		@ResponseBody
-		@GetMapping(value="shorts", produces="application/json; charset:utf-8")
+		@GetMapping(value="shorts", produces="application/json; charset=utf-8")
 		public String selecShorts(int shortsPageNo) {
 			System.out.println(shortsPageNo);
 			int shortsCount=communityService.selectShortsCount();

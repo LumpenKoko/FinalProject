@@ -97,7 +97,6 @@ function reviewData() {
 //reivewList
 function drawReivew(review) {
   // const review=Object.keys(reviews)
-  let checkedBoss=document.querySelector("#master-check").value
 
   let reviewContent = document.querySelector("#review-content-box");
   let reviewBody = "";
@@ -132,10 +131,11 @@ function drawReivew(review) {
     }
 
     checkedMasterInput="";
-    if(checkedBoss==="YYYYY"){
-      checkedMasterInput=`<a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;`
+    if(checkedMaster==="YYYY"){
+      checkedMasterInput=`
+      <a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;`
     }
-
+    
     reviewBody += `
         <div class="review-section">
 						<div class="profile-star">

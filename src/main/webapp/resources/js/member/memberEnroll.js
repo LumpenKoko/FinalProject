@@ -27,6 +27,25 @@ function clickAgree(){
     }
 };
 
+// 아이디 중복 확인
+function checkDoubleId(){
+    let userIdInput = document.querySelector("#user-id");
+    ajaxSelectDoubleId({userId : userIdInput.value}, checkIdSuccess);
+}
+
+// 아이디 중복 확인 성공 시 실행
+function checkIdSuccess(result) {
+    let idMessage = document.querySelector("#id-message");
+    if (result == "NNNNY"){
+        idMessage.innerHTML = "사용할 수 없는 아이디입니다.";
+        idMessage.style.color = "red";
+    } else {
+        idMessage.innerHTML = "사용할 수 있는 아이디입니다.";
+        idMessage.style.color = "black";
+    }
+    
+}
+
 // 아이디 정규식 검사
 function checkId(){
     let id = document.querySelector("[name='userId']");

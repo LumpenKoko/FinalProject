@@ -8,10 +8,11 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/search/searchPage.css"/>
+<script src="resources/js/search/searchInit.js"></script>
 <script src="resources/js/search/search.js"></script>
 <script src="resources/js/search/searchAjax.js"></script>
 </head>
-<body onload="init('<%=request.getContextPath()%>', '<%=request.getSession().getAttribute("loginUser")%>')">
+<body onload="init('<%=request.getContextPath()%>')">
 	<%@ include file="../common/header.jsp"%>
     <div class="wrapper">
 		<div class="main">
@@ -22,7 +23,7 @@
                     <!-- category-box-content div 클릭 시 박스 체크 되도록 js 만들어야 함 -->
                     <div class="category-box-content category-big">
                         <label for="filter-dog">강아지</label>
-                        <input type="checkbox" id="filter-dog" class="filter-pet checkbox-color-pink">
+                        <input type="checkbox" id="filter-dog" class="checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-dog-small">소형견</label>

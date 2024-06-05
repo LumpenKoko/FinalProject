@@ -94,21 +94,32 @@ public class SearchController {
         
 		System.out.println(petList);
 		System.out.println(locList);
-		System.out.println("들어옴");
 		System.out.println(keyword);
-//		for (int i = 0; i < petList.size(); i++) {
-//			System.out.println(petList.get(i));
-//		}
-//		System.out.println(locList);
 		System.out.println(order);
 		System.out.println(currentPage);
+
+		ArrayList<Integer> pets = new ArrayList<Integer>();
+		ArrayList<Integer> locs = new ArrayList<Integer>();
+		
+		if (!petList.isEmpty()) {
+			for (String p : petList.split(",")) {
+				pets.add(Integer.parseInt(p));
+			}
+		}
+		
+		if (!locList.isEmpty()) {
+			for (String l : locList.split(",")) {
+				locs.add(Integer.parseInt(l));
+			}
+		}
+		
 		int locationCount = searchService.selectLocationListCount();
 		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
 		
 		SearchFilter sf = new SearchFilter();
 		sf.setKeyword(keyword);
-//		sf.setPetList((ArrayList)petList);
-//		sf.setLocList((ArrayList)locList);
+		sf.setPetList(pets);
+		sf.setLocList(locs);
 		sf.setOrder(order);
 		
 		ArrayList<Location> list = searchService.selectFilterLocationList(sf, pi);
@@ -117,7 +128,7 @@ public class SearchController {
 		model.addAttribute("locationList", list);
 		
 		for (int i = 0; i < list.size(); i++) {
-			list.get(i);
+			System.out.println(list.get(i));
 		}
 		
 		return new Gson().toJson(list);

@@ -12,4 +12,5 @@ public class BossPage {
 	private int userNo;
 	private String email;
 	private String phoneNumber;
+	private String bossPwd;
 }

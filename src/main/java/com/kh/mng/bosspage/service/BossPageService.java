@@ -11,6 +11,8 @@ public interface BossPageService {
 	int updatePhoneNumber(BossPage bossPage);
 
 	int updateEmail(BossPage bossPage);
+
+	int updatePwd(BossPage bossPage);
 	
 	
 }

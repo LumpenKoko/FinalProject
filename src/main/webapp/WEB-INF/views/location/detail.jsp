@@ -278,7 +278,7 @@
 						<div class="location-div">
 							<div class="section location-area">
 								<div class="title">위치정보 </div>
-								<input id="address" type="text" value="제주특별자치도 제주시 첨단로 242" hidden>
+								<input id="address" type="text" value="서울특별시 강남구 테헤란로14길 6" hidden>
 								<div class="content">
 									<div id="location-map" style="width:100%; height:500px;"></div>
 								</div>
@@ -316,7 +316,7 @@
 							<div id="review-content-box">
 								<c:forEach var="r" items="${review}">
 
-									<div class="review-section">
+									<div class="review-section" >
 										<div class="profile-star">
 											<div class="profile">
 												<div class="img-div"><img src="${r.userProfile.filePath}${r.userProfile.changeName}"

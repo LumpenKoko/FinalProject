@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString
 public class SearchFilter {
 	private String keyword; // 검색 키워드
-	private ArrayList<String> petList; // 선택한 반려동물 사이즈 리스트
-	private ArrayList<String> locList; // 선택한 장소 카테고리 리스트
+	private ArrayList<Integer> petList; // 선택한 반려동물 사이즈 리스트
+	private ArrayList<Integer> locList; // 선택한 장소 카테고리 리스트
 	private String order; // 정렬 기준
 }

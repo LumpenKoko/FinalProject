@@ -8,6 +8,7 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollCommon.css"/>
+<script src="resources/js/member/memberInit.js"></script>
 <script src="resources/js/member/memberEnroll.js"></script>
 <script src="resources/js/member/memberAjax.js"></script>
 </head>

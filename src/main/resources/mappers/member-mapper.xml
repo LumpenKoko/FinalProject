@@ -135,5 +135,11 @@
 		WHERE STATUS = true
 		AND USER_NO = #{userNo}
 	</update>
+	<update id="updatePwd">
+		UPDATE MEMBER
+			SET USER_PWD = #{bossPwd}
+		WHERE STATUS = true
+		AND USER_NO = #{userNo}
+	</update>
 
 </mapper>

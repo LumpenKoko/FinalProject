@@ -1,4 +1,4 @@
-// 전화번호 업데이트
+/* 전화번호 업데이트 */
 function updatePhoneNumber(userNo,contextPath) {
     const phoneNumberInput = document.getElementById('boss-phone-input');
 
@@ -6,7 +6,7 @@ function updatePhoneNumber(userNo,contextPath) {
         alert('전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678');
         return;
     }
-    console.log(phoneNumberInput.value)
+    
     $.ajax({
         url: contextPath+'/updatePhoneNumber.bm',
         type: 'POST',
@@ -193,6 +193,7 @@ function hideModal(modalId) {
         modal.classList.remove('active');
     }
     document.getElementById('modal-overlay').style.display = 'none';
+    
 }
 
 function hideModal(modalId) {
@@ -200,3 +201,49 @@ function hideModal(modalId) {
     document.getElementById('modal-overlay').classList.remove('active');
     
 }
+/* 비밀번호 업데이트 */
+function updatePassword(event, userNo, contextPath) {
+    event.preventDefault(); // 폼의 기본 제출 동작 방지
+
+    document.getElementById('boss-pws-div').style.display = 'block';
+    document.getElementById('modal-overlay').style.display = 'block';
+
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const mismatchError = document.getElementById('mismatch-error'); // ID를 올바르게 수정
+
+    
+    // 비밀번호 입력 확인
+    if (!password || !confirmPassword) {
+        alert('비밀번호를 입력해주세요.'); // 입력란이 비어있을 경우 경고창 표시
+        return false;
+    }
+    
+    // 비밀번호 일치 여부 확인
+    if (password !== confirmPassword) {
+        mismatchError.style.display = 'block'; // 일치하지 않을 때 에러 메시지 보이기
+        return false; // 추가로 폼 제출 방지
+    } else {
+        mismatchError.style.display = 'none'; // 에러 메시지 숨기기
+    }
+
+    $.ajax({
+        url: contextPath+'/updatePwd.bm',
+        type: 'POST',
+        data: {
+            bossPwd: password,
+            userNo: userNo
+        },
+        success: function(response){
+            alert(response)
+            document.getElementById('boss-pws-div').style.display = 'none';
+            document.getElementById('modal-overlay').style.display = 'none';
+        },
+        error: function(error) {
+            alert('비밀번호 변경에 실패했습니다.');
+        }
+    });
+}
+
+
+

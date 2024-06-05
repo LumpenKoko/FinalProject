@@ -33,5 +33,10 @@ public class BossPageServiceImpl implements BossPageService{
 	public int updateEmail(BossPage bossPage) {
 		return bossPageDao.updateEmail(sqlSession, bossPage);
 	}
+
+	@Override
+	public int updatePwd(BossPage bossPage) {
+		return bossPageDao.updatePwd(sqlSession, bossPage);
+	}
 	
 }

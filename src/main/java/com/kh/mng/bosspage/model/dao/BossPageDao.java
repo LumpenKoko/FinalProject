@@ -22,5 +22,10 @@ public class BossPageDao {
 	public int updateEmail(SqlSessionTemplate sqlSession, BossPage bossPage) {
 		return sqlSession.update("memberMapper.updateEmail", bossPage);
 	}
+
+	public int updatePwd(SqlSessionTemplate sqlSession, BossPage bossPage) {
+		
+		return sqlSession.update("memberMapper.updatePwd", bossPage);
+	}
 	
 }

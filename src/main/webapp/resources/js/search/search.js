@@ -8,19 +8,27 @@ function searchFilter(contextPath, keyword){
 
     let petList = [];
     for (let p of pets){
-        if (p.checked){
+        if (!p.checked){
             petList.push(p.value)
         }
     }
 
     let locList = [];
     for (let l of locs){
-        if (l.checked){
+        if (!l.checked){
             locList.push(l.value)
         }
     }
-
+    console.log(petList.toString())
     let cpage = 1;
+
+    if (petList.length === 0){
+        petList.push(8)
+    }
+
+    if (locList.length === 0){
+        locList.push(8)
+    }
 
     getLocationData({
         keyword : keyword,
@@ -28,43 +36,45 @@ function searchFilter(contextPath, keyword){
         locList : locList.toString(),
         order : order.value,
         cpage : cpage
-    }, function(res){
-        console.log(res)
-    })
+    }, drawSearchPage)
 }
 
 function drawSearchPage(locationList){
     console.log("성공했어요~")
+    console.log(locationList)
     let searchResultBox = document.querySelector("#search-result-box");
 
     searchResultBox.innerHTML = "";
-    // for(let loc of locationList){
-    //     let searchContentBox = document.createElement('div');
-    //     searchContentBox.classList.add('search-content-box', 'gray-round-box');
-        
-    //     searchContentBox.innerHTML = '<img src="'+loc.attachment.filePath+loc.attachment.changeName+'" alt="">';
+    for(let loc of locationList){
+        let searchContentBox = document.createElement('div');
+        searchContentBox.classList.add('search-content-box', 'gray-round-box');
+        searchResultBox.append(searchContentBox)
 
-    //     let searchContent = document.createElement('div');
-    //     searchContent.className = 'search-content';
+        searchContentBox.innerHTML = '<img src="'+loc.attachment.filePath+loc.attachment.changeName+'" alt="">';
+
+        let searchContent = document.createElement('div');
+        searchContent.className = 'search-content';
     
-    //     searchContentBox.appendChild(searchContent);
+        searchContentBox.appendChild(searchContent);
 
-    //     let contentTitle = document.createElement('div');
-    //     contentTitle.className = 'content-title';
+        let contentTitle = document.createElement('div');
+        contentTitle.className = 'content-title';
 
-    //     searchContent.appendChild(contentTitle);
+        searchContent.appendChild(contentTitle);
 
-    //     contentTitle.innerHTML = '<span>'+loc.locationName+'</span>';
+        contentTitle.innerHTML = '<span>'+loc.locationName+'</span>';
 
-    //     let likeBox = document.createElement('div');
-    //     contentTitle.append(likeBox);
+        let likeBox = document.createElement('div');
+        contentTitle.append(likeBox);
+        likeBox.className = 'pick-box';
 
-    //     likeBox.innerHTML += <img src="resources/img/searchpage/like-pre.png" alt=""></img>
+        likeBox.innerHTML += '<img src="resources/img/searchpage/like-pre.png" alt=""></img>'
 
-    //     searchContentBox.onclick = function (){
-    //         location.href = contextPath + "/detail?locationNo=" + locNo;
-    //     }
-    // }
+        searchContentBox.onclick = function (){
+            location.href = contextPath + "/detail?locationNo=" + locNo;
+        }
+
+    }
     
 }
 

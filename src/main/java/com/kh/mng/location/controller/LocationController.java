@@ -232,7 +232,7 @@ public class LocationController {
 	        }
 	 }
 	
-	public String saveFile(MultipartFile upfile,HttpSession session,String path) {
+	private String saveFile(MultipartFile upfile,HttpSession session,String path) {
 		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 				String originName = upfile.getOriginalFilename();
 				

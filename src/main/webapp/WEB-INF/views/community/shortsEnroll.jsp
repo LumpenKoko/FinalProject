@@ -14,8 +14,8 @@
     <script src="resources/js/community/shorts/shortsEnroll.js"></script>
 </head>
 
+<%@ include file="../common/header.jsp"%>
 <body onload="init('${loginUser.userNo}')" >
-	<%@ include file="../common/header.jsp"%>
 	<div class="wrapper">
         <div class="main shorts-main">
             <div class="community-area">

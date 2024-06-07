@@ -4,6 +4,7 @@
 <%@ page import="com.kh.mng.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
+	session.setAttribute("contextPath",request.getContextPath());
     
     //로그인 유저 정의
 	Member loginUser = (Member)session.getAttribute("loginUser");

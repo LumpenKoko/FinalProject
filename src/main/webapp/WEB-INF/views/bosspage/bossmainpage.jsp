@@ -146,7 +146,7 @@
                         <input type="password" id="password-input" placeholder="비밀번호를 입력하세요.">
                     </div>
                     <div class="boss-remove-button">
-                        <button class="boss-remove" onclick="checkPassword('<%=contextPath%>')" disabled>탈퇴</button>
+                        <button class="boss-remove" onclick="checkPassword('<%=request.getContextPath()%>')" disabled>탈퇴</button>
                         <button onclick="hideModal('boss-remove-modal')">취소</button>
                     </div>
                 </div>
@@ -164,11 +164,12 @@
                             <div class="minibox-mini-title">
                                 <span class="error-message" id="mismatch-error">비밀번호가 일치하지 않습니다.</span>
                             </div>
-                
+                            
                             <input type="password" id="password" class="minibox-input" placeholder="비밀번호 입력">
                             <input type="password" id="confirm-password" class="minibox-input" placeholder="비밀번호 확인">
                             
-                            <button type="submit" class="common-button pink-button minibox-full-button" onclick="updatePassword(event, '${userNo}', '<%=contextPath%>')">확인</button>
+                            <button type="submit" class="common-button pink-button minibox-full-button" onclick="updatePassword(event, '${userNo}', '<%=request.getContextPath()%>')">확인</button>
+                            <button class="close-button" onclick="pwdModalClose()">취소</button>
                         </form>
                     </div>
                 </div>

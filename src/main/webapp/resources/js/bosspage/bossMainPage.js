@@ -235,9 +235,12 @@ function updatePassword(event, userNo, contextPath) {
             userNo: userNo
         },
         success: function(response){
-            alert(response)
             document.getElementById('boss-pws-div').style.display = 'none';
             document.getElementById('modal-overlay').style.display = 'none';
+            if(response === '비밀번호 변경에 성공였습니다.') {
+                location.href = contextPath+'/bossMainPage.bm';
+                alert(response)
+            }
         },
         error: function(error) {
             alert('비밀번호 변경에 실패했습니다.');

@@ -4,7 +4,7 @@ function drawBoards(boards){
 
   for(let b of boards){
     boardContent+=`
-            <div class="grid-box board-area">
+            <div class="grid-box board-area" onclick="location.href='${contextPath}/detailView.bo?bno=${b.boardNo}'">
 
             <div class="board-flex-div">
                 <div class="content-box">
@@ -89,10 +89,7 @@ function drawBoardPage(boardPi,category,boardContent="default"){
         `
     }
 
-   
-    console.log(previousButton)
-    console.log(pageNums)
-    console.log(nextButton)
+
     pageDivs.innerHTML=previousButton+pageNums+nextButton;
 
 

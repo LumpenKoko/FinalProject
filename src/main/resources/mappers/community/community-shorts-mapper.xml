@@ -52,6 +52,83 @@
 		SELECT COUNT(*)
 				FROM SHORTS
 	</select>
+	
+	<insert id="insertShortContents">
+	
+		   INSERT INTO 
+				  SHORTS
+				  (
+				   SHORTS_NO,
+				   SHORTS_CONTENT,
+				   ENROLL_DATE,
+				   COUNT,
+			       MODIFY_DATE,
+			       USER_NO,
+			       STATUS
+				  )
+				  VALUES(
+				  	NEXTVAL('SEQ_SHORT'),
+				  	#{shortsContent},
+				  	CURRENT_DATE,
+				  	DEFAULT,
+				  	NULL,
+				  	#{userNo},
+				  	 <choose>
+					  	<when test='showRange == "public"'>
+					  		TRUE
+					  	</when>
+					  	<when test='showRange == "private"'>
+					  		FALSE
+					  	</when>
+				  	</choose>
+				  )
+			  
+	</insert>
+   
+	 
+	 <insert id="insertShortsVideo">
+   	
+   		INSERT INTO 
+   			 	VIDEO(
+   			  	    VIDEO_NO,
+   			  	    SHORTS_NO,
+   			  	    ORIGIN_NAME,
+   			  	    CHANGE_NAME,
+   			  	    FILE_PATH
+   			  		
+   			 	)VALUES(
+   			 	  NEXTVAL('SEQ_VIDEO'),
+   			 	  CURRVAL('SEQ_SHORT'),
+   			 	  #{originName},
+   			 	  #{changeName},
+   			 	  #{filePath}
+   				)
+   			
+   
+   	 </insert>
+   	 
+   	  
+	 <insert id="insertShortsAttachment">
+   	
+           INSERT INTO 
+   			 	PICTURE(
+   			  	    PIC_NO,
+   			  	    SHORTS_NO,
+   			  	    ORIGIN_NAME,
+   			  	    CHANGE_NAME,
+   			  	    FILE_PATH
+   			  	)VALUES(
+   			 	  NEXTVAL('SEQ_PIC'),
+   			 	  CURRVAL('SEQ_SHORT'),
+   			 	  #{originName},
+   			 	  #{changeName},
+   			 	  #{filePath}
+   				)
+   			
+   
+   	 </insert>
+   	   
+   	
   	
    
    

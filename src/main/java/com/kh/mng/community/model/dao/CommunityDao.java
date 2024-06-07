@@ -1,7 +1,8 @@
 package com.kh.mng.community.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,10 +11,11 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ShorstInfo;
+import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
-import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 @Repository
@@ -31,8 +33,12 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getVideoReplyCount", shortsNum);
 	}
 
-	public int addComment(SqlSessionTemplate sqlSession, int videoId, String comment) {
-		return sqlSession.insert("shortsMapper.shortsCommentEnroll", videoId);
+	public int addComment(SqlSessionTemplate sqlSession, int userNo, int shortsNo, String comment) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userNo", userNo);
+	    params.put("shortsNo", shortsNo);
+	    params.put("comment", comment);
+	    return sqlSession.insert("shortsMapper.shortsCommentEnroll", params);
 	}
 
 
@@ -85,6 +91,27 @@ public class CommunityDao {
 	public Attachment selectUserProfile(SqlSessionTemplate sqlSession, int userNo) {
 		
 		return sqlSession.selectOne("communityBoardMapper.selectUserAttachment",userNo);
+	}
+	
+
+	public int insertShortContents(SqlSessionTemplate sqlSession, ShorstInfo shortsInfo) {
+		
+		return sqlSession.insert("communityShortsMapper.insertShortContents",shortsInfo);
+	}
+
+	public int insertShortsVideo(SqlSessionTemplate sqlSession, ShortsFileInfo fileInfos) {
+	
+		return sqlSession.insert("communityShortsMapper.insertShortsVideo",fileInfos);
+	}
+	
+	public int insertShortsAttachment(SqlSessionTemplate sqlSession, ShortsFileInfo fileInfos) {
+		
+		return sqlSession.insert("communityShortsMapper.insertShortsAttachment",fileInfos);
+	}
+	
+
+	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
+		return sqlSession.selectOne("shortsMapper.getShortsNum",videoId);
 	}
 
 

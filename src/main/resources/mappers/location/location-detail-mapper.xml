@@ -16,6 +16,8 @@
 		<result column="ADDRESS" property="address"/>
 		<result column="LOCATION_CATEGORY_NO" property="locationCategoryNo"/>
 		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="USER_KIND" property="userKind"/>
 		
    </resultMap>
    
@@ -65,10 +67,14 @@
 	   				RESERVATION_LINK,
 	   				ADDRESS,
 	   				L.LOCATION_CATEGORY_NO,
-	   				CATEGORY_NAME
+	   				CATEGORY_NAME,
+	   				L.USER_NO,
+	   				M.USER_KIND
 	            FROM  LOCATION L 
 	            JOIN LOCATION_CATEGORY G
 	            ON (L.LOCATION_CATEGORY_NO=G.LOCATION_CATEGORY_NO)
+	            JOIN MEMBER M
+	            ON(M.USER_NO=L.USER_NO)
 	            WHERE LOCATION_NO = #{locationNo};
     </select>
     

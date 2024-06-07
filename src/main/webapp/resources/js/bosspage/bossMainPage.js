@@ -1,15 +1,28 @@
-function updatePhoneNumber() {
+/* 전화번호 업데이트 */
+function updatePhoneNumber(userNo,contextPath) {
     const phoneNumberInput = document.getElementById('boss-phone-input');
-    const phoneDisplay = document.getElementById('phone-display');
 
-    // 전화번호 형식을 좀 더 유연하게 변경
     if (!phoneNumberInput.value || !/^\d{2,3}-\d{3,4}-\d{4}$/.test(phoneNumberInput.value)) {
         alert('전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678');
         return;
     }
-
-    phoneDisplay.textContent = phoneNumberInput.value;
-    document.getElementById('change-phone-container').style.display = 'none';
+    
+    $.ajax({
+        url: contextPath+'/updatePhoneNumber.bm',
+        type: 'POST',
+        data: { 
+            phoneNumber: phoneNumberInput.value,
+            userNo: userNo
+         },
+        success: function(response) {
+            alert(response)
+            document.getElementById('phone-display').textContent = phoneNumberInput.value
+            document.getElementById('change-phone-container').style.display = 'none';
+        },
+        error: function(error) {
+            alert('전화번호 변경에 실패했습니다.');
+        }
+    });
 }
 
 function showPhoneChange() {
@@ -23,27 +36,31 @@ function showPhoneChange() {
 }
 
 /* 이메일 업데이트 */
-function updateEmail() {
+function updateEmail(userNo,contextPath) {
     const emailLocalPart = document.getElementById('email-local-part').value;
     const emailDomainPart = document.getElementById('boss-email').value;
-    const emailDisplay = document.getElementById('email-display');
+    const fullEmail = emailLocalPart + '@' + emailDomainPart;
 
-    if (!emailLocalPart) {
-        alert('이메일 앞부분을 입력해주세요.');
+    if (!emailLocalPart || !emailDomainPart || emailDomainPart === '선택해주세요') {
+        alert('이메일을 올바르게 입력해주세요.');
         return;
     }
 
-    if (!emailDomainPart) {
-        alert('이메일 도메인을 입력해주세요.');
-        return;
-    }
-    if (!emailDomainPart || emailDomainPart === '선택해주세요') {
-        alert('이메일 도메인을 입력해주세요.');
-        return;
-    }
-
-    emailDisplay.textContent = emailLocalPart + '@' + emailDomainPart;
-    document.getElementById('change-personal').style.display = 'none';
+    $.ajax({
+        url: contextPath+'/updateEmail.bm',
+        type: 'POST',
+        data:{ email: fullEmail,
+                userNo: userNo
+         },
+        success: function(response) {
+            alert(response);
+            document.getElementById('email-display').textContent = fullEmail;
+            document.getElementById('change-personal').style.display = 'none';
+        },
+        error: function(error) {
+            alert('이메일 변경에 실패했습니다.');
+        }
+    });
 }
 
 /* 이메일 도메인 선택 시 동작 */
@@ -176,6 +193,7 @@ function hideModal(modalId) {
         modal.classList.remove('active');
     }
     document.getElementById('modal-overlay').style.display = 'none';
+    
 }
 
 function hideModal(modalId) {
@@ -183,3 +201,49 @@ function hideModal(modalId) {
     document.getElementById('modal-overlay').classList.remove('active');
     
 }
+/* 비밀번호 업데이트 */
+function updatePassword(event, userNo, contextPath) {
+    event.preventDefault(); // 폼의 기본 제출 동작 방지
+
+    document.getElementById('boss-pws-div').style.display = 'block';
+    document.getElementById('modal-overlay').style.display = 'block';
+
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const mismatchError = document.getElementById('mismatch-error'); // ID를 올바르게 수정
+
+    
+    // 비밀번호 입력 확인
+    if (!password || !confirmPassword) {
+        alert('비밀번호를 입력해주세요.'); // 입력란이 비어있을 경우 경고창 표시
+        return false;
+    }
+    
+    // 비밀번호 일치 여부 확인
+    if (password !== confirmPassword) {
+        mismatchError.style.display = 'block'; // 일치하지 않을 때 에러 메시지 보이기
+        return false; // 추가로 폼 제출 방지
+    } else {
+        mismatchError.style.display = 'none'; // 에러 메시지 숨기기
+    }
+
+    $.ajax({
+        url: contextPath+'/updatePwd.bm',
+        type: 'POST',
+        data: {
+            bossPwd: password,
+            userNo: userNo
+        },
+        success: function(response){
+            alert(response)
+            document.getElementById('boss-pws-div').style.display = 'none';
+            document.getElementById('modal-overlay').style.display = 'none';
+        },
+        error: function(error) {
+            alert('비밀번호 변경에 실패했습니다.');
+        }
+    });
+}
+
+
+

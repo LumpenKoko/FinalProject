@@ -2,10 +2,42 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  
-   <mapper namespace="location">
- 
+
+
+<mapper namespace="location">
+
+	<resultMap type="bossLocation" id="bossLocationResult">
+		<result column="LOCATION_NO" property="locationNo" />
+		<result column="LOCATION_NAME" property="locationName" />
+		<result column="LOCATION_PHONE" property="locationPhone" />
+		<result column="LOCATION_STAR" property="locationStar" />
+		<result column="RESERVATION_LINK" property="reservationLink" />
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="STATUS" property="status" />
+		<result column="USER_NO" property="userNo" />
+		<result column="LOCATION_CATEGORY_NO"
+			property="locationCategoryNo" />
+	</resultMap>
+   
+   <select id="getLocation" resultMap="bossLocationResult">
+   		SELECT LOCATION_NO,
+   				LOCATION_NAME,
+   				LOCATION_PHONE,
+   				LOCATION_STAR,
+   				RESERVATION_LINK,
+   				BUSINESS_NO,
+   				ADDRESS,
+   				ENROLL_DATE,
+   				MODIFY_DATE,
+   				LOCATION_CATEGORY_NO
+   				FROM LOCATION
+   				WHERE USER_NO = #{userNo}
+   </select>
+   
+   
  	<!-- 장소상세 -->
  
    <!--  <select id="selectDetailList" resultMap="detailLocation">
@@ -70,6 +102,8 @@
          CAST(#{locationCategoryNo} AS INTEGER)
          )
    </insert>
+   
+   
   
 
  	</mapper>

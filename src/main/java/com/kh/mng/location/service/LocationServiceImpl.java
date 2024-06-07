@@ -23,6 +23,7 @@ import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.LocationOption;
+import com.kh.mng.location.model.vo.MasterReply;
 import com.kh.mng.location.model.vo.OperationTime;
 import com.kh.mng.location.model.vo.PetKindGrade;
 import com.kh.mng.location.model.vo.Review;
@@ -54,6 +55,12 @@ public class LocationServiceImpl implements LocationService {
 			ArrayList<OperationTime> operationTime=detailDao.selectOperationTimeList(sqlSession,detailLocation.getLocationNo());
 			ArrayList<PetKindGrade> petKindGrade=detailDao.selectPetKindGradeList(sqlSession,detailLocation.getLocationNo());
 			ArrayList<Attachment> mainAttachment = detailDao.selectAttachMentList(sqlSession,detailLocation.getLocationNo());
+			if(mainAttachment.isEmpty()) {
+				Attachment defaultAttachment = new Attachment();
+				defaultAttachment.setFilePath("resources/img/default/");
+				defaultAttachment.setChangeName("detailImgRestaurant1.jpg");
+				mainAttachment.add(defaultAttachment);
+			}
 			ArrayList<Attachment> detailAttchment = detailDao.selectDetailAttachMentList(sqlSession,detailLocation.getLocationNo());
 			detailLocation.setLocationOption(locationOption);
 			detailLocation.setOperationTime(operationTime);
@@ -112,6 +119,7 @@ public class LocationServiceImpl implements LocationService {
 		 if(!reviews.isEmpty()) {
 			 for(Review review:reviews) {
 				 ArrayList<Attachment> attachMents =reviewDao.selectAttachmentList(sqlSession, review.getReviewNo());
+				 MasterReply masterReply = reviewDao.selectReply(sqlSession,review.getReviewNo());
 				 Attachment userProfile= reviewDao.selectProfile(sqlSession,review.getUserNo());
 				 if(userProfile==null) {
 					userProfile=new Attachment();
@@ -120,6 +128,7 @@ public class LocationServiceImpl implements LocationService {
 				  }
 				 review.setAttachment(attachMents);
 				 review.setUserProfile(userProfile);
+				 review.setMasterReply(masterReply);
 			 }
 		 }
 		return reviews;
@@ -127,7 +136,7 @@ public class LocationServiceImpl implements LocationService {
 	
 	
 	@Override
-	@Transactional //??
+	@Transactional 
 	public int insertReview(ReviewInfo reviewInfo, Map<String,String> changeNamesList,String path) {
 	
 		int count1=reviewDao.insertReview(sqlSession,reviewInfo);
@@ -171,9 +180,21 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
+	@Transactional
 	public int insertReply(ReplyInfo reply) {
-	
-		return reviewDao.selectReply(sqlSession,reply);
+		 MasterReply masterReply = reviewDao.selectReply(sqlSession,reply.getReviewNo());
+		 if(masterReply!=null) {
+			 ReplyInfo updateReply = new ReplyInfo();
+			 updateReply.setContent(reply.getContent());
+			 updateReply.setReviewNo(masterReply.getReviewNo());
+			   
+			  return reviewDao.updateReply(sqlSession,updateReply);
+			 
+		  }else {
+			   return reviewDao.insertReply(sqlSession,reply);
+		  }
+		 
+		 
 	}
 
 	@Override

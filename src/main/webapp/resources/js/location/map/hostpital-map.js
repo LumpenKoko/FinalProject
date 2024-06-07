@@ -13,7 +13,7 @@ $(function(){
     let geocoder = new kakao.maps.services.Geocoder();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch("제주특별자치도 제주시 첨단로 242" , function(result, status) {
+    geocoder.addressSearch("서울특별시 강남구 테헤란로14길 6" , function(result, status) {
     
      // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {

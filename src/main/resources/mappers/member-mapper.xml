@@ -122,5 +122,11 @@
 		WHERE STATUS = true
 		AND USER_NO = #{userNo}
 	</update>
+	
+	<update id="deleteMember">
+		UPDATE MEMBER
+			SET STATUS = false
+		WHERE USER_NO = #{userNo}
+	</update>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.kh.mng.pet.service;
 
 import java.util.List;
 
+import com.kh.mng.common.model.dto.PetPicture;
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.pet.model.vo.Pet;
@@ -17,4 +18,8 @@ public interface PetService {
 	List<Review> getReviewList(int userNo);
 	
 	List<Board> getBoardList(int userNo);
+	
+	int insertPicture(PetPicture pic);
+	
+	int deletePet(Pet p);
 }

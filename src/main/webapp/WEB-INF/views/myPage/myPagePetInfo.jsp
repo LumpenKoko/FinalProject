@@ -6,9 +6,10 @@
         <meta charset="UTF-8">
         <title>Insert title here</title>
 
-
+        <%@ include file="../common/common-file.jsp"%>
         <link rel="stylesheet" href="resources/css/myPage/myPagePetInfo.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        \<script src="resources/js/myPage/myPagePetInfo.js"></script>
     </head>
 
     <body>
@@ -81,7 +82,8 @@
                                                 <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진
                                                     변경 가능</p>
                                                 <button type="button" class="delete"
-                                                    style="cursor: pointer; margin-top: 35px;">삭제</button>
+                                                    style="cursor: pointer; margin-top: 35px;"
+                                                    onclick="deletePet('${pet.petNo}', '<%=request.getContextPath()%>')">삭제</button>
                                             </div>
                                             <div id="right2-right" style="display: flex; flex-direction: column;">
                                                 <div>
@@ -139,41 +141,6 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                document.getElementById('fileInput').addEventListener('change', function () {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-                    }
-
-                    reader.readAsDataURL(file);
-                });
-
-                function updatePet(petNo) {
-                    var formData = {
-                        petNo: eval(petNo),
-                        petName: document.querySelector('.petName[data-index="' + index + '"]').value,
-                        petBirthday: document.querySelector('.petBirthday[data-index="' + index + '"]').value,
-                        petSizeNo: document.querySelector('.petSizeNo[data-index="' + index + '"]').value,
-                        petGender: document.querySelector('input[name="petGender' + index + '"]:checked').value
-                    };
-                }
-
-                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
-
-                // 반려동물 이름을 표시할 요소
-                var petNamesElement = document.getElementById("petNames");
-
-                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
-                for (var i = 0; i < petNames.length; i++) {
-                    var petNameElement = document.createElement("p");
-                    petNameElement.textContent = petNames[i];
-                    petNamesElement.appendChild(petNameElement);
-                }
-            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

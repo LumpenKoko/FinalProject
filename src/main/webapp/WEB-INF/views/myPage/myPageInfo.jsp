@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPageInfo.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="resources/js/myPage/myPageInfo.js"></script>
     </head>
 
     <body>
@@ -16,7 +17,7 @@
         <%@ include file="../common/header.jsp" %>
 
             <div class="wrapper main_wrapper">
-                <div class="main_main">
+                <div class="main_main" id="mainWrapper">
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
@@ -113,9 +114,24 @@
                             <div
                                 style="width: 80%; margin-top: 50px; margin-left: 70px; font-size: 19px; margin-bottom: 30px;">
                                 <span style="float: left; text-align: left; cursor: pointer;" onclick="">비밀번호 변경</span>
-                                <span style="float: right; text-align: right; cursor: pointer;" onclick="">회원탈퇴</span>
+                                <span style="float: right; text-align: right; cursor: pointer;"
+                                    onclick="showConfirmation()">회원탈퇴</span>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div id="confirmationModal" class="modal"
+                    style="width: 400px; height: 400px; border: 1px solid #bababa; border-radius: 15px; position: absolute; z-index: 1000;"
+                    hidden>
+                    <div class="modal-content" style="text-align: center; font-size: 23px;">
+                        <h1 style="color: red; margin-top: 40px;">알림</h1>
+                        <p style="margin-top: 70px;">정말 "탈퇴" 하겠습니까?</p>
+                        <button onclick="deleteMember('${loginUser.userNo}', '<%=request.getContextPath()%>')" style="margin-top: 80px; width: 130px; height: 50px; margin-right: 10px; font-size: 20px;
+                                border-style: none; border-radius: 15px; background-color: #FE8B94; color: white; font-weight: bold;
+                                cursor: pointer;">확인</button>
+                        <button onclick="hideConfirmation()" style="margin-top: 80px; width: 130px; height: 50px; margin-left: 10px; font-size: 20px;
+                                border-style: none; border-radius: 15px; background-color: #FE8B94; color: white; font-weight: bold;
+                                cursor: pointer;">취소</button>
                     </div>
                 </div>
             </div>
@@ -141,58 +157,8 @@
                 for (var i = 0; i < petNames.length; i++) {
                     var petNameElement = document.createElement("p");
                     petNameElement.textContent = petNames[i];
-                    petNamesElement.appendChild(petNameElement);
+                    // petNamesElement.appendChild(petNameElement);
                 }
-            </script>
-
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-            <script>
-                // $(document).ready(function () {
-                //     // userId 입력값이 변경될 때마다 호출되는 함수
-                //     $("#userId").on("input", function () {
-                //         var userId = $(this).val().trim(); // 입력된 아이디 (양쪽 공백 제거)
-
-                //         // 정규식을 사용하여 아이디가 숫자와 영어로만 이루어져 있고, 숫자와 영어가 무조건 1개 이상씩 들어가고, 8글자 이상 15글자 이하인지 확인
-                //         var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,15}$/;
-                //         if (regex.test(userId)) { // 조건을 만족할 경우
-                //             $("#hiddenId").hide(); // 경고 메시지 숨기기
-                //         } else { // 조건을 만족하지 않을 경우
-                //             $("#hiddenId").show(); // 경고 메시지 표시하기
-                //         }
-                //     });
-                // });
-
-                $(document).ready(function () {
-                    // userId 입력값이 변경될 때마다 호출되는 함수
-                    $("#userId").on("input", function () {
-                        var userId = $(this).val().trim(); // 입력된 아이디 (양쪽 공백 제거)
-
-                        // 정규식을 사용하여 아이디가 숫자와 영어로만 이루어져 있고, 숫자와 영어가 무조건 1개 이상씩 들어가고, 8글자 이상 15글자 이하인지 확인
-                        var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,15}$/;
-                        if (regex.test(userId)) { // 조건을 만족하지 않을 경우
-                            $("#hiddenId").hide(); // 경고 메시지 표시하기
-                            return; // 추가된 부분
-                        }
-
-                        // Ajax 요청을 통해 서버에 아이디를 전송하고 검증 결과를 받음
-                        $.ajax({
-                            url: "/checkUserId",
-                            method: "POST",
-                            data: { userId: userId },
-                            success: function (data) {
-                                if (data.exists) { // 아이디가 존재할 경우
-                                    $("#hiddenId").show(); // 경고 메시지 표시하기
-                                } else { // 아이디가 존재하지 않을 경우
-                                    $("#hiddenId").hide(); // 경고 메시지 숨기기
-                                }
-                            },
-                            error: function () {
-                                console.error("서버와의 통신 중 오류가 발생했습니다.");
-                            }
-                        });
-                    });
-                });
             </script>
 
             <%@ include file="../common/footer.jsp" %>

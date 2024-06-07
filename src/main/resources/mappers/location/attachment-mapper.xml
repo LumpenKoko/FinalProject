@@ -28,9 +28,28 @@
    	  			   FROM PICTURE 
    	  			   WHERE FILE_LEVEL = 2  and LOCATION_NO = #{space_no}
    	  </select>
- 
  	
-  
+ 	  <insert id="insertPic">
+ 	  		INSERT INTO PICTURE (
+ 	  			PIC_NO,
+ 	  			ORIGIN_NAME,
+ 	  			CHANGE_NAME,
+ 	  			FILE_PATH,
+ 	  			FILE_LEVEL,
+ 	  			USER_NO,
+ 	  			PET_NO
+ 	  			)
+ 	  			VALUES (
+ 	  			NEXTVAL('SEQ_PIC'),
+ 	  			#{originName},
+ 	  			#{changeName},
+ 	  			#{filePath},
+ 	  			default,
+ 	  			#{userNo},
+ 	  			#{petNo}
+ 	  			)
+ 	  </insert>
+ 	 
 
  	</mapper>
  

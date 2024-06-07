@@ -31,5 +31,7 @@
 		     SELECT COUNT(*) FROM PICK WHERE LOCATION_NO = #{locationNo} and USER_NO = #{userNo}
 		  </select>
 		  
-
+		  <select id="getPickList" resultMap="pickResult">
+		  	 SELECT * FROM PICK WHERE USER_NO = #{userNo}
+		  </select>
  </mapper>

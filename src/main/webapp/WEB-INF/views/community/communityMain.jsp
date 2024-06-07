@@ -25,7 +25,7 @@
                             <div class="title-box flex-box short-title-height">
                                 <div class="minibox-title">쇼츠</div>
                                 <div>
-                                    <a href="${contextPath}/enrollShorts.bo"><button
+                                    <a href="${contextPath}/enrollshort.view"><button
                                             class="common-button pink-button">쇼츠 등록</button></a>
                                 </div>
                             </div>

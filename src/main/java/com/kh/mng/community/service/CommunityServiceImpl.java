@@ -1,16 +1,21 @@
 package com.kh.mng.community.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dao.CommunityDao;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ShorstInfo;
+import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
@@ -97,6 +102,8 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return boards;
 	}
+	
+	
 	@Override
 	public int selectBoardCount(BoardInfo boardInfo){
 		
@@ -125,6 +132,35 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getVideoReplyCount(int shortsNum) {
 		return communityDao.getVideoReplyCount(sqlSession, shortsNum);
 	}
+	
+	
+	@Override
+	@Transactional
+	public int insertShorts(Map<String,ShortsFileInfo> fileInfos, ShorstInfo shortsInfo) {
+	
+		int count=communityDao.insertShortContents(sqlSession,shortsInfo);
+		int count1=1;
+		
+		if(count>0) {
+			
+			if(!fileInfos.isEmpty()) {
+				for(Map.Entry<String, ShortsFileInfo> files :fileInfos.entrySet()) {
+					if(files.getKey().contains("video")) {
+						count1=communityDao.insertShortsVideo(sqlSession,files.getValue());
+					}
+					if(files.getKey().contains("image")) {
+						count1=communityDao.insertShortsAttachment(sqlSession,files.getValue());
+					}
+					count1*=count1;
+				}
+			
+			}
+			
+		}
+		
+		return count*count1;
+	}
+
 
 	@Override
      public String getVideo(int videoId) {
@@ -144,6 +180,7 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getShortsNum(int videoId) {
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
+
 
 
 }

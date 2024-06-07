@@ -6,6 +6,7 @@ classes/
 Servers/
 WebContent/
 application.properties
+*.mp4
 
 ### Eclipse ###
 .metadata

@@ -10,8 +10,8 @@
 	<%@ include file="../common/common-file.jsp" %>
 	<!-- <link rel="stylesheet" href="resources/css/community/community.css"/> -->
     <link rel="stylesheet" href="resources/css/community/shorts.css"/>
-    <script src="resources/js/community/shorts/init.js"></script>
-    <script src="resources/js/community/shorts/shortsEnroll.js"></script>
+    <script src="resources/js/shortsEnroll/init.js"></script>
+    <script src="resources/js/shortsEnroll/shortsEnroll.js"></script>
 </head>
 
 <%@ include file="../common/header.jsp"%>

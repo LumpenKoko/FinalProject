@@ -12,7 +12,7 @@
 </head>
 
 
-<body onload="init('${request.getContextPath()}',${loginUser.userNo})">
+<body onload="init('${contextPath}','${loginUser.userNo}')">
     <div class="headerbar">
         <%@ include file="../common/header.jsp"%>
     </div>

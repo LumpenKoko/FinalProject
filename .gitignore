@@ -7,6 +7,15 @@ Servers/
 WebContent/
 application.properties
 *.mp4
+*.MOV
+*.WMV
+*.AVI
+*.AVCHD
+*.FLV 
+*.F4V 
+*.SWF
+*.MKV
+*.WEBM 
 
 ### Eclipse ###
 .metadata

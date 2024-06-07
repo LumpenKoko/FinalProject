@@ -200,12 +200,11 @@ public class CommunityController {
 		   
 		   for(MultipartFile f:files) {
 			   
-			   if(f.getContentType().contains("video")) {
-				   filePath="resources/img/user/mp4/";
-			   }
-			   
 			   if(f.getContentType().contains("image")) {
-				   filePath="resources/img/user/thumnail/";
+				   filePath="resources/video/thumnail/";
+			   }
+			   else {
+				   filePath="resources/video/mp4/";
 			   }
 			   
 			   String changeName= saveFile(f,session,filePath);

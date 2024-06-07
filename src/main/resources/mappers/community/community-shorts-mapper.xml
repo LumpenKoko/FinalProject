@@ -32,7 +32,8 @@
   	          FROM SHORTS S
   	          JOIN MEMBER M
   	          ON (S.USER_NO = M.USER_NO)
-  	          WHERE S.STATUS= TRUE
+  	          WHERE S.STATUS = TRUE
+  	          ORDER BY S.ENROLL_DATE DESC
   	</select>
   	
   	

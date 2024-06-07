@@ -239,6 +239,9 @@ display: flex;
     background: #EFEFEF;
 }
 
-
+.pwdModal-clos{
+    width: 100%;
+    height: 45px;
+}
 
 

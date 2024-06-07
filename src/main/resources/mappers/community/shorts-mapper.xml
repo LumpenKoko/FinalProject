@@ -25,6 +25,10 @@
 		<result column="FILE_PATH," property="FilePath"/>
 		<result column="CHANGE_NAME" property="changeName"/>
    </resultMap>
+   
+
+   
+   
   
   	<select id="getVideoInfo" resultMap="shortsInfo">
   		SELECT S.SHORTS_NO,

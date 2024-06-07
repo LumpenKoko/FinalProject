@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ShorstInfo;
+import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
@@ -90,6 +92,23 @@ public class CommunityDao {
 		
 		return sqlSession.selectOne("communityBoardMapper.selectUserAttachment",userNo);
 	}
+	
+
+	public int insertShortContents(SqlSessionTemplate sqlSession, ShorstInfo shortsInfo) {
+		
+		return sqlSession.insert("communityShortsMapper.insertShortContents",shortsInfo);
+	}
+
+	public int insertShortsVideo(SqlSessionTemplate sqlSession, ShortsFileInfo fileInfos) {
+	
+		return sqlSession.insert("communityShortsMapper.insertShortsVideo",fileInfos);
+	}
+	
+	public int insertShortsAttachment(SqlSessionTemplate sqlSession, ShortsFileInfo fileInfos) {
+		
+		return sqlSession.insert("communityShortsMapper.insertShortsAttachment",fileInfos);
+	}
+	
 
 	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
 		return sqlSession.selectOne("shortsMapper.getShortsNum",videoId);

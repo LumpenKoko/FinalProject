@@ -1,7 +1,14 @@
 package com.kh.mng.community.service;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ShorstInfo;
+import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
@@ -37,6 +44,8 @@ public interface CommunityService {
 	ArrayList<BoardCategory> selectBoardCategoryList();
 
 	int getShortsNum(int videoId);
+
+	int insertShorts(Map<String, ShortsFileInfo> fileInfos, ShorstInfo shortsInfo);
 
 
 }

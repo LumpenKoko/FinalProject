@@ -13,6 +13,8 @@ public interface BossPageService {
 	int updateEmail(BossPage bossPage);
 
 	int updatePwd(BossPage bossPage);
+
+	int deleteBossUser(String userId);
 	
 	
 }

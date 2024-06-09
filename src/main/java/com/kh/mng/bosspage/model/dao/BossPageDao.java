@@ -28,4 +28,8 @@ public class BossPageDao {
 		return sqlSession.update("memberMapper.updatePwd", bossPage);
 	}
 	
+	public int deleteBossUser(SqlSessionTemplate sqlSession, String bossId) {
+	    int count = sqlSession.update("memberMapper.deleteBossUser", bossId);
+	    return count;
+	}
 }

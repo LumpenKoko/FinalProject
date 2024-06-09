@@ -1,26 +1,30 @@
-/* 전화번호 업데이트 */
+/* 전화번호 업데이트 함수 */
 function updatePhoneNumber(userNo,contextPath) {
+    // 'boss-phone-input' 아이디를 가진 HTML 요소에서 전화번호 입력값을 가져옵니다.
     const phoneNumberInput = document.getElementById('boss-phone-input');
 
+    // 전화번호 형식 검증
+    // 입력된 전화번호가 비어 있거나, 정규 표현식에 맞지 않으면 오류 메시지를 출력하고 함수를 종료합니다.
     if (!phoneNumberInput.value || !/^\d{2,3}-\d{3,4}-\d{4}$/.test(phoneNumberInput.value)) {
         alert('전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678');
         return;
     }
     
+    // AJAX를 이용해 서버에 POST 요청을 보냅니다.
     $.ajax({
-        url: contextPath+'/updatePhoneNumber.bm',
-        type: 'POST',
+        url: contextPath+'/updatePhoneNumber.bm', // 요청할 서버의 URL
+        type: 'POST', // HTTP 요청 방식
         data: { 
-            phoneNumber: phoneNumberInput.value,
-            userNo: userNo
+            phoneNumber: phoneNumberInput.value, // 전달할 데이터: 전화번호
+            userNo: userNo // 전달할 데이터: 사용자 고유 번호
          },
-        success: function(response) {
-            alert(response)
-            document.getElementById('phone-display').textContent = phoneNumberInput.value
-            document.getElementById('change-phone-container').style.display = 'none';
+        success: function(response) { // 요청이 성공했을 때 실행할 함수
+            alert(response) // 서버로부터 받은 응답을 경고창으로 보여줍니다.
+            document.getElementById('phone-display').textContent = phoneNumberInput.value // 전화번호를 표시하는 요소의 내용을 업데이트합니다.
+            document.getElementById('change-phone-container').style.display = 'none'; // 전화번호 변경 폼을 숨깁니다.
         },
-        error: function(error) {
-            alert('전화번호 변경에 실패했습니다.');
+        error: function(error) { // 요청이 실패했을 때 실행할 함수
+            alert('전화번호 변경에 실패했습니다.'); // 실패 메시지를 경고창으로 보여줍니다.
         }
     });
 }
@@ -128,28 +132,32 @@ function showEmailChange() {
     changePersonal.style.display = changePersonal.style.display === 'none' ? 'block' : 'none';
 }
 
-/* 탈퇴시 비밀번호 확인 */
-function toggleRemoveButton() {
-    const confirmYes = document.querySelector('input[name="confirm"][value="yes"]');
-    const removeButton = document.querySelector('.boss-remove');
-    removeButton.disabled = !confirmYes.checked;
-}
-
+/* 사장님회원 탈퇴 */
 function checkPassword(contextPath) {
-    const correctPassword = '1234'; // 실제 비밀번호로 교체해야 함
     const inputPassword = document.getElementById('password-input').value;
-    const message = document.querySelector('.pwd-checkMessage');
 
-    if (inputPassword !== correctPassword) {
-        message.style.display = 'block';
-    } else {
-        message.style.display = 'none';
-        // 탈퇴 처리 로직 추가
-        alert('탈퇴 처리되었습니다.');
-        setTimeout(() => {
-            window.location.href =contextPath;
-        }, 100); // 100ms 딜레이 후에 페이지 이동
-    }
+    // AJAX 요청: 서버에 비밀번호 검증 요청
+    $.ajax({
+        url: contextPath + '/deleteBossUser',  // 서버의 비밀번호 검증 및 회원 탈퇴 API
+        type: 'POST',
+        data: JSON.stringify({
+            password: inputPassword
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(response) {
+            if (response.valid) {
+                alert('탈퇴 처리되었습니다.');
+                window.location.href = contextPath;  // 성공적 탈퇴 후 홈페이지로 리다이렉션
+            } else {
+                document.querySelector('.pwd-checkMessage').textContent = '비밀번호가 일치하지 않습니다.';
+                document.querySelector('.pwd-checkMessage').style.display = 'block';
+            }
+        },
+        error: function() {
+            alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        }
+    });
 }
 
 /* 탈퇴 모달창 */

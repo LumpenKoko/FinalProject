@@ -10,7 +10,15 @@ import lombok.Setter;
 public class BossPage {
 	
 	private int userNo;
-	private String email;
-	private String phoneNumber;
+	private String bossId;
 	private String bossPwd;
+	private String bossName;
+	private String gender;
+	private String email;
+	private Date enrollDate;
+	private Date modifyDate;
+	private String status;
+	private Date bossBirthday;
+	private String phoneNumber;
+	private String userKind;
 }

@@ -39,4 +39,9 @@ public class BossPageServiceImpl implements BossPageService{
 		return bossPageDao.updatePwd(sqlSession, bossPage);
 	}
 	
+	@Override
+	public int deleteBossUser(String bossId) {
+		return bossPageDao.deleteBossUser(sqlSession, bossId);
+	}
+	
 }

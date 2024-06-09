@@ -6,6 +6,7 @@ function getLocationData(data, callback){
         data: data,
         success: function (result) {
             callback(result)
+            console.log(result)
         },
         error: function () {
             console.log("정보를 불러오는데 실패 했습니다.");
@@ -16,19 +17,18 @@ function getLocationData(data, callback){
 
 
 // 좋아요
-// function ajaxSelectLikeInfo(userNo, locationNo){
-//     console.log('들어옴')
-//     console.log(userNo)
-//     if (userNo != ""){
-//         console.log("여기는?")
-//         ajaxGetData(contextPath + "/selectLikeInfo.pl", 
-//         {
-//             userNo : userNo,
-//             locationNo : locationNo
-//         },
-//         function(result){console.log(result)});
-//     }
-// }
+function ajaxSelectLikeInfo(data, callback){
+    $.ajax({
+        url: contextPath + "/selectLikeInfo.pl", 
+        data: data,
+        success: function (result) {
+            callback(result)
+        },
+        error: function () {
+            console.log("정보를 불러오는데 실패 했습니다.");
+        }
+    })
+}
 
 // function drawSearchPlace(){
 

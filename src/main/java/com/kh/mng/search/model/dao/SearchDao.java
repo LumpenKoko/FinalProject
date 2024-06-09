@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.OperationTime;
 import com.kh.mng.search.model.dto.SearchFilter;
@@ -48,6 +49,14 @@ public class SearchDao {
 	
 	public int selectUserPick(SqlSessionTemplate sqlSession, Location loc) {
 		return sqlSession.selectOne("searchMapper.selectUserPick", loc);
+	}
+	
+	public int insertUserPick(SqlSessionTemplate sqlSession, PickedInfo pick) {
+		return sqlSession.insert("searchMapper.insertUserPick", pick);
+	}
+	
+	public int deleteUserPick(SqlSessionTemplate sqlSession, PickedInfo pick) {
+		return sqlSession.delete("searchMapper.deleteUserPick", pick);
 	}
 
 }

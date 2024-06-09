@@ -1,8 +1,6 @@
 package com.kh.mng.search.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.search.model.dto.SearchFilter;
 import com.kh.mng.search.service.SearchServiceImpl;
@@ -67,6 +66,11 @@ public class SearchController {
 		int locationCount = searchService.selectLocationListCount();
 		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
 		
+		System.out.println(pi.getMaxPage());
+		System.out.println(pi.getStartPage());
+		System.out.println(pi.getEndPage());
+		
+		
 		ArrayList<Location> list = searchService.selectSearchLocationList(keyword, pi);
 		
 //		for(Location loc : list) {
@@ -78,6 +82,7 @@ public class SearchController {
 		
 		// 찜 개수 가져와야 함
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("pi", pi);
 		model.addAttribute("locationList", list);
 		
 		return "search/searchPage";
@@ -86,7 +91,7 @@ public class SearchController {
 	@ResponseBody
 	@GetMapping(value="searchPage.pl", produces="application/json; charset-UTF-8")
 	public String searchPage(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-							String petList, String locList, String order, String keyword,
+							String petList, String locList, String order, String keyword, String loginUserNo,
 							Model model, HttpServletRequest request) {
 //							@RequestParam(value="petList") Map<String, SearchFilter> petList, 
 //							@RequestParam(value="locList")List<String> locList,
@@ -123,25 +128,46 @@ public class SearchController {
 		sf.setOrder(order);
 		
 		ArrayList<Location> list = searchService.selectFilterLocationList(sf, pi);
-
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("locationList", list);
+		
+		sf.setLocationList(list);
+		sf.setPi(pi);
+		sf.setLoginUserNo(loginUserNo);
+		
+		model.addAttribute("locationInfo", sf);
 		
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
+//			System.out.println(list.get(i).getOpTime().getStartTime());
 		}
 		
-		return new Gson().toJson(list);
+		return new Gson().toJson(sf);
 	}
 	
 	@ResponseBody
 	@GetMapping(value="selectLikeInfo.pl", produces="application/json; charset-UTF-8")
-	public String selectUserPick(int userNo, int locationNo) {
-		Location loc = new Location();
-		loc.setUserNo(userNo);
-		loc.setLocationNo(locationNo);
+	public String selectUserPick(int loginUserNo, int locNo, int userPick) {
+		PickedInfo pick = new PickedInfo();
+		pick.setLocationNo(locNo);
+		pick.setUserNo(loginUserNo);
+		
+		int result = 0;
+		if (userPick > 0) {
+			result = searchService.deleteUserPick(pick);
+			
+			if (result > 0) {
+				return "DNNNY";
+			} else {
+				return "NNNNN";
+			}
+		} else {
+			result = searchService.insertUserPick(pick);
+			
+			if (result > 0) {
+				return "INNNY";
+			} else {
+				return "NNNNN";
+			}
+		}
 
-		return new Gson().toJson(searchService.selectUserPick(loc));
 	}
 	
 }

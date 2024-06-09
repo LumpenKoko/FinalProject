@@ -23,7 +23,7 @@ public class bossPageController {
 	@Autowired
 	private BossPageService bossPageService;
 	@Autowired
-	   private BCryptPasswordEncoder bcryptPasswordEncoder;
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@RequestMapping("bossMainPage.bm")
 	public String bossPrivacy(Model model, HttpSession session) {
@@ -109,7 +109,32 @@ public class bossPageController {
 	}
 	
 	/*회원탈퇴*/
-	
+	@ResponseBody
+	@PostMapping(value="/deleteBossUser.bm", produces="text/plain;charset=UTF-8")
+	public String deleteBossUser(BossPage bossPage, HttpSession session) {
+		
+		//암호화된 비밀번호 가지고 오기
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		
+		//비밀번호 일치/불일치 확인후
+		if(bcryptPasswordEncoder.matches(bossPage.getBossPwd(), encPwd)) {
+			//일치 -> 탈퇴처리 -> session에서 제거 -> 메인페이지로
+			int result = bossPageService.deleteBossUser(bossPage.getBossId());
+			
+			if(result > 0) {
+				session.removeAttribute("loginUser");
+				session.setAttribute("alertMsg", "회원탛퇴가 성공적으로 이루어졌습니다.");
+				return "redirect:/";
+			} else {
+				session.setAttribute("alertMsg", "탈퇴처리 실패");
+				return "redirect:/bossMainPage.bm";
+			}
+		}else {
+			//불일치 -> alertMsg: 비밀번호 다시 입력 -> 마이페이지
+			session.setAttribute("alertMsg", "비밀번호를 다시 확인해주세요.");
+			return "redirect:/bossMainPage.bm";
+		}
+	}
 	
 
 	@RequestMapping(value = "bossManuBar.bm")

@@ -9,6 +9,7 @@
     
     <link rel="stylesheet" href="resources/css/community/community.css"/>
     <script src="resources/js/community/shorts/shortsShow.js"></script>
+    <script src="resources/js/community/shorts/shortsShowAjax.js"></script>
 </head>
 
 

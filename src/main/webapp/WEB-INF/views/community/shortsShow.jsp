@@ -13,12 +13,13 @@
 </head>
 
 
-<body onload="init('${contextPath}','${loginUser.userNo}')">
+<body>
     <div class="headerbar">
         <%@ include file="../common/header.jsp"%>
     </div>
-    <input type="hidden" id="contextPath" value="${request.getContextPath()}%>" />
-    <input type="hidden" id="userNo" value="${userNo}" />
+    <input type="hidden" id="contextPath" value="${contextPath}" />
+    <input type="hidden" id="userNo" value="${empty loginUser.userNo ? 0 : loginUser.userNo}" />
+
     
     <div class="wrapper">
         <div class="main">

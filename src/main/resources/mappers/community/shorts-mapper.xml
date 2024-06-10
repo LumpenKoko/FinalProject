@@ -9,11 +9,11 @@
 		<result column="SHORTS_NO" property="shortsNo"/>
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="SHORTS_CONTENT" property="shortsContent"/>
-		<result column="V.FILE_PATH" property="shortsPath"/>
-		<result column="V.CHANGE_NAME" property="shortsName"/>
+		<result column="VIDEO_FILE_PATH" property="shortsPath"/>
+		<result column="VIDEO_CHANGE_NAME" property="shortsName"/>
 		<result column="USER_NICKNAME" property="userNickname"/>
-		<result column="P.FILE_PATH" property="profilePath"/>
-		<result column="P.CHANGE_NAME" property="profileName"/>
+		<result column="PROFILE_FILE_PATH" property="profilePath"/>
+		<result column="PROFILE_CHANGE_NAME" property="profileName"/>
    </resultMap>
    
    <resultMap type="ShortsReply" id="shortsReply">
@@ -31,27 +31,28 @@
    
   
   	<select id="getVideoInfo" resultMap="shortsInfo">
-  		SELECT S.SHORTS_NO,
-	   				S.ENROLL_DATE,
-	   				SHORTS_CONTENT,
-	   				V.FILE_PATH,
-	   				V.CHANGE_NAME,
-	   				USER_NICKNAME,
-	   				P.FILE_PATH,
-	   				P.CHANGE_NAME
-	            FROM SHORTS S
-	            
-	            JOIN VIDEO V
-	            ON S.SHORTS_NO=V.SHORTS_NO
-	            
-	            JOIN MEMBER M
-	            ON S.USER_NO=M.USER_NO
-	            
-	            JOIN PICTURE P
-	            ON S.USER_NO=P.USER_NO
-	             
-	            ORDER BY S.SHORTS_NO DESC
-    			LIMIT 1 OFFSET (#{number} - 1);
+  		SELECT 
+		    S.SHORTS_NO,
+		    S.ENROLL_DATE,
+		    S.SHORTS_CONTENT,
+		    V.FILE_PATH AS VIDEO_FILE_PATH,
+		    V.CHANGE_NAME AS VIDEO_CHANGE_NAME,
+		    M.USER_NICKNAME,
+		    COALESCE(P.FILE_PATH, 'default_path') AS PROFILE_FILE_PATH,
+		    COALESCE(P.CHANGE_NAME, 'default_name') AS PROFILE_CHANGE_NAME
+		FROM SHORTS S
+		JOIN VIDEO V ON S.SHORTS_NO = V.SHORTS_NO
+		JOIN MEMBER M ON S.USER_NO = M.USER_NO
+		LEFT JOIN PICTURE P ON S.USER_NO = P.USER_NO
+		WHERE S.SHORTS_NO = (
+		    SELECT SHORTS_NO
+		    FROM (
+		        SELECT SHORTS_NO, ROW_NUMBER() OVER (ORDER BY SHORTS_NO DESC) AS RN
+		        FROM SHORTS
+		    ) AS SUB
+		    WHERE RN = #{number}
+		);
+
   	</select>
   	
   	<select id="getVideoLikeCount" resultType="_int">

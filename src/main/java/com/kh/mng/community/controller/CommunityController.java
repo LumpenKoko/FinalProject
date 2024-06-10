@@ -277,17 +277,19 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value="getVideo.sh")
 	public String loadShorts(@RequestParam(value="videoId") int videoId) {
-		TotalShortsInfo totalShortsInfo = new TotalShortsInfo();
-		
-		totalShortsInfo = communityService.getVideoInfo(videoId);
-		
-		int shortsNum = totalShortsInfo.getShortsNo();
-		
-		totalShortsInfo.setLikeCount(communityService.getVideoLikeCount(shortsNum));
-		totalShortsInfo.setReplyCount(communityService.getVideoReplyCount(shortsNum));
-		
-		return new Gson().toJson(totalShortsInfo);
-	 }
+
+	    TotalShortsInfo totalShortsInfo = communityService.getVideoInfo(videoId);
+
+	    if (totalShortsInfo == null) {
+	        return "Error: Video info not found.";
+	    } else {
+	        int shortsNum = totalShortsInfo.getShortsNo();
+	        totalShortsInfo.setLikeCount(communityService.getVideoLikeCount(shortsNum));
+	        totalShortsInfo.setReplyCount(communityService.getVideoReplyCount(shortsNum));
+	        return new Gson().toJson(totalShortsInfo);
+	    }
+	}
+
 	
 	@ResponseBody
 	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")

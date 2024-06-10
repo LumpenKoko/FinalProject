@@ -33,4 +33,5 @@ public interface LocationService {
 	int insertReply(ReplyInfo reply);
 	ArrayList<Review> selectCategoryReviewList(ReviewInfo review, PageInfo pi);
 	int updateDateReviewScore(int locationNo, int reviewCount);
+	String getMasterId(int locationNo);
 }

@@ -69,4 +69,9 @@ public class DetailDao {
 		return sqlSession.update("detail.updateLocationTotalScore",reviewStar);
 	}
 
+	public String getMasterId(SqlSessionTemplate sqlSession, int locationNo) {
+	
+		return sqlSession.selectOne("detail.getMasterId",locationNo);
+	}
+
 }

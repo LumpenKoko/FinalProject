@@ -8,8 +8,8 @@
     <%@ include file="../common/common-file.jsp" %>
     
     <link rel="stylesheet" href="resources/css/community/community.css"/>
-    <script src="resources/js/community/shorts/shortsShow.js"></script>
-    <script src="resources/js/community/shorts/shortsShowAjax.js"></script>
+    <script src="resources/js/shortsShow/shortsShow.js"></script>
+    <script src="resources/js/shortsShow/ajax/shortsShowAjax.js"></script>
 </head>
 
 

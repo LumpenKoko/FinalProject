@@ -6,6 +6,7 @@ function init(path, userNo){
     contextPath = path;
     loginUserNo = userNo;
     console.log(loginUserNo)
+    operationTime();
     // drawSearchPage();
     // document.querySelector('.like-btn').click();
 }

@@ -4,19 +4,6 @@ function showOrderBox(){
     orderBox.classList.toggle('display-block');
 }
 
-function handelPick(event, loginUserNo, locationNo){
-    let searchResultBox = document.querySelector("#search-result-box");
-    // searchResultBox.addEventListener('click', function(event) {
-        if (event.target.matches('.pick-box img')) {
-            if (event.target.parentNode.dataset.locno == locationNo){
-                changePick(loginUserNo, locationNo);
-            }
-        } else if(event.target.matches('.search-content-box img, .search-content-box div')){ 
-            location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
-        }
-    // });
-}
-
 // 정렬 기준 스타일 바꾸기
 function changeOrderColor(selectedOrder){
     let orderContent = document.querySelectorAll('.order-by-list');
@@ -27,20 +14,78 @@ function changeOrderColor(selectedOrder){
 
     selectedOrder.style.color = 'var(--main-color)'
 }
-
-// 장소 div 선택 시 detail 페이지로 넘어감
-function moveToLocationDetail(contextPath, locNo){
-    location.href = contextPath + "/detail?locationNo=" + locNo;
-}
     
 // 영업시간 출력
 function operationTime(){
+    let day = new Date();
 
+    let year = day.getFullYear();
+    let month = day.getMonth();
+    let date = day.getDate();
+
+    let spanList = document.querySelectorAll('.operation-time');
+
+    day = day.setTime(day.getTime());
+
+    for(let opTime of spanList){
+        console.log(opTime.dataset.start)
+        let start = "";
+        start = opTime.dataset.start;
+        let end = "";
+        end = opTime.dataset.end;
+        console.log(opTime.dataset.category)
+        if (opTime.dataset.category == '숙소'){
+            let startTime = start.substr(0, 5);
+            console.log(start)
+            opTime.innerHTML = "";
+            opTime.innerHTML += '체크인 '
+            opTime.innerHTML += startTime + ' / 체크아웃 ' + end.substr(0, 5);
+            
+        } else {
+            if (opTime.dataset.status == 'false'){
+                let startTime = new Date(year, month, date, 
+                                        start.substr(0, 2),
+                                        start.substr(3, 2),
+                                        start.substr(6, 2));
+                startTime = startTime.setTime(startTime.getTime())
+            
+                let endTime = new Date(year, month, date, 
+                                        end.substr(0, 2),
+                                        end.substr(3, 2),
+                                        end.substr(6, 2));
+                endTime = endTime.setTime(endTime.getTime())
+            
+                if (day >= startTime && day <= endTime){
+                    opTime.innerHTML = '영업 중 ' + end.substr(0, 5) + ' 종료'
+                } else {
+                    opTime.innerHTML = '영업 종료'
+                    opTime.style.color = 'red';
+                }
+            } else if (opTime.dataset.status == 'true'){
+                opTime.innerHTML = '휴무'
+                opTime.style.color = 'red';
+            }
+        }
+        console.log(opTime.dataset.status)
+        
+    }
+
+    
 }
 
-// 찜 함수
+// 페이지 로드 시 공감 및 가게 클릭 시 페이지 이동 이벤트핸들러
+function handelPick(event, loginUserNo, locationNo){
+    if (event.target.matches('.pick-box img')) {
+        if (event.target.parentNode.dataset.locno == locationNo){
+            changePick(loginUserNo, locationNo);
+        }
+    } else if(event.target.matches('.search-content-box img, .search-content-box div')){ 
+        location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
+    }
+}
+
+// 공감 ajax 실행 함수
 function changePick(loginUserNo, locNo){
-    console.log("안들어와?")
     if (loginUserNo != ""){
         ajaxSelectLikeInfo({
             loginUserNo : loginUserNo,
@@ -51,7 +96,7 @@ function changePick(loginUserNo, locNo){
     }
 }
 
-// 찜 성공 시 화면 출력
+// 공감 성공 시 화면 출력
 function drawPickStatus(pick){
     let pickList = document.querySelectorAll('.pick-box');
     console.log(pickList)
@@ -321,21 +366,36 @@ function drawSearchPage(locationInfo){
         lowerBox.innerHTML += '<div><img src="resources/img/searchpage/phone.png" alt="">'
                                     + '<span>'+loc.locationPhone+'</span></div>'
         
-        lowerBox.innerHTML += '<div><img src="resources/img/searchpage/time.png" alt="">'
-                                + '<span>영업 중 22:00 종료</span></div>'
+        let opTimeBox = document.createElement('div');
+        lowerBox.append(opTimeBox);
+
+        let opTimeImg = document.createElement('img');
+        opTimeImg.src = 'resources/img/searchpage/time.png';
+
+        opTimeBox.append(opTimeImg);
+
+        let opTimeText = document.createElement('span');
+        opTimeText.className = 'operation-time';
+        if (loc.opTime.restStatus == false){
+            console.log('집에 보내주세요')
+            opTimeText.dataset.start = loc.opTime.startTime;
+            opTimeText.dataset.end = loc.opTime.endTime;
+            console.log(loc.opTime)
+            console.log(loc)
+        } else {
+            opTimeText.dataset.start = '00:00:00';
+            opTimeText.dataset.end = '00:00:00';
+        }
+        opTimeBox.append(opTimeText);
+
+        (function(){
+            operationTime();
+          })();
+
+        // lowerBox.innerHTML += '<div><img src="resources/img/searchpage/time.png" alt="">'
+        //                         + '<span>영업 중 22:00 종료</span></div>'
         
         
-        //                         if (){
-
-        // } else {
-
-        // }
-        
-        // '<span>'영업 중 22:00 종료'</span>'
-        //                             <span class="close-red">영업 종료</span>
-        //                         </div>'
-                                
-
     }
 
     let pagingBar = document.createElement('div');
@@ -376,6 +436,14 @@ function drawSearchPage(locationInfo){
 
     
 }
+
+
+
+
+
+
+
+
 
 
 // $(".pick-box>img").on("click", function(event){

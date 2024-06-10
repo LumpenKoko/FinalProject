@@ -14,8 +14,6 @@ function getLocationData(data, callback){
     })
 }
 
-
-
 // 좋아요
 function ajaxSelectLikeInfo(data, callback){
     $.ajax({

@@ -46,26 +46,60 @@
          <result column="REST_STATUS" property="restStatus"/>
    	</resultMap>
    
-   <select id="selectLocationListCount" resultType="_int">
+   	<select id="selectLocationListCount" resultType="_int">
    		SELECT COUNT(*) AS COUNT
-   		FROM LOCATION
-   		WHERE STATUS = true
-   </select>
-   
-   <select id="selectSearchLocationList" resultMap="locationResult">
-   		SELECT LOCATION_NO,
+		FROM LOCATION LO
+		WHERE LO.STATUS = true
+		AND LOCATION_NAME LIKE '%' || #{keyword} || '%'
+   	</select>
+   	<select id="selectSearchLocationList" resultMap="locationResult">
+   		SELECT LO.LOCATION_NO,
    			   LOCATION_NAME,
    			   LOCATION_PHONE,
    			   LOCATION_STAR,
    			   ADDRESS,
-   			   CATEGORY_NAME
+   			   CATEGORY_NAME,
+   			   PICK_COUNT
    		FROM LOCATION LO
+   		
    		JOIN LOCATION_CATEGORY LC
    		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+   		JOIN (SELECT COUNT(*) AS PICK_COUNT,
+							P.LOCATION_NO
+				  FROM PICK P
+				  GROUP BY P.LOCATION_NO) PC
+		ON LO.LOCATION_NO = PC.LOCATION_NO
+		
    		WHERE LO.STATUS = true
    		AND LOCATION_NAME LIKE '%${keyword}%'
-   </select>
+   	</select>
    
+   	<select id="selectFilterLocationListCount" resultType="_int">
+   		SELECT COUNT(*) AS COUNT
+		FROM (
+				SELECT DISTINCT LO.LOCATION_NO
+				FROM LOCATION LO
+				
+				JOIN LOCATION_CATEGORY LC
+				ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+				JOIN ENTER_GRADE E
+				ON LO.LOCATION_NO = E.LOCATION_NO
+				
+				WHERE LO.STATUS = true
+				AND LOCATION_NAME LIKE '%' || #{keyword} || '%'
+				AND E.LOCATION_NO NOT IN (SELECT DISTINCT E.LOCATION_NO
+											FROM ENTER_GRADE E 
+											WHERE PET_SIZE_NO IN 
+									   		<foreach collection='petList' item="pet" open="(" separator="," close=")">
+									        	#{pet}
+									   		</foreach>
+											)
+				AND LO.LOCATION_CATEGORY_NO NOT IN
+				<foreach collection='locList' item="loc" open="(" separator="," close=")">
+		        	#{loc}
+		   		</foreach>
+		)
+   	</select>
    	<select id="selectFilterLocationList" resultMap="locationResult">
    	SELECT DISTINCT *
 	FROM (
@@ -107,13 +141,13 @@
 	)
 	<choose>
 		<when test="order == 1">
-			ORDER BY ENROLL_DATE
+			ORDER BY ENROLL_DATE DESC
 		</when>
 		<when test="order == 2">
-			ORDER BY LOCATION_STAR
+			ORDER BY LOCATION_STAR DESC
 		</when>
 		<when test="order == 3">
-			ORDER BY PICK_COUNT
+			ORDER BY PICK_COUNT DESC
 		</when>
 	</choose>
 	</select>
@@ -137,11 +171,11 @@
 		AND DAYS = #{currentDay}
 	</select>
 	
-	<select id="selectPickCount" resultType="_int">
+<!-- 	<select id="selectPickCount" resultType="_int">
 		SELECT COUNT(*) AS PICK_COUNT
 		FROM PICK
 		WHERE LOCATION_NO = #{locationNo}
-	</select>
+	</select> -->
 	
 	<select id="selectUserPick" resultType="_int">
 		SELECT COUNT(*) AS PICK
@@ -163,4 +197,10 @@
 		WHERE USER_NO = #{userNo}
 		AND LOCATION_NO = #{locationNo}
 	</delete>
+	
+	<select id="selectLocationPickCount" resultType="_int">
+		SELECT COUNT(*) AS COUNT
+		FROM PICK
+		WHERE LOCATION_NO = #{locationNo}
+	</select>
 </mapper>

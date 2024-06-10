@@ -12,7 +12,7 @@
 <script src="resources/js/search/search.js"></script>
 <script src="resources/js/search/searchAjax.js"></script>
 </head>
-<body onload="init('<%=request.getContextPath()%>', )">
+<body onload="init('<%=request.getContextPath()%>', '${loginUser.userNo}')">
 	<%@ include file="../common/header.jsp"%>
     <div class="wrapper">
 		<div class="main">
@@ -102,14 +102,14 @@
                         
                     </div>
                 </div>
-
+                <!-- onclick="moveToLocationDetail('<%=contextPath%>', '${loc.locationNo}')" -->
                 <c:forEach var="loc" items="${locationList}">
-                    <div class="search-content-box gray-round-box">
-                        <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="" onclick="moveToLocationDetail('<%=contextPath%>', '${loc.locationNo}')">
-                        <div class="search-content"  onclick="moveToLocationDetail('<%=contextPath%>', '${loc.locationNo}')">
+                    <div class="search-content-box gray-round-box" onclick="handelPick(event, '${loginUser.userNo}', '${loc.locationNo}')">
+                        <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
+                        <div class="search-content">
                             <div class="content-title">
                                 <span>${loc.locationName}</span>
-                                <div class="pick-box" onclick="pickCheckLogin('${loginUser.userNo}', '${loc.locationNo}', '${loc.userPick}')">
+                                <div class="pick-box" data-locno='${loc.locationNo}'>
                                     <c:choose>
                                         <c:when test="${loc.userPick eq 0}">
                                             <img src="resources/img/searchpage/like-pre.png" alt="">
@@ -163,7 +163,6 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="ajaxSelectLikeInfo('${loginUser.userNo}', '${loc.locationNo}')" type="button" class="like-btn" style="display: none;"></button>
                 </c:forEach>
 
         

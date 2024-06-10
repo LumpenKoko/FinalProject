@@ -17,6 +17,7 @@ import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.search.model.dto.SearchFilter;
+import com.kh.mng.search.model.dto.SearchPick;
 import com.kh.mng.search.service.SearchServiceImpl;
 
 @Controller
@@ -62,23 +63,18 @@ public class SearchController {
 	
 	@GetMapping("searchKeyword.pl")
 	public String searchKeyword(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-								String keyword, Model model) {
-		int locationCount = searchService.selectLocationListCount();
+								String keyword, String loginUserNo, Model model) {
+		
+		int locationCount = searchService.selectLocationListCount(keyword);
 		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
 		
-		System.out.println(pi.getMaxPage());
-		System.out.println(pi.getStartPage());
-		System.out.println(pi.getEndPage());
+		SearchFilter sf = new SearchFilter();
+		sf.setKeyword(keyword);
+		if (loginUserNo != null) {
+			sf.setLoginUserNo(loginUserNo);
+		}
 		
-		
-		ArrayList<Location> list = searchService.selectSearchLocationList(keyword, pi);
-		
-//		for(Location loc : list) {
-//			System.out.println(loc);
-//			System.out.println(loc.getEnterList());
-//			System.out.println(loc.getOpTime());
-//			System.out.println(loc.getAttachment());
-//		}
+		ArrayList<Location> list = searchService.selectSearchLocationList(sf, pi);
 		
 		// 찜 개수 가져와야 함
 		model.addAttribute("keyword", keyword);
@@ -96,12 +92,6 @@ public class SearchController {
 //							@RequestParam(value="petList") Map<String, SearchFilter> petList, 
 //							@RequestParam(value="locList")List<String> locList,
 //							이런 식으로 List로 받을 게 아니라 그냥 아예 프론트에서 String으로 바꿔서 보낼 것
-        
-		System.out.println(petList);
-		System.out.println(locList);
-		System.out.println(keyword);
-		System.out.println(order);
-		System.out.println(currentPage);
 
 		ArrayList<Integer> pets = new ArrayList<Integer>();
 		ArrayList<Integer> locs = new ArrayList<Integer>();
@@ -118,55 +108,67 @@ public class SearchController {
 			}
 		}
 		
-		int locationCount = searchService.selectLocationListCount();
-		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
-		
 		SearchFilter sf = new SearchFilter();
 		sf.setKeyword(keyword);
 		sf.setPetList(pets);
 		sf.setLocList(locs);
 		sf.setOrder(order);
 		
+		if (loginUserNo != null) {
+			sf.setLoginUserNo(loginUserNo);
+		}
+		
+		int locationCount = searchService.selectFilterLocationListCount(sf);
+		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
+		
 		ArrayList<Location> list = searchService.selectFilterLocationList(sf, pi);
 		
 		sf.setLocationList(list);
 		sf.setPi(pi);
-		sf.setLoginUserNo(loginUserNo);
 		
 		model.addAttribute("locationInfo", sf);
 		
-		for (int i = 0; i < list.size(); i++) {
-//			System.out.println(list.get(i).getOpTime().getStartTime());
+		for(Location loc : sf.getLocationList()) {
+			System.out.println(loc);
 		}
+		
+		System.out.println(sf);
 		
 		return new Gson().toJson(sf);
 	}
 	
 	@ResponseBody
 	@GetMapping(value="selectLikeInfo.pl", produces="application/json; charset-UTF-8")
-	public String selectUserPick(int loginUserNo, int locNo, int userPick) {
-		PickedInfo pick = new PickedInfo();
+	public String selectUserPick(int loginUserNo, int locNo) {
+		SearchPick pick = new SearchPick();
 		pick.setLocationNo(locNo);
 		pick.setUserNo(loginUserNo);
 		
-		int result = 0;
+		int userPick = searchService.selectUserPick(pick);
+		
 		if (userPick > 0) {
-			result = searchService.deleteUserPick(pick);
+			SearchPick sp = searchService.deleteUserPick(pick);
 			
-			if (result > 0) {
-				return "DNNNY";
+			if (sp.getLocPickCount() > 0) {
+				pick.setStatus("D");
+				return new Gson().toJson(pick);
 			} else {
-				return "NNNNN";
+				pick.setStatus("N");
+				return new Gson().toJson(pick);
 			}
-		} else {
-			result = searchService.insertUserPick(pick);
 			
-			if (result > 0) {
-				return "INNNY";
+		} else {
+			SearchPick sp = searchService.insertUserPick(pick);
+			if (sp.getLocPickCount() > 0) {
+				pick.setStatus("I");
+				return new Gson().toJson(pick);
 			} else {
-				return "NNNNN";
+				pick.setStatus("N");
+				return new Gson().toJson(pick);
 			}
 		}
+		
+		
 
 	}
 	

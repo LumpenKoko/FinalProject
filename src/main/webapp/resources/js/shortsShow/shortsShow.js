@@ -61,7 +61,9 @@ function createItem(num) {
                 </div>
                 <div class="text-overlay">
                     <div>
-                        <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn"` + num + `>임시용 댓글토글버튼</button>
+                        <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn"` + num + `>
+                            임시용 댓글토글버튼
+                        </button>
                     </div>
                 </div>
             </div>

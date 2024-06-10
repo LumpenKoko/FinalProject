@@ -1,3 +1,30 @@
+ // 요일별 운영시간 HTML 요소를 생성하는 함수
+ function createOperatingHoursElement(day) {
+    return `
+        <div class="operating-hours">
+            <p>${day}</p>
+            <p>휴무</p>
+            <input type="checkbox" name="휴무">
+            <select class="open-time">
+                ${[...Array(24).keys()].map(hour => `<option value="${String(hour).padStart(2, '0')}:00">${String(hour).padStart(2, '0')}:00</option>`).join('')}
+            </select>
+            <p style="margin-right: 0;margin-left: 20px;">~</p>
+            <select class="close-time">
+                ${[...Array(24).keys()].map(hour => `<option value="${String(hour).padStart(2, '0')}:00">${String(hour).padStart(2, '0')}:00</option>`).join('')}
+            </select>
+        </div>
+    `;
+}
+
+// 각 요일의 운영시간 요소를 추가합니다.
+document.addEventListener('DOMContentLoaded', function() {
+    const days = ['월', '화', '수', '목', '금', '토', '일'];
+    const container = document.getElementById('operating-hours-container');
+    days.forEach(day => {
+        container.innerHTML += createOperatingHoursElement(day);
+    });
+});
+
 function locationpage(path){
     /*객실 이미지 업로드*/
 

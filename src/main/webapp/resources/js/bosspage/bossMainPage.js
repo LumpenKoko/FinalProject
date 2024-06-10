@@ -1,5 +1,5 @@
 /* 전화번호 업데이트 함수 */
-function updatePhoneNumber(userNo,contextPath) {
+function updatePhoneNumber(userNo, contextPath) {
     // 'boss-phone-input' 아이디를 가진 HTML 요소에서 전화번호 입력값을 가져옵니다.
     const phoneNumberInput = document.getElementById('boss-phone-input');
 
@@ -9,21 +9,21 @@ function updatePhoneNumber(userNo,contextPath) {
         alert('전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678');
         return;
     }
-    
+
     // AJAX를 이용해 서버에 POST 요청을 보냅니다.
     $.ajax({
-        url: contextPath+'/updatePhoneNumber.bm', // 요청할 서버의 URL
+        url: contextPath + '/updatePhoneNumber.bm', // 요청할 서버의 URL
         type: 'POST', // HTTP 요청 방식
-        data: { 
+        data: {
             phoneNumber: phoneNumberInput.value, // 전달할 데이터: 전화번호
             userNo: userNo // 전달할 데이터: 사용자 고유 번호
-         },
-        success: function(response) { // 요청이 성공했을 때 실행할 함수
+        },
+        success: function (response) { // 요청이 성공했을 때 실행할 함수
             alert(response) // 서버로부터 받은 응답을 경고창으로 보여줍니다.
             document.getElementById('phone-display').textContent = phoneNumberInput.value // 전화번호를 표시하는 요소의 내용을 업데이트합니다.
             document.getElementById('change-phone-container').style.display = 'none'; // 전화번호 변경 폼을 숨깁니다.
         },
-        error: function(error) { // 요청이 실패했을 때 실행할 함수
+        error: function (error) { // 요청이 실패했을 때 실행할 함수
             alert('전화번호 변경에 실패했습니다.'); // 실패 메시지를 경고창으로 보여줍니다.
         }
     });
@@ -32,15 +32,15 @@ function updatePhoneNumber(userNo,contextPath) {
 function showPhoneChange() {
     const changePhoneContainer = document.getElementById('change-phone-container');
     const phoneInput = document.getElementById('boss-phone-input');
-    
+
     // 입력 필드를 초기화
     phoneInput.value = '';
-    
+
     changePhoneContainer.style.display = changePhoneContainer.style.display === 'none' ? 'inline' : 'none';
 }
 
 /* 이메일 업데이트 */
-function updateEmail(userNo,contextPath) {
+function updateEmail(userNo, contextPath) {
     const emailLocalPart = document.getElementById('email-local-part').value;
     const emailDomainPart = document.getElementById('boss-email').value;
     const fullEmail = emailLocalPart + '@' + emailDomainPart;
@@ -51,24 +51,25 @@ function updateEmail(userNo,contextPath) {
     }
 
     $.ajax({
-        url: contextPath+'/updateEmail.bm',
+        url: contextPath + '/updateEmail.bm',
         type: 'POST',
-        data:{ email: fullEmail,
-                userNo: userNo
-         },
-        success: function(response) {
+        data: {
+            email: fullEmail,
+            userNo: userNo
+        },
+        success: function (response) {
             alert(response);
             document.getElementById('email-display').textContent = fullEmail;
             document.getElementById('change-personal').style.display = 'none';
         },
-        error: function(error) {
+        error: function (error) {
             alert('이메일 변경에 실패했습니다.');
         }
     });
 }
 
 /* 이메일 도메인 선택 시 동작 */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     updateEmailDomain();  // 초기 상태 설정
 });
 
@@ -131,36 +132,14 @@ function showEmailChange() {
 
     changePersonal.style.display = changePersonal.style.display === 'none' ? 'block' : 'none';
 }
-
+/* 탈퇴 모달창 */
 /* 사장님회원 탈퇴 */
-function checkPassword(contextPath) {
-    const inputPassword = document.getElementById('password-input').value;
-
-    // AJAX 요청: 서버에 비밀번호 검증 요청
-    $.ajax({
-        url: contextPath + '/deleteBossUser',  // 서버의 비밀번호 검증 및 회원 탈퇴 API
-        type: 'POST',
-        data: JSON.stringify({
-            password: inputPassword
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(response) {
-            if (response.valid) {
-                alert('탈퇴 처리되었습니다.');
-                window.location.href = contextPath;  // 성공적 탈퇴 후 홈페이지로 리다이렉션
-            } else {
-                document.querySelector('.pwd-checkMessage').textContent = '비밀번호가 일치하지 않습니다.';
-                document.querySelector('.pwd-checkMessage').style.display = 'block';
-            }
-        },
-        error: function() {
-            alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-        }
-    });
+function toggleRemoveButton() {
+    var yesChecked = document.querySelector('input[name="confirm"]:checked').value === 'yes';
+    var passwordInput = document.getElementById('password-input').value;
+    document.querySelector('.boss-remove').disabled = !yesChecked || passwordInput.length === 0;
 }
 
-/* 탈퇴 모달창 */
 function showRemoveModal() {
     document.getElementById('boss-remove-modal').classList.add('active');
     document.getElementById('modal-overlay').classList.add('active');
@@ -169,7 +148,80 @@ function showRemoveModal() {
 function hideRemoveModal() {
     document.getElementById('boss-remove-modal').classList.remove('active');
     document.getElementById('modal-overlay').classList.remove('active');
+    document.getElementById('password-input').value = ''; // 비밀번호 입력 필드 초기화
+    document.querySelectorAll('input[name="confirm"]').forEach(input => input.checked = false); // 라디오 버튼 선택 해제
+    document.querySelector('.boss-remove').disabled = true; // 탈퇴 버튼 비활성화 상태로 초기화
+    document.querySelector('.pwd-checkMessage').style.display = 'none'; // 비밀번호 불일치 메시지 숨기기
 }
+
+// function checkPassword(contextPath, userNo) {
+//     const inputPassword = document.getElementById('password-input').value;
+//     var yesChecked = document.querySelector('input[name="confirm"]:checked').value === 'yes';
+//     if (yesChecked) {
+      
+//         $.ajax({
+//             url: contextPath + '/deleteBossUser.bm',
+//             type: 'POST',
+//             // contentType: "application/json; charset=utf-8",
+//             data: {
+//                 bossPwd: inputPassword,
+//                 userNo: userNo
+//             },
+//             dataType: "json",
+//             success: function (response) {
+//                 if (response.error) { // 서버 응답에서 오류가 있을 경우
+//                     var messageElement = document.querySelector('.pwd-checkMessage');
+//                     messageElement.style.display = 'block'; // 메시지를 보이게 함
+//                     messageElement.textContent = '비밀번호가 일치하지 않습니다.';
+//                 } else {
+//                     alert('YYYY',"탈퇴 처리가 완료되었습니다.");
+//                     window.location.href = contextPath; // 홈페이지로 리디렉션
+//                 }
+//             },
+//             error: function (error) {
+//                 document.querySelector('.pwd-checkMessage').style.display = 'block';
+//                 document.querySelector('.pwd-checkHostMessage').textContent = '서버와의 통신 중 오류가 발생했습니다.';
+//             }
+//         });
+//     }
+// }
+
+function checkPassword(contextPath, userNo) {
+    const inputPassword = document.getElementById('password-input').value;
+    var yesChecked = document.querySelector('input[name="confirm"]:checked').value === 'yes';
+    if (yesChecked) {
+        $.ajax({
+            url: contextPath + '/deleteBossUser.bm',
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            data: {
+                bossPwd: inputPassword,
+                userNo: userNo
+            },
+            dataType: "text", // 서버에서 문자열을 반환하므로 데이터 타입을 'text'로 설정
+            success: function (response) {
+                var messageElement = document.querySelector('.pwd-checkMessage');
+                if (response.trim() === "RRRR") { // 비밀번호 불일치
+                    messageElement.style.display = 'block';
+                    messageElement.textContent = '비밀번호가 일치하지 않습니다.';
+                } else if (response.trim() === "NNNN") { // 탈퇴 실패
+                    alert('탈퇴 처리 실패');
+                } else if (response.trim() === "YYYY") { // 탈퇴 성공
+                    alert('탈퇴 처리가 완료되었습니다.');
+                    window.location.href = contextPath; // 홈페이지로 리디렉션
+                }
+            },
+            error: function (error) {
+                var messageElement = document.querySelector('.pwd-checkMessage');
+                messageElement.style.display = 'block';
+                messageElement.textContent = '서버와의 통신 중 오류가 발생했습니다.';
+            }
+        });
+    }
+}
+
+
+
 
 /* 비밀번호 변경 모달창 */
 function showPasswordModal() {
@@ -183,7 +235,7 @@ function hidePasswordModal() {
 }
 
 // 배경을 클릭하면 모든 모달창을 숨기는 이벤트 리스너
-document.getElementById('modal-overlay').addEventListener('click', function(event) {
+document.getElementById('modal-overlay').addEventListener('click', function (event) {
     // 이벤트가 오버레이에서 발생했는지 확인
     if (event.target === this) {
         // 모든 모달창을 숨김
@@ -201,13 +253,13 @@ function hideModal(modalId) {
         modal.classList.remove('active');
     }
     document.getElementById('modal-overlay').style.display = 'none';
-    
+
 }
 
 function hideModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
     document.getElementById('modal-overlay').classList.remove('active');
-    
+
 }
 /* 비밀번호 업데이트 */
 function updatePassword(event, userNo, contextPath) {
@@ -220,13 +272,13 @@ function updatePassword(event, userNo, contextPath) {
     const confirmPassword = document.getElementById('confirm-password').value;
     const mismatchError = document.getElementById('mismatch-error'); // ID를 올바르게 수정
 
-    
+
     // 비밀번호 입력 확인
     if (!password || !confirmPassword) {
         alert('비밀번호를 입력해주세요.'); // 입력란이 비어있을 경우 경고창 표시
         return false;
     }
-    
+
     // 비밀번호 일치 여부 확인
     if (password !== confirmPassword) {
         mismatchError.style.display = 'block'; // 일치하지 않을 때 에러 메시지 보이기
@@ -236,25 +288,23 @@ function updatePassword(event, userNo, contextPath) {
     }
 
     $.ajax({
-        url: contextPath+'/updatePwd.bm',
+        url: contextPath + '/updatePwd.bm',
         type: 'POST',
         data: {
             bossPwd: password,
             userNo: userNo
         },
-        success: function(response){
+        success: function (response) {
             document.getElementById('boss-pws-div').style.display = 'none';
             document.getElementById('modal-overlay').style.display = 'none';
-            if(response === '비밀번호 변경에 성공였습니다.') {
-                location.href = contextPath+'/bossMainPage.bm';
+            if (response === '비밀번호 변경에 성공였습니다.') {
+                location.href = contextPath + '/bossMainPage.bm';
                 alert(response)
             }
         },
-        error: function(error) {
+        error: function (error) {
             alert('비밀번호 변경에 실패했습니다.');
         }
     });
 }
-
-
 

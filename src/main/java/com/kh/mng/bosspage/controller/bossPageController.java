@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -92,13 +93,13 @@ public class bossPageController {
 	public String updatePwd(BossPage bossPage, HttpSession session) {
 		
 		String encPwd = bcryptPasswordEncoder.encode(bossPage.getBossPwd());
-	      bossPage.setBossPwd(encPwd);;
+	      bossPage.setBossPwd(encPwd);
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		if (loginUser != null) {
 			int count = bossPageService.updatePwd(bossPage);
 			if(count > 0) {
-				System.out.println("성공했습니다.");
+				
 				return "비밀번호 변경에 성공였습니다.";
 			}
 			else {
@@ -110,29 +111,26 @@ public class bossPageController {
 	
 	/*회원탈퇴*/
 	@ResponseBody
-	@PostMapping(value="/deleteBossUser.bm", produces="text/plain;charset=UTF-8")
-	public String deleteBossUser(BossPage bossPage, HttpSession session) {
-		
-		//암호화된 비밀번호 가지고 오기
+	@PostMapping(value="deleteBossUser.bm",produces ="application/json; charset=utf-8")
+	public String deleteBossUse(BossPage bossPage, HttpSession session) {
+		//1. 암호화된 비밀번호 가져오기
 		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		String bossId= ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		//비밀번호 일치/불일치 확인후
-		if(bcryptPasswordEncoder.matches(bossPage.getBossPwd(), encPwd)) {
+		//2. 비밀번호 일치/불일치 판단후
+		if (bcryptPasswordEncoder.matches(bossPage.getBossPwd(), encPwd)) {
 			//일치 -> 탈퇴처리 -> session에서 제거 -> 메인페이지로
-			int result = bossPageService.deleteBossUser(bossPage.getBossId());
+			int result = bossPageService.deleteBossUser(bossId);
 			
 			if(result > 0) {
 				session.removeAttribute("loginUser");
-				session.setAttribute("alertMsg", "회원탛퇴가 성공적으로 이루어졌습니다.");
-				return "redirect:/";
+				return "YYYY";
 			} else {
-				session.setAttribute("alertMsg", "탈퇴처리 실패");
-				return "redirect:/bossMainPage.bm";
+				return "NNNN";
 			}
-		}else {
+		} else {
 			//불일치 -> alertMsg: 비밀번호 다시 입력 -> 마이페이지
-			session.setAttribute("alertMsg", "비밀번호를 다시 확인해주세요.");
-			return "redirect:/bossMainPage.bm";
+			return "RRRR";
 		}
 	}
 	

@@ -1,5 +1,6 @@
 // 댓글 가져오는 함수
 $(document).on('click', '[id^="show-reply-btn"]', function () {
+
     const num = this.id.replace('show-reply-btn', '');
 
     $.ajax({
@@ -21,7 +22,7 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
             }
         },
         error: function () {
-            alert("skrr");
+            console.log("댓글 로드 실패");
         }
     });
 });
@@ -29,11 +30,12 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
 
 // 댓글 입력하는 함수
 $(document).on('click', '[id^="submit-comment"]', function () {
+
     const loginUserNo = parseInt(userNo);
     const num = parseInt(this.id.replace('submit-comment', ''));
     const commentText = $('#comment-text' + num).val().trim();
 
-    if (loginUserNo === "") {
+    if (loginUserNo === 0) {
         alert("로그인한 회원만 댓글을 작성할 수 있습니다.");
         return;
     }
@@ -42,7 +44,7 @@ $(document).on('click', '[id^="submit-comment"]', function () {
         alert("댓글을 입력하세요.");
         return;
     }
-
+    
     $.ajax({
         url: contextPath +'/addComment.sh',
         data: {
@@ -63,12 +65,13 @@ $(document).on('click', '[id^="submit-comment"]', function () {
             alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
         }
     });
+    
 });
 
 // Ajax로 동영상을 가져와서 동영상 요소 생성
 function loadVideo(num) {
     $.ajax({
-        url: contextPath + '/getVideo.sh', // 일단 임시로 영상 url만 가져옴(추후 변경 필요)
+        url: contextPath + '/getVideo.sh',
         data: {
             videoId: num
         },
@@ -84,7 +87,7 @@ function loadVideo(num) {
                     `;
         },
         error: function () {
-            alert("동영상을 로드하는 데 실패했습니다.");
+            console.log("동영상 로드 실패");
         }
     });
 }

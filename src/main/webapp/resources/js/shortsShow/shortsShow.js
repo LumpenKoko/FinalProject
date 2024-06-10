@@ -4,24 +4,11 @@ let isScrolling = false;
 let contextPath;
 let userNo;
 
-// function init(tmpContextPath, tmpUserNo){
-//     contextPath = tmpContextPath;
-//     userNo = tmpUserNo;
-
-//     console.log("여까지 왔다..");
-//     console.log("ㄴㄴ" + contextPath);
-//     console.log(userNo);
-// }
-
 // 댓글 관련 함수들
 $(document).ready(function () {
 
-    const contextPath = document.getElementById("contextPath").value;
-    const userNo = document.getElementById("userNo").value;
-
-    console.log("제발..");
-    console.log(contextPath);
-    console.log(userNo);
+    contextPath = document.getElementById("contextPath").value;
+    userNo = document.getElementById("userNo").value;
 
     $(document).on('click', '.comment-button', function (ev) {
         const btn = ev.target;
@@ -32,47 +19,11 @@ $(document).ready(function () {
         if (toggle === "true") {
             $("#shorts-comment" + index).animate({ right: '30%' }, 'slow');
             $("#shorts-content" + index).animate({ left: '30%' }, 'slow');
-            // loadReply();
         } else {
             $("#shorts-comment" + index).animate({ right: '10%' }, 'slow');
             $("#shorts-content" + index).animate({ left: '10%' }, 'slow');
         }
     });
-
-    // 댓글 로드하는 함수
-    /*
-    function loadReply(){
-        $.ajax({
-            url: '<%=request.getContextPath()%>/loadReply.sh',
-            data: {
-                num: num
-            },
-            success: function(response) {
-                const replyList = JSON.parse(response);
-
-                if(response === null) {
-                    const newComment = $('<div class="tmp-box"></div>').text("아직 댓글이 없어요ㅠㅠ");
-                    $('#comments-list' + num).append(newComment);
-                } else {
-                    for (let i = 0; i < replyList.length; i++){
-                        const newComment = $('<div class="tmp-box"></div>').text(replyList[i].content);
-                        $('#comments-list' + num).append(newComment);
-                    }
-                }
-            },
-            error: function() {
-                alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
-            }
-        });
-    }
-    */
-
-    
-
-
-
-
-    
 
     window.addEventListener('wheel', (event) => {
         if (isScrolling) return;
@@ -110,7 +61,7 @@ function createItem(num) {
                 </div>
                 <div class="text-overlay">
                     <div>
-                        <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn"` + num + `>댓글보기</button>
+                        <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn"` + num + `>임시용 댓글토글버튼</button>
                     </div>
                 </div>
             </div>

@@ -24,4 +24,17 @@ public class TotalShortsInfo {
 	private String profileName;
 	private int likeCount;
 	private int replyCount;
+	
+	
+	public TotalShortsInfo(int shortsNo, Date enrollDate, String shortsContent, String shortsPath, String shortsName, String userNickname, String profilePath, String profileName) {
+        this.shortsNo = shortsNo;
+        this.enrollDate = enrollDate;
+        this.shortsContent = shortsContent;
+        this.shortsPath = shortsPath;
+        this.shortsName = shortsName;
+        this.userNickname = userNickname;
+        this.profilePath = profilePath;
+        this.profileName = profileName;
+    }
+	
 }

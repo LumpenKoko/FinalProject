@@ -110,8 +110,8 @@ function reviewDelete(num,reviewUserNo){
             },
             success:function(response){
             // callback(response);
-                console.log(response)
-                console.log("삭제 성공")
+                // console.log(response)
+                // console.log("삭제 성공")
                 reviewSelect(drawReivew);
             },
             error:function(errors){
@@ -126,18 +126,19 @@ function reviewDelete(num,reviewUserNo){
 
 //페이징 처리 비동기 함수 (숫자)
 
-function reviewPaging(currentPage){
+function reviewPaging(currentPage,type='o'){
 
     $.ajax({
         type:"GET",
         url:contextPath+"/list.re",
         data:{locationNo:spaceNo,
-             currentPage:currentPage
+             currentPage:currentPage,
+             type:type
         },
         success:function(response){
             drawReivew(response.reviews)
             //페이지네이션 그리기
-            drawPaging(response.page)
+            drawPaging(response.page,type)
         },
         error:function(){
             console.log("페이징 처리 실패")
@@ -149,23 +150,23 @@ function reviewPaging(currentPage){
 
 //리뷰 뷴류별정렬 비동기 처리
 
-function reviewCategory(type){
+// function reviewCategory(type){
 
-    $.ajax({
-        type:"GET",
-        url:contextPath+"/review.ca",
-        data:{locationNo:spaceNo,
-             type:type
-        },
-        success:function(response){
-            drawReivew(response.reviews)
-            //페이지네이션 그리기
-            drawPaging(response.page)
-        },
-        error:function(){
-            console.log("페이징 처리 실패")
-        }
+//     $.ajax({
+//         type:"GET",
+//         url:contextPath+"/review.ca",
+//         data:{locationNo:spaceNo,
+//              type:type
+//         },
+//         success:function(response){
+//             drawReivew(response.reviews)
+//             //페이지네이션 그리기
+//             drawPaging(response.page,type)
+//         },
+//         error:function(){
+//             console.log("페이징 처리 실패")
+//         }
 
-    })
+//     })
 
-}
+// }

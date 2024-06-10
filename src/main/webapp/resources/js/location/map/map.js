@@ -5,6 +5,7 @@
 
 $(function(){  
     let address=document.getElementById('address');
+    let locationName=document.getElementById('locationName');
     // $(document).ready(function(){
     //     와 같은 함수
     // })
@@ -36,13 +37,19 @@ $(function(){
          });
     
          // 인포윈도우로 장소에 대한 설명을 표시합니다
-         let infowindow = new kakao.maps.InfoWindow({
-            content: '장소'
-         });
+         let infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+         infowindow.setContent('<div style="padding:5px;font-size:12px; border-style:none; border-radius:50px;">' + locationName.value + '</div>')
          infowindow.open(map, marker);
     
          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
          map.setCenter(coords);
+
+
+         kakao.maps.event.addListener(marker,'click',function(){
+            location.href="https://map.kakao.com/link/search/"+address.value
+         })
+        
      } 
     });    
 

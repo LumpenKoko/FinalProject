@@ -80,6 +80,13 @@ public class ReviewDao {
 		return sqlSession.selectOne("review.selectUserAttachment",userNo);
 	}
 
+	public ArrayList<Integer> selectReviewStars(SqlSessionTemplate sqlSession, int locationNo) {
+		// TODO Auto-generated method stub
+		return (ArrayList) sqlSession.selectList("review.selectReviewStars",locationNo);
+	}
+
+	
+
 
 	
 

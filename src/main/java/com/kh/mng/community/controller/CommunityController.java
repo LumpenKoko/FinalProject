@@ -260,10 +260,8 @@ public class CommunityController {
 	
 	
 	@RequestMapping(value="shortsView.bo")
-	public ModelAndView detailShortsView(ModelAndView mv, HttpSession session) {
-		mv.addObject("loginUser", (Member)session.getAttribute("loginUser"));
-		mv.setViewName("community/shortsShow");
-		return mv;
+	public String detailShortsView() {
+		return "community/shortsShow";
 	}
 	
 	@RequestMapping(value="detailView.bo")
@@ -293,9 +291,9 @@ public class CommunityController {
 	
 	@ResponseBody
 	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")
-	public String addComment(@RequestParam(value="userNo, videoId, comment") int userNo, int videoId, String comment) {
-		
-		System.out.println(comment);
+	public String addComment(@RequestParam(value="userNo") int userNo, 
+				            @RequestParam(value="videoId") int videoId, 
+				            @RequestParam(value="comment") String comment) {
 		
 		int shortsNum = communityService.getShortsNum(videoId);
 		
@@ -309,6 +307,7 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value="loadReply.sh", produces="application/json; charset=utf-8")
 	public String loadReply(@RequestParam(value="num") int videoId){
+		System.out.println("도착~");
 		TotalShortsInfo totalShortsInfo = new TotalShortsInfo();
 		
 		totalShortsInfo = communityService.getVideoInfo(videoId);

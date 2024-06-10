@@ -8,7 +8,8 @@
     <%@ include file="../common/common-file.jsp" %>
     
     <link rel="stylesheet" href="resources/css/community/community.css"/>
-    <script src="resources/js/community/shorts/shortsShow.js"></script>
+    <script src="resources/js/shortsShow/shortsShow.js"></script>
+    <script src="resources/js/shortsShow/ajax/shortsShowAjax.js"></script>
 </head>
 
 
@@ -16,8 +17,12 @@
     <div class="headerbar">
         <%@ include file="../common/header.jsp"%>
     </div>
+    <input type="hidden" id="contextPath" value="${request.getContextPath()}%>" />
+    <input type="hidden" id="userNo" value="${userNo}" />
+    
     <div class="wrapper">
         <div class="main">
+            <div style="height: 100px;"></div>
             <div id="container"></div>
             <div id="loader">Loading...</div>
         </div>

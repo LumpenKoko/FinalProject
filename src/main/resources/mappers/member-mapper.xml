@@ -141,10 +141,10 @@
 		 WHERE STATUS = true
 		   AND USER_NO = #{userNo}
 	</update>
-	<update id="deleteBossUser">
-		UPDATE MEMBER
-		   SET STATUS = 'false'
-		 WHERE USER_NO = #{userNo}
+	<update id="deactivateBossUser">
+    	UPDATE MEMBER
+       	   SET STATUS = false
+         WHERE USER_ID = #{bossId}
 	</update>
 
 </mapper>

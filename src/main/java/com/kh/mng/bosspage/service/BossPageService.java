@@ -14,7 +14,7 @@ public interface BossPageService {
 
 	int updatePwd(BossPage bossPage);
 
-	int deleteBossUser(String userId);
+	int deleteBossUser(String bossId);
 	
 	
 }

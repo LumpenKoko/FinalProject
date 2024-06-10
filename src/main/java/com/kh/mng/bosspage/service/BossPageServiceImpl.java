@@ -1,10 +1,9 @@
 package com.kh.mng.bosspage.service;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.bosspage.model.dao.BossPageDao;
 import com.kh.mng.bosspage.model.vo.BossPage;
@@ -40,8 +39,9 @@ public class BossPageServiceImpl implements BossPageService{
 	}
 	
 	@Override
+	@Transactional
 	public int deleteBossUser(String bossId) {
-		return bossPageDao.deleteBossUser(sqlSession, bossId);
+	    return bossPageDao.deleteBossUser(sqlSession, bossId);
 	}
 	
 }

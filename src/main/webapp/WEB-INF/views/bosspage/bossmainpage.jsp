@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <!-- 가게 삭제 및 탈퇴 모달창 -->
-                <div class="modal-overlay" id="modal-overlay"></div>
+                <<div class="modal-overlay" id="modal-overlay"></div>
                 <div id="boss-remove-modal">
                     <div>
                         <p style="font-weight: 700; font-size: 30px;">가게 삭제 및 탈퇴</p>
@@ -143,11 +143,11 @@
                         <p class="pwd-checkMessage">비밀번호가 일치하지 않습니다.</p>
                     </div>
                     <div class="boss-pwd-input">
-                        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요.">
+                        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요." oninput="toggleRemoveButton()">
                     </div>
                     <div class="boss-remove-button">
-                        <button class="boss-remove" onclick="checkPassword('<%=request.getContextPath()%>')" disabled>탈퇴</button>
-                        <button onclick="hideModal('boss-remove-modal')">취소</button>
+                        <button class="boss-remove" disabled onclick="checkPassword('<%=request.getContextPath()%>', '${userNo}')">탈퇴</button>
+                        <button onclick="hideRemoveModal()">취소</button>
                     </div>
                 </div>
                 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.common.model.vo.CurrentDate;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.model.dao.MainDao;
 import com.kh.mng.search.model.dao.SearchDao;
@@ -54,7 +55,7 @@ public class SearchServiceImpl implements SearchService {
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
 			loc.setAttachment(new MainDao().selectAttachment(sqlSession, loc));
-			loc.setPickCount(searchDao.selectPickCount(sqlSession, loc));
+			loc.setUserPick(searchDao.selectUserPick(sqlSession, loc));
 		}
 		// list 해당 운영시간
 		// 현재 요일 넘겨서 해당 요일 운영시간 가져오기
@@ -64,7 +65,12 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	@Override
-	public int selectUserPick(Location loc) {
-		return searchDao.selectUserPick(sqlSession, loc);
+	public int insertUserPick(PickedInfo pick) {
+		return searchDao.insertUserPick(sqlSession, pick);
+	}
+	
+	@Override
+	public int deleteUserPick(PickedInfo pick) {
+		return searchDao.deleteUserPick(sqlSession, pick);
 	}
 }

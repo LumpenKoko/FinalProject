@@ -19,6 +19,7 @@
 		<result column="END_TIME" property="endTime"/>
 		<result column="REST_STATUS" property="restStatus"/>
 		<result column="DAYS" property="day"/>
+		<result column="PICK_COUNT" property="pickCount"/>
    </resultMap>
    <resultMap type="Attachment" id="attachmentResult">
 		<result column="PIC_NO" property="picNo"/>
@@ -64,6 +65,67 @@
    		WHERE LO.STATUS = true
    		AND LOCATION_NAME LIKE '%${keyword}%'
    </select>
+   
+   	<select id="selectFilterLocationList" resultMap="locationResult">
+   	SELECT DISTINCT *
+	FROM (
+			SELECT LO.LOCATION_NO,
+				   LOCATION_NAME,
+				   LOCATION_PHONE,
+				   LOCATION_STAR,
+				   ADDRESS,
+				   CATEGORY_NAME
+					
+			FROM LOCATION LO
+			
+			JOIN LOCATION_CATEGORY LC
+			ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+			JOIN ENTER_GRADE E
+			ON LO.LOCATION_NO = E.LOCATION_NO
+			JOIN PICK P
+			ON LO.LOCATION_NO = P.LOCATION_NO
+			
+			WHERE LO.STATUS = true
+			AND LOCATION_NAME LIKE '%' || #{keyword} || '%'
+			AND E.LOCATION_NO NOT IN (SELECT DISTINCT E.LOCATION_NO
+										FROM ENTER_GRADE E 
+										WHERE PET_SIZE_NO IN 
+								   		<foreach collection='petList' item="pet" open="(" separator="," close=")">
+								        	#{pet}
+								   		</foreach>
+										)
+
+			AND LO.LOCATION_CATEGORY_NO NOT IN
+			<foreach collection='locList' item="loc" open="(" separator="," close=")">
+	        	#{loc}
+	   		</foreach>
+
+)
+		<!-- SELECT * 
+		FROM (  SELECT DISTINCT LO.LOCATION_NO,
+		   			   LOCATION_NAME,
+		   			   LOCATION_PHONE,
+		   			   LOCATION_STAR,
+		   			   ADDRESS,
+		   			   CATEGORY_NAME
+		   		FROM LOCATION LO
+		   		
+		   		JOIN LOCATION_CATEGORY LC
+		   		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
+		   		JOIN ENTER_GRADE E
+		   		ON LO.LOCATION_NO = E.LOCATION_NO
+		   		
+		   		WHERE LO.STATUS = true
+		   		AND LOCATION_NAME LIKE '%' || #{keyword} || '%'
+		   		<if test='#{petList} != null'>
+		   		AND PET_SIZE_NO NOT IN
+			   		<foreach collection='petList' item="pet" open="(" separator="," close=")">
+			        #{pet}
+			   		</foreach>
+		   		</if> open="(" separator="," close=")"
+   		) -->
+	</select>
+	
    <!-- 
    <select id="selectEnterGradeList" resultMap="enterGradeResult">
 		SELECT PET_SIZE_NAME,
@@ -81,5 +143,18 @@
 		FROM OPERATION_TIME
 		WHERE LOCATION_NO = #{locationNo}
 		AND DAYS = #{currentDay}
+	</select>
+	
+	<select id="selectPickCount" resultType="_int">
+		SELECT COUNT(*) AS PICK_COUNT
+		FROM PICK
+		WHERE LOCATION_NO = #{locationNo}
+	</select>
+	
+	<select id="selectUserPick" resultType="_int">
+		SELECT COUNT(*) AS PICK
+		FROM PICK
+		WHERE USER_NO = #{userNo}
+		AND LOCATION_NO = #{locationNo}
 	</select>
 </mapper>

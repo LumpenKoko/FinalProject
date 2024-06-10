@@ -56,7 +56,7 @@
                                 </div>
                                 <div id="change-phone-container" style="display: inline; display: none;">
                                     <div>
-                                        <button class="change-phone" onclick="updatePhoneNumber()">변경</button>
+                                        <button class="change-phone" onclick="updatePhoneNumber('${userNo}', '<%=contextPath%>')">변경</button>
                                     </div>
                                     <div style="margin-bottom: 20px;">
                                         <input type="text" id="boss-phone-input"
@@ -86,12 +86,12 @@
                                 </div>
                                 <div id="change-personal" style="display: none;">
                                     <div style="margin-top: 10px; display: block;">
-                                        <button class="change-email" onclick="updateEmail()">변경</button>
+                                        <button class="change-email" onclick="updateEmail('${userNo}','<%=contextPath%>')">변경</button>
                                         <div style="gap: 10px;">
                                             <input type="text" id="email-local-part" class="boss-email">
                                             <span>@</span>
                                             <input type="email" id="boss-email" class="boss-domain" placeholder="">
-                                            <select class="boss-email" onchange="updateEmailDomain()">
+                                            <select class="boss-email" onchange="updateEmailDomain('${userNo}','<%=contextPath%>')">
                                                 <option value="선택해주세요">선택해주세요</option>
                                                 <option value="직접입력">직접입력</option>
                                                 <option value="naver.com">naver.com</option>
@@ -146,32 +146,30 @@
                         <input type="password" id="password-input" placeholder="비밀번호를 입력하세요.">
                     </div>
                     <div class="boss-remove-button">
-                        <button class="boss-remove" onclick="checkPassword('<%=contextPath%>')" disabled>탈퇴</button>
+                        <button class="boss-remove" onclick="checkPassword('<%=request.getContextPath()%>')" disabled>탈퇴</button>
                         <button onclick="hideModal('boss-remove-modal')">취소</button>
                     </div>
                 </div>
-
-                <div class="wrapper">
-                    <div class="minibox-wrap">
+                
+                <!--비밀변호 재설정 -->
+                <div id="boss-pws-div"  class="wrapper">
+                    <div class="minibox-wrap" >
                         <div class="minibox-title">비밀번호 재설정</div>
                         <div class="minibox-text">
-                            가입된 아이디 : jjjj@naver.com <br>
+                            ${loginUser.userId} 님의 <br>
                             사용하실 비밀번호를 재설정 해주세요.
                         </div>
-
-                        <form action="" id="login-form">
+                
+                        <form action="" id="reset-form">
                             <div class="minibox-mini-title">
-                                <span class="error-message-nomargin">비밀번호가 일치하지 않습니다.</span>
+                                <span class="error-message" id="mismatch-error">비밀번호가 일치하지 않습니다.</span>
                             </div>
-
-                            <input type="password" class="minibox-input" placeholder="비밀번호 입력">
-                            <input type="password" class="minibox-input" placeholder="비밀번호 확인">
-
-                            <div class="minibox-mini-title">
-                                <span class="error-message-nomargin">비밀번호 변경에 실패하였습니다. 다시 입력해주세요.</span>
-                            </div>
-
-                            <button type="submit" class="common-button pink-button minibox-full-button">확인</button>
+                            
+                            <input type="password" id="password" class="minibox-input" placeholder="비밀번호 입력">
+                            <input type="password" id="confirm-password" class="minibox-input" placeholder="비밀번호 확인">
+                            
+                            <button type="submit" class="common-button pink-button minibox-full-button" onclick="updatePassword(event, '${userNo}', '<%=request.getContextPath()%>')">확인</button>
+                            <button class="close-button" onclick="pwdModalClose()">취소</button>
                         </form>
                     </div>
                 </div>

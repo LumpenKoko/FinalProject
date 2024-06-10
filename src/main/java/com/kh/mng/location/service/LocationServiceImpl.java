@@ -136,7 +136,7 @@ public class LocationServiceImpl implements LocationService {
 	
 	
 	@Override
-	@Transactional //??
+	@Transactional 
 	public int insertReview(ReviewInfo reviewInfo, Map<String,String> changeNamesList,String path) {
 	
 		int count1=reviewDao.insertReview(sqlSession,reviewInfo);

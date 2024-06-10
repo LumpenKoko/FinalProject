@@ -33,7 +33,7 @@
 		</head>
 		<%@ include file="../common/header.jsp" %>
 
-			<body onload="init('<%=contextPath%>','${userNo}')">
+			<body onload="init('${contextPath}','${userNo}','${checkedMaster}')">
 			
 
 				<div class="wrapper detail-wrapper">
@@ -278,7 +278,7 @@
 						<div class="location-div">
 							<div class="section location-area">
 								<div class="title">위치정보 </div>
-								<input id="address" type="text" value="제주특별자치도 제주시 첨단로 242" hidden>
+								<input id="address" type="text" value="서울특별시 강남구 테헤란로14길 6" hidden>
 								<div class="content">
 									<div id="location-map" style="width:100%; height:500px;"></div>
 								</div>
@@ -316,7 +316,7 @@
 							<div id="review-content-box">
 								<c:forEach var="r" items="${review}">
 
-									<div class="review-section">
+									<div class="review-section" >
 										<div class="profile-star">
 											<div class="profile">
 												<div class="img-div"><img src="${r.userProfile.filePath}${r.userProfile.changeName}"
@@ -347,11 +347,11 @@
 										<div>
 										
 											<c:if test="${checkedMaster.equals('YYYY')}">
-												<input id="master-check" type="text" value="YYYYY" hidden disabled>
+												<input class="master-check" type="text" value="YYYYY" hidden >
 												<a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;
 											</c:if>
 											 <c:if test="${!checkedMaster.equals('YYYY')}">
-												<input id="master-check" type="text" value="NNNNN" hidden disabled>
+												<input class="master-check" type="text" value="NNNNN" hidden  >
 											 </c:if>
 											 <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
 										<div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">

@@ -1,23 +1,8 @@
-let contextPath;
 
-// body onload 시 실행되는 초기 함수
-function init(path){
-    contextPath = path;
-    drawSearchPage();
-}
 
-function drawSearchPage(){
-
-}
-
-function drawSearchPlace(){
-
-}
-
-// ajax 기본 함수
-function ajaxGetData(url, data, callback){
+function getLocationData(data, callback){
     $.ajax({
-        url: url,
+        url: contextPath + "/searchPage.pl",
         data: data,
         success: function (result) {
             callback(result)
@@ -27,3 +12,24 @@ function ajaxGetData(url, data, callback){
         }
     })
 }
+
+
+
+// 좋아요
+// function ajaxSelectLikeInfo(userNo, locationNo){
+//     console.log('들어옴')
+//     console.log(userNo)
+//     if (userNo != ""){
+//         console.log("여기는?")
+//         ajaxGetData(contextPath + "/selectLikeInfo.pl", 
+//         {
+//             userNo : userNo,
+//             locationNo : locationNo
+//         },
+//         function(result){console.log(result)});
+//     }
+// }
+
+// function drawSearchPlace(){
+
+// }

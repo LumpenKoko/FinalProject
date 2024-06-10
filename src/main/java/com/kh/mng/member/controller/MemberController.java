@@ -96,6 +96,7 @@ public class MemberController {
 	@GetMapping("checkId.me")
 	public String checkMemberId(String userId) {
 		int result = memberService.checkMemberId(userId);
+		System.out.println(userId + " " + result);
 		if (result > 0) {
 			return "NNNNY";
 		} else {

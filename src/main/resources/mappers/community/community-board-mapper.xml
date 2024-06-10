@@ -5,6 +5,7 @@
   
   <mapper namespace="communityBoardMapper">
 	  <resultMap type="CommunityBoard" id="selectBoards">
+	   	 <result column="BOARD_NO" property="boardNo"></result>
 	  	 <result column="BOARD_TITLE" property="boardTitle"></result>
 	  	 <result column="BOARD_CONTENT" property="boardContent"></result>
 	  	 <result column="COUNT" property="count"></result>

@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+	    http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -21,40 +23,29 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.mng" /> <!-- bean 어노테이션을 찾아서 bean등록을 도와주는것 -->
-
-    <default-servlet-handler/>
- <!--   <interceptors>
- 	<interceptor>
- 		<mapping path="/myPage.me"/>
- 		<mapping path="/enrollForm.bo"/>
- 		<beans:bean class="com.kh.spring.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
- 	</interceptor>
- </interceptors> -->
-
+	<context:component-scan base-package="com.kh.mng" /> 
+    
+	 <interceptors>
+	 	<interceptor>
+	 		<mapping path="/myPageMain.mp"/>
+	 		<mapping path="/enrollshort.view"/>
+	 		<mapping path="/enroll.short"/>
+	 		<beans:bean class="com.kh.mng.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
+	 	</interceptor>
+	</interceptors>
+	
+	<!-- webSocket정의 -->
+	<websocket:handlers>
+  		<!--WebSocket 핸들럴르 정의하는 루트 앨리먼트 -->
+		<websocket:mapping handler="chatServer" path="/server"/><!--/server경로로 진입할때 chatServer로 바꾼다.   -->
+		<!-- HttpSessionHandshake 정의 -->
+		<websocket:handshake-interceptors>
+	  		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+	  	</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	
 </beans:beans>
 
 
 
-
- 
- <!-- interceptros 등록 -->
- 
- <!--  사용자가 어떤 url로 요청시 해당 문서가 읽혀진다고 생각하면 된다.
-		
-     handlerMapping을 통해서 url로 요청이 오면 어떤 컨트롤러로 구동시킬것지 찾아내어야한다 =>요청 값에 적합한 controller 실행
-     
-     1.요청 될때마다 실행될 Controller클래스들을 bean으로 등록
-     <beans:bean classes="comm.kh.spring.member.controller.MemberController" id="loginController"/>
-   
-  
-     2.어떤url로 요청시 어떤 Controller를 구동시킬 것인지 맵핑(handlerMapping)을 시켜줘야한다.
-     
-     <beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<beans:property name="mapping">
-			
-		<beans/>
-		  
-	</beans:bean>
-	
- -->

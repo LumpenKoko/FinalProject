@@ -84,7 +84,7 @@ public class LocationController {
 			userNo=loginUser.getUserNo();
 		}
 		
-		
+		System.out.println(checkedMaster);
 		model.addAttribute("reviewPi",pi);
 		model.addAttribute("review",reviews);
 		model.addAttribute("l",detailLocations);
@@ -98,7 +98,7 @@ public class LocationController {
 	
 	//유저 찜 상태 가져오는 컨트롤러
 	@ResponseBody
-	@PostMapping(value="state",produces="application/json; charset:utf-8")
+	@PostMapping(value="state",produces="application/json; charset=utf-8")
 	public String pickedState(@RequestBody PickedInfo pickedInfo) {
 		 
 		
@@ -232,7 +232,7 @@ public class LocationController {
 	        }
 	 }
 	
-	public String saveFile(MultipartFile upfile,HttpSession session,String path) {
+	private String saveFile(MultipartFile upfile,HttpSession session,String path) {
 		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 				String originName = upfile.getOriginalFilename();
 				

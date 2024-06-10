@@ -3,6 +3,7 @@ package com.kh.mng.community.model.vo;
 import java.sql.Date;
 
 import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.common.model.vo.Video;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,4 +25,5 @@ public class Shorts {
 	private boolean status; //숏츠상태
 	private String userNo; //회웝번호
 	private Attachment attachment; // 썸네일 첨부파일
+	private Video video;//비디오첨부파일
 }

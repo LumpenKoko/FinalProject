@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
+	
+	 <context:property-placeholder location="classpath:application.properties" file-encoding="UTF-8"/>
 
 	 
 	  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
-	 	<property name="driverClassName" value="org.postgresql.Driver"/>
-	 	<property name="url" value="jdbc:postgresql://localhost:5432/mnguide"/>
-	 	<property name="username" value="mnguide"/>
-	 	<property name="password" value="mnguide"/>
+	 	<property name="driverClassName" value='${jdbc.driverClassName}'/>
+	 	<property name="url" value='${jdb.url}'/>
+	 	<property name="username" value='${jdbc.username}'/>
+	 	<property name="password" value='${jdbc.password}'/>
 	 </bean>
 	 
 	 
-	
 	
 	  <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 	  		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 	  		<property name ="dataSource" ref="dataSource"/> <!-- myBatis bean등록 -->
 	  </bean>
-	
+	  
+	  <!--aop-->
+	  <aop:aspectj-autoproxy/>
+	  
+	  <context:component-scan base-package="com.kh" use-default-filters="false">
+	  		<context:include-filter type="annotation" expression="org.aspectij.lang.annotaion.Aspect"/>
+	  </context:component-scan>	
 	  
 	  
-	  <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession"> <!--SqlSessionTemplate bean등록  -->
-	  		<constructor-arg ref="sqlSessionFactory"/><!-- 자동 생성자 주입   (sqlSessionFactory)를 주입-->
+	  <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession"> 
+	  		<constructor-arg ref="sqlSessionFactory"/>
 	  </bean>
 	  
 	
-	  
-	   
 	    <!-- 파일 업로드 관련 빈 등록 -->
 	  <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-		<property name="maxUploadSize" value="100000000"/>
-		<property name="maxInMemorySize" value="100000000" />
+		<property name="maxUploadSize" value="300000000"/>
+		<property name="maxInMemorySize" value="300000000" />
 	  </bean>
+	  
+	 
 	  
 	  
 </beans>

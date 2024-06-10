@@ -5,10 +5,8 @@ const dataTransfer = new DataTransfer();
 function fileUpload(_this) {
 
   let fileArr = _this.files;
-  //console.log(file);
-  if (fileArr != null && fileArr.length > 0) {
 
-    console.log("length:" + dataTransfer.files.length)
+  if (fileArr != null && fileArr.length > 0) {
 
     if (dataTransfer.files.length == 3) {
       alert("file max count is 3")
@@ -18,18 +16,14 @@ function fileUpload(_this) {
 
     dataTransfer.items.add(fileArr[0]);
     _this.files = dataTransfer.files;
-    console.log("file-list:", _this.files);
 
     let reader = new FileReader();
-    console.log('reader:', reader)
     reader.onload = (e) => {
       document.getElementById("img-background").style.backgroundImage
         = `url(${e.target.result})`;
     }
     reader.readAsDataURL(fileArr[fileArr.length - 1]);
     document.getElementById("img-count").innerText = _this.files.length;
-    console.log("transfer = > ", dataTransfer.files)
-    console.log("input Files =>", _this.files)
   }
 }
 
@@ -97,7 +91,6 @@ function reviewData() {
 //reivewList
 function drawReivew(review) {
   // const review=Object.keys(reviews)
-  let checkedBoss=document.querySelector("#master-check").value
 
   let reviewContent = document.querySelector("#review-content-box");
   let reviewBody = "";
@@ -132,10 +125,11 @@ function drawReivew(review) {
     }
 
     checkedMasterInput="";
-    if(checkedBoss==="YYYYY"){
-      checkedMasterInput=`<a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;`
+    if(checkedMaster==="YYYY"){
+      checkedMasterInput=`
+      <a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;`
     }
-
+    
     reviewBody += `
         <div class="review-section">
 						<div class="profile-star">

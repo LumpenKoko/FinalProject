@@ -155,6 +155,13 @@ public class CommunityServiceImpl implements CommunityService{
 				}
 			
 			}
+			else {
+				ShortsFileInfo defaultImg= new ShortsFileInfo();
+				defaultImg.setFilePath("resources/img/default/");
+				defaultImg.setChangeName("defaultImg.png");
+				
+				count1=communityDao.insertShortsAttachment(sqlSession,defaultImg);
+			}
 			
 		}
 		

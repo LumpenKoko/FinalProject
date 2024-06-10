@@ -136,6 +136,15 @@
     
     </update>
     
+    <select id ="getMasterId" resultType="string">
+           SELECT USER_ID FROM  MEMBER M
+            JOIN  LOCATION L 
+            ON (M.USER_NO = L.USER_NO)
+            WHERE LOCATION_NO = #{locationNo}
+            AND USER_KIND = 'Y'
+    
+    </select>
+    
    </mapper>
  
  

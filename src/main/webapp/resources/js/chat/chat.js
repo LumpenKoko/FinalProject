@@ -1,5 +1,5 @@
 
-function init(contextPath,entityNo){
+function init(contextPath,targetId){
     let sendButton = document.querySelector("#send-button");
     let msgContainer = document.querySelector("#MasterMsg");
 
@@ -21,6 +21,8 @@ function init(contextPath,entityNo){
     }
 
     socket.onmessage=function(ev){
+
+        const now = new Date();	
         console.log(ev)
         const recevie =JSON.parse(ev.data);
         console.log(recevie);
@@ -37,7 +39,7 @@ function init(contextPath,entityNo){
 							</div>
 							<div class="content master-content master-color">
                                     <div> ${recevie.msg} </div>
-								<div class="time">${recevie.time}</div>
+								<div class="time">${now.getHours()}:${now.getMinutes()}</div>
 							</div>
 					</div>
         `
@@ -49,7 +51,7 @@ function init(contextPath,entityNo){
         const now = new Date();	
         const msgData = {
             message:sendMsg.value,
-            target:entityNo
+            target:targetId
         }
         console.log(msgData)
         socket.send(JSON.stringify(msgData));

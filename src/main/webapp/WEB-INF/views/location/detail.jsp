@@ -135,7 +135,7 @@
 								</div>
 								<div> </div>
 								<div><button class="common-button pink-button" style="width:100%;"
-										onclick="location.href='chat'">채팅문의</button></div>
+										onclick="location.href='chat?locationNo=${l.locationNo}'">채팅문의</button></div>
 							</div>
 						</div>
 

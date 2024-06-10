@@ -4,15 +4,24 @@ let isScrolling = false;
 let contextPath;
 let userNo;
 
-function init(contextPath, userNo){
-    contextPath = contextPath;
-    userNo = userNo;
-}
+// function init(tmpContextPath, tmpUserNo){
+//     contextPath = tmpContextPath;
+//     userNo = tmpUserNo;
+
+//     console.log("여까지 왔다..");
+//     console.log("ㄴㄴ" + contextPath);
+//     console.log(userNo);
+// }
 
 // 댓글 관련 함수들
 $(document).ready(function () {
 
-    
+    const contextPath = document.getElementById("contextPath").value;
+    const userNo = document.getElementById("userNo").value;
+
+    console.log("제발..");
+    console.log(contextPath);
+    console.log(userNo);
 
     $(document).on('click', '.comment-button', function (ev) {
         const btn = ev.target;

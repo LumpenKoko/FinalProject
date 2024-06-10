@@ -7,11 +7,12 @@
         <title>Insert title here</title>
 
         <%@ include file="../common/common-file.jsp" %>
-            <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
-            <link rel="stylesheet" href="resources/css/common/common.css" />
-            <link rel="stylesheet" href="resources/css/common/minibox.css" />
-            <script src="resources\js\bosspage\bosspage.js"></script>
-            <script src="resources\js\bosspage\bossMainPage.js"></script>
+        <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
+        <link rel="stylesheet" href="resources/css/common/common.css" />
+        <link rel="stylesheet" href="resources/css/common/minibox.css" />
+        <script src="resources/js/bosspage/bosspage.js"></script>
+        <script src="resources/js/bosspage/bossMainPage.js"></script>
+        <script src="resources/js/bosspage/ajax/bossMainPageAjax.js"></script>
     </head>
 
     <body>

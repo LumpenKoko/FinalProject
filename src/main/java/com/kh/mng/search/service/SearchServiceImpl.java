@@ -12,6 +12,7 @@ import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.model.dao.MainDao;
 import com.kh.mng.search.model.dao.SearchDao;
 import com.kh.mng.search.model.dto.SearchFilter;
+import com.kh.mng.search.model.dto.SearchPick;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -23,20 +24,28 @@ public class SearchServiceImpl implements SearchService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int selectLocationListCount() {
-		return searchDao.selectLocationListCount(sqlSession);
+	public int selectLocationListCount(String keyword) {
+		return searchDao.selectLocationListCount(sqlSession, keyword);
+	}
+	
+	@Override
+	public int selectFilterLocationListCount(SearchFilter sf) {
+		return searchDao.selectFilterLocationListCount(sqlSession, sf);
 	}
 
 	@Override
-	public ArrayList<Location> selectSearchLocationList(String keyword, PageInfo pi) {
-		ArrayList<Location> list = searchDao.selectSearchLocationList(sqlSession, keyword, pi);
+	public ArrayList<Location> selectSearchLocationList(SearchFilter sf, PageInfo pi) {
+		ArrayList<Location> list = searchDao.selectSearchLocationList(sqlSession, sf, pi);
 		// list 해당 petSize
 		for (Location loc : list) {
 			loc.setCurrentDay(CurrentDate.currentDay()); // 현재 요일 (월 화 수 목 금 토 일 형식)
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
 			loc.setAttachment(new MainDao().selectAttachment(sqlSession, loc));
-			loc.setPickCount(searchDao.selectPickCount(sqlSession, loc));
+			if (sf.getLoginUserNo() != "") {
+				loc.setUserNo(Integer.parseInt(sf.getLoginUserNo()));
+			}
+			loc.setUserPick(searchDao.selectUserPick(sqlSession, loc));
 		}
 		// list 해당 운영시간
 		// 현재 요일 넘겨서 해당 요일 운영시간 가져오기
@@ -48,13 +57,17 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public ArrayList<Location> selectFilterLocationList(SearchFilter sf, PageInfo pi) {
 		ArrayList<Location> list = searchDao.selectFilterLocationList(sqlSession, sf, pi);
+		System.out.println(list);
 		// list 해당 petSize
 		for (Location loc : list) {
 			loc.setCurrentDay(CurrentDate.currentDay()); // 현재 요일 (월 화 수 목 금 토 일 형식)
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
 			loc.setAttachment(new MainDao().selectAttachment(sqlSession, loc));
-			loc.setPickCount(searchDao.selectPickCount(sqlSession, loc));
+			if (sf.getLoginUserNo() != "") {
+				loc.setUserNo(Integer.parseInt(sf.getLoginUserNo()));
+			}
+			loc.setUserPick(searchDao.selectUserPick(sqlSession, loc));
 		}
 		// list 해당 운영시간
 		// 현재 요일 넘겨서 해당 요일 운영시간 가져오기
@@ -64,7 +77,27 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	@Override
-	public int selectUserPick(Location loc) {
-		return searchDao.selectUserPick(sqlSession, loc);
+	public int selectUserPick(SearchPick pick) {
+		return searchDao.selectUserPick(sqlSession, pick);
+	}
+	
+	@Override
+	public SearchPick insertUserPick(SearchPick pick) {
+		int result = searchDao.insertUserPick(sqlSession, pick);
+		
+		if (result > 0) {
+			pick.setLocPickCount(searchDao.selectLocationPickCount(sqlSession, pick));
+		}
+		return pick;
+	}
+	
+	@Override
+	public SearchPick deleteUserPick(SearchPick pick) {
+		int result = searchDao.deleteUserPick(sqlSession, pick);
+		
+		if (result > 0) {
+			pick.setLocPickCount(searchDao.selectLocationPickCount(sqlSession, pick));
+		}
+		return pick;
 	}
 }

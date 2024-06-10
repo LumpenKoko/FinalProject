@@ -98,12 +98,17 @@
     cursor: pointer;
 }
 
-#search-order-by>div>span{
+#order-by-title>span{
     display: inline-block;
     margin: auto 0px;
 }
 
-#search-order-by>div>img{
+#order-by-title>img{
+    width: 10px;
+    margin-left: 10px;
+}
+
+#order-by-icon{
     width: 10px;
     margin-left: 10px;
 }
@@ -128,6 +133,7 @@
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0px;
 }
 
 .order-by-list:hover{
@@ -258,7 +264,7 @@
     margin: 20px auto;
     margin-top: 40px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
@@ -269,6 +275,7 @@
 #paging-bar>button{
     border: none;
     background-color: inherit;
+    margin: 0px 10px;
 }
 
 #paging-bar>button:hover{

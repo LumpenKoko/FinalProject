@@ -278,7 +278,8 @@
 						<div class="location-div">
 							<div class="section location-area">
 								<div class="title">위치정보 </div>
-								<input id="address" type="text" value="서울특별시 강남구 테헤란로14길 6" hidden>
+								<input id="address" type="text" value="서울특별시 강남구 테헤란로 14길 6" hidden>
+								<input id="locationName" type="text" value="${l.locationName}" hidden>
 								<div class="content">
 									<div id="location-map" style="width:100%; height:500px;"></div>
 								</div>
@@ -287,7 +288,7 @@
 							<div class="section hospital-area">
 								<div class="title">동물병원</div>
 								<div class="content">
-									<div id="hostpial_map" style="width:150px;height:500px;"></div>
+									<div id="hostpial_map" style="width:300px;height:500px;"></div>
 								</div>
 							</div>
 						</div>

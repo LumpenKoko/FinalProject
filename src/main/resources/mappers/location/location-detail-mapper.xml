@@ -129,6 +129,13 @@
           		 WHERE G.LOCATION_NO = #{locationNo}
     </select>
     
+    <update id="updateLocationTotalScore">
+    
+    	UPDATE LOCATION SET LOCATION_STAR = #{score}
+    			WHERE LOCATION_NO = #{locationNo}
+    
+    </update>
+    
    </mapper>
  
  

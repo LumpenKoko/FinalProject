@@ -307,9 +307,9 @@
 									<li class="count" style="color:#c2bcbc;">${reviewCount}건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
-									<li><a  onclick="reviewCategory('o')">최신순</a></li>
-									<li><a  onclick="reviewCategory('h')">높은 평점순</a></li>
-									<li><a  onclick="reviewCategory('l')">낮은 평점순</a></li>
+									<li><a  onclick="reviewPaging(1,'o')">최신순</a></li>
+									<li><a  onclick="reviewPaging(1,'h')">높은 평점순</a></li>
+									<li><a  onclick="reviewPaging(1,'l')">낮은 평점순</a></li>
 								</ul>
 							</div>
 

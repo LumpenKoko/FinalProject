@@ -9,7 +9,7 @@ function fileUpload(_this) {
   if (fileArr != null && fileArr.length > 0) {
 
     if (dataTransfer.files.length == 3) {
-      alert("file max count is 3")
+      alert("이미지는 최대 3장까지 가능합니다")
       return false;
     }
     fileList(_this.files);
@@ -90,12 +90,11 @@ function reviewData() {
 
 //reivewList
 function drawReivew(review) {
-  // const review=Object.keys(reviews)
+ 
 
   let reviewContent = document.querySelector("#review-content-box");
   let reviewBody = "";
   for (let r of review) {
-    console.log("ㅇㅇㅇㅇ", r);
     let imgs = "";
     let reply = "";
     let reviewStar = '';
@@ -167,7 +166,7 @@ function drawReivew(review) {
 
 
 //페이징 부분 비동기 처리
-function drawPaging(reviewPi) {
+function drawPaging(reviewPi,type) {
   let pageDiv = document.querySelector("#page-div");
   let previousButton = "";
   let nextButton = "";
@@ -183,14 +182,14 @@ function drawPaging(reviewPi) {
   else {
     previousButton = `
     <div id="previous-button" class="prv-button">
-      <li><a class="page-button" onclick="reviewPaging('${reviewPi.currentPage - 1}')">◀</a></li>
+      <li><a class="page-button" onclick="reviewPaging('${reviewPi.currentPage - 1}','${type}')">◀</a></li>
     </div >
     `
   }
 
   for (let p = reviewPi.startPage; p <= reviewPi.endPage; p++) {
     pageItem += `
-      <li class="page-item"><a class="page-link" onclick="reviewPaging('${p}')">${p}</a></li>
+      <li class="page-item"><a class="page-link" onclick="reviewPaging('${p}','${type}')">${p}</a></li>
     `
   }
 
@@ -205,7 +204,7 @@ function drawPaging(reviewPi) {
   else {
     nextButton = `
      <div id="next-button" class="next-button">
-         <li ><a  class="page-button" onclick="reviewPaging('${reviewPi.currentPage + 1}')">▶</a></li>
+         <li ><a  class="page-button" onclick="reviewPaging('${reviewPi.currentPage + 1}','${type}')">▶</a></li>
       </div>
     `
   }

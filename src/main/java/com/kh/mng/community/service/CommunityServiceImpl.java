@@ -184,7 +184,6 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	public int getShortsNum(int videoId) {
-		System.out.println("서비스" + videoId);
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 

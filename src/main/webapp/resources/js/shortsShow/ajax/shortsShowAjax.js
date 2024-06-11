@@ -11,14 +11,15 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
             num: num
         },
         success: function (response) {
-            const replyList = JSON.parse(response);
+            const replyList = response;
+            console.log(replyList);
 
-            if (response === null) {
+            if (replyList.length === 0) {
                 const newComment = $('<div class="tmp-box"></div>').text("아직 댓글이 없어요ㅠㅠ");
                 $('#comments-list' + num).append(newComment);
             } else {
                 for (let i = 0; i < replyList.length; i++) {
-                    const newComment = $('<div class="tmp-box"></div>').text(replyList[i].content);
+                    const newComment = $('<div class="tmp-box"></div>').text(replyList[i].replyContent);
                     $('#comments-list' + num).append(newComment);
                 }
             }

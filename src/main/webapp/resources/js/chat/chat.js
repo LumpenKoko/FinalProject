@@ -1,5 +1,10 @@
 
 function init(contextPath,targetId){
+    if(targetId==="NNNNN"){
+        targetId="toribro3761";
+    }
+
+
     let sendButton = document.querySelector("#send-button");
     let msgContainer = document.querySelector("#MasterMsg");
 
@@ -42,7 +47,7 @@ function init(contextPath,targetId){
 								<div class="time">${now.getHours()}:${now.getMinutes()}</div>
 							</div>
 					</div>
-        `
+         `
         
     }
 

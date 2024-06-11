@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.service.BossPageService;
+import com.kh.mng.location.controller.LocationController;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 //@Controller -> 요청을 받아서 응답을 돌려주는 역할
 @Controller
+@Slf4j
 public class bossPageController {
 
 	@Autowired
@@ -166,7 +170,13 @@ public class bossPageController {
 	}
 
 	@RequestMapping(value = "chatPage.cp")
-	public String chatPage() {
+	public String chatPage(Model model,HttpSession session) {
+		Member connectedMaster =((Member)session.getAttribute("loginUser"));
+		
+		session.setAttribute("connectedMaster", connectedMaster);
+		//String userId=((Member)session.getAttribute("connectedMaster")).getUserId();
+		
+		model.addAttribute("entityId","NNNNN");			
 		return "chat/chat";
 	}
 }

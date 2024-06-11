@@ -124,9 +124,7 @@ public class CommunityDao {
 	
 
 	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
-		System.out.println("다오" + videoId);
-		
-		return sqlSession.selectOne("shortsMapper.getShortsNum",videoId);
+		return sqlSession.selectOne("shortsMapper.getShortsNo",videoId);
 	}
 
 	public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {

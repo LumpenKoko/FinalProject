@@ -314,13 +314,10 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value="loadReply.sh", produces="application/json; charset=utf-8")
 	public String loadReply(@RequestParam(value="num") int videoId){
-		
-		System.out.println(videoId);
 		int shortsNum = communityService.getShortsNum(videoId);
-		System.out.println(shortsNum);
-		return null;
 		
-//		ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
-//		return new Gson().toJson(replyList);
+		ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
+		System.out.println(replyList);
+		return new Gson().toJson(replyList);
 	}
 }

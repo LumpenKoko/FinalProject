@@ -172,6 +172,48 @@ public class bossPageController {
 			return "redirect:/";//redirect -> url과 화면을 다 바꿔줘야할 때
 		}
 	}
+	
+	// 장소 정보 업데이트
+    @ResponseBody
+    @PostMapping(value="/saveLocationInfo.bm", produces="application/json; charset=UTF-8")
+    public Map<String, Object> saveLocationInfo(@RequestBody Map<String, Object> locationInfo, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            int userNo = loginUser.getUserNo();
+            locationInfo.put("userNo", userNo);
+            int result = bossPageService.saveLocationInfo(locationInfo);
+            if (result > 0) {
+                response.put("message", "장소정보 업데이트를 완료하였습니다.");
+            } else {
+                response.put("message", "장소정보 업데이트에 실패했습니다.");
+            }
+        } else {
+            response.put("message", "로그인이 필요합니다.");
+        }
+        return response;
+    }
+
+    // 장소 정보 로드
+    @ResponseBody
+    @GetMapping(value="/getLocationInfo.bm", produces="application/json; charset=UTF-8")
+    public Map<String, Object> getLocationInfo(HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            int userNo = loginUser.getUserNo();
+            Location location = bossPageService.getLocation(userNo);
+            if (location != null) {
+                response.put("phone", location.getPhone());
+                response.put("description", location.getDescription());
+                response.put("reservationLink", location.getReservationLink());
+                response.put("animalTypes", location.getAnimalTypes());
+            }
+        } else {
+            response.put("message", "로그인이 필요합니다.");
+        }
+        return response;
+    }
 
 	@RequestMapping(value = "bossAccommodationinfo.ba")
 	public String bossAccommodationinfo() {

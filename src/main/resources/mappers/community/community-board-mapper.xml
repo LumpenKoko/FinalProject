@@ -32,7 +32,16 @@
 	   
 	   <resultMap type="BoardCategory" id="boardCategoryList">
 	      <result column="BOARD_CATEGORY_NO" property="categoryNo"></result>
-	       <result column="CATEGORY_NAME" property="categoryName"></result>
+	      <result column="CATEGORY_NAME" property="categoryName"></result>
+	   </resultMap>
+	   
+	   <resultMap type="Reply" id="selectReplys">
+	   		<result column="REPLY_NO"  property="replyNo"></result>
+	   		<result column="REPLY_RE_NO" property="replyReplyNo"></result>
+	   		<result column="REPLY_CONTENT"  property="replyContent"></result>
+	   		<result column="REPLY_REPLY_CONTENT"  property="replyReplyContent"></result>
+	   		<result column="REPLY_CREATE_DATE"  property="replyCreateDate"></result>
+	   		<result column=" REPLY_REPLY_CREATE_DATE" property="replyReplyCreateDate"></result>
 	   </resultMap>
   
   	<select id="selectBoardList" resultMap="selectBoards">
@@ -121,6 +130,41 @@
 				FROM BOARD_CATEGORY;
 	</select>
 	
+	<select id="selectDetailBoard" resultMap="selectBoards">
+		SELECT B.BOARD_NO,
+  	  	       B.BOARD_TITLE,
+  	  		   B.BOARD_CONTENT,
+  	  		   B.COUNT,
+  	  		   B.CREATE_DATE,
+  	  		   B.EDIT_DATE,
+  	  		   B.STATUS,
+  	  		   M.USER_NICKNAME,
+  	  		   C.CATEGORY_NAME,
+  	  		   B.USER_NO,
+  	  		   C.BOARD_CATEGORY_NO
+  	  		   FROM BOARD B
+  	  		   JOIN MEMBER M
+  	  		   ON (B.USER_NO = M.USER_NO)
+  	  		   JOIN BOARD_CATEGORY C
+  	  		   ON (B.BOARD_CATEGORY_NO = C.BOARD_CATEGORY_NO)
+  	  		   WHERE B.BOARD_NO = #{bno} AND  B.STATUS = true
+	</select>
+	
+	
+	<select id ="selectDetailBoardReply" resultMap="selectReplys">
+		SELECT R1.REPLY_NO,
+			   R1.REPLY_CONTENT AS REPLY_CONTENT,
+			   R1. CREATE_DATE AS REPLAY_CREATE_DATE,
+			   R2.REPLY_RE_NO,
+			   R2.REPLY_CONTENT AS REPLY_REPLY_CONTENT,
+			   R2. CREATE_DATE  AS REPLY_REPLY_CREATE_DATE
+			   
+			  FROM REPLY R1 
+			  JOIN REPLY R2
+			  ON (R1.REPLY_NO =R2.REPLY_RE_NO)
+			  WHERE R1.BOARD_NO = #{boardNo}
+		
+	</select>
    
    
   </mapper>

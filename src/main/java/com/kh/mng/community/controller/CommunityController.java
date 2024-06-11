@@ -265,7 +265,12 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="detailView.bo")
-	public String detailBoardView() {
+	public String detailBoardView(@RequestParam(value="bno") int bno,Model model) {
+		
+		 CommunityBoard communityBoard = communityService.selectBoardDetail(bno);
+		 log.info("communityBoard:{}",communityBoard);
+		 model.addAttribute("board",communityBoard);
+		 
 		return "community/boardContent";
 	}
 	

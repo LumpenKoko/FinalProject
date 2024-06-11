@@ -8,6 +8,7 @@
 	<%@ include file="../common/common-file.jsp" %>
 	<link rel="stylesheet" href="resources/css/community/community.css"/>
 	<link rel="stylesheet" href="resources/css/community/boardContent.css"/>
+    <script src='resources/js/boardShow/init.js'></script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -43,7 +44,7 @@
                 <div id="board-content-box">
                     <div id="board-content-text">
                         <img src="resources/community/userProfile.jpg" alt="">
-                        <div>컨텐츠박스입니다. 예시입니다. 은성님 어디 계세요.</div>
+                        <div>컨텐츠박스입니다. 예시입니다.</div>
                     </div>
                     <div id="board-communication-box">
                         <div class="board-communication-info">
@@ -59,90 +60,82 @@
                 </div>
 
                 <!-- 댓글 리스트 -->
-                <div id="board-reply-list">
-                    <div id="board-reply-title">댓글</div>
+                <div id="board-reply-title">댓글</div>
+                 
 
-                    <!-- 로그인한 유저가 작성한 본인 댓글 -->
-                    <div class="board-reply-box">
-                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
-                        <div class="board-reply-content">
-                            <div class="reply-title-box">
-                                <div>
-                                    <span class="reply-user">쿠키언니</span>
-                                    <span class="reply-date">2024.05.02 17:03</span>
+                        <div id="board-reply-list">
+                            <c:forEach   var="r" begin="1" end="10">
+
+                            <!-- 로그인한 유저가 작성한 본인 댓글 -->
+                                <div class="board-reply-box">
+                                    <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
+                                    
+                                    <div class="board-reply-content">
+                                        <div class="reply-title-box">
+                                            <div>
+                                                <span class="reply-user">쿠키언니</span>
+                                                <span class="reply-date">2024.05.02 17:03</span>
+                                                <button onclick="replyInsert('${r}')">답글 달기</button>
+                                            </div>
+                                            
+                                            <div class="change-button-box">
+                                                <img src="resources/community/threeCircle.png" alt="">
+                                                <div class="change-box">
+                                                    <div class=""><a>수정하기</a></div>
+                                                    <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="reply-content">어디계시나요!</div>
+                                    </div>
+
                                 </div>
-                                
-                                <div class="change-button-box">
-                                    <img src="resources/community/threeCircle.png" alt="">
-                                    <div class="change-box">
-                                        <div class="change-box-list">수정하기</div>
-                                        <div class="change-box-list change-box-last" data-toggle="modal" data-target="#delete-content">삭제하기</div>
+                                <!-- 대댓글 형식 -->
+                               <div class="board-reply-box re-reply-width">
+                                    <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
+                                    <div class="board-reply-content">
+                                        <div class="reply-title-box">
+                                            <div>
+                                                <span class="reply-user">강아지왕</span>
+                                                <span class="reply-date">2024.05.02 17:03</span>
+                                                <!-- <button onclick="replyInsert('${r}')" >답글 달기</button> -->
+                                            </div>
+                                            <div class="change-box">
+                                                <div class=""><a>수정하기</a></div>
+                                                <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                            </div>
+                                        </div>
+                                        <div class="reply-content">병원 가보세요~</div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="reply-content">어디계시나요!</div>
-                        </div>
-                    </div>
 
-                    <!-- 본인이 작성하지 않은 댓글 -->
-                    <div class="board-reply-box">
-                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
-                        <div class="board-reply-content">
-                            <div class="reply-title-box">
-                                <div>
-                                    <span class="reply-user">강아지왕</span>
-                                    <span class="reply-date">2024.05.02 17:03</span>
-                                    <button>답글 달기</button>
+
+
+
+
+                            <!-- 답글 달기 클릭 시 나오는 input 창 -->
+                                <div id="reply-content${r}" style="display:none;" class="re-reply-width board-reply-box">
+                                    <form action="">
+                                        <div class="reply-regist-info">
+                                            <div>
+                                                <img src="resources/community/userProfile.jpg" alt="">
+                                                <span>강아지왕</span>
+                                            </div>
+                                            <div class="replybutton-div"><button class="common-button pink-button">답글 등록</button></div>
+                                        </div>
+                                        <div class="input-reply-div">
+                                            <div class="replytext-div"><textarea name="" id="replyText" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea></div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="reply-content">병원 가보세요~</div>
-                        </div>
-                    </div>
 
-                    <!-- 대댓글 형식 -->
-                    <div class="board-reply-box re-reply-width">
-                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
-                        <div class="board-reply-content">
-                            <div class="reply-title-box">
-                                <div>
-                                    <span class="reply-user">강아지왕</span>
-                                    <span class="reply-date">2024.05.02 17:03</span>
-                                    <button>답글 달기</button>
-                                </div>
-                            </div>
-                            <div class="reply-content">병원 가보세요~</div>
-                        </div>
-                    </div>
+                         </c:forEach>
 
-                    <!-- 답글 달기 클릭 시 나오는 input 창 -->
-                    <div class="board-reply-box re-reply-width">
-                        <form action="">
-                            <div class="reply-regist-info">
-                                <div>
-                                    <img src="resources/community/userProfile.jpg" alt="">
-                                    <span>강아지왕</span>
-                                </div>
-                                <button class="common-button pink-button">댓글 등록</button>
-                            </div>
-                            <textarea name="" id="" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea>
-                        </form>
-                    </div>
-
-                    <div class="board-reply-box">
-                        <div class="board-reply-profile"><img src="resources/community/userProfile.jpg" alt=""></div>
-                        <div class="board-reply-content">
-                            <div class="reply-title-box">
-                                <div>
-                                    <span class="reply-user">강아지왕</span>
-                                    <span class="reply-date">2024.05.02 17:03</span>
-                                    <button>답글 달기</button>
-                                </div>
-                            </div>
-                            <div class="reply-content">병원 가보세요~</div>
                         </div>
-                    </div>
-                </div>
+               
+
                 <!-- 리뷰 등록란 -->
                 <div id="board-reply-regist">
                     <form action="">

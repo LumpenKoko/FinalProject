@@ -112,10 +112,10 @@
                                 <div class="pick-box" data-locno='${loc.locationNo}'>
                                     <c:choose>
                                         <c:when test="${loc.userPick eq 0}">
-                                            <img src="resources/img/searchpage/like-pre.png" alt="">
+                                            <img src="resources/img/searchpage/like-pre.png" style="cursor: pointer;" alt="">
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="resources/img/searchpage/like-after.png" alt="">
+                                            <img src="resources/img/searchpage/like-after.png" style="cursor: pointer;" alt="">
                                         </c:otherwise>
                                     </c:choose>
                                     <span>${loc.pickCount}</span>

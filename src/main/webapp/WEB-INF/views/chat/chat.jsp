@@ -10,7 +10,7 @@
 <script src='resources/js/chat/chat.js'></script>
 </head>
 	<%@ include file="../common/header.jsp"%>
-<body onload="init('${contextPath}','${masterId}')">
+<body onload="init('${contextPath}','${entityId}')">
    
    	
 	<div class="wrapper chat-wrapper">

@@ -53,12 +53,16 @@ public class LocationController {
 	
 	
 	@GetMapping("/chat")
-	public String ChatList(int locationNo,Model model) {
+	public String ChatList(int locationNo,Model model,HttpSession session) {
 		log.info("{}",locationNo);
+		
+		Member connectedUser =((Member)session.getAttribute("loginUser"));
+		session.setAttribute("connectedUser", connectedUser);
+		
 		//사장님 아이디 가져오기 
-		String masterId= detailService.getMasterId(locationNo);
-		System.out.println(masterId);
-		model.addAttribute("masterId",masterId);
+    	String masterId= detailService.getMasterId(locationNo);
+    	log.info(masterId);
+		model.addAttribute("entityId", masterId);
 		return "chat/chat";
 	}
 

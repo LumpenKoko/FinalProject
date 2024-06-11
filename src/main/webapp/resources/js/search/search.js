@@ -397,16 +397,15 @@ function operationTime(){
     let month = day.getMonth();
     let date = day.getDate();
 
-    let spanList = document.querySelectorAll('.operation-time');
-
     day = day.setTime(day.getTime());
+
+    let spanList = document.querySelectorAll('.operation-time');
 
     for(let opTime of spanList){
         let start = "";
         let end = "";
-        start = opTime.dataset.startTime;
+        start = opTime.dataset.start;
         end = opTime.dataset.end;
-        console.log(start)
 
         // 장소 카테고리가 숙소인 경우 (체크인/체크아웃)
         if (opTime.dataset.category == '숙소'){

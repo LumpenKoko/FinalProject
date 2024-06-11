@@ -102,91 +102,100 @@
                         
                     </div>
                 </div>
-                
-                <c:forEach var="loc" items="${locationList}">
-                    <div class="search-content-box gray-round-box" onclick="handelPick(event, '${loginUser.userNo}', '${loc.locationNo}')">
-                        <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
-                        <div class="search-content">
-                            <div class="content-title">
-                                <span>${loc.locationName}</span>
-                                <div class="pick-box" data-locno='${loc.locationNo}'>
-                                    <c:choose>
-                                        <c:when test="${loc.userPick eq 0}">
-                                            <img src="resources/img/searchpage/like-pre.png" style="cursor: pointer;" alt="">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="resources/img/searchpage/like-after.png" style="cursor: pointer;" alt="">
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <span>${loc.pickCount}</span>
-                                </div>
-                            </div>
-                            <div class="content-upper-box">
-                                <div>
-                                    <span class="font-bold">분류</span>
-                                    <span>${loc.locationCategoryNo}</span>
-                                </div>
-                                <div>
-                                    <span class="font-bold">평점</span>
-                                    <span>${loc.locationStar}</span>
-                                    <div>
-                                        <img src="resources/img/searchpage/rating-star.png" alt="">
-                                        <img src="resources/img/searchpage/rating-star.png" alt="">
-                                        <img src="resources/img/searchpage/rating-star.png" alt="">
-                                        <img src="resources/img/searchpage/rating-star.png" alt="">
+                <c:choose>
+                    <c:when test="${empty locationList}">
+                        <div class="gray-round-box none-search">
+                            <div class="none-text">검색 결과가 없습니다.</div>
+                        </div>
+                    </c:when> 
+                    <c:otherwise>
+                        <c:forEach var="loc" items="${locationList}">
+                            <div class="search-content-box gray-round-box" onclick="handelPick(event, '${loginUser.userNo}', '${loc.locationNo}')">
+                                <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
+                                <div class="search-content">
+                                    <div class="content-title">
+                                        <span>${loc.locationName}</span>
+                                        <div class="pick-box" data-locno='${loc.locationNo}'>
+                                            <c:choose>
+                                                <c:when test="${loc.userPick eq 0}">
+                                                    <img src="resources/img/searchpage/like-pre.png" style="cursor: pointer;" alt="">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="resources/img/searchpage/like-after.png" style="cursor: pointer;" alt="">
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <span>${loc.pickCount}</span>
+                                        </div>
+                                    </div>
+                                    <div class="content-upper-box">
+                                        <div>
+                                            <span class="font-bold">분류</span>
+                                            <span>${loc.locationCategoryNo}</span>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold">평점</span>
+                                            <span>${loc.locationStar}</span>
+                                            <div>
+                                                <img src="resources/img/searchpage/rating-star.png" alt="">
+                                                <img src="resources/img/searchpage/rating-star.png" alt="">
+                                                <img src="resources/img/searchpage/rating-star.png" alt="">
+                                                <img src="resources/img/searchpage/rating-star.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold">종류</span>
+                                            <span>
+                                                <c:forEach var="size" items="${loc.enterList}">
+                                                    ${size.petSizeNo} 
+                                                </c:forEach>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="content-lower-box">
+                                        <div>
+                                            <img src="resources/img/searchpage/location.png" alt="">
+                                            <span>${loc.address}</span>
+                                        </div>
+                                        <div>
+                                            <img src="resources/img/searchpage/phone.png" alt="">
+                                            <span>${loc.locationPhone}</span>
+                                        </div>
+                                        <div>
+                                            <img src="resources/img/searchpage/time.png" alt="">
+                                            <!-- <c:choose>
+                                                <c:when test="${loc.locationCategoryNo eq '숙소'}">
+                                                    <span class="operation-time">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    
+                                                </c:otherwise>
+                                            </c:choose> -->
+                                            <span class="operation-time" data-category="${loc.locationCategoryNo}" data-start="${loc.opTime.startTime}" data-end="${loc.opTime.endTime}" data-status="${loc.opTime.restStatus}"></span>
+                                            
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <span class="font-bold">종류</span>
-                                    <span>
-                                        <c:forEach var="size" items="${loc.enterList}">
-                                            ${size.petSizeNo} 
-                                        </c:forEach>
-                                    </span>
-                                </div>
                             </div>
-                            <hr>
-                            <div class="content-lower-box">
-                                <div>
-                                    <img src="resources/img/searchpage/location.png" alt="">
-                                    <span>${loc.address}</span>
-                                </div>
-                                <div>
-                                    <img src="resources/img/searchpage/phone.png" alt="">
-                                    <span>${loc.locationPhone}</span>
-                                </div>
-                                <div>
-                                    <img src="resources/img/searchpage/time.png" alt="">
-                                    <!-- <c:choose>
-                                        <c:when test="${loc.locationCategoryNo eq '숙소'}">
-                                            <span class="operation-time">
-                                        </c:when>
-                                        <c:otherwise>
-                                            
-                                        </c:otherwise>
-                                    </c:choose> -->
-                                    <span class="operation-time" data-category="${loc.locationCategoryNo}" data-start="${loc.opTime.startTime}" data-end="${loc.opTime.endTime}" data-status="${loc.opTime.restStatus}"></span>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
+                        </c:forEach>
 
-        
-                <!-- 페이징 바 -->
-                <div id="paging-bar">
-                    <c:if test="${pi.currentPage ne pi.startPage}">
-                        <button onclick="searchFilterPage('${keyword}', '${loginUser.userNo}', '${pi.currentPage - 1}')">&lt;</button>
-                    </c:if>
-                    <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
-                    	<button onclick="searchFilterPage('${keyword}', '${loginUser.userNo}', '${i}')">${i}</button>
-                    </c:forEach>
-                    <c:if test="${pi.currentPage ne pi.maxPage}">
-                        <button onclick="searchFilterPage('${keyword}', '${loginUser.userNo}', '${pi.currentPage + 1}')">&gt;</button>
-                    </c:if>
-                    
-                </div>
+                
+                        <!-- 페이징 바 -->
+                        <div id="paging-bar">
+                            <c:if test="${pi.currentPage ne pi.startPage}">
+                                <button onclick="searchFilterPage('${keyword}', '${loginUser.userNo}', '${pi.currentPage - 1}')">&lt;</button>
+                            </c:if>
+                            <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+                                <button onclick="searchFilterPage('${keyword}', '${loginUser.userNo}', '${i}')">${i}</button>
+                            </c:forEach>
+                            <c:if test="${pi.currentPage ne pi.maxPage}">
+                                <button onclick="searchFilterPage('${keyword}', '${loginUser.userNo}', '${pi.currentPage + 1}')">&gt;</button>
+                            </c:if>
+                            
+                        </div>
+
+                    </c:otherwise>
+                </c:choose>
                 
             </div>
         </div>

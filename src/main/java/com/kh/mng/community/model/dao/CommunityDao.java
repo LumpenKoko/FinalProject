@@ -16,6 +16,7 @@ import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
 @Repository
@@ -111,7 +112,13 @@ public class CommunityDao {
 	
 
 	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
+		System.out.println("다오" + videoId);
+		
 		return sqlSession.selectOne("shortsMapper.getShortsNum",videoId);
+	}
+
+	public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {
+	    return (ArrayList)sqlSession.selectList("shortsMapper.loadReply", shortsNum);
 	}
 
 

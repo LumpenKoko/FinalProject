@@ -178,13 +178,13 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	public ArrayList<ShortsReply> loadReply(int shortsNum) {
-//		return communityDao.loadReply(sqlSession, shortsNum);
-		return null;
+		return communityDao.loadReply(sqlSession, shortsNum);
 	}
 
 
 	@Override
 	public int getShortsNum(int videoId) {
+		System.out.println("서비스" + videoId);
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 

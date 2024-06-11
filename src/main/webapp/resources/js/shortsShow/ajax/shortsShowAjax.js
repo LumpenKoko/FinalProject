@@ -1,7 +1,9 @@
 // 댓글 가져오는 함수
 $(document).on('click', '[id^="show-reply-btn"]', function () {
 
-    const num = this.id.replace('show-reply-btn', '');
+    const num = parseInt(this.id.replace('show-reply-btn', ''));
+    console.log(num);
+    console.log(typeof(num));
 
     $.ajax({
         url: contextPath + '/loadReply.sh',

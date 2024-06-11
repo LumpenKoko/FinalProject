@@ -4,19 +4,6 @@ function showOrderBox(){
     orderBox.classList.toggle('display-block');
 }
 
-function handelPick(event, loginUserNo, locationNo){
-    let searchResultBox = document.querySelector("#search-result-box");
-    // searchResultBox.addEventListener('click', function(event) {
-        if (event.target.matches('.pick-box img')) {
-            if (event.target.parentNode.dataset.locno == locationNo){
-                changePick(loginUserNo, locationNo);
-            }
-        } else if(event.target.matches('.search-content-box img, .search-content-box div')){ 
-            location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
-        }
-    // });
-}
-
 // 정렬 기준 스타일 바꾸기
 function changeOrderColor(selectedOrder){
     let orderContent = document.querySelectorAll('.order-by-list');
@@ -27,20 +14,20 @@ function changeOrderColor(selectedOrder){
 
     selectedOrder.style.color = 'var(--main-color)'
 }
-
-// 장소 div 선택 시 detail 페이지로 넘어감
-function moveToLocationDetail(contextPath, locNo){
-    location.href = contextPath + "/detail?locationNo=" + locNo;
-}
     
-// 영업시간 출력
-function operationTime(){
-
+// 페이지 로드 시 공감 및 가게 클릭 시 페이지 이동 이벤트핸들러
+function handelPick(event, loginUserNo, locationNo){
+    if (event.target.matches('.pick-box img')) {
+        if (event.target.parentNode.dataset.locno == locationNo){
+            changePick(loginUserNo, locationNo);
+        }
+    } else if(event.target.matches('.search-content-box *')){ 
+        location.href = contextPath + "/detail?locationNo=" + locationNo;
+    }
 }
 
-// 찜 함수
+// 공감 ajax 실행 함수
 function changePick(loginUserNo, locNo){
-    console.log("안들어와?")
     if (loginUserNo != ""){
         ajaxSelectLikeInfo({
             loginUserNo : loginUserNo,
@@ -51,7 +38,7 @@ function changePick(loginUserNo, locNo){
     }
 }
 
-// 찜 성공 시 화면 출력
+// 공감 성공 시 화면 출력
 function drawPickStatus(pick){
     let pickList = document.querySelectorAll('.pick-box');
     console.log(pickList)
@@ -64,8 +51,6 @@ function drawPickStatus(pick){
             console.log(pickBox)
         }
     }
-    console.log(pick.status)
-
     pickBox.innerHTML = "";
     
     let pickImg = document.createElement('img');
@@ -152,11 +137,11 @@ function searchFilterForm(keyword, loginUserNo, cpage){
 
 // ajax 성공 시 화면 그리기
 function drawSearchPage(locationInfo){
-    console.log("성공했어요~")
-
+    // 컨텐츠 박스 가장 큰 테두리
     let searchResultBox = document.querySelector("#search-result-box");
     searchResultBox.innerHTML = "";
 
+    // 검색 결과
     let searchTitleBox = document.createElement('div');
     searchTitleBox.id = 'search-title-box';
 
@@ -169,6 +154,7 @@ function drawSearchPage(locationInfo){
 
     searchTitleBox.append(searchOrderBy);
 
+    // 정렬 기준
     let orderByTitle = document.createElement('div');
     orderByTitle.id = 'order-by-title';
 
@@ -213,169 +199,259 @@ function drawSearchPage(locationInfo){
                             + '<label id="order-by-last" class="order-by-list" for="order-by-pick">찜개수순</label></div>'
     orderByTitle.onclick = showOrderBox;
 
-    for(let loc of locationInfo.locationList){
-        let searchContentBox = document.createElement('div');
-        searchContentBox.classList.add('search-content-box', 'gray-round-box');
-        // searchContentBox.onclick = function (){
-        //     location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
-        // }
-        searchResultBox.append(searchContentBox)
+    // 검색 결과 장소 컨텐츠 박스
+    // 검색 결과가 없는 경우
+    if (locationInfo.locationList.length == 0){
+        let box = document.createElement('div');
+        box.classList.add('gray-round-box', 'none-search')
+       
+        searchResultBox.append(box);
 
-        searchContentBox.innerHTML = '<img src="'+ loc.attachment.filePath + loc.attachment.changeName + '" alt="">';
+        let text = document.createElement('div');
+        text.className = 'none-text'
+        text.innerHTML = '검색 결과가 없습니다.'
 
-        let searchContent = document.createElement('div');
-        searchContent.className = 'search-content';
-    
-        searchContentBox.appendChild(searchContent);
+        box.append(text);
 
-        let contentTitle = document.createElement('div');
-        contentTitle.className = 'content-title';
+    // 검색 결과가 있는 경우
+    } else {
+        // 장소 박스 for문
+        for(let loc of locationInfo.locationList){
+            let searchContentBox = document.createElement('div');
+            searchContentBox.classList.add('search-content-box', 'gray-round-box');
+            // searchContentBox.onclick = function (){
+            //     location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
+            // }
+            searchResultBox.append(searchContentBox)
 
-        searchContent.appendChild(contentTitle);
+            // 좌측 장소 대표 이미지
+            searchContentBox.innerHTML = '<img src="'+ loc.attachment.filePath + loc.attachment.changeName + '" alt="">';
 
-        contentTitle.innerHTML = '<span>'+loc.locationName+'</span>';
+            // 우측 장소 설명 박스
+            let searchContent = document.createElement('div');
+            searchContent.className = 'search-content';
+        
+            searchContentBox.appendChild(searchContent);
 
-        let pickBox = document.createElement('div');
-        pickBox.className = 'pick-box';
-        pickBox.dataset.locno = loc.locationNo;
-        contentTitle.append(pickBox);
+            // 상단 제목 + 공감 div
+            let contentTitle = document.createElement('div');
+            contentTitle.className = 'content-title';
 
-        // // 찜 함수
-        // likeBox.onclick = function(){
-        //     changePick(locationInfo.loginUserNo, loc.locationNo)
-        // };
-        let pickImg = document.createElement('img');
-        let pickCount = document.createElement('span');
-    
-        // pickImg.onclick = function(event){
-        //     changePick(loginUser.userNo, loc.locationNo)
-        //     event.stopPropagation();
-        // }
+            searchContent.appendChild(contentTitle);
 
-        pickBox.append(pickImg)
-        pickBox.append(pickCount)
-        searchContentBox.addEventListener('click', function(event) {
-            if (event.target.matches('.pick-box img')) {
-                console.log(event.target)
-                if (event.target.parentNode.dataset.locno == loc.locationNo){
-                    changePick(locationInfo.loginUserNo, loc.locationNo);
-                }
-            } else if(event.target.matches('.search-content-box img, .search-content-box div')){ 
-                location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
+            contentTitle.innerHTML = '<span>'+loc.locationName+'</span>';
+
+            // 공감 박스
+            let pickBox = document.createElement('div');
+            pickBox.className = 'pick-box';
+            pickBox.dataset.locno = loc.locationNo;
+            contentTitle.append(pickBox);
+
+            let pickImg = document.createElement('img');
+            let pickCount = document.createElement('span');
+            pickImg.style.cursor = 'pointer';
+        
+            // pickImg.onclick = function(event){
+            //     changePick(loginUser.userNo, loc.locationNo)
+            //     event.stopPropagation();
+            // }
+
+            pickBox.append(pickImg)
+            pickBox.append(pickCount)
+
+            if (loc.userPick > 0){
+                pickImg.src = 'resources/img/searchpage/like-after.png'
+            } else {
+                pickImg.src = 'resources/img/searchpage/like-pre.png'
             }
-        });
+            pickCount.innerHTML += loc.pickCount;
 
-    
+            // 공감 하트 / 장소 컨텐츠 박스 선택 시 이벤트 처리 (버블링 방지)
+            searchContentBox.addEventListener('click', function(event) {
+                if (event.target.matches('.pick-box img')) {
+                    if (event.target.parentNode.dataset.locno == loc.locationNo){
+                        changePick(locationInfo.loginUserNo, loc.locationNo);
+                    }
+                } else if(event.target.matches('.search-content-box *')){ 
+                    location.href = contextPath + "/detail?locationNo=" + loc.locationNo;
+                }
+            });
 
-        if (loc.userPick > 0){
-            pickImg.src = 'resources/img/searchpage/like-after.png'
-        } else {
-            pickImg.src = 'resources/img/searchpage/like-pre.png'
+            // 장소 내용 Upper
+            let upperBox = document.createElement('div');
+            upperBox.className = 'content-upper-box';
+            searchContent.append(upperBox);
+
+            // 장소 카테고리
+            upperBox.innerHTML += '<div><span class="font-bold">분류</span>'
+                                    + '<span>'+loc.locationCategoryNo+'</span></div>'
+            
+            // 평점
+            let star = "";
+            for (i = 0; i < Math.round(loc.locationStar); i++){
+                star += '<img src="resources/img/searchpage/rating-star.png" alt=""> '
+            }
+            upperBox.innerHTML += '<div><span class="font-bold">평점</span>'
+                                        + '<span>'+loc.locationStar+'</span>'
+                                        + '<div>' + star + '</div></div>';
+
+            // 반려동물 사이즈
+            let sizeList = "";
+            for (let size of loc.enterList){
+                sizeList += size.petSizeNo + ' ';
+            }
+            upperBox.innerHTML += '<div><span class="font-bold">종류</span><span>'
+                                    + sizeList + '</span></div>';
+
+            searchContent.innerHTML += '<hr>';
+
+            // 장소 내용 Lower
+            let lowerBox = document.createElement('div')
+            lowerBox.className = 'content-lower-box';
+
+            searchContent.append(lowerBox);
+
+            // 장소 주소, 핸드폰 번호
+            lowerBox.innerHTML += '<div><img src="resources/img/searchpage/location.png" alt="">'
+                                        + '<span>'+loc.address+'</span></div>';
+            
+            lowerBox.innerHTML += '<div><img src="resources/img/searchpage/phone.png" alt="">'
+                                        + '<span>'+loc.locationPhone+'</span></div>'
+            
+            // 장소 운영시간 (요소만 생성)
+            let opTimeBox = document.createElement('div');
+            lowerBox.append(opTimeBox);
+
+            let opTimeImg = document.createElement('img');
+            opTimeImg.src = 'resources/img/searchpage/time.png';
+
+            opTimeBox.append(opTimeImg);
+
+            let opTimeText = document.createElement('span');
+            opTimeText.className = 'operation-time';
+
+            if (!loc.opTime.restStatus){
+                opTimeText.dataset.start = loc.opTime.startTime;
+                opTimeText.dataset.end = loc.opTime.endTime;
+                opTimeText.dataset.status = loc.opTime.restStatus;
+                opTimeText.dataset.category = loc.locationCategoryNo;
+            } else if (loc.opTime.restStatus){
+                opTimeText.dataset.start = '00:00:00';
+                opTimeText.dataset.end = '00:00:00';
+                opTimeText.dataset.status = loc.opTime.restStatus;
+                opTimeText.dataset.category = loc.locationCategoryNo;
+            }
+            opTimeBox.append(opTimeText);
         }
-        pickCount.innerHTML += loc.pickCount;
 
-        // if (loc.userPick > 0){
-        //     likeBox.innerHTML += '<img src="resources/img/searchpage/like-after.png" alt=""></img>'
-        // } else {
-        //     likeBox.innerHTML += '<img src="resources/img/searchpage/like-pre.png" alt=""></img>'
-        // }
-        // likeBox.innerHTML += '<span>'+loc.pickCount+'</span></div>'
+        // 페이징 바
+        let pagingBar = document.createElement('div');
+        pagingBar.id = 'paging-bar';
 
-        // Upper
-        let upperBox = document.createElement('div');
-        upperBox.className = 'content-upper-box';
-        searchContent.append(upperBox);
+        searchResultBox.append(pagingBar);
 
-        // 장소 카테고리
-        upperBox.innerHTML += '<div><span class="font-bold">분류</span>'
-                                + '<span>'+loc.locationCategoryNo+'</span></div>'
-        
-        // 평점
-        let star = "";
-        for (i = 0; i < Math.round(loc.locationStar); i++){
-            star += '<img src="resources/img/searchpage/rating-star.png" alt=""> '
+        if (locationInfo.pi.currentPage != locationInfo.pi.startPage){
+            let leftBtn = document.createElement('button');
+            leftBtn.onclick = function(){
+                searchFilterPage(locationInfo.keyword, locationInfo.loginUserNo, (locationInfo.pi.currentPage - 1))
+            };
+
+            pagingBar.append(leftBtn);
+            leftBtn.innerHTML = "&lt;";
         }
-        upperBox.innerHTML += '<div><span class="font-bold">평점</span>'
-                                    + '<span>'+loc.locationStar+'</span>'
-                                    + '<div>' + star + '</div></div>';
 
-        // 반려동물 사이즈
-        let sizeList = "";
-        for (let size of loc.enterList){
-            sizeList += size.petSizeNo + ' ';
+        for (let i = locationInfo.pi.startPage; i <= locationInfo.pi.endPage; i++){
+            let pagingBtn = document.createElement('button');
+            pagingBtn.onclick = function(){
+                searchFilterPage(locationInfo.keyword, locationInfo.loginUserNo, i)
+            };
+
+            pagingBar.append(pagingBtn);
+            pagingBtn.innerHTML = i;
         }
-        upperBox.innerHTML += '<div><span class="font-bold">종류</span><span>'
-                                + sizeList + '</span></div>';
 
-        searchContent.innerHTML += '<hr>';
+        if (locationInfo.pi.currentPage != locationInfo.pi.maxPage){
+            let rightBtn = document.createElement('button');
+            rightBtn.onclick = function(){
+                searchFilterPage(locationInfo.keyword, locationInfo.loginUserNo, (locationInfo.pi.currentPage + 1))
+            };
 
-        // Lower
-        let lowerBox = document.createElement('div')
-        lowerBox.className = 'content-lower-box';
+            pagingBar.append(rightBtn);
+            rightBtn.innerHTML = "&gt;";
+        }
 
-        searchContent.append(lowerBox);
-
-        lowerBox.innerHTML += '<div><img src="resources/img/searchpage/location.png" alt="">'
-                                    + '<span>'+loc.address+'</span></div>';
-        
-        lowerBox.innerHTML += '<div><img src="resources/img/searchpage/phone.png" alt="">'
-                                    + '<span>'+loc.locationPhone+'</span></div>'
-        
-        lowerBox.innerHTML += '<div><img src="resources/img/searchpage/time.png" alt="">'
-                                + '<span>영업 중 22:00 종료</span></div>'
-        
-        
-        //                         if (){
-
-        // } else {
-
-        // }
-        
-        // '<span>'영업 중 22:00 종료'</span>'
-        //                             <span class="close-red">영업 종료</span>
-        //                         </div>'
-                                
-
+        // 운영시간 출력 함수 실행
+        (function(){
+            operationTime();
+        })();
     }
-
-    let pagingBar = document.createElement('div');
-    pagingBar.id = 'paging-bar';
-
-    searchResultBox.append(pagingBar);
-
-    if (locationInfo.pi.currentPage != locationInfo.pi.startPage){
-        let leftBtn = document.createElement('button');
-        leftBtn.onclick = function(){
-            searchFilterPage(locationInfo.keyword, locationInfo.loginUserNo, (locationInfo.pi.currentPage - 1))
-        };
-
-        pagingBar.append(leftBtn);
-        leftBtn.innerHTML = "&lt;";
-    }
-
-    for (let i = locationInfo.pi.startPage; i <= locationInfo.pi.endPage; i++){
-        let pagingBtn = document.createElement('button');
-        pagingBtn.onclick = function(){
-            searchFilterPage(locationInfo.keyword, locationInfo.loginUserNo, i)
-        };
-
-        pagingBar.append(pagingBtn);
-        pagingBtn.innerHTML = i;
-    }
-
-    if (locationInfo.pi.currentPage != locationInfo.pi.maxPage){
-        let rightBtn = document.createElement('button');
-        rightBtn.onclick = function(){
-            searchFilterPage(locationInfo.keyword, locationInfo.loginUserNo, (locationInfo.pi.currentPage + 1))
-        };
-
-        pagingBar.append(rightBtn);
-        rightBtn.innerHTML = "&gt;";
-    }
-
-
-    
 }
+
+
+
+// 운영시간 출력 함수
+function operationTime(){
+    let day = new Date();
+
+    let year = day.getFullYear();
+    let month = day.getMonth();
+    let date = day.getDate();
+
+    let spanList = document.querySelectorAll('.operation-time');
+
+    day = day.setTime(day.getTime());
+
+    for(let opTime of spanList){
+        let start = "";
+        let end = "";
+        start = opTime.dataset.startTime;
+        end = opTime.dataset.end;
+        console.log(start)
+
+        // 장소 카테고리가 숙소인 경우 (체크인/체크아웃)
+        if (opTime.dataset.category == '숙소'){
+            // 숙소일 때 1부터 12로 출력되는 오후 시간을 12부터 24로 변환
+            let startStr = (Number(start.substr(0, 2)) + 12).toString() + start.substr(2, 3);
+            opTime.innerHTML = '체크인 ' + startStr + ' / 체크아웃 ' + end.substr(0, 5);
+
+        // 예외 처리
+        } else if (opTime == null){
+            opTime.innerHTML = '-'
+
+        // 운영시간 정해져 있는 나머지 장소
+        } else {
+            // 휴무가 아닌 경우
+            if (opTime.dataset.status == 'false'){
+                let startTime = new Date(year, month, date, 
+                                        start.substr(0, 2),
+                                        start.substr(3, 2),
+                                        start.substr(6, 2));
+                startTime = startTime.setTime(startTime.getTime())
+            
+                let endTime = new Date(year, month, date, 
+                                        end.substr(0, 2),
+                                        end.substr(3, 2),
+                                        end.substr(6, 2));
+                endTime = endTime.setTime(endTime.getTime())
+            
+                if (day >= startTime && day <= endTime){
+                    opTime.innerHTML = '영업 중 ' + end.substr(0, 5) + ' 종료'
+                } else {
+                    opTime.innerHTML = '영업 종료'
+                    opTime.style.color = 'red';
+                }
+            // 휴무인 경우
+            } else if (opTime.dataset.status == 'true'){
+                opTime.innerHTML = '휴무'
+                opTime.style.color = 'red';
+            }
+        }
+    }
+}
+
+
+
+
 
 
 // $(".pick-box>img").on("click", function(event){

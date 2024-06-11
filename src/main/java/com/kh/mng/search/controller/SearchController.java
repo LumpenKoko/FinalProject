@@ -63,7 +63,8 @@ public class SearchController {
 	
 	@GetMapping("searchKeyword.pl")
 	public String searchKeyword(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-								String keyword, String loginUserNo, Model model) {
+								@RequestParam(value="keyword", defaultValue="") String keyword, 
+								@RequestParam(value="loginUserNo", defaultValue="0") String loginUserNo, Model model) {
 		
 		int locationCount = searchService.selectLocationListCount(keyword);
 		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
@@ -127,12 +128,6 @@ public class SearchController {
 		sf.setPi(pi);
 		
 		model.addAttribute("locationInfo", sf);
-		
-		for(Location loc : sf.getLocationList()) {
-			System.out.println(loc);
-		}
-		
-		System.out.println(sf);
 		
 		return new Gson().toJson(sf);
 	}

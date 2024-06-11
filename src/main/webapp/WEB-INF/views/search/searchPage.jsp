@@ -102,7 +102,7 @@
                         
                     </div>
                 </div>
-                <!-- onclick="moveToLocationDetail('<%=contextPath%>', '${loc.locationNo}')" -->
+                
                 <c:forEach var="loc" items="${locationList}">
                     <div class="search-content-box gray-round-box" onclick="handelPick(event, '${loginUser.userNo}', '${loc.locationNo}')">
                         <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
@@ -112,10 +112,10 @@
                                 <div class="pick-box" data-locno='${loc.locationNo}'>
                                     <c:choose>
                                         <c:when test="${loc.userPick eq 0}">
-                                            <img src="resources/img/searchpage/like-pre.png" alt="">
+                                            <img src="resources/img/searchpage/like-pre.png" style="cursor: pointer;" alt="">
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="resources/img/searchpage/like-after.png" alt="">
+                                            <img src="resources/img/searchpage/like-after.png" style="cursor: pointer;" alt="">
                                         </c:otherwise>
                                     </c:choose>
                                     <span>${loc.pickCount}</span>
@@ -157,8 +157,16 @@
                                 </div>
                                 <div>
                                     <img src="resources/img/searchpage/time.png" alt="">
-                                    <span>영업 중 22:00 종료</span>
-                                    <span class="close-red">영업 종료</span>
+                                    <!-- <c:choose>
+                                        <c:when test="${loc.locationCategoryNo eq '숙소'}">
+                                            <span class="operation-time">
+                                        </c:when>
+                                        <c:otherwise>
+                                            
+                                        </c:otherwise>
+                                    </c:choose> -->
+                                    <span class="operation-time" data-category="${loc.locationCategoryNo}" data-start="${loc.opTime.startTime}" data-end="${loc.opTime.endTime}" data-status="${loc.opTime.restStatus}"></span>
+                                    
                                 </div>
                             </div>
                         </div>

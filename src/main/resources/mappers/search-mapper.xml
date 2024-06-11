@@ -165,10 +165,11 @@
 	<select id="selectOperationTime" resultMap="operationTime">
 		SELECT DAYS,
 			   START_TIME,
-			   END_TIME
+			   END_TIME,
+			   REST_STATUS
 		FROM OPERATION_TIME
 		WHERE LOCATION_NO = #{locationNo}
-		AND DAYS = #{currentDay}
+		AND DAYS IN (#{currentDay}, '체크인/체크아웃')
 	</select>
 	
 <!-- 	<select id="selectPickCount" resultType="_int">

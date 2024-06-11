@@ -64,7 +64,7 @@
 
 			<!-- 아이콘(검색, 커뮤니티, 쇼츠, 지도) -->
 			<div id="mainpage-search-icon" class="gray-round-box flex-box">
-				<div onclick="location.href='<%=contextPath%>/search.pl'">
+				<div onclick="location.href='<%=contextPath%>/searchKeyword.pl'">
 					<img src="resources/img/main/dog1.jpg" alt="">
 					<div class="gugi-icon-title">검색</div>
 				</div>

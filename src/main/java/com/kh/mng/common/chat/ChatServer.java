@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.mng.member.model.vo.Member;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -25,17 +26,17 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ChatServer extends TextWebSocketHandler {
 	
-	private final Map<String,WebSocketSession> userSession = new ConcurrentHashMap<>();
+	private final Map<String,WebSocketSession> sessions= new ConcurrentHashMap<>();
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
-		Member loginUser = (Member)session.getAttributes().get("loginUser");
-		String nickName=loginUser.getUserNickname();
-		String userId=loginUser.getUserId();
-		log.info("연결됨...:{}",nickName);
-		userSession.put(userId,session);
+		Member member = (Member)session.getAttributes().get("loginUser");
+		String userId=member.getUserId();
+	    log.info("id:{}",userId);
+	    sessions.put(userId,session);
 		
+	
 	 }
 	
 
@@ -48,11 +49,11 @@ public class ChatServer extends TextWebSocketHandler {
 		//메세지 db연결...
 		JsonObject obj = new JsonParser().parse(message.getPayload()).getAsJsonObject();
 		String sendMessage=obj.get("message").getAsString();
-		String target=obj.get("target").getAsString();//아마 사장님정보?? //사장님 아이디가 들어올것
+		String target=obj.get("target").getAsString();//
 		
 		
 		
-		System.out.println("Taget"+target);
+		 log.info("target:{}",target);
 		
 		MsgVo vo = new MsgVo();
 		vo.setMsg(sendMessage);
@@ -60,6 +61,7 @@ public class ChatServer extends TextWebSocketHandler {
 		vo.setId(userId);
 		vo.setTime(new Date().toLocaleString());
 		
+		log.info("msg:{}",vo);
 		//다른 사용자에게 메세지 전송
 		sendMessageUser(target,vo);
 	
@@ -68,16 +70,18 @@ public class ChatServer extends TextWebSocketHandler {
 	
 	private void sendMessageUser(String targetId,MsgVo msgVo) {
 		
-		WebSocketSession targetSession = userSession.get(targetId);
+		WebSocketSession targetSession =sessions.get(targetId);//메세지 수신자
 		
-		WebSocketSession mySession =userSession.get(msgVo.getId());
+	
+		log.info("{}",targetSession);
+		WebSocketSession mySession =sessions.get(msgVo.getId());
 		
 		if(targetSession!=null && targetSession.isOpen()) {
 			String str=new Gson().toJson(msgVo);
 			
 			TextMessage msg = new TextMessage(str);
 			try {
-				mySession.sendMessage(msg);
+				//mySession.sendMessage(msg);
 				targetSession.sendMessage(msg);
 			}catch(IOException e) {
 				e.printStackTrace();
@@ -97,7 +101,7 @@ public class ChatServer extends TextWebSocketHandler {
 		Member loginUser = (Member) session.getAttributes().get("loginUser");
 		String userId = loginUser.getUserId();
 		log.info("{}", "연결끊낌.....");
-		userSession.remove(userId);
+		sessions.remove(userId);
 		super.afterConnectionClosed(session, status);
 	}
 	

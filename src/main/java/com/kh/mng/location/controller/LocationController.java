@@ -39,18 +39,26 @@ import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
 import com.kh.mng.member.model.vo.Member;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.kh.mng.location.model.vo.DetailLocation; 
 
 
 @Controller
+@Slf4j
 public class LocationController {
 	@Autowired 
 	private LocationService detailService;
 	
 	
 	@GetMapping("/chat")
-	public String ChatList() {
-		
+	public String ChatList(int locationNo,Model model) {
+		log.info("{}",locationNo);
+		//사장님 아이디 가져오기 
+		String masterId= detailService.getMasterId(locationNo);
+		System.out.println(masterId);
+		model.addAttribute("masterId",masterId);
 		return "chat/chat";
 	}
 

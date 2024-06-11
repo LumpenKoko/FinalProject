@@ -242,3 +242,9 @@
     padding:5px;
     background-color: var(--main-color);
 }
+
+.chat-main  .time{
+    margin-top: 10px;
+    color:black;
+
+}

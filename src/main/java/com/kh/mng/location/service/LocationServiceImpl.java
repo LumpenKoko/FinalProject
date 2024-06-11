@@ -248,4 +248,9 @@ public class LocationServiceImpl implements LocationService {
 		return count;
 	}
 
+	@Override
+	public String getMasterId(int locationNo) {
+		return detailDao.getMasterId(sqlSession,locationNo);
+	}
+
 }

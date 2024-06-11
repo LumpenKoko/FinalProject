@@ -7,9 +7,11 @@
 <title>채팅</title>
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/chat/chat.css"/>
+<script src='resources/js/chat/chat.js'></script>
 </head>
-<body>
-   	<%@ include file="../common/header.jsp"%>
+	<%@ include file="../common/header.jsp"%>
+<body onload="init('${contextPath}','${masterId}')">
+   
    	
 	<div class="wrapper chat-wrapper">
 		<div class="main chat-main">
@@ -53,7 +55,8 @@
 
 					<!--#########-->
 					<!--채팅내용 (비동기처리)-->
-					<div class="chat-chatting">
+					<div  id="MasterMsg" class="chat-chatting">
+
 						<!--사장님-->
 						<div class="send-master">
 							<div class="master-profile">
@@ -62,23 +65,39 @@
 								</div>
 								<div class="master-name title">사장님</div>
 							</div>
-							<div class="content master-content master-color">
-								<%for (int i=1; i<10; i++) {%>
+							<div  class="content master-content master-color">
+								<div><%for (int i=1; i<10; i++) {%>
 										내용내용	내용내용	내용내용	내용내용
-							    <%}%>
+							    <%}%></div>
+								<div class="time">20:16</div>
 							</div>
 						</div>
+
+
 						<!--유저-->
 						<div class="send-user">
-							<div class="content user-content user-color">
-								내용내용내용
-							</div>
-							<div class="content user-color">
-								<%for(int i=1; i<20; i++){%>
-									내용내용	내용내용	내용내용	내용내용
-								<%}%>
+							<div class="content  user-content user-color">
+								<div>내용내용내용</div>
+							 <div class="time">20:16</div>
 							</div>
 						</div>
+
+
+						<!--유저-->
+						<div class="send-user">
+							<div class="content  user-content user-color">
+								<div>
+									<%for(int i=1; i<20; i++){%>
+									내용내용	내용내용	내용내용	내용내용
+									<%}%>
+								</div>
+								<div class="time">20:16</div>
+							</div>
+							
+						</div>
+
+
+
 
 						<!--사장님-->
 						<div class="send-master">
@@ -89,7 +108,8 @@
 								<div class="master-name title">사장님</div>
 							</div>
 							<div class="content master-color">
-								내용내용	내용내용	내용내용	내용내용
+								<div>내용내용	내용내용	내용내용	내용내용</div>
+								<div class="time">20:16</div>
 							</div>
 						</div>
            
@@ -108,10 +128,10 @@
 							<input id="file" type="file" style="display:none;">
 						</div>
 						<div class="input">
-							<input  type="text">
+							<input  name="msg" type="text">
 						</div>
 						<div class="submit">
-							<button type="button">
+							<button id="send-button" type="button">
 								<img src="resources/img/send-img.png">
 							</button>
 						</div>

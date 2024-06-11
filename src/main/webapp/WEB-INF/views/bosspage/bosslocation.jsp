@@ -24,7 +24,7 @@
                     <div class="privacy-top">${loginUser.userName} 대표님의 장소정보</div>
                     <div id="location-details">
                         <p>업종</p>
-                        <p class="location-category">${location.locationName}</p>
+                        <p class="location-category">${location.locationCategoryNo}</p>
                         <div>
                             <p>상호명</p>
                             <p class="locationName">${location.locationName}</p>

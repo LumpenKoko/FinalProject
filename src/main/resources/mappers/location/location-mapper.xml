@@ -11,6 +11,7 @@
 		<result column="LOCATION_NAME" property="locationName" />
 		<result column="LOCATION_PHONE" property="locationPhone" />
 		<result column="LOCATION_STAR" property="locationStar" />
+		<result column="CATEGORY_NAME" property="locationCategoryNo" />
 		<result column="RESERVATION_LINK" property="reservationLink" />
 		<result column="BUSINESS_NO" property="businessNo" />
 		<result column="ADDRESS" property="address" />
@@ -18,23 +19,26 @@
 		<result column="MODIFY_DATE" property="modifyDate" />
 		<result column="STATUS" property="status" />
 		<result column="USER_NO" property="userNo" />
-		<result column="LOCATION_CATEGORY_NO"
-			property="locationCategoryNo" />
 	</resultMap>
+   
+   
+   <!-- location 컬럼과 location_category 컬럼을  location_no로  join해서 catgoryName을 가져옴  -->
    
    <select id="getLocation" resultMap="bossLocationResult">
    		SELECT LOCATION_NO,
    				LOCATION_NAME,
    				LOCATION_PHONE,
+   				CATEGORY_NAME,
    				LOCATION_STAR,
    				RESERVATION_LINK,
    				BUSINESS_NO,
    				ADDRESS,
    				ENROLL_DATE,
-   				MODIFY_DATE,
-   				LOCATION_CATEGORY_NO
-   				FROM LOCATION
-   				WHERE USER_NO = #{userNo}
+   				MODIFY_DATE
+   				FROM LOCATION L
+   				JOIN LOCATION_CATEGORY C 
+   				ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
+   				WHERE L.USER_NO = #{userNo}
    </select>
    
    

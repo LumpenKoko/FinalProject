@@ -7,12 +7,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.service.BossPageService;
+import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
 
@@ -39,11 +39,11 @@ public class bossPageController {
 			
 			//사장님 정보 데이터베이스로부터 userNo보내서 가져오기
 			Location location = bossPageService.getLocation(userNo);
-			
+			//DetailLocation detailLocation = bossPageService.getDetailLocation(userNo);
 			
 			//가게정보 request영역에 담기
 			model.addAttribute("location", location);
-			
+			//model.addAttribute("detailLocation", detailLocation);
 			model.addAttribute("userNo", userNo);
 			
 			return "bosspage/bossmainpage"; //포워딩 -> url은 그대로, 화면만 변경
@@ -134,6 +134,8 @@ public class bossPageController {
 			return "RRRR";
 		}
 	}
+	
+	
 	
 
 	@RequestMapping(value = "bossManuBar.bm")

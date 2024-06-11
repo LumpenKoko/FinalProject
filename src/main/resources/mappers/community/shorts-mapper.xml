@@ -17,16 +17,15 @@
    </resultMap>
    
    <resultMap type="ShortsReply" id="shortsReply">
+   		<result column="SHORTS_NO" property="shortsNo"/>
 		<result column="REPLY_NO" property="replyNo"/>
-		<result column="ENROLL_DATE," property="enrollDate"/>
+		<result column="CREATE_DATE," property="enrollDate"/>
 		<result column="REPLY_CONTENT," property="replyContent"/>
 		<result column="REPLY_RE_NO," property="replyReNo"/>
 		<result column="USER_NICKNAME," property="userNickname"/>
 		<result column="FILE_PATH," property="FilePath"/>
 		<result column="CHANGE_NAME" property="changeName"/>
    </resultMap>
-   
-
    
    
   
@@ -78,18 +77,19 @@
   	</select>
   	
   	<select id="loadReply" resultType="shortsReply">
-  		SELECT REPLY_NO,
-			R.ENROLL_DATE,
-			REPLY_CONTENT,
-			REPLY_RE_NO,
-			M.USER_NICKNAME,
-			P.FILE_PATH,
-			P.CHANGE_NAME
+  		SELECT S.SHORTS_NO,
+				R.REPLY_NO,
+				R.CREATE_DATE,
+				R.REPLY_CONTENT,
+				R.REPLY_RE_NO,
+				M.USER_NICKNAME,
+				COALESCE(P.FILE_PATH, 'default_path') AS PROFILE_FILE_PATH,
+			    COALESCE(P.CHANGE_NAME, 'default_name') AS PROFILE_CHANGE_NAME
 		FROM SHORTS S
-		JOIN REPLY ON S.SHORTS_NO = R.SHORTS_NO
-		JOIN MEMBER M R.USER_NO = M.USER_NO
-		JOIN PICTURE M.USER_NO = P.USER_NO
-		WHERE S.SHORTS_NO = #{shortsNo}
+		JOIN REPLY R ON S.SHORTS_NO = R.SHORTS_NO
+		JOIN MEMBER M ON R.USER_NO = M.USER_NO
+		LEFT JOIN PICTURE P ON M.USER_NO = P.USER_NO
+		WHERE S.SHORTS_NO = #{shortsNo};
   	</select>
     
     <insert id="shortsCommentEnroll">
@@ -114,7 +114,7 @@
     <select id="getShortsNo" resultType="_int">
     	SELECT SHORTS_NO
     	FROM SHORTS
-    	ORDER BY S.SHORTS_NO DESC
-    			LIMIT 1 OFFSET (#{number} - 1);
+    	ORDER BY SHORTS_NO DESC
+    			LIMIT 1 OFFSET (#{videoId} - 1);
     </select>
   </mapper>

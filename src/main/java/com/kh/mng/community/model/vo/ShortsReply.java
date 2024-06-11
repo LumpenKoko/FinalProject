@@ -14,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ShortsReply {
+	private int shortsNo;
 	private int replyNo;
 	private Date enrollDate;
 	private String replyContent;

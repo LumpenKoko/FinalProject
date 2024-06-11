@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <!-- 가게 삭제 및 탈퇴 모달창 -->
-                <<div class="modal-overlay" id="modal-overlay"></div>
+                <div class="modal-overlay" id="modal-overlay"></div>
                 <div id="boss-remove-modal">
                     <div>
                         <p style="font-weight: 700; font-size: 30px;">가게 삭제 및 탈퇴</p>

@@ -52,6 +52,7 @@ public class bossPageController {
 		}
 	}
 	
+	
 	/*휴대폰 번호 변경*/
 	@ResponseBody
 	@PostMapping(value="/updatePhoneNumber.bm", produces="text/plain;charset=UTF-8")
@@ -140,9 +141,30 @@ public class bossPageController {
 		return "bosspage/bossmanubar";
 	}
 
-	@RequestMapping(value = "bossLocation.bl")
-	public String bossLocation() {
-		return "bosspage/bosslocation";
+	@RequestMapping("bossLocation.bl")
+	public String bossLocation(Model model, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		//지금 로그인한 사람정보
+		
+		
+		if (loginUser != null) {
+			//로그인이 되어있을 때
+			
+			int userNo = loginUser.getUserNo();
+			
+			//사장님 정보 데이터베이스로부터 userNo보내서 가져오기
+			Location location = bossPageService.getLocation(userNo);
+			
+			
+			//가게정보 request영역에 담기
+			model.addAttribute("location", location);
+			
+			model.addAttribute("userNo", userNo);
+			
+			return "bosspage/bosslocation"; //포워딩 -> url은 그대로, 화면만 변경
+		} else {
+			return "redirect:/";//redirect -> url과 화면을 다 바꿔줘야할 때
+		}
 	}
 
 	@RequestMapping(value = "bossAccommodationinfo.ba")

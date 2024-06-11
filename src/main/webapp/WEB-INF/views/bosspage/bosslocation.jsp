@@ -24,17 +24,10 @@
                     <div class="privacy-top">${loginUser.userName} 대표님의 장소정보</div>
                     <div id="location-details">
                         <p>업종</p>
-                        <select class="location-category">
-                            <option value="">식당</option>
-                            <option value="">카페</option>
-                            <option value="">행사</option>
-                            <option value="">테마파크</option>
-                            <option value="">병원</option>
-                        </select>
+                        <p class="location-category">${location.locationName}</p>
                         <div>
                             <p>상호명</p>
-                            <input type="text" name="상호명">${location.locationName}
-                        </input>
+                            <p class="locationName">${location.locationName}</p>
                         <div>
                             <p>가게 전화번호(*필수*)</p>
                             <input type="tel" name="가게전화번호" style="background: white;" placeholder="(ex.지역번호)-0000-0000">

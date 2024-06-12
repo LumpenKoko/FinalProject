@@ -47,5 +47,7 @@ public interface CommunityService {
 
 	int insertShorts(Map<String, ShortsFileInfo> fileInfos, ShorstInfo shortsInfo);
 
+	CommunityBoard selectBoardDetail(int bno);
+
 
 }

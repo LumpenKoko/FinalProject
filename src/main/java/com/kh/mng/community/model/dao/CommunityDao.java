@@ -15,6 +15,7 @@ import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
+import com.kh.mng.community.model.vo.Reply;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
@@ -94,6 +95,17 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityBoardMapper.selectUserAttachment",userNo);
 	}
 	
+	public CommunityBoard selectBoardDetail(SqlSessionTemplate sqlSession,int bno) {
+		
+	  return sqlSession.selectOne("communityBoardMapper.selectDetailBoard", bno);
+	}
+	
+	public ArrayList<Reply> selectBoardReplys(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReply",boardNo);
+	}
+
+	
 
 	public int insertShortContents(SqlSessionTemplate sqlSession, ShorstInfo shortsInfo) {
 		
@@ -112,15 +124,14 @@ public class CommunityDao {
 	
 
 	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
-		System.out.println("다오" + videoId);
-		
-		return sqlSession.selectOne("shortsMapper.getShortsNum",videoId);
+		return sqlSession.selectOne("shortsMapper.getShortsNo",videoId);
 	}
 
 	public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {
 	    return (ArrayList)sqlSession.selectList("shortsMapper.loadReply", shortsNum);
 	}
 
+	
 
 
 

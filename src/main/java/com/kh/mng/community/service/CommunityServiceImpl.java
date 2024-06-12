@@ -18,6 +18,7 @@ import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
+import com.kh.mng.community.model.vo.Reply;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
@@ -167,6 +168,39 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return count*count1;
 	}
+	
+
+	@Override
+	@Transactional
+	public CommunityBoard selectBoardDetail(int bno) {
+	   
+	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
+	    
+	    if(communityBoard!=null) {
+	    	 ArrayList<Reply> boardReply =  communityDao.selectBoardReplys(sqlSession,communityBoard.getBoardNo());
+	    	 	if(!boardReply.isEmpty()) {
+	    	 		for(Reply re:boardReply) {
+	    	 			 Attachment replyProfile = communityDao.selectUserProfile(sqlSession,re.getUserNo());
+	    	 			 re.setReplyUserProfile(replyProfile);
+	    	 		}
+	    	 	 }
+	    	 	
+	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
+	    	 if(userProfile==null) {
+	    		 Attachment defaultUserProfile=new  Attachment();
+	    		 defaultUserProfile.setFilePath("resourses/img/default/");
+	    		 defaultUserProfile.setChangeName("star.png");
+	    		 communityBoard.setUserProfile(defaultUserProfile);
+	    	 }
+	    	 
+	    	 communityBoard.setReplys(boardReply);
+	    	 communityBoard.setUserProfile(userProfile);
+	    }
+	    
+	    
+	    return communityBoard;
+	}
+
 
 
 	@Override
@@ -184,7 +218,6 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	public int getShortsNum(int videoId) {
-		System.out.println("서비스" + videoId);
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 

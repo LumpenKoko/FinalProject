@@ -2,8 +2,6 @@
 $(document).on('click', '[id^="show-reply-btn"]', function () {
 
     const num = parseInt(this.id.replace('show-reply-btn', ''));
-    console.log(num);
-    console.log(typeof(num));
 
     $.ajax({
         url: contextPath + '/loadReply.sh',
@@ -19,7 +17,7 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
                 $('#comments-list' + num).append(newComment);
             } else {
                 for (let i = 0; i < replyList.length; i++) {
-                    const newComment = $('<div class="tmp-box"></div>').text(replyList[i].replyContent);
+                    const newComment = $('<div class="tmp-box"></div>').text(replyList[i].userNickname + " : " + replyList[i].replyContent + " - " + replyList[i].enrollDate);
                     $('#comments-list' + num).append(newComment);
                 }
             }
@@ -44,7 +42,7 @@ $(document).on('click', '[id^="submit-comment"]', function () {
     }
 
     if (commentText === "") {
-        alert("댓글을 입력하세요.");
+        alert("댓글 내용을 입력하세요.");
         return;
     }
     
@@ -56,10 +54,14 @@ $(document).on('click', '[id^="submit-comment"]', function () {
             comment: commentText
         },
         success: function (response) {
+            const replyList = response;
+            console.log(replyList);
+            const thisNum = replyList.length - 1;
+
             if (response === null) {
                 alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
             } else {
-                const newComment = $('<div class="tmp-box"></div>').text(response);
+                const newComment = $('<div class="tmp-box"></div>').text(replyList[thisNum].userNickname + " : " + replyList[thisNum].replyContent + " - " + replyList[thisNum].enrollDate);
                 $('#comments-list' + num).append(newComment);
                 $('#comment-text' + num).val('');
             }

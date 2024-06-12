@@ -108,7 +108,7 @@
                                                         <div>
                                                             <span class="reply-user">${rr.userNickName}</span>
                                                             <span class="reply-date">${rr.createDate}</span>
-                                                            <!-- <button onclick="replyInsert('${r}')" >답글 달기</button> -->
+                                                         
                                                         </div>
                                                         <div class="change-box">
                                                             <div class=""><a>수정하기</a></div>

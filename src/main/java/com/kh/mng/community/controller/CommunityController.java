@@ -302,23 +302,24 @@ public class CommunityController {
 	//댓글정보 비동기로가져오는 컨트롤러
 	@ResponseBody
 	@GetMapping(value="detailViewReply.view", produces = "application/json; charset=utf-8")
-	public String detailReplyView(@RequestParam(value="boardNo")int boardNo,
-				@RequestParam(value="pageNo",defaultValue="1") int pageNo,  HttpSession session) {
+	public String detailReplyView(ReplyInfo replyInfo,  HttpSession session) {
 		
 		//댓글개수만 가져와야된다. (답글x)
-		int  replyCount= communityService.selectBoardReplyCount(boardNo);
-		ReplyInfo replyInfo = new ReplyInfo();
-		replyInfo.setBoardNo(boardNo);
-		replyInfo.setPageNo(pageNo);
+		int  replyCount= communityService.selectBoardReplyCount(replyInfo.getBoardNo());
+//		ReplyInfo replyInfo = new ReplyInfo();
+//		replyInfo.setBoardNo(boardNo);
+//		replyInfo.setPageNo(pageNo);
 		
 		
-		PageInfo replyPi = Pagination.getPageInfo(replyCount ,pageNo, 10, 10);
+		PageInfo replyPi = Pagination.getPageInfo(replyCount ,replyInfo.getPageNo(), 10, 10);
 		ArrayList<BoardReply> replys =  communityService.selectBoardReplys(replyPi,replyInfo);
 		
 		BoardReplyInfo boardReplyInfo =new BoardReplyInfo();
 		boardReplyInfo.setPage(replyPi);
 		boardReplyInfo.setReplys(replys);
-		log.info("{}, {}",boardReplyInfo.getPage(),boardReplyInfo.getReplys());
+		
+		log.info("{}",boardReplyInfo.getReplys());
+		log.info("{}",boardReplyInfo.getPage());
 		
 		return new Gson().toJson(boardReplyInfo);
 		
@@ -326,7 +327,7 @@ public class CommunityController {
 	
 	
 	
-	
+	 
 	
 	
 	@RequestMapping(value="enrollBoard.bo")

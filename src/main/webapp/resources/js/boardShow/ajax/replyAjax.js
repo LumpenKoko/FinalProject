@@ -15,7 +15,7 @@ function replyInsertAjax(data){
                 alert("작성실패")
             }
 
-            replyShowAjax(1,drawReply);
+            replyShowAjax(data,drawReply);
         },
         error:function(){
             alert("서버오류")
@@ -25,13 +25,12 @@ function replyInsertAjax(data){
 }
   
 //댓글 목록 ajax
-function replyShowAjax(pageNo,callback){
+function replyShowAjax(data,callback){
 
     $.ajax({
         type:'GET',
         url:contextPath+'/detailViewReply.view',
-        data:{boardNo:boardNo,
-              pageNo:pageNo},
+        data:data,
         success:function(response){
             callback(response.replys)
         },

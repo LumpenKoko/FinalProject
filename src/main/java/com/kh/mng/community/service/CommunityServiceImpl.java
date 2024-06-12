@@ -288,18 +288,55 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 
+	//댓글과 대댓글 비동기로 다시 가져오기
 	@Override
 	@Transactional
 	public ArrayList<BoardReply> selectBoardReplys(PageInfo replyPi, ReplyInfo replyInfo) {
 		
-		
+		// Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
+		 
 		 ArrayList<BoardReply>selectBoardReplys=communityDao.selectBoardReplys(sqlSession,replyPi,replyInfo.getBoardNo());
+		 log.info("서비스 부모댓글 비동기 확인:{}",selectBoardReplys);
 		 if(!selectBoardReplys.isEmpty()) {
+
 			 for(BoardReply replys:selectBoardReplys) {
-				 replyInfo.setReplyNo(replys.getReplyReNo());
+				 replyInfo.setReplyNo(replys.getReplyNo());
+				 
+			
 				 ArrayList<BoardReplyReply> selectBoardReplyReply =communityDao.selectBoardrReplyReplys(sqlSession, replyInfo);
+				 log.info("서비스 비동기 확인:{}",selectBoardReplyReply);
+				 
+				 	if(!selectBoardReplyReply.isEmpty()) {
+				 		for(BoardReplyReply rr:selectBoardReplyReply) {
+				 			 
+							 Attachment userProfile = communityDao.selectUserProfile(sqlSession,rr.getUserNo());
+							 if(userProfile==null) {
+								 Attachment defaultUserProfile = new Attachment();
+								 defaultUserProfile.setFilePath("resources/img/default/");
+								 defaultUserProfile.setChangeName("star.png");
+								 rr.setReplyUserProfile(defaultUserProfile);
+							 }else {
+								 rr.setReplyUserProfile(userProfile);
+							 }
+				 		}
+				 	}
+				         
+				 
+				 
+				 
+				 Attachment userProfile = communityDao.selectUserProfile(sqlSession,replys.getUserNo());
+				 if(userProfile==null) {
+					 Attachment defaultUserProfile = new Attachment();
+					 defaultUserProfile.setFilePath("resources/img/default/");
+					 defaultUserProfile.setChangeName("star.png");
+					 replys.setReplyUserProfile(defaultUserProfile);
+				 }else {
+					 replys.setReplyUserProfile(userProfile);
+				 }
+				 
 				 replys.setReplyReply(selectBoardReplyReply);
 			 }
+			 
 		 }
 		
 		

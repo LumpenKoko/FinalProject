@@ -92,7 +92,7 @@
 		WHERE S.SHORTS_NO = #{shortsNum};
   	</select>
     
-    <insert id="shortsCommentEnroll">
+    <insert id="shortsCommentEnroll" useGeneratedKeys="true" keyProperty="replyNo">
     	INSERT INTO REPLY
     		( 
     		REPLY_NO,
@@ -117,4 +117,9 @@
     	ORDER BY SHORTS_NO DESC
     			LIMIT 1 OFFSET (#{videoId} - 1);
     </select>
+    
+    <select id="getNextSeqValue" resultType="int">
+	    SELECT SEQ_REPLY.NEXTVAL
+	    FROM REPLY;
+	</select>
   </mapper>

@@ -297,15 +297,17 @@ public class CommunityController {
 
 	
 	@ResponseBody
-	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")
+	@GetMapping(value="addComment.sh", produces="application/json; charset=utf-8")
 	public String addComment(@RequestParam(value="userNo") int userNo, 
-				            @RequestParam(value="videoId") int videoId, 
+				            @RequestParam(value="num") int videoId, 
 				            @RequestParam(value="comment") String comment) {
 		
 		int shortsNum = communityService.getShortsNum(videoId);
 		
 		if (communityService.addComment(userNo, shortsNum, comment) > 0) {
-			return comment;
+			ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
+			log.info("replyList: " + replyList);
+			return new Gson().toJson(replyList);
 		} else {
 			return null;
 		}
@@ -317,7 +319,6 @@ public class CommunityController {
 		int shortsNum = communityService.getShortsNum(videoId);
 		
 		ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
-		System.out.println(replyList);
 		return new Gson().toJson(replyList);
 	}
 }

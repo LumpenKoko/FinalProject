@@ -8,6 +8,7 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
         data: {
             num: num
         },
+        dataType : "json",
         success: function (response) {
             const replyList = response;
             console.log(replyList);
@@ -53,10 +54,12 @@ $(document).on('click', '[id^="submit-comment"]', function () {
             num: num,
             comment: commentText
         },
+        dataType : "json",
         success: function (response) {
             const replyList = response;
-            console.log(replyList);
             const thisNum = replyList.length - 1;
+            console.log(replyList);
+            console.log(thisNum);
 
             if (response === null) {
                 alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");

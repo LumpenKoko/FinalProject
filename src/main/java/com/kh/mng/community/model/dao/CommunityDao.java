@@ -11,11 +11,13 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
-import com.kh.mng.community.model.vo.Reply;
+import com.kh.mng.community.model.vo.BoardReply;
+import com.kh.mng.community.model.vo.BoardReplyReply;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
@@ -100,9 +102,14 @@ public class CommunityDao {
 	  return sqlSession.selectOne("communityBoardMapper.selectDetailBoard", bno);
 	}
 	
-	public ArrayList<Reply> selectBoardReplys(SqlSessionTemplate sqlSession, int boardNo) {
+	public ArrayList<BoardReply> selectBoardReplys(SqlSessionTemplate sqlSession, int boardNo) {
 		
 		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReply",boardNo);
+	}
+	
+	public ArrayList<BoardReplyReply> selectBoardrReplyReplys(SqlSessionTemplate sqlSession,  ReplyInfo replyInfo) {
+		
+		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReplyReply",replyInfo);
 	}
 
 	

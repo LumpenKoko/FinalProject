@@ -1,21 +1,19 @@
+const urlStrPicked = window.location.href;
+const url = new URL(urlStrPicked);
+let boardNo;
+let contextPath;
 
-function init(){
 
+function init(path){
+    console.log(path)
 
+    contextPath=path
+   
+    const urlParams =url.searchParams
+    boardNo=urlParams.get('bno')
 
+    //답글 입력
+    replyInsert();
 }
 
 
-
-function replyInsert(id){
- 
-   let replyContent= document.querySelector("#reply-content"+id);
-
-   if(replyContent.style.display==="none"){
-      replyContent.style.display="flex";
-   }
-   else{
-      replyContent.style.display="none";
-   }
-
-}

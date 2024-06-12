@@ -28,10 +28,13 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
+import com.kh.mng.community.model.dto.BoardReplyInfo;
+import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortPage;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
+import com.kh.mng.community.model.vo.BoardReply;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
@@ -180,6 +183,7 @@ public class CommunityController {
 	}
 	
 
+	//쇼츠 등록
 	@PostMapping(value = "/enroll.short")
 	public String enrollShorts(List<MultipartFile> files , ShorstInfo shortsInfo, HttpSession session,Model model) {
 		
@@ -257,22 +261,74 @@ public class CommunityController {
 	}
 	
 	
-	
-	
-	@RequestMapping(value="shortsView.bo")
+	@GetMapping(value="shortsView.bo")
 	public String detailShortsView() {
 		return "community/shortsShow";
 	}
 	
-	@RequestMapping(value="detailView.bo")
+	//게시물 상세 컨트롤러
+	@GetMapping(value="detailView.bo")
 	public String detailBoardView(@RequestParam(value="bno") int bno,Model model) {
 		
 		 CommunityBoard communityBoard = communityService.selectBoardDetail(bno);
+		 
 		 log.info("communityBoard:{}",communityBoard);
+		 
+		
 		 model.addAttribute("board",communityBoard);
 		 
 		 return "community/boardContent";
 	}
+	
+	@ResponseBody
+	@PostMapping(value="detailViewReply.in")
+	public String detailInsertReply(ReplyInfo replyInfo,HttpSession session) {
+		
+		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
+		replyInfo.setUserNo(userNo);
+		
+		log.info("응답:{}",replyInfo);
+		
+		int count = communityService.insertBoardReply(replyInfo);
+		
+		if(count>0) {
+			return "ok";
+		}else{
+			return "fail";
+		}
+		
+	}
+	
+	//댓글정보 비동기로가져오는 컨트롤러
+	@ResponseBody
+	@GetMapping(value="detailViewReply.view", produces = "application/json; charset=utf-8")
+	public String detailReplyView(ReplyInfo replyInfo,  HttpSession session) {
+		
+		//댓글개수만 가져와야된다. (답글x)
+		int  replyCount= communityService.selectBoardReplyCount(replyInfo.getBoardNo());
+//		ReplyInfo replyInfo = new ReplyInfo();
+//		replyInfo.setBoardNo(boardNo);
+//		replyInfo.setPageNo(pageNo);
+		
+		
+		PageInfo replyPi = Pagination.getPageInfo(replyCount ,replyInfo.getPageNo(), 10, 10);
+		ArrayList<BoardReply> replys =  communityService.selectBoardReplys(replyPi,replyInfo);
+		
+		BoardReplyInfo boardReplyInfo =new BoardReplyInfo();
+		boardReplyInfo.setPage(replyPi);
+		boardReplyInfo.setReplys(replys);
+		
+		log.info("{}",boardReplyInfo.getReplys());
+		log.info("{}",boardReplyInfo.getPage());
+		
+		return new Gson().toJson(boardReplyInfo);
+		
+	}
+	
+	
+	
+	 
+	
 	
 	@RequestMapping(value="enrollBoard.bo")
 	public String enrollBoard() {

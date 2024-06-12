@@ -100,17 +100,35 @@ public class CommunityDao {
 	  return sqlSession.selectOne("communityBoardMapper.selectDetailBoard", bno);
 	}
 	
-	public ArrayList<BoardReply> selectBoardReplys(SqlSessionTemplate sqlSession, int boardNo) {
+	public ArrayList<BoardReply> selectBoardReplys(SqlSessionTemplate sqlSession, PageInfo replyPi,int boardNo) {
 		
-		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReply",boardNo);
+		int offset=(replyPi.getCurrentPage()-1)*replyPi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,replyPi.getBoardLimit());
+		
+		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReply",boardNo,rowBounds);
 	}
 	
 	public ArrayList<BoardReplyReply> selectBoardrReplyReplys(SqlSessionTemplate sqlSession,  ReplyInfo replyInfo) {
 		
 		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReplyReply",replyInfo);
 	}
-
 	
+	public int insertReply(SqlSessionTemplate sqlSession, ReplyInfo replyInfo) {
+
+		return sqlSession.insert("communityBoardMapper.insertReply",replyInfo);
+	}
+
+	public int insertReplyReply(SqlSessionTemplate sqlSession, ReplyInfo replyInfo) {
+		
+		 return sqlSession.insert("communityBoardMapper.insertReplyReply",replyInfo);
+	}
+	
+	public int selectBoardReplyCount(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.selectOne("communityBoardMapper.selectBoardReplyCount",boardNo);
+	}
+
+
 
 	public int insertShortContents(SqlSessionTemplate sqlSession, ShorstInfo shortsInfo) {
 		
@@ -126,6 +144,7 @@ public class CommunityDao {
 		
 		return sqlSession.insert("communityShortsMapper.insertShortsAttachment",fileInfos);
 	}
+	
 	
 
 	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
@@ -144,6 +163,8 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getRecentReply");
 	}
 
+	
+	
 	
 
 

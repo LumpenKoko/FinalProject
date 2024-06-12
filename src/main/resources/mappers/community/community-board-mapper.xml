@@ -38,14 +38,14 @@
 	   <resultMap type="BoardReply" id="selectReplys">
 	   		<result column="REPLY_NO"  property="replyNo"></result>
 	   		<result column="REPLY_CONTENT"  property="content"></result>
-	   		<result column="REPLY_CREATE_DATE"  property="createDate"></result>
+	   		<result column="CREATE_DATE"  property="createDate"></result>
 	   		<result column="USER_NICKNAME"  property="userNickName"></result>
 	   </resultMap>
 	   
 	   	<resultMap type="BoardReplyReply" id="selectReplyReplys">
 	   		<result column="REPLY_NO"  property="replyNo"></result>
 	   		<result column="REPLY_CONTENT"  property="content"></result>
-	   		<result column="REPLY_CREATE_DATE"  property="createDate"></result>
+	   		<result column="CREATE_DATE"  property="createDate"></result>
 	   		<result column="USER_NICKNAME"  property="userNickName"></result>
 	   </resultMap>
 	   
@@ -167,6 +167,7 @@
 				   FROM REPLY R JOIN 
 				   MEMBER M ON (R.USER_NO=M.USER_NO)
 				   WHERE REPLY_RE_NO IS NULL AND  BOARD_NO = #{boardNo}
+				   AND R.STATUS= TRUE ORDER BY  R.CREATE_DATE DESC
 	  </select>
 	  
 	  
@@ -180,8 +181,62 @@
 				   FROM REPLY R JOIN 
 				   MEMBER M ON (R.USER_NO=M.USER_NO)
 				   WHERE REPLY_RE_NO IS NOT null AND  BOARD_NO = #{boardNo}
-				   AND  REPLY_RE_NO = #{replyNo}
+				   AND  REPLY_RE_NO = #{replyNo}  AND R.STATUS = TRUE
+				   ORDER BY  R.CREATE_DATE DESC
 	  </select>
+	  
+	  <insert id="insertReply">
+	  		INSERT INTO REPLY
+	  			   (REPLY_NO,
+	  			    REPLY_CONTENT,
+	  			    CREATE_DATE,
+	  			    USER_NO,
+	  			    BOARD_NO,
+	  			    STATUS,
+	  			    REPLY_RE_NO
+	  			   )
+	  			   VALUES(
+	  			    NEXTVAL('SEQ_REPLY'),
+	  			    #{content},
+	  			    default,
+	  			    #{userNo},
+	  			    #{boardNo},
+	  			    TRUE,
+	  			    null
+	  			   )
+	  
+	  </insert>
+	  
+	  <insert id= "insertReplyReply">
+	  			INSERT INTO REPLY
+	  			   (REPLY_NO,
+	  			    REPLY_CONTENT,
+	  			    CREATE_DATE,
+	  			    USER_NO,
+	  			    BOARD_NO,
+	  			    STATUS,
+	  			    REPLY_RE_NO
+	  			   )
+	  			   VALUES(
+	  			    NEXTVAL('SEQ_REPLY'),
+	  			    #{content},
+	  			    default,
+	  			    #{userNo},
+	  			    #{boardNo},
+	  			    TRUE,
+	  			    #{replyNo}
+	  			   )
+	  
+	  
+	  </insert>
+	  
+	  <select id="selectBoardReplyCount" resultType="_int">
+	  		SELECT COUNT(*)
+	  				 FROM REPLY
+	   				 WHERE REPLY_RE_NO IS NULL
+	   				 AND BOARD_NO = #{boardNo}
+	  </select>
+	  
    
    
   </mapper>

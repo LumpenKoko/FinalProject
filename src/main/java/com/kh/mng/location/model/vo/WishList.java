@@ -26,4 +26,5 @@ public class WishList {
 	private String categoryName;//카테고리 명
     private ArrayList<OperationTime>operationTime;//운영시간
     private ArrayList<PetKindGrade> petKindGrade;
+    private int wishCount;
 }

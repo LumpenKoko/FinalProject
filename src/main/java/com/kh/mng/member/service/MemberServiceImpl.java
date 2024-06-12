@@ -1,6 +1,5 @@
 package com.kh.mng.member.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.vo.Location;
-import com.kh.mng.location.model.vo.OperationTime;
-import com.kh.mng.location.model.vo.PetKindGrade;
 import com.kh.mng.location.model.vo.Picked;
-import com.kh.mng.location.model.vo.WishList;
+import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.dao.MemberDao;
 import com.kh.mng.member.model.vo.Member;
 
@@ -76,6 +73,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Picked> getPickList(int userNo) {
 		return memberDao.getPickList(sqlSession, userNo);
+	}
+
+	@Override
+	public List<Location> getLocationList() {
+		return memberDao.getLocationList(sqlSession);
+	}
+
+	@Override
+	public int wishListDelete(WishListNo wishListNo) {
+		return memberDao.wishListDelete(sqlSession, wishListNo);
 	}
 
 }

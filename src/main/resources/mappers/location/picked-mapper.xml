@@ -9,7 +9,7 @@
 	  <resultMap type="Picked" id="pickResult">
 			<result column="PICK_NO" property="pickNo"/>
 			<result column="USER_NO" property="userNo"/>
-			<result column="LOCATION_NO" property="spaceNo"/>
+			<result column="LOCATION_NO" property="locationNo"/>
 	 </resultMap>
 	
 		 <insert id="pickedInsert">
@@ -32,6 +32,9 @@
 		  </select>
 		  
 		  <select id="getPickList" resultMap="pickResult">
-		  	 SELECT * FROM PICK WHERE USER_NO = #{userNo}
+		  	 SELECT PICK_NO,
+		  	 		LOCATION_NO
+		  	 FROM PICK
+		  	 WHERE USER_NO = #{userNo};
 		  </select>
  </mapper>

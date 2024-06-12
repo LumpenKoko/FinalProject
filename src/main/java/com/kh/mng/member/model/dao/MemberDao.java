@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
+import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
 
 @Repository
@@ -52,7 +53,11 @@ public class MemberDao {
 		return sqlSession.selectList("picked.getPickList", userNo);
 	}
 	
-	public List<Location> getWishList(SqlSessionTemplate sqlSession, int pickNo) {
-		return sqlSession.selectList("location.", pickNo);
+	public List<Location> getLocationList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("location.getLocationList");
+	}
+	
+	public int wishListDelete(SqlSessionTemplate sqlSession, WishListNo wishListNo) {
+		return sqlSession.delete("picked.pickedDelete", wishListNo);
 	}
 }

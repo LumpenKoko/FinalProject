@@ -1,12 +1,26 @@
-function changeColor() {
-    var icon = document.getElementById('wishIcon');
-    if (icon.style.color !== 'rgb(254, 139, 148)') {
-        icon.style.color = '#FE8B94';
-        icon.innerHTML = '♥';
-    } else {
-        icon.style.color = '';
-        icon.innerHTML = '♡';
-    }
+// function changeColor(id) {
+//     var icon = document.getElementById(id);
+//     if (icon.style.color !== 'rgb(254, 139, 148)') {
+//         icon.style.color = '#FE8B94';
+//         icon.innerHTML = '♡';
+//     } else {
+//         icon.style.color = '';
+//         icon.innerHTML = '♥';
+//     }
+// }
+
+function wishDelete(userNo, locationNo, contextPath) {
+    $.ajax({
+        type: 'GET',
+        url: contextPath + '/wishListDelete',
+        data: {userNo: userNo, locationNo: locationNo},
+        success: function(response) {
+
+        },
+        error: function(error) {
+
+        }
+    });
 }
 
 document.getElementById('fileInput').addEventListener('change', function () {

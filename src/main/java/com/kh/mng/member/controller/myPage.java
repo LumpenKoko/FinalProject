@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.Review;
-import com.kh.mng.location.model.vo.WishList;
+import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.member.service.MemberService;
 import com.kh.mng.pet.model.vo.Pet;
@@ -65,7 +66,18 @@ public class myPage {
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Picked> pickList = memberService.getPickList(userNo);
-				
+			List<Location> locationList = memberService.getLocationList();
+
+			List<Location> wishList = new ArrayList<>();
+			for (Picked picked : pickList) {
+				for (Location location : locationList) {
+					if (picked.getLocationNo() == location.getLocationNo()) {
+						wishList.add(location);
+					}
+				}
+			}
+			System.out.println(wishList);
+			session.setAttribute("wishList", wishList);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);
@@ -78,6 +90,31 @@ public class myPage {
 			// 세션에 사용자 정보가 없는 경우
 			model.addAttribute("errorMsg", "로그인이 필요합니다.");
 			return "myPage/myPageWishList"; // 로그인 페이지로 이동 또는 에러 메시지 표시
+		}
+	}
+
+	@ResponseBody
+	@GetMapping("/wishListDelete")
+	public String wishListDelete(@RequestParam int locationNo, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		 List<Location> wishList = (List<Location>) session.getAttribute("wishList");
+		 Location deleteList = null;
+		for (Location location : wishList) {
+			if(location.getLocationNo() == locationNo) {
+				deleteList = location;
+				break;
+			}
+		}
+		WishListNo wishListNo = new WishListNo();
+		wishListNo.setLocationNo(locationNo);
+		wishListNo.setUserNo(userNo);
+		int result = memberService.wishListDelete(wishListNo);
+		if (result > 0) {
+			wishList.remove(deleteList);
+			return "NNNNY";
+		} else {
+			return "NNNNN";
 		}
 	}
 

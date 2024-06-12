@@ -14,6 +14,7 @@ import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
+import com.kh.mng.community.model.dto.ShortsReplyDTO;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.BoardReply;
@@ -37,12 +38,9 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getVideoReplyCount", shortsNum);
 	}
 
-	public int addComment(SqlSessionTemplate sqlSession, int userNo, int shortsNo, String comment) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("userNo", userNo);
-	    params.put("shortsNo", shortsNo);
-	    params.put("comment", comment);
-	    return sqlSession.insert("shortsMapper.shortsCommentEnroll", params);
+	public int addComment(SqlSessionTemplate sqlSession, ShortsReplyDTO shortsReplyDTO) {
+	    
+		return sqlSession.insert("shortsMapper.shortsCommentEnroll", shortsReplyDTO);
 	}
 
 
@@ -136,6 +134,14 @@ public class CommunityDao {
 
 	public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {
 	    return (ArrayList)sqlSession.selectList("shortsMapper.loadReply", shortsNum);
+	}
+
+	public int getReplyNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("shortsMapper.getReplyNo");
+	}
+
+	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.selectOne("shortsMapper.getRecentReply");
 	}
 
 	

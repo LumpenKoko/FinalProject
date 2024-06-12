@@ -313,3 +313,16 @@ form{
     margin: 0px 10px;
     width: 120px;
 }
+
+/*페이징 처리 css*/
+
+ .page-div{
+    display:flex;
+    justify-content: center;
+    gap:20px;
+}
+
+
+ .page-button{
+    color:var(--main-color);
+}

@@ -14,6 +14,7 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
+import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -193,12 +194,10 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	@Transactional
-	public CommunityBoard selectBoardDetail(int bno) {
+	public CommunityBoard selectBoardDetail(PageInfo replyPi,int bno) {
 	   
 	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
-		int  replyCount= communityDao.selectBoardReplyCount(sqlSession,bno);
-	    PageInfo replyPi = Pagination.getPageInfo(replyCount ,1, 10, 10);
-	    
+   
 	    if(communityBoard!=null) {
 	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,replyPi,communityBoard.getBoardNo());
 	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
@@ -342,6 +341,26 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return selectBoardReplys;
 	}
+	
+	@Override
+	@Transactional
+	public BoardGoodInfo updateBoardGoodCount(BoardInfo boardInfo) {
+		
+//		BoardGoodInfo goodInfo =new BoardGoodInfo();
+//		int count = communityDao.checkUserCount(boardInfo);
+//		
+//		if(count==1) {
+//			communityDao.deleteGoodCount(boardInfo);
+//			goodInfo.setMessage("공감해제되었습니다");
+//		}else {
+//			communityDao.insertGoodCount(boardInfo);
+//			goodInfo.setMessage("공감되었습니다");
+//		}
+//		int updateGoodCount=communityDao.getGoodCount(boardInfo);
+//		goodInfo.setGoodCount(updateGoodCount);
+		
+		return null;
+	}
 
 
 
@@ -363,6 +382,9 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getShortsNum(int videoId) {
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
+
+
+
 
 
 

@@ -10,6 +10,12 @@ function replyInsertAjax(data){
         success:function(response){
             if(response==='ok'){
                 alert("작성되었습니다.")
+
+                if(data.replyNo!==-1){
+                    document.querySelector("#replyReplyText"+data.replyNo).value="";
+                }
+              
+                document.querySelector("#replyText").value="";
             }
             else{
                 alert("작성실패")
@@ -33,6 +39,7 @@ function replyShowAjax(data,callback){
         data:data,
         success:function(response){
             callback(response.replys)
+            drawingPage(response.page)
         },
         error:function(){
             alert("서버오류")

@@ -30,7 +30,8 @@
  		<typeAlias type="com.kh.mng.community.model.vo.Shorts" alias="Shorts"/>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board" />
  		<typeAlias type="com.kh.spring.common.model.vo.Reply" alias="Reply" /> -->
- 		<typeAlias type="com.kh.mng.community.model.vo.Reply" alias="Reply" />
+ 		<typeAlias type="com.kh.mng.community.model.vo.BoardReply" alias="BoardReply" />
+ 			<typeAlias type="com.kh.mng.community.model.vo.BoardReplyReply" alias="BoardReplyReply"/>
  		<typeAlias type="com.kh.mng.picture.model.vo.Picture" alias="Picture"/>
  		<typeAlias type="com.kh.mng.community.model.vo.TotalShortsInfo" alias="TotalShortsInfo"/>
  		<typeAlias type="com.kh.mng.community.model.vo.ShortsReply" alias="ShortsReply"/>

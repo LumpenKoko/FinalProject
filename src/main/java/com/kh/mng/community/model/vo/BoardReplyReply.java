@@ -15,18 +15,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Reply {
+public class BoardReplyReply {
 	private int replyNo;
-	private int replyReplyNo;
-	private String replyContent;
-	private String replyReplyContent;
-	private Date replyCreateDate;
-	private Date replyReplyCreateDate;
+	private String userNickName;
+	private String content;
+	private Date createDate;
 	private Date editDate;
 	private boolean status;
 	private int userNo;
-	private String boardNo;
-	private String shortsNo;
-	private String replyReNo;
+	private int boardNo;
+	private int shortsNo;
+	private int replyReNo;
 	private Attachment replyUserProfile;
 }

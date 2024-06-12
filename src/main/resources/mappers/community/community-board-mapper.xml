@@ -35,14 +35,20 @@
 	      <result column="CATEGORY_NAME" property="categoryName"></result>
 	   </resultMap>
 	   
-	   <resultMap type="Reply" id="selectReplys">
+	   <resultMap type="BoardReply" id="selectReplys">
 	   		<result column="REPLY_NO"  property="replyNo"></result>
-	   		<result column="REPLY_RE_NO" property="replyReplyNo"></result>
-	   		<result column="REPLY_CONTENT"  property="replyContent"></result>
-	   		<result column="REPLY_REPLY_CONTENT"  property="replyReplyContent"></result>
-	   		<result column="REPLY_CREATE_DATE"  property="replyCreateDate"></result>
-	   		<result column=" REPLY_REPLY_CREATE_DATE" property="replyReplyCreateDate"></result>
+	   		<result column="REPLY_CONTENT"  property="content"></result>
+	   		<result column="REPLY_CREATE_DATE"  property="createDate"></result>
+	   		<result column="USER_NICKNAME"  property="userNickName"></result>
 	   </resultMap>
+	   
+	   	<resultMap type="BoardReplyReply" id="selectReplyReplys">
+	   		<result column="REPLY_NO"  property="replyNo"></result>
+	   		<result column="REPLY_CONTENT"  property="content"></result>
+	   		<result column="REPLY_CREATE_DATE"  property="createDate"></result>
+	   		<result column="USER_NICKNAME"  property="userNickName"></result>
+	   </resultMap>
+	   
   
   	<select id="selectBoardList" resultMap="selectBoards">
   	  	SELECT B.BOARD_NO,
@@ -152,19 +158,30 @@
 	
 	
 	<select id ="selectDetailBoardReply" resultMap="selectReplys">
-		SELECT R1.REPLY_NO,
-			   R1.REPLY_CONTENT AS REPLY_CONTENT,
-			   R1. CREATE_DATE AS REPLAY_CREATE_DATE,
-			   R2.REPLY_RE_NO,
-			   R2.REPLY_CONTENT AS REPLY_REPLY_CONTENT,
-			   R2. CREATE_DATE  AS REPLY_REPLY_CREATE_DATE
-			   
-			  FROM REPLY R1 
-			  JOIN REPLY R2
-			  ON (R1.REPLY_NO =R2.REPLY_RE_NO)
-			  WHERE R1.BOARD_NO = #{boardNo}
 		
-	</select>
+		 SELECT    REPLY_NO,
+				   REPLY_CONTENT,
+				   CREATE_DATE ,
+		           REPLY_RE_NO,
+				   USER_NICKNAME
+				   FROM REPLY R JOIN 
+				   MEMBER M ON (R.USER_NO=M.USER_NO)
+				   WHERE REPLY_RE_NO IS NULL AND  BOARD_NO = #{boardNo}
+	  </select>
+	  
+	  
+	<select id ="selectDetailBoardReplyReply" resultMap="selectReplyReplys">
+		
+		 SELECT    REPLY_NO,
+				   REPLY_CONTENT,
+				   CREATE_DATE ,
+		           REPLY_RE_NO,
+				   USER_NICKNAME
+				   FROM REPLY R JOIN 
+				   MEMBER M ON (R.USER_NO=M.USER_NO)
+				   WHERE REPLY_RE_NO IS NOT null AND  BOARD_NO = #{boardNo}
+				   AND  REPLY_RE_NO = #{replyNo}
+	  </select>
    
    
   </mapper>

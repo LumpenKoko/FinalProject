@@ -271,7 +271,7 @@ public class CommunityController {
 		 log.info("communityBoard:{}",communityBoard);
 		 model.addAttribute("board",communityBoard);
 		 
-		return "community/boardContent";
+		 return "community/boardContent";
 	}
 	
 	@RequestMapping(value="enrollBoard.bo")

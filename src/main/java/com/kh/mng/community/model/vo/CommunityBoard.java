@@ -32,6 +32,6 @@ public class CommunityBoard {
 	private int replyCount; // 데이터 조회 시 사용할 댓글수
 	private ArrayList <Attachment> attahment;//첨부파일
 	private Attachment userProfile;//유저 프로필
-	private ArrayList<Reply> replys; //댓글;
+	private ArrayList<BoardReply> replys; //댓글;
 	
 }

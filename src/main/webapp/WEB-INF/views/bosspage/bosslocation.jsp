@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-
     <%@ include file="../common/common-file.jsp" %>
     <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
     <link rel="stylesheet" href="resources/css/bosspage/locationinfo.css" />
     <link rel="stylesheet" href="resources/css/common/common.css" />
     <script src="resources/js/bosspage/bosslocation.js"></script>
+    <script>
+        var contextPath = "<%= request.getContextPath() %>";
+    </script>
 </head>
-
 <body onload="initializePage()">
     <%@ include file="../common/header.jsp" %>
-
     <div id="bossmainpage-wrap" class="wrapper">
         <div class="bossmainpage">
             <div>
@@ -28,6 +28,7 @@
                     <div>
                         <p>상호명</p>
                         <p class="locationName">${location.locationName}</p>
+                    </div>
                     <div>
                         <p>가게 전화번호(*필수*)</p>
                         <input type="tel" name="가게전화번호" id="store-phone" style="background: white;" placeholder="(ex.지역번호)-0000-0000">
@@ -82,27 +83,24 @@
                     </div>
                     <div>
                         <p>상품등록</p>
-                        <div class="product-registration">
-                            <input type="text" class="product-name" placeholder="상품명을 입력하세요.">
-                            <input type="text" class="commodity-price" placeholder="가격을 입력하세요.">
-                            <button class="delete-product">
-                                <img class="delete-productimg" src="resources/img/bosspage/-.png">
-                            </button>
-                        </div>
-                        <div id="product-registration" style="margin-top: 20px;">
+                        <div id="product-registration">
                             <button id="add-product">
                                 <img class="add-productimg" src="resources/img/myPage/+.png">
                             </button>
                         </div>
                     </div>
                     <div id="upload-location">
-                        <button class="upload-bt" onclick="saveLocationInfo()">등록</button>
+                        <button class="upload-bt" onclick="saveLocationInfo()">장소정보 등록 & 업데이트</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <%@ include file="../common/footer.jsp" %>
+    
+</body>
+</html>
+    
 </body>
 </html>
 

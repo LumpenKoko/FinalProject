@@ -1,6 +1,7 @@
 package com.kh.mng.bosspage.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,25 +13,27 @@ import com.kh.mng.location.model.vo.Location;
 @Repository
 public class BossPageDao {
 	public Location getLocation(SqlSessionTemplate sqlSession, int userNo) {
-		return sqlSession.selectOne("location.getLocation", userNo);
-	}
+        return sqlSession.selectOne("location.getLocation", userNo);
+    }
 
-	public int updatePhonNo(SqlSessionTemplate sqlSession, BossPage bossPage) {
-		return sqlSession.update("memberMapper.updatePhonNo", bossPage);
-	}
-	
-	public int updateEmail(SqlSessionTemplate sqlSession, BossPage bossPage) {
-		return sqlSession.update("memberMapper.updateEmail", bossPage);
-	}
+    public int updatePhonNo(SqlSessionTemplate sqlSession, BossPage bossPage) {
+        return sqlSession.update("memberMapper.updatePhonNo", bossPage);
+    }
 
-	public int updatePwd(SqlSessionTemplate sqlSession, BossPage bossPage) {
-		
-		return sqlSession.update("memberMapper.updatePwd", bossPage);
-	}
-		
-	public int deleteBossUser(SqlSessionTemplate sqlSession, String bossId) {
-		
-		return sqlSession.update("memberMapper.deactivateBossUser", bossId);
-	}
+    public int updateEmail(SqlSessionTemplate sqlSession, BossPage bossPage) {
+        return sqlSession.update("memberMapper.updateEmail", bossPage);
+    }
+
+    public int updatePwd(SqlSessionTemplate sqlSession, BossPage bossPage) {
+        return sqlSession.update("memberMapper.updatePwd", bossPage);
+    }
+
+    public int deleteBossUser(SqlSessionTemplate sqlSession, String bossId) {
+        return sqlSession.update("memberMapper.deactivateBossUser", bossId);
+    }
+
+    public int saveLocationInfo(SqlSessionTemplate sqlSession, Map<String, Object> locationInfo) {
+        return sqlSession.insert("location.insertLocation", locationInfo);
+    }
 
 }

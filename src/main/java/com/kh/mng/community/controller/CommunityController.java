@@ -359,13 +359,8 @@ public class CommunityController {
 		
 		int shortsNum = communityService.getShortsNum(videoId);
 		
-		if (communityService.addComment(userNo, shortsNum, comment) > 0) {
-			ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
-			log.info("replyList: " + replyList);
-			return new Gson().toJson(replyList);
-		} else {
-			return null;
-		}
+		ShortsReply shortsReply = communityService.addComment(userNo, shortsNum, comment);
+		return new Gson().toJson(shortsReply);
 	}
 	
 	@ResponseBody

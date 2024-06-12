@@ -11,6 +11,8 @@
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
+	<input type="hidden" id="contextPath" value="${contextPath}" />
+    <input type="hidden" id="userNo" value="${empty loginUser.userNo ? 0 : loginUser.userNo}" />
 	<div class="wrapper">
 		<div class="main">
 			<div class="community-area">

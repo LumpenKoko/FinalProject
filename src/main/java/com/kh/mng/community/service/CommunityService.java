@@ -22,7 +22,7 @@ public interface CommunityService {
 	
 	int selectListCount();
 
-	int addComment(int userNo, int videoId, String comment);
+	ShortsReply addComment(int userNo, int videoId, String comment);
 
 	String getVideo(int videoId);
 

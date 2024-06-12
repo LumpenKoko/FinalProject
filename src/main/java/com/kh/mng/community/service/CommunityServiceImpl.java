@@ -18,6 +18,7 @@ import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
+import com.kh.mng.community.model.dto.ShortsReplyDTO;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.BoardReply;
@@ -47,8 +48,22 @@ public class CommunityServiceImpl implements CommunityService{
 
 
 	@Override
-	public int addComment(int userNo, int shortsNo, String comment) {
-		return communityDao.addComment(sqlSession, userNo, shortsNo, comment);
+	@Transactional
+	public ShortsReply addComment(int userNo, int shortsNo, String comment) {
+		// 1. 시퀀스 가져오기
+		int replyNo = communityDao.getReplyNo(sqlSession);
+		
+		// 2. 시퀀스로 댓글 insert하기
+		ShortsReplyDTO shortsReplyDTO = new ShortsReplyDTO();
+		shortsReplyDTO.setComment(comment);
+		shortsReplyDTO.setReplyNo(replyNo);
+		shortsReplyDTO.setShortsNum(shortsNo);
+		shortsReplyDTO.setUserNo(userNo);
+		
+		communityDao.addComment(sqlSession, shortsReplyDTO);
+		
+		// 3. 시퀀스로 댓글 가져오기
+		return communityDao.getRecentReply(sqlSession, replyNo);
 	}
 
 	@Override

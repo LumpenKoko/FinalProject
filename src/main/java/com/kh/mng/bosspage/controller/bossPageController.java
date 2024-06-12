@@ -179,8 +179,8 @@ public class bossPageController {
 	}
 	
 	// 장소 정보 업데이트
-    @ResponseBody
-    @PostMapping(value="/saveLocationInfo.bm", produces="application/json; charset=UTF-8")
+	@ResponseBody
+    @PostMapping(value = "/saveLocationInfo.bm", produces = "application/json; charset=UTF-8")
     public Map<String, Object> saveLocationInfo(@RequestBody Map<String, Object> locationInfo, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         Member loginUser = (Member) session.getAttribute("loginUser");
@@ -190,18 +190,21 @@ public class bossPageController {
             int result = bossPageService.saveLocationInfo(locationInfo);
             if (result > 0) {
                 response.put("message", "장소정보 업데이트를 완료하였습니다.");
+                response.put("success", true);
             } else {
                 response.put("message", "장소정보 업데이트에 실패했습니다.");
+                response.put("success", false);
             }
         } else {
             response.put("message", "로그인이 필요합니다.");
+            response.put("success", false);
         }
         return response;
     }
 
     // 장소 정보 로드
-    @ResponseBody
-    @GetMapping(value="/getLocationInfo.bm", produces="application/json; charset=UTF-8")
+	@ResponseBody
+    @GetMapping(value = "/getLocationInfo.bm", produces = "application/json; charset=UTF-8")
     public Map<String, Object> getLocationInfo(HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         Member loginUser = (Member) session.getAttribute("loginUser");
@@ -209,10 +212,10 @@ public class bossPageController {
             int userNo = loginUser.getUserNo();
             Location location = bossPageService.getLocation(userNo);
             if (location != null) {
-                response.put("phone", location.getPhone());
-                response.put("description", location.getDescription());
+                response.put("locationPhone", location.getLocationPhone());
+                response.put("explanation", location.getExplanation());
                 response.put("reservationLink", location.getReservationLink());
-                response.put("animalTypes", location.getAnimalTypes());
+                // 다른 필요한 필드 추가
             }
         } else {
             response.put("message", "로그인이 필요합니다.");

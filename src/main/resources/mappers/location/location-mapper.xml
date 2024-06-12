@@ -83,29 +83,28 @@
     
     
     <insert id="insertLocation">
-      INSERT INTO LOCATION
-         (
-         LOCATION_NO,
-         LOCATION_NAME,
-         LOCATION_PHONE,
-         EXPLANATION,
-         BUSINESS_NO,
-         ADDRESS,
-         USER_NO,
-         LOCATION_CATEGORY_NO
-         )
-      VALUES
-         (
-         NEXTVAL('SEQ_LOC'),
-         #{locationName},
-         #{locationPhone},
-         #{explanation},
-         #{businessNo},
-         #{address},
-         #{userNo},
-         CAST(#{locationCategoryNo} AS INTEGER)
-         )
-   </insert>
+        INSERT INTO LOCATION
+            (
+            LOCATION_NO, 
+            LOCATION_NAME, 
+            LOCATION_PHONE, 
+            EXPLANATION, 
+            BUSINESS_NO, 
+            ADDRESS, 
+            USER_NO, 
+            LOCATION_CATEGORY_NO
+            )
+        VALUES
+            (
+            NEXTVAL('SEQ_LOC'), 
+            #{locationName}, 
+            #{locationPhone}, 
+            #{explanation}, 
+            #{businessNo}, 
+            #{address}, 
+            #{userNo}, 
+            CAST(#{locationCategoryNo} AS INTEGER))
+    </insert>
    
    
   

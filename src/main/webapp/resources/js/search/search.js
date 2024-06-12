@@ -329,7 +329,7 @@ function drawSearchPage(locationInfo){
 
             let opTimeText = document.createElement('span');
             opTimeText.className = 'operation-time';
-
+            console.log(loc.opTime)
             if (!loc.opTime.restStatus){
                 opTimeText.dataset.start = loc.opTime.startTime;
                 opTimeText.dataset.end = loc.opTime.endTime;

@@ -39,7 +39,7 @@
                         <option value="알뜰폰" class="minibox-input">알뜰폰</option>
                     </select>
 
-                    <input type="text" name="userPhone" class="minibox-input" onkeyup="activeCommonEnroll()" placeholder="가입 시 사용한 전화번호를 입력하세요. (ex) 010-0000-0000)">
+                    <input type="text" name="userPhone" class="minibox-input" onkeyup="activeCommonEnroll()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
                     
 
                     <div id="check-agree-title" class="minibox-mini-title">
@@ -77,7 +77,7 @@
 
                     <div id="check-number">
                         <input type="text" class="minibox-input" placeholder="인증번호 6자리 숫자">
-                        <button type="submit" class="common-button white-button">인증번호 요청</button>
+                        <button type="submit" class="common-button white-button" onclick="certifyPhone()">인증번호 요청</button>
                         <div>2:00</div>
                     </div>
                     

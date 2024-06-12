@@ -6,6 +6,7 @@ classes/
 Servers/
 WebContent/
 application.properties
+certifyPhone.properties
 *.mp4
 *.MOV
 *.WMV

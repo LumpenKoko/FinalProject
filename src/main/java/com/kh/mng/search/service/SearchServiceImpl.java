@@ -64,6 +64,7 @@ public class SearchServiceImpl implements SearchService {
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
 			loc.setAttachment(new MainDao().selectAttachment(sqlSession, loc));
+			System.out.println(loc.getOpTime());
 			if (sf.getLoginUserNo() != "") {
 				loc.setUserNo(Integer.parseInt(sf.getLoginUserNo()));
 			}

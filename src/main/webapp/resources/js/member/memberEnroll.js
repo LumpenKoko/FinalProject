@@ -251,3 +251,24 @@ function activeBossEnroll(){
 
     activeEnroll(userInfo, enroll);
 }
+
+
+
+
+
+
+
+
+
+
+//---------------------------------
+
+function certifyPhone(){
+    let getNum = document.querySelector('[name="userPhone"]').value;
+
+    ajaxCertifyPhoneNum({getNum: getNum}, drawCertifySuccess);
+}
+
+function drawCertifySuccess(){
+    console.log("성공")
+}

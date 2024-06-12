@@ -1,6 +1,7 @@
 
 
 function getLocationData(data, callback){
+    console.log('들어와라')
     $.ajax({
         url: contextPath + "/searchPage.pl",
         data: data,

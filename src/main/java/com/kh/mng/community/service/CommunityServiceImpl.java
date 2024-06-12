@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
@@ -180,10 +181,11 @@ public class CommunityServiceImpl implements CommunityService{
 	public CommunityBoard selectBoardDetail(int bno) {
 	   
 	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
-	 
+		int  replyCount= communityDao.selectBoardReplyCount(sqlSession,bno);
+	    PageInfo replyPi = Pagination.getPageInfo(replyCount ,1, 10, 10);
 	    
 	    if(communityBoard!=null) {
-	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,communityBoard.getBoardNo());
+	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,replyPi,communityBoard.getBoardNo());
 	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
 	    
 	    	 	if(!boardReply.isEmpty()) {
@@ -246,6 +248,49 @@ public class CommunityServiceImpl implements CommunityService{
 	    
 	    return communityBoard;
 	}
+	
+	
+	@Override
+	@Transactional
+	public int insertBoardReply(ReplyInfo replyInfo) {
+		
+		int count=0;
+		if(replyInfo.getReplyNo()==-1) {//댓글이면
+			 count=communityDao.insertReply(sqlSession,replyInfo);
+		}
+		else {//댓글이아니고 대댓글이면
+			 count=communityDao.insertReplyReply(sqlSession,replyInfo);
+		}
+		
+		
+		return count;
+	}
+	
+	@Override
+	public int selectBoardReplyCount(int boardNo) {
+		
+		return communityDao.selectBoardReplyCount(sqlSession,boardNo);
+	}
+
+
+	@Override
+	@Transactional
+	public ArrayList<BoardReply> selectBoardReplys(PageInfo replyPi, ReplyInfo replyInfo) {
+		
+		
+		 ArrayList<BoardReply>selectBoardReplys=communityDao.selectBoardReplys(sqlSession,replyPi,replyInfo.getBoardNo());
+		 if(!selectBoardReplys.isEmpty()) {
+			 for(BoardReply replys:selectBoardReplys) {
+				 replyInfo.setReplyNo(replys.getReplyReNo());
+				 ArrayList<BoardReplyReply> selectBoardReplyReply =communityDao.selectBoardrReplyReplys(sqlSession, replyInfo);
+				 replys.setReplyReply(selectBoardReplyReply);
+			 }
+		 }
+		
+		
+		return selectBoardReplys;
+	}
+
 
 
 
@@ -266,6 +311,8 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getShortsNum(int videoId) {
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
+
+
 
 
 

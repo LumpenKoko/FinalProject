@@ -27,5 +27,10 @@ public class BossPageDao {
 		
 		return sqlSession.update("memberMapper.updatePwd", bossPage);
 	}
-	
+		
+	public int deleteBossUser(SqlSessionTemplate sqlSession, String bossId) {
+		
+		return sqlSession.update("memberMapper.deactivateBossUser", bossId);
+	}
+
 }

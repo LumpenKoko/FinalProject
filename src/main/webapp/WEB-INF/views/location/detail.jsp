@@ -135,7 +135,7 @@
 								</div>
 								<div> </div>
 								<div><button class="common-button pink-button" style="width:100%;"
-										onclick="location.href='chat'">채팅문의</button></div>
+										onclick="location.href='chat?locationNo=${l.locationNo}'">채팅문의</button></div>
 							</div>
 						</div>
 
@@ -278,7 +278,8 @@
 						<div class="location-div">
 							<div class="section location-area">
 								<div class="title">위치정보 </div>
-								<input id="address" type="text" value="서울특별시 강남구 테헤란로14길 6" hidden>
+								<input id="address" type="text" value="서울특별시 강남구 테헤란로 14길 6" hidden>
+								<input id="locationName" type="text" value="${l.locationName}" hidden>
 								<div class="content">
 									<div id="location-map" style="width:100%; height:500px;"></div>
 								</div>
@@ -287,7 +288,7 @@
 							<div class="section hospital-area">
 								<div class="title">동물병원</div>
 								<div class="content">
-									<div id="hostpial_map" style="width:150px;height:500px;"></div>
+									<div id="hostpial_map" style="width:300px;height:500px;"></div>
 								</div>
 							</div>
 						</div>
@@ -306,9 +307,9 @@
 									<li class="count" style="color:#c2bcbc;">${reviewCount}건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
-									<li><a  onclick="reviewCategory('o')">최신순</a></li>
-									<li><a  onclick="reviewCategory('h')">높은 평점순</a></li>
-									<li><a  onclick="reviewCategory('l')">낮은 평점순</a></li>
+									<li><a  onclick="reviewPaging(1,'o')">최신순</a></li>
+									<li><a  onclick="reviewPaging(1,'h')">높은 평점순</a></li>
+									<li><a  onclick="reviewPaging(1,'l')">낮은 평점순</a></li>
 								</ul>
 							</div>
 

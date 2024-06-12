@@ -2,6 +2,8 @@ package com.kh.mng.community.model.vo;
 
 import java.sql.Date;
 
+import com.kh.mng.common.model.vo.Attachment;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +15,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Reply {
+public class BoardReplyReply {
 	private int replyNo;
-	private String replyContent;
+	private String userNickName;
+	private String content;
 	private Date createDate;
 	private Date editDate;
 	private boolean status;
-	private String userNo;
-	private String boardNo;
-	private String shortsNo;
-	private String replyReNo;
+	private int userNo;
+	private int boardNo;
+	private int shortsNo;
+	private int replyReNo;
+	private Attachment replyUserProfile;
 }

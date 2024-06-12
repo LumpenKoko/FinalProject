@@ -200,12 +200,11 @@ public class CommunityController {
 		   
 		   for(MultipartFile f:files) {
 			   
-			   if(f.getContentType().contains("video")) {
-				   filePath="resources/img/user/mp4/";
-			   }
-			   
 			   if(f.getContentType().contains("image")) {
-				   filePath="resources/img/user/thumnail/";
+				   filePath="resources/video/thumnail/";
+			   }
+			   else {
+				   filePath="resources/video/mp4/";
 			   }
 			   
 			   String changeName= saveFile(f,session,filePath);
@@ -261,15 +260,18 @@ public class CommunityController {
 	
 	
 	@RequestMapping(value="shortsView.bo")
-	public ModelAndView detailShortsView(ModelAndView mv, HttpSession session) {
-		mv.addObject("loginUser", (Member)session.getAttribute("loginUser"));
-		mv.setViewName("community/shortsShow");
-		return mv;
+	public String detailShortsView() {
+		return "community/shortsShow";
 	}
 	
 	@RequestMapping(value="detailView.bo")
-	public String detailBoardView() {
-		return "community/boardContent";
+	public String detailBoardView(@RequestParam(value="bno") int bno,Model model) {
+		
+		 CommunityBoard communityBoard = communityService.selectBoardDetail(bno);
+		 log.info("communityBoard:{}",communityBoard);
+		 model.addAttribute("board",communityBoard);
+		 
+		 return "community/boardContent";
 	}
 	
 	@RequestMapping(value="enrollBoard.bo")
@@ -280,28 +282,32 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value="getVideo.sh")
 	public String loadShorts(@RequestParam(value="videoId") int videoId) {
-		TotalShortsInfo totalShortsInfo = new TotalShortsInfo();
-		
-		totalShortsInfo = communityService.getVideoInfo(videoId);
-		
-		int shortsNum = totalShortsInfo.getShortsNo();
-		
-		totalShortsInfo.setLikeCount(communityService.getVideoLikeCount(shortsNum));
-		totalShortsInfo.setReplyCount(communityService.getVideoReplyCount(shortsNum));
-		
-		return new Gson().toJson(totalShortsInfo);
-	 }
+
+	    TotalShortsInfo totalShortsInfo = communityService.getVideoInfo(videoId);
+
+	    if (totalShortsInfo == null) {
+	        return "Error: Video info not found.";
+	    } else {
+	        int shortsNum = totalShortsInfo.getShortsNo();
+	        totalShortsInfo.setLikeCount(communityService.getVideoLikeCount(shortsNum));
+	        totalShortsInfo.setReplyCount(communityService.getVideoReplyCount(shortsNum));
+	        return new Gson().toJson(totalShortsInfo);
+	    }
+	}
+
 	
 	@ResponseBody
-	@GetMapping(value="addComment.sh", produces="application/text; charset=utf-8")
-	public String addComment(@RequestParam(value="userNo, videoId, comment") int userNo, int videoId, String comment) {
-		
-		System.out.println(comment);
+	@GetMapping(value="addComment.sh", produces="application/json; charset=utf-8")
+	public String addComment(@RequestParam(value="userNo") int userNo, 
+				            @RequestParam(value="num") int videoId, 
+				            @RequestParam(value="comment") String comment) {
 		
 		int shortsNum = communityService.getShortsNum(videoId);
 		
 		if (communityService.addComment(userNo, shortsNum, comment) > 0) {
-			return comment;
+			ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
+			log.info("replyList: " + replyList);
+			return new Gson().toJson(replyList);
 		} else {
 			return null;
 		}
@@ -310,14 +316,9 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value="loadReply.sh", produces="application/json; charset=utf-8")
 	public String loadReply(@RequestParam(value="num") int videoId){
-		TotalShortsInfo totalShortsInfo = new TotalShortsInfo();
+		int shortsNum = communityService.getShortsNum(videoId);
 		
-		totalShortsInfo = communityService.getVideoInfo(videoId);
-		
-		int shortsNum = totalShortsInfo.getShortsNo();
-		
-		ArrayList<ShortsReply> replyList = new ArrayList<ShortsReply>();
-		replyList = communityService.loadReply(shortsNum);
+		ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
 		return new Gson().toJson(replyList);
 	}
 }

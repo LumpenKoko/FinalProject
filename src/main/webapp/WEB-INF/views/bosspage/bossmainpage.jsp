@@ -7,11 +7,12 @@
         <title>Insert title here</title>
 
         <%@ include file="../common/common-file.jsp" %>
-            <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
-            <link rel="stylesheet" href="resources/css/common/common.css" />
-            <link rel="stylesheet" href="resources/css/common/minibox.css" />
-            <script src="resources\js\bosspage\bosspage.js"></script>
-            <script src="resources\js\bosspage\bossMainPage.js"></script>
+        <link rel="stylesheet" href="resources/css/bosspage/bosspage.css" />
+        <link rel="stylesheet" href="resources/css/common/common.css" />
+        <link rel="stylesheet" href="resources/css/common/minibox.css" />
+        <script src="resources/js/bosspage/bosspage.js"></script>
+        <script src="resources/js/bosspage/bossMainPage.js"></script>
+        <script src="resources/js/bosspage/ajax/bossMainPageAjax.js"></script>
     </head>
 
     <body>
@@ -143,11 +144,11 @@
                         <p class="pwd-checkMessage">비밀번호가 일치하지 않습니다.</p>
                     </div>
                     <div class="boss-pwd-input">
-                        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요.">
+                        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요." oninput="toggleRemoveButton()">
                     </div>
                     <div class="boss-remove-button">
-                        <button class="boss-remove" onclick="checkPassword('<%=contextPath%>')" disabled>탈퇴</button>
-                        <button onclick="hideModal('boss-remove-modal')">취소</button>
+                        <button class="boss-remove" disabled onclick="checkPassword('<%=request.getContextPath()%>', '${userNo}')">탈퇴</button>
+                        <button onclick="hideRemoveModal()">취소</button>
                     </div>
                 </div>
                 
@@ -164,11 +165,12 @@
                             <div class="minibox-mini-title">
                                 <span class="error-message" id="mismatch-error">비밀번호가 일치하지 않습니다.</span>
                             </div>
-                
+                            
                             <input type="password" id="password" class="minibox-input" placeholder="비밀번호 입력">
                             <input type="password" id="confirm-password" class="minibox-input" placeholder="비밀번호 확인">
                             
-                            <button type="submit" class="common-button pink-button minibox-full-button" onclick="updatePassword(event, '${userNo}', '<%=contextPath%>')">확인</button>
+                            <button type="submit" class="common-button pink-button minibox-full-button" onclick="updatePassword(event, '${userNo}', '<%=request.getContextPath()%>')">확인</button>
+                            <button class="close-button" onclick="pwdModalClose()">취소</button>
                         </form>
                     </div>
                 </div>

@@ -14,10 +14,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ShortsReply {
+	private int shortsNo;
 	private int replyNo;
 	private Date enrollDate;
 	private String replyContent;
-	private String replyReNo;
+	private int replyReNo;
 	private String userNickname;
 	private String FilePath;
 	private String changeName;

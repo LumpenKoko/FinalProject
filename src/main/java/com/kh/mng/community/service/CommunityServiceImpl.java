@@ -14,17 +14,23 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dao.CommunityDao;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
+import com.kh.mng.community.model.vo.BoardReply;
+import com.kh.mng.community.model.vo.BoardReplyReply;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 
 @Service
+@Slf4j
 public class CommunityServiceImpl implements CommunityService{
 	
 	@Autowired
@@ -155,11 +161,92 @@ public class CommunityServiceImpl implements CommunityService{
 				}
 			
 			}
+			else {
+				ShortsFileInfo defaultImg= new ShortsFileInfo();
+				defaultImg.setFilePath("resources/img/default/");
+				defaultImg.setChangeName("defaultImg.png");
+				
+				count1=communityDao.insertShortsAttachment(sqlSession,defaultImg);
+			}
 			
 		}
 		
 		return count*count1;
 	}
+	
+
+	@Override
+	@Transactional
+	public CommunityBoard selectBoardDetail(int bno) {
+	   
+	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
+	 
+	    
+	    if(communityBoard!=null) {
+	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,communityBoard.getBoardNo());
+	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
+	    
+	    	 	if(!boardReply.isEmpty()) {
+	    	 		ReplyInfo replyInfo = new ReplyInfo();
+	    	 		
+	    	 		for(BoardReply re:boardReply) {
+	    	 			Attachment replyProfile = communityDao.selectUserProfile(sqlSession,re.getUserNo());
+	    	 			replyInfo.setBoardNo(communityBoard.getBoardNo());
+	    	 			replyInfo.setReplyNo(re.getReplyNo());
+	    	 			
+	    	 			
+	    	 			
+	    	 			ArrayList<BoardReplyReply> boardReplyReply = communityDao.selectBoardrReplyReplys(sqlSession, replyInfo);
+	    	 			if(!boardReplyReply.isEmpty()) {
+	    	 				for(BoardReplyReply rr:boardReplyReply) {
+	    	 					Attachment replyReplyProfile = communityDao.selectUserProfile(sqlSession,rr.getUserNo());
+	    	 					if(replyReplyProfile==null) {
+	    	 						 Attachment defaultUserProfile=new  Attachment();
+	    	 			    		 defaultUserProfile.setFilePath("resources/img/default/");
+	    	 			    		 defaultUserProfile.setChangeName("star.png");
+	    	 			    		 rr.setReplyUserProfile(defaultUserProfile);
+	    	 					}
+	    	 					else {
+	    	 						rr.setReplyUserProfile(replyReplyProfile);
+	    	 					}
+	    	 					
+	    	 				}
+	    	 			}
+	    	 			
+	    	 			if(replyProfile==null) {
+	    	 				 Attachment defaultUserProfile=new  Attachment();
+	 			    		 defaultUserProfile.setFilePath("resources/img/default/");
+	 			    		 defaultUserProfile.setChangeName("star.png");
+	 			    		 re.setReplyUserProfile(defaultUserProfile);
+
+	    	 			}
+	    	 			else {
+	    	 				re.setReplyUserProfile(replyProfile);
+	    	 			}
+	    	 			
+	    	 		    re.setReplyReply(boardReplyReply);
+	    	 		
+	    	 		}
+	    	 	 }
+	    	 	
+	    
+	    	 if(userProfile==null) {
+	    		 Attachment defaultUserProfile=new  Attachment();
+	    		 defaultUserProfile.setFilePath("resources/img/default/");
+	    		 defaultUserProfile.setChangeName("star.png");
+	    		 communityBoard.setUserProfile(defaultUserProfile);
+	    	 }else {
+	    		 communityBoard.setUserProfile(userProfile);
+	    	 }
+	    	 
+	    	 communityBoard.setReplys(boardReply);
+	    
+	    }
+	    
+	    
+	    return communityBoard;
+	}
+
 
 
 	@Override
@@ -171,8 +258,7 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	public ArrayList<ShortsReply> loadReply(int shortsNum) {
-//		return communityDao.loadReply(sqlSession, shortsNum);
-		return null;
+		return communityDao.loadReply(sqlSession, shortsNum);
 	}
 
 

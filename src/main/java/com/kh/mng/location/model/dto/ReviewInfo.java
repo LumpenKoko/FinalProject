@@ -12,6 +12,7 @@ public class ReviewInfo {
 	   int locationNo;
 	   int reviewNo;
        int starCount;
+       int currentPage;
        String content;
        String type;
        

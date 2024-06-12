@@ -39,18 +39,30 @@ import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
 import com.kh.mng.member.model.vo.Member;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.kh.mng.location.model.vo.DetailLocation; 
 
 
 @Controller
+@Slf4j
 public class LocationController {
 	@Autowired 
 	private LocationService detailService;
 	
 	
 	@GetMapping("/chat")
-	public String ChatList() {
+	public String ChatList(int locationNo,Model model,HttpSession session) {
+		log.info("{}",locationNo);
 		
+		Member connectedUser =((Member)session.getAttribute("loginUser"));
+		session.setAttribute("connectedUser", connectedUser);
+		
+		//사장님 아이디 가져오기 
+    	String masterId= detailService.getMasterId(locationNo);
+    	log.info(masterId);
+		model.addAttribute("entityId", masterId);
 		return "chat/chat";
 	}
 
@@ -165,17 +177,27 @@ public class LocationController {
 	@ResponseBody
 	@GetMapping(value="list.re",produces="application/json; charset=utf-8")
 	public String selectReview(@RequestParam(value="locationNo") int locationNo,
-							@RequestParam(value="currentPage",defaultValue="1") int currentPage ) {
+							@RequestParam(value="currentPage",defaultValue="1") int currentPage,
+							@RequestParam(value="type",defaultValue="o") String type ) {
 		
 		int reviewCount=detailService.selectReviewCount(locationNo);
 		PageInfo pi =Pagination.getPageInfo(reviewCount,currentPage,10,5);
 		
+		//selectCategoryReviewList
 		
-	 	ArrayList<Review> reviews =detailService.selectDetailReviewList(locationNo,pi);
+		ReviewInfo reviewInfo = new ReviewInfo();
+		reviewInfo.setLocationNo(locationNo);
+		reviewInfo.setCurrentPage(currentPage);
+		reviewInfo.setType(type);
+		
+		
+	 	ArrayList<Review> reviews =detailService.selectCategoryReviewList(reviewInfo,pi);
 	 	ReviewPage reivewPage =new ReviewPage();
 	 	reivewPage.setPage(pi);
 	 	reivewPage.setReviews(reviews);
 	 	
+	 	//리뷰 평점 업데이트
+	 	int count=detailService.updateDateReviewScore(locationNo,reviewCount);
 	
 		//System.out.println(new Gson().toJson(pageReview));
 		//Type type = new TypeToken<Map<PageInfo, ArrayList<Review>>>(){}.getType();
@@ -223,6 +245,7 @@ public class LocationController {
 		 }
  
 	        int count=detailService.insertReview(reviewInfo,fileNames, path);
+	        
 	      	
 	        if(count>0) {
 	        	 return "ok";
@@ -312,29 +335,29 @@ public class LocationController {
 	}
 	
 	
-	//분류별 리뷰 분류
-	@ResponseBody
-	@GetMapping(value="review.ca", produces="application/json; charset=utf-8")
-	public String reviewCategory(ReviewInfo review) {
-		
-		System.out.println(review.getType());
-
-		int reviewCount=detailService.selectReviewCount(review.getLocationNo());
-		PageInfo pi =Pagination.getPageInfo(reviewCount,1,10,5);
-		
-		
-	 	ArrayList<Review> reviews =detailService.selectCategoryReviewList(review,pi);
-	 	ReviewPage reivewPage =new ReviewPage();
-	 	reivewPage.setPage(pi);
-	 	reivewPage.setReviews(reviews);
-	 	
-	
-		//System.out.println(new Gson().toJson(pageReview));
-		//Type type = new TypeToken<Map<PageInfo, ArrayList<Review>>>(){}.getType();
-		System.out.println(new Gson().toJson(reivewPage));
-		//return new Gson().toJson(pageReview);
-		return new Gson().toJson(reivewPage);
-	}
+//	//분류별 리뷰 분류
+//	@ResponseBody
+//	@GetMapping(value="review.ca", produces="application/json; charset=utf-8")
+//	public String reviewCategory(ReviewInfo review) {
+//		
+//		System.out.println(review.getType());
+//
+//		int reviewCount=detailService.selectReviewCount(review.getLocationNo());
+//		PageInfo pi =Pagination.getPageInfo(reviewCount,1,10,5);
+//		
+//		
+//	 	ArrayList<Review> reviews =detailService.selectCategoryReviewList(review,pi);
+//	 	ReviewPage reivewPage =new ReviewPage();
+//	 	reivewPage.setPage(pi);
+//	 	reivewPage.setReviews(reviews);
+//	 	
+//	
+//		//System.out.println(new Gson().toJson(pageReview));
+//		//Type type = new TypeToken<Map<PageInfo, ArrayList<Review>>>(){}.getType();
+//		System.out.println(new Gson().toJson(reivewPage));
+//		//return new Gson().toJson(pageReview);
+//		return new Gson().toJson(reivewPage);
+//	}
 	
 	
 	//로그인 정보 가져오기-->실패

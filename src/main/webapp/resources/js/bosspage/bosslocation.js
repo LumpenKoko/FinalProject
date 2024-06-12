@@ -1,6 +1,94 @@
+// 페이지 초기화 함수
+function initializePage() {
+    loadLocationInfo();
+    locationpage('/mng');
+}
+
+// AJAX를 사용하여 장소 정보를 저장
+function saveLocationInfo() {
+    var phoneNumber = document.getElementById("store-phone").value;
+    var description = document.getElementById("store-description").value;
+    var reservationLink = document.getElementById("reservation-link-input").value;
+    var animalTypes = Array.from(document.querySelectorAll('input[name="animal-type"]:checked')).map(checkbox => checkbox.value);
+    // 필요한 데이터를 모두 수집합니다.
+    
+    var data = {
+        phone: phoneNumber,
+        description: description,
+        reservationLink: reservationLink,
+        animalTypes: animalTypes
+    };
+
+    $.ajax({
+        url: contextPath + '/saveLocationInfo.bm', // 서버의 엔드포인트
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(response) {
+            alert("장소정보 업데이트를 완료하였습니다.");
+        },
+        error: function(xhr, status, error) {
+            alert("장소정보 업데이트에 실패했습니다: " + error);
+        }
+    });
+}
+
+// AJAX를 사용하여 저장된 장소 정보 로드
+function loadLocationInfo() {
+    $.ajax({
+        url: contextPath + '/getLocationInfo.bm', // 서버의 엔드포인트
+        method: 'GET',
+        success: function(response) {
+            if(response.phone) {
+                document.getElementById("store-phone").value = response.phone;
+            }
+            if(response.description) {
+                document.getElementById("store-description").value = response.description;
+            }
+            if(response.reservationLink) {
+                document.getElementById("reservation-link-input").value = response.reservationLink;
+            }
+            if(response.animalTypes) {
+                response.animalTypes.forEach(type => {
+                    document.querySelector(`input[name="animal-type"][value="${type}"]`).checked = true;
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("장소정보 로드에 실패했습니다: " + error);
+        }
+    });
+}
+
+// 요일별 운영시간 HTML 요소를 생성하는 함수
+function createOperatingHoursElement(day) {
+    return `
+        <div class="operating-hours">
+            <p>${day}</p>
+            <p>휴무</p>
+            <input type="checkbox" name="휴무">
+            <select class="open-time">
+                ${[...Array(24).keys()].map(hour => `<option value="${String(hour).padStart(2, '0')}:00">${String(hour).padStart(2, '0')}:00</option>`).join('')}
+            </select>
+            <p style="margin-right: 0;margin-left: 20px;">~</p>
+            <select class="close-time">
+                ${[...Array(24).keys()].map(hour => `<option value="${String(hour).padStart(2, '0')}:00">${String(hour).padStart(2, '0')}:00</option>`).join('')}
+            </select>
+        </div>
+    `;
+}
+
+// 각 요일의 운영시간 요소를 추가합니다.
+document.addEventListener('DOMContentLoaded', function() {
+    const days = ['월', '화', '수', '목', '금', '토', '일'];
+    const container = document.getElementById('operating-hours-container');
+    days.forEach(day => {
+        container.innerHTML += createOperatingHoursElement(day);
+    });
+});
+
 function locationpage(path){
     /*객실 이미지 업로드*/
-
     const registrationupload = document.querySelectorAll('.registration-upload');
 
     for (let uploadImg of registrationupload) {
@@ -8,7 +96,6 @@ function locationpage(path){
             ev.stopPropagation();
             ev.preventDefault();
 
-            console.log(uploadImg)
             const companyImg = document.getElementById(uploadImg.dataset.target);
             companyImg.onchange = (ev) => {
                 loadImg(ev.target, uploadImg.dataset.target);
@@ -23,7 +110,6 @@ function locationpage(path){
         
         //inputFile.files[0] => 선택된 파일이 담겨있다.
         //inputFile.files.length -> 1
-        console.log(inputFile.files.length)
 
         if (inputFile.files.length == 1){//파일을 하나 선택했다. => 미리보기
             //파일을 읽어들일 FileReader객체생성
@@ -74,48 +160,5 @@ function locationpage(path){
             // 등록 로직 수행
             // 이 부분에 등록 로직을 추가하면 됩니다.
         });
-    
-        
-        
     });
-
-    
-    
 }
-
-// 입력 정보 저장하기
-function saveData() {
-    var storeName = document.getElementsByName("상호명")[0].value;
-    var phone = document.getElementsByName("가게전화번호")[0].value;
-    var description = document.querySelector("#storeinfo textarea").value;
-
-    // 데이터를 LocalStorage에 저장
-    localStorage.setItem("storeName", storeName);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("description", description);
-
-    // 등록 완료 팝업 표시
-    alert("사업장 등록 완료하였습니다.");
-}
-
-// 페이지 로드 시 저장된 데이터 불러오기
-function loadData() {
-    if (localStorage.getItem("storeName")) {
-        document.getElementsByName("상호명")[0].value = localStorage.getItem("storeName");
-    }
-    if (localStorage.getItem("phone")) {
-        document.getElementsByName("가게전화번호")[0].value = localStorage.getItem("phone");
-    }
-    if (localStorage.getItem("description")) {
-        document.querySelector("#storeinfo textarea").value = localStorage.getItem("description");
-    }
-}
-
-// 버튼 클릭 이벤트 리스너 추가
-document.addEventListener("DOMContentLoaded", function() {
-    // '등록' 버튼에 클릭 이벤트 리스너 추가
-    document.querySelector(".upload-bt").addEventListener("click", saveData);
-
-    // 페이지 로드 시 저장된 데이터 불러오기
-    loadData();
-});

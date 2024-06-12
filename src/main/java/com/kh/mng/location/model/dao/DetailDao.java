@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.dto.ReviewStarInfo;
 import com.kh.mng.location.model.vo.LocationOption;
 import com.kh.mng.location.model.vo.OperationTime;
 import com.kh.mng.location.model.vo.PetKindGrade;
@@ -61,6 +62,16 @@ public class DetailDao {
 	public ArrayList<PetKindGrade> selectPetKindGradeList(SqlSessionTemplate sqlSession, int locationNo) {
 		
 		return  (ArrayList) sqlSession.selectList("detail.selectPetKindGradeList",locationNo);
+	}
+
+	public int updateLocationTotalScore(SqlSessionTemplate sqlSession, ReviewStarInfo reviewStar) {
+	
+		return sqlSession.update("detail.updateLocationTotalScore",reviewStar);
+	}
+
+	public String getMasterId(SqlSessionTemplate sqlSession, int locationNo) {
+	
+		return sqlSession.selectOne("detail.getMasterId",locationNo);
 	}
 
 }

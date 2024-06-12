@@ -4,6 +4,7 @@
 <%@ page import="com.kh.mng.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
+	session.setAttribute("contextPath",request.getContextPath());
     
     //로그인 유저 정의
 	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -71,6 +72,7 @@
                 <form action="<%=contextPath%>/searchKeyword.pl">
                     <input type="text" name="keyword" placeholder="장소를 검색하세요" style="text-align:left;" value="${keyword}">
                     <button id="header-search-button" type="submit">🔍</button>
+                    <input type="text" name="loginUserNo" value="${loginUser.userNo}" style="display: none">
                 </form>
             </div>
         </c:otherwise>

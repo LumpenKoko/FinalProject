@@ -125,23 +125,28 @@
 	
 	<update id="updatePhonNo">
 		UPDATE MEMBER
-			SET USER_PHONE = #{phoneNumber}
-		WHERE STATUS = true
-		AND USER_NO = #{userNo}
+		   SET USER_PHONE = #{phoneNumber}
+		 WHERE STATUS = true
+	 	   AND USER_NO = #{userNo}
 	</update>
 	
 	<update id="updateEmail">
 		UPDATE MEMBER
-			SET USER_EMAIL = #{email}
-		WHERE STATUS = true
-		AND USER_NO = #{userNo}
+		   SET USER_EMAIL = #{email}
+		 WHERE STATUS = true
+		   AND USER_NO = #{userNo}
 	</update>
 	
 	<update id="updatePwd">
 		UPDATE MEMBER
-			SET USER_PWD = #{bossPwd}
-		WHERE STATUS = true
-		AND USER_NO = #{userNo}
+		   SET USER_PWD = #{bossPwd}
+		 WHERE STATUS = true
+		   AND USER_NO = #{userNo}
+	</update>
+	<update id="deactivateBossUser">
+    	UPDATE MEMBER
+       	   SET STATUS = false
+         WHERE USER_ID = #{bossId}
 	</update>
 
 	<update id="deleteMember">

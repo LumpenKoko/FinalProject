@@ -1,8 +1,6 @@
 package com.kh.mng.search.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.search.model.dto.SearchFilter;
+import com.kh.mng.search.model.dto.SearchPick;
 import com.kh.mng.search.service.SearchServiceImpl;
 
 @Controller
@@ -63,21 +63,23 @@ public class SearchController {
 	
 	@GetMapping("searchKeyword.pl")
 	public String searchKeyword(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-								String keyword, Model model) {
-		int locationCount = searchService.selectLocationListCount();
+								@RequestParam(value="keyword", defaultValue="") String keyword, 
+								@RequestParam(value="loginUserNo", defaultValue="0") String loginUserNo, Model model) {
+		
+		int locationCount = searchService.selectLocationListCount(keyword);
 		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
 		
-		ArrayList<Location> list = searchService.selectSearchLocationList(keyword, pi);
+		SearchFilter sf = new SearchFilter();
+		sf.setKeyword(keyword);
+		if (loginUserNo != null) {
+			sf.setLoginUserNo(loginUserNo);
+		}
 		
-//		for(Location loc : list) {
-//			System.out.println(loc);
-//			System.out.println(loc.getEnterList());
-//			System.out.println(loc.getOpTime());
-//			System.out.println(loc.getAttachment());
-//		}
+		ArrayList<Location> list = searchService.selectSearchLocationList(sf, pi);
 		
 		// 찜 개수 가져와야 함
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("pi", pi);
 		model.addAttribute("locationList", list);
 		
 		return "search/searchPage";
@@ -86,17 +88,11 @@ public class SearchController {
 	@ResponseBody
 	@GetMapping(value="searchPage.pl", produces="application/json; charset-UTF-8")
 	public String searchPage(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-							String petList, String locList, String order, String keyword,
+							String petList, String locList, String order, String keyword, String loginUserNo,
 							Model model, HttpServletRequest request) {
 //							@RequestParam(value="petList") Map<String, SearchFilter> petList, 
 //							@RequestParam(value="locList")List<String> locList,
 //							이런 식으로 List로 받을 게 아니라 그냥 아예 프론트에서 String으로 바꿔서 보낼 것
-        
-		System.out.println(petList);
-		System.out.println(locList);
-		System.out.println(keyword);
-		System.out.println(order);
-		System.out.println(currentPage);
 
 		ArrayList<Integer> pets = new ArrayList<Integer>();
 		ArrayList<Integer> locs = new ArrayList<Integer>();
@@ -113,35 +109,62 @@ public class SearchController {
 			}
 		}
 		
-		int locationCount = searchService.selectLocationListCount();
-		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
-		
 		SearchFilter sf = new SearchFilter();
 		sf.setKeyword(keyword);
 		sf.setPetList(pets);
 		sf.setLocList(locs);
 		sf.setOrder(order);
 		
-		ArrayList<Location> list = searchService.selectFilterLocationList(sf, pi);
-
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("locationList", list);
-		
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
+		if (loginUserNo != null) {
+			sf.setLoginUserNo(loginUserNo);
 		}
 		
-		return new Gson().toJson(list);
+		int locationCount = searchService.selectFilterLocationListCount(sf);
+		PageInfo pi = Pagination.getPageInfo(locationCount, currentPage, 10, 10);
+		
+		ArrayList<Location> list = searchService.selectFilterLocationList(sf, pi);
+		
+		sf.setLocationList(list);
+		sf.setPi(pi);
+		
+		model.addAttribute("locationInfo", sf);
+		
+		return new Gson().toJson(sf);
 	}
 	
 	@ResponseBody
 	@GetMapping(value="selectLikeInfo.pl", produces="application/json; charset-UTF-8")
-	public String selectUserPick(int userNo, int locationNo) {
-		Location loc = new Location();
-		loc.setUserNo(userNo);
-		loc.setLocationNo(locationNo);
+	public String selectUserPick(int loginUserNo, int locNo) {
+		SearchPick pick = new SearchPick();
+		pick.setLocationNo(locNo);
+		pick.setUserNo(loginUserNo);
+		
+		int userPick = searchService.selectUserPick(pick);
+		
+		if (userPick > 0) {
+			SearchPick sp = searchService.deleteUserPick(pick);
+			
+			if (sp.getLocPickCount() > 0) {
+				pick.setStatus("D");
+				return new Gson().toJson(pick);
+			} else {
+				pick.setStatus("N");
+				return new Gson().toJson(pick);
+			}
+			
+		} else {
+			SearchPick sp = searchService.insertUserPick(pick);
+			if (sp.getLocPickCount() > 0) {
+				pick.setStatus("I");
+				return new Gson().toJson(pick);
+			} else {
+				pick.setStatus("N");
+				return new Gson().toJson(pick);
+			}
+		}
+		
+		
 
-		return new Gson().toJson(searchService.selectUserPick(loc));
 	}
 	
 }

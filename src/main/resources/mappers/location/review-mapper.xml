@@ -149,6 +149,10 @@
     
     </insert>
     
+    
+  
+    
+    
     <select id="selectCategoryReviewList" resultMap="detailReview">
     		   SELECT  R.REVIEW_NO,
 	    	   	    REVIEW_STAR,
@@ -207,6 +211,13 @@
      		FROM REVIEW
      		WHERE USER_NO = #{userNo}
      		ORDER BY ENROLL_DATE ASC
+    </select>
+    
+    
+    <select id="selectReviewStars" resultType="_int">
+    	SELECT REVIEW_STAR 
+    		   FROM REVIEW WHERE LOCATION_NO = #{locationNo}
+    
     </select>
     
  	</mapper>

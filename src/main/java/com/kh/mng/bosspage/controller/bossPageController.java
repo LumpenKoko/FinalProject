@@ -1,29 +1,39 @@
 package com.kh.mng.bosspage.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.service.BossPageService;
+import com.kh.mng.location.model.vo.DetailLocation;
+import com.kh.mng.location.controller.LocationController;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 //@Controller -> 요청을 받아서 응답을 돌려주는 역할
 @Controller
+@Slf4j
 public class bossPageController {
 
 	@Autowired
 	private BossPageService bossPageService;
 	@Autowired
-	   private BCryptPasswordEncoder bcryptPasswordEncoder;
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@RequestMapping("bossMainPage.bm")
 	public String bossPrivacy(Model model, HttpSession session) {
@@ -38,11 +48,11 @@ public class bossPageController {
 			
 			//사장님 정보 데이터베이스로부터 userNo보내서 가져오기
 			Location location = bossPageService.getLocation(userNo);
-			
+			//DetailLocation detailLocation = bossPageService.getDetailLocation(userNo);
 			
 			//가게정보 request영역에 담기
 			model.addAttribute("location", location);
-			
+			//model.addAttribute("detailLocation", detailLocation);
 			model.addAttribute("userNo", userNo);
 			
 			return "bosspage/bossmainpage"; //포워딩 -> url은 그대로, 화면만 변경
@@ -50,6 +60,7 @@ public class bossPageController {
 			return "redirect:/";//redirect -> url과 화면을 다 바꿔줘야할 때
 		}
 	}
+	
 	
 	/*휴대폰 번호 변경*/
 	@ResponseBody
@@ -92,13 +103,13 @@ public class bossPageController {
 	public String updatePwd(BossPage bossPage, HttpSession session) {
 		
 		String encPwd = bcryptPasswordEncoder.encode(bossPage.getBossPwd());
-	      bossPage.setBossPwd(encPwd);;
+	      bossPage.setBossPwd(encPwd);
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		if (loginUser != null) {
 			int count = bossPageService.updatePwd(bossPage);
 			if(count > 0) {
-				System.out.println("성공했습니다.");
+				
 				return "비밀번호 변경에 성공였습니다.";
 			}
 			else {
@@ -109,6 +120,30 @@ public class bossPageController {
 	}
 	
 	/*회원탈퇴*/
+	@ResponseBody
+	@PostMapping(value="deleteBossUser.bm",produces ="application/json; charset=utf-8")
+	public String deleteBossUse(BossPage bossPage, HttpSession session) {
+		//1. 암호화된 비밀번호 가져오기
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		String bossId= ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		//2. 비밀번호 일치/불일치 판단후
+		if (bcryptPasswordEncoder.matches(bossPage.getBossPwd(), encPwd)) {
+			//일치 -> 탈퇴처리 -> session에서 제거 -> 메인페이지로
+			int result = bossPageService.deleteBossUser(bossId);
+			
+			if(result > 0) {
+				session.removeAttribute("loginUser");
+				return "YYYY";
+			} else {
+				return "NNNN";
+			}
+		} else {
+			//불일치 -> alertMsg: 비밀번호 다시 입력 -> 마이페이지
+			return "RRRR";
+		}
+	}
+	
 	
 	
 
@@ -117,10 +152,73 @@ public class bossPageController {
 		return "bosspage/bossmanubar";
 	}
 
-	@RequestMapping(value = "bossLocation.bl")
-	public String bossLocation() {
-		return "bosspage/bosslocation";
+	@RequestMapping("bossLocation.bl")
+	public String bossLocation(Model model, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		//지금 로그인한 사람정보
+		
+		
+		if (loginUser != null) {
+			//로그인이 되어있을 때
+			
+			int userNo = loginUser.getUserNo();
+			
+			//사장님 정보 데이터베이스로부터 userNo보내서 가져오기
+			Location location = bossPageService.getLocation(userNo);
+			
+			
+			//가게정보 request영역에 담기
+			model.addAttribute("location", location);
+			
+			model.addAttribute("userNo", userNo);
+			
+			return "bosspage/bosslocation"; //포워딩 -> url은 그대로, 화면만 변경
+		} else {
+			return "redirect:/";//redirect -> url과 화면을 다 바꿔줘야할 때
+		}
 	}
+	
+	// 장소 정보 업데이트
+    @ResponseBody
+    @PostMapping(value="/saveLocationInfo.bm", produces="application/json; charset=UTF-8")
+    public Map<String, Object> saveLocationInfo(@RequestBody Map<String, Object> locationInfo, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            int userNo = loginUser.getUserNo();
+            locationInfo.put("userNo", userNo);
+            int result = bossPageService.saveLocationInfo(locationInfo);
+            if (result > 0) {
+                response.put("message", "장소정보 업데이트를 완료하였습니다.");
+            } else {
+                response.put("message", "장소정보 업데이트에 실패했습니다.");
+            }
+        } else {
+            response.put("message", "로그인이 필요합니다.");
+        }
+        return response;
+    }
+
+    // 장소 정보 로드
+    @ResponseBody
+    @GetMapping(value="/getLocationInfo.bm", produces="application/json; charset=UTF-8")
+    public Map<String, Object> getLocationInfo(HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            int userNo = loginUser.getUserNo();
+            Location location = bossPageService.getLocation(userNo);
+            if (location != null) {
+                response.put("phone", location.getPhone());
+                response.put("description", location.getDescription());
+                response.put("reservationLink", location.getReservationLink());
+                response.put("animalTypes", location.getAnimalTypes());
+            }
+        } else {
+            response.put("message", "로그인이 필요합니다.");
+        }
+        return response;
+    }
 
 	@RequestMapping(value = "bossAccommodationinfo.ba")
 	public String bossAccommodationinfo() {
@@ -143,7 +241,13 @@ public class bossPageController {
 	}
 
 	@RequestMapping(value = "chatPage.cp")
-	public String chatPage() {
+	public String chatPage(Model model,HttpSession session) {
+		Member connectedMaster =((Member)session.getAttribute("loginUser"));
+		
+		session.setAttribute("connectedMaster", connectedMaster);
+		//String userId=((Member)session.getAttribute("connectedMaster")).getUserId();
+		
+		model.addAttribute("entityId","NNNNN");			
 		return "chat/chat";
 	}
 }

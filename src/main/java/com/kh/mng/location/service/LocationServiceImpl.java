@@ -19,6 +19,7 @@ import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.dto.ReviewStarInfo;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
@@ -215,6 +216,41 @@ public class LocationServiceImpl implements LocationService {
 			 }
 		}
 		return reviews;
+	}
+
+	@Override
+	@Transactional
+	public int updateDateReviewScore(int locationNo, int reviewCount) {
+	    ArrayList<Integer> reviewStars=reviewDao.selectReviewStars(sqlSession,locationNo);
+	    ReviewStarInfo reviewStarInfo= new  ReviewStarInfo();
+	    double total=0.0;
+	    double score=0.0;
+	    int count=0;
+	    if(!reviewStars.isEmpty()) {
+	    	 for(int star:reviewStars) {
+	 	    	total+=star;
+	 	    }
+	    	 
+	    	
+	    	 score=total/reviewCount;
+	    	 
+	    	 //2째 짜리 까지 표현
+	    	 score=Math.round(score * 100) / 100.0;
+	    	 
+	    	 reviewStarInfo.setLocationNo(locationNo);
+	    	 reviewStarInfo.setScore(score);
+	    	
+	 		count= detailDao.updateLocationTotalScore(sqlSession,reviewStarInfo);
+	    }
+	    
+	   
+		
+		return count;
+	}
+
+	@Override
+	public String getMasterId(int locationNo) {
+		return detailDao.getMasterId(sqlSession,locationNo);
 	}
 
 }

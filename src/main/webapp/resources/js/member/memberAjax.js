@@ -17,11 +17,11 @@ function ajaxSelectDoubleId(data, callback){
 function ajaxCertifyPhoneNum(data, callback){
     $.ajax({
         url: contextPath + "/certification.me", 
-        data:JSON.stringify(data),
-        headers :{
-            "Content-Type" :"application/json",
-        },
-        type: 'post',
+        data:data,
+        // headers :{
+        //     "Content-Type" :"application/json",
+        // },
+        type: "post",
         success: function (result) {
             callback(result);
         },

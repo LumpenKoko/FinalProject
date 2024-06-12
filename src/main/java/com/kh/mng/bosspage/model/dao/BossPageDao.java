@@ -35,5 +35,9 @@ public class BossPageDao {
     public int saveLocationInfo(SqlSessionTemplate sqlSession, Map<String, Object> locationInfo) {
         return sqlSession.insert("location.insertLocation", locationInfo);
     }
+    
+//    public Location getLocationOption(SqlSessionTemplate sqlSession, int userNo) {
+//        return sqlSession.selectOne("location.getLocationOption", userNo);
+//    }
 
 }

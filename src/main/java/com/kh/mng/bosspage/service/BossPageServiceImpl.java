@@ -51,5 +51,11 @@ public class BossPageServiceImpl implements BossPageService{
     public int saveLocationInfo(Map<String, Object> locationInfo) {
         return bossPageDao.saveLocationInfo(sqlSession, locationInfo);
     }
+
+//	@Override
+//	public Location getLocationOption(int userNo) {
+//		
+//		return bossPageDao.getLocationOption(sqlSession, userNo);
+//	}
 	
 }

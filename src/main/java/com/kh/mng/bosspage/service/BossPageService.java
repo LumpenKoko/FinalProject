@@ -8,6 +8,7 @@ import com.kh.mng.location.model.vo.Location;
 
 public interface BossPageService {
 	Location getLocation(int userNo);
+//	Location getLocationOption(int userNo);
 
     int updatePhoneNumber(BossPage bossPage);
 

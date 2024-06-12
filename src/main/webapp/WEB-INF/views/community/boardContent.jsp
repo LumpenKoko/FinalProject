@@ -10,7 +10,9 @@
 	<link rel="stylesheet" href="resources/css/community/boardContent.css"/>
     <script src='resources/js/boardShow/init.js'></script>
     <script src='resources/js/boardShow/reply.js'></script>
+    <script src='resources/js/boardShow/board.js'></script>
     <script src='resources/js/boardShow/ajax/replyAjax.js'></script>
+    <script src='resources/js/boardShow/ajax/boardAjax.js'></script>
 </head>
     <%@ include file="../common/header.jsp"%>
 
@@ -54,7 +56,7 @@
                         <div class="board-communication-info">
                             <!-- 좋아요 여부에 따라 처리 필요 -->
                             <img src="resources/community/like-after.png" alt="">
-                            <span><a href="#">좋아요${board.goodCount}</a></span>
+                            <span><a id="goodCount">좋아요<div id="goodCount">${board.goodCount}</div></a></span>
                         </div>
                         <div class="board-communication-info">
                             <img src="resources/community/reply.png" alt="">
@@ -141,6 +143,46 @@
 
 
                         </div>
+
+                        <!--페이지 처리 영역-->
+							<div id="page-div" class="page-div">
+								<c:choose>
+									<c:when test="${replyPi.currentPage eq 1}">
+										<div id="previous-button" class="prv-button">
+											<li class="page-disabled"><a class="page-button">◀</a></li>
+										</div>
+									</c:when>
+
+									<c:otherwise>
+										<div id="previous-button" class="prv-button">
+											<li><a class="page-button"
+													onclick="replyPaging('${replyPi.currentPage-1}')">◀</a></li>
+										</div>
+
+									</c:otherwise>
+								</c:choose>
+
+								<c:forEach var="p" begin="${replyPi.startPage }" end="${replyPi.endPage }">
+									<li class="page-item"><a class="page-link" onclick="replyPaging('${p}')">${p}</a>
+									</li>
+								</c:forEach>
+
+								<c:choose>
+									<c:when test="${replyPi.currentPage eq replyPi.maxPage}">
+										<div id="next-button" class="next-button">
+											<li class="page-disabled"><a class="page-button">▶</a></li>
+										</div>
+									</c:when>
+
+									<c:otherwise>
+										<div id="next-button" class="next-button">
+											<li><a class="page-button"
+													onclick="replyPaging('${replyPi.currentPage+1}')">▶</a></li>
+										</div>
+
+									</c:otherwise>
+								</c:choose>
+							</div>
                
 
                 <!-- 댓글 등록란 -->

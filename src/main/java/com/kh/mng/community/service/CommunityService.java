@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -49,13 +50,15 @@ public interface CommunityService {
 
 	int insertShorts(Map<String, ShortsFileInfo> fileInfos, ShorstInfo shortsInfo);
 
-	CommunityBoard selectBoardDetail(int bno);
+	CommunityBoard selectBoardDetail(PageInfo replyPi,int bno);
 
 	int insertBoardReply(ReplyInfo replyInfo);
 
 	int selectBoardReplyCount(int boardNo);
 
 	ArrayList<BoardReply> selectBoardReplys(PageInfo replyPi,ReplyInfo replyInfo);
+
+	BoardGoodInfo updateBoardGoodCount(BoardInfo boardInfo);
 
 
 }

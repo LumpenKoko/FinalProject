@@ -13,4 +13,6 @@ import lombok.Setter;
 public class BoardInfo {
    private int  boardCategoryNo;
    private String boardContent;
+   private int userNo;
+   private int boardNo;
 }

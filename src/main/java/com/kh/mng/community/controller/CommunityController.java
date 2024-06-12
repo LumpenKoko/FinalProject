@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
 import com.kh.mng.community.model.dto.BoardReplyInfo;
@@ -266,20 +267,28 @@ public class CommunityController {
 		return "community/shortsShow";
 	}
 	
-	//게시물 상세 컨트롤러
+	//커뮤니티 게시판 상세 컨트롤러
 	@GetMapping(value="detailView.bo")
-	public String detailBoardView(@RequestParam(value="bno") int bno,Model model) {
+	public String detailBoardView(@RequestParam(value="bno") int bno,
+								  @RequestParam(value="pageNo",defaultValue="1") int pageNo,
+								  Model model) {
 		
-		 CommunityBoard communityBoard = communityService.selectBoardDetail(bno);
+		
+		int  replyCount= communityService.selectBoardReplyCount(bno);
+	    PageInfo replyPi = Pagination.getPageInfo(replyCount ,pageNo, 10, 10);
+		
+		 CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno);
 		 
 		 log.info("communityBoard:{}",communityBoard);
 		 
 		
 		 model.addAttribute("board",communityBoard);
+		 model.addAttribute("replyPi",replyPi);
 		 
 		 return "community/boardContent";
 	}
 	
+	//댓글 대댓글 입력 컨트롤러
 	@ResponseBody
 	@PostMapping(value="detailViewReply.in")
 	public String detailInsertReply(ReplyInfo replyInfo,HttpSession session) {
@@ -306,10 +315,7 @@ public class CommunityController {
 		
 		//댓글개수만 가져와야된다. (답글x)
 		int  replyCount= communityService.selectBoardReplyCount(replyInfo.getBoardNo());
-//		ReplyInfo replyInfo = new ReplyInfo();
-//		replyInfo.setBoardNo(boardNo);
-//		replyInfo.setPageNo(pageNo);
-		
+
 		
 		PageInfo replyPi = Pagination.getPageInfo(replyCount ,replyInfo.getPageNo(), 10, 10);
 		ArrayList<BoardReply> replys =  communityService.selectBoardReplys(replyPi,replyInfo);
@@ -325,12 +331,26 @@ public class CommunityController {
 		
 	}
 	
+	@ResponseBody
+	@GetMapping(value="updategoodcount.bo",produces = "application/json; charset=utf-8")
+	public String updateBoardGood(BoardInfo boardInfo,HttpSession session) {
+		
+		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
+		boardInfo.setUserNo(userNo);
+		
+		
+	    BoardGoodInfo goodInfo=communityService.updateBoardGoodCount(boardInfo);
+		
+		return new Gson().toJson(goodInfo);
+		
+		
+	}
 	
 	
 	 
 	
 	
-	@RequestMapping(value="enrollBoard.bo")
+	@GetMapping(value="enrollBoard.bo")
 	public String enrollBoard() {
 		return "community/writingPage";
 	}

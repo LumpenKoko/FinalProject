@@ -15,7 +15,7 @@ function replyShowInsert(id) {
 
 
 //댓글 입력
-function replyInsert() {
+function replyInsert(pageNo=1) {
    let replyButton = document.querySelector("#replyButton");
    replyButton.onclick = function () {
       let replyContent = document.querySelector("#replyText")
@@ -23,7 +23,8 @@ function replyInsert() {
       replyInsertAjax({
          replyNo: -1,
          content: replyContent.value,
-         boardNo: boardNo
+         boardNo: boardNo,
+         pageNo:pageNo
       });
    }
 
@@ -32,7 +33,7 @@ function replyInsert() {
 }
 
 //답글 입력
-function replyReplyInsert(replyNo) {
+function replyReplyInsert(replyNo,pageNo=1) {
    console.log(replyNo)
    let replyContent = document.querySelector("#replyReplyText" + replyNo)
 
@@ -41,7 +42,7 @@ function replyReplyInsert(replyNo) {
       replyNo: replyNo,
       content: replyContent.value,
       boardNo: boardNo,
-      pageNo:1
+      pageNo:pageNo
    });
 }
 
@@ -133,12 +134,72 @@ function drawReply(replys) {
    
    
    `
-
+    replyReplyContent=""
 
 
    }
 
    boardReplyList.innerHTML = "";
    boardReplyList.innerHTML=replycontent;
+
+}
+
+
+//페이징 처리 
+
+function replyPaging(pageNo){
+
+    replyShowAjax({
+        boardNo:boardNo,
+        pageNo:pageNo
+    },drawReply)
+
+}
+
+function drawingPage(replyPi){
+    let pageDiv=document.querySelector("#page-div");
+    let previousButton="";
+    let nextButton=""
+    let page=""
+
+   
+
+     if(replyPi.currentPage ==1){
+        previousButton=`<div id="previous-button" class="prv-button">
+					<li class="page-disabled"><a class="page-button">◀</a></li>
+			   </div>`
+     }
+     else{
+        previousButton=`
+          <li><a class="page-button"
+				onclick="replyPaging('${replyPi.currentPage-1}')">◀</a>
+         </li>
+        `
+     }
+
+     for(let p=replyPi.startPage; p<=replyPi.endPage; p++){
+        page+=`
+        <li class="page-item">
+            <a class="page-link" onclick="replyPaging('${p}')">${p}</a>
+	    </li>`
+     }
+
+     if(replyPi==replyPi.maxPage){
+        nextButton=`
+          <div id="next-button" class="next-button">
+				<li class="page-disabled"><a class="page-button">▶</a></li>
+		</div>        
+        `
+     }
+     else{
+        nextButton=`
+            <div id="next-button" class="next-button">
+				<li><a class="page-button"
+				 onclick="replyPaging('${replyPi.currentPage+1}')">▶</a></li>
+			</div>
+        `
+     }
+
+     pageDiv.innerHTML=previousButton+page+nextButton
 
 }

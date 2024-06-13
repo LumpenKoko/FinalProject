@@ -8,6 +8,7 @@
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollAdmin.css"/>
+<script src="resources/js/member/memberInit.js"></script>
 <script src="resources/js/member/memberEnroll.js"></script>
 <script src="resources/js/member/memberAjax.js"></script>
 </head>
@@ -64,7 +65,7 @@
                         <option value="알뜰폰" class="minibox-input">알뜰폰</option>
                     </select>
 
-                    <input type="text" name="userPhone" class="minibox-input" onkeyup="activeCommonEnroll(), activeCertifyPhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
+                    <input type="text" name="userPhone" class="minibox-input" onkeyup="activeBossEnroll(), activeCertifyPhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
                     
 
                     <div id="check-agree-title" class="minibox-mini-title">
@@ -73,24 +74,24 @@
                         <!-- <span class="error-message-margin">체크되지 않은 필수 항목이 있습니다.</span> -->
                     </div>
                     <div class="check-agree-box">
-                        <input type="checkbox" id="check-agree-all" class="checkbox-color-pink check-agree" onchange="clickAllAgree(), activeCommonEnroll(), activeCertifyPhone()">
+                        <input type="checkbox" id="check-agree-all" class="checkbox-color-pink check-agree" onchange="clickAllAgree(), activeBossEnroll(), activeCertifyPhone()">
                         <label for="check-agree-all">전체 동의합니다.</label>
                     </div>
                     <hr>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-first" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeCommonEnroll(), activeCertifyPhone()">
+                        <input type="checkbox" id="check-agree-first" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
                         <label for="check-agree-first">[필수] 본인 확인 서비스 이용 약관 동의</label>
                     </div>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-second" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeCommonEnroll(), activeCertifyPhone()">
+                        <input type="checkbox" id="check-agree-second" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
                         <label for="check-agree-second">[필수] 통신사 이용 약관 동의</label>
                     </div>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-third" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeCommonEnroll(), activeCertifyPhone()">
+                        <input type="checkbox" id="check-agree-third" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
                         <label for="check-agree-third">[필수] 통신사/인증사의 개인정보 이용, 제공 동의</label>
                     </div>
                     <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-fourth" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeCommonEnroll(), activeCertifyPhone()">
+                        <input type="checkbox" id="check-agree-fourth" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
                         <label for="check-agree-fourth">[필수] 고유식별 정보 처리 동의</label>
                     </div>
 

@@ -165,8 +165,9 @@ function changeEmail(){
 function activeEnroll(userInfo, userId, enroll){
     let checkDisable = false;
     let result = 1;
+    console.log(userInfo)
     for (let info of userInfo){
-        if (info.value == ""){
+        if (info.value == "" || info.value == null){
             result = result * 0;
         }
     }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.community.model.vo.Shorts;
@@ -22,6 +23,7 @@ public class MainServiceImpl implements MainService{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
+	@Transactional
 	public ArrayList<Location> ajaxSelectLocationMainList() {
 		
 		ArrayList<Location> list = new ArrayList<Location>();
@@ -47,6 +49,7 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Board> ajaxSelectBoardCountList() {
 		// type = 1 : count DESC로 결과를 먼저 가져온 후에 reply 개수를 가져올 것
 		// type = 2 : GOOD 카운트를... 컬럼을 추가하는 게 나을까 / 없는 경우 good을 보드별로 다 카운트 한 데이터를 넣어야 함
@@ -65,6 +68,7 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	@Override
+	@Transactional
 	public ArrayList<Board> ajaxSelectBoardGoodList() {
 		// 좋아요 개수 카운트 해서 가장 많은 5개의 boardNo 가져오기
 		ArrayList<Board> good = mainDao.selectGoodCountList(sqlSession);
@@ -81,6 +85,7 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Board> ajaxSelectBoardReplyList() {
 		// 댓글 개수 카운트 해서 가장 많은 5개의 boardNo 가져오기
 		ArrayList<Board> reply = mainDao.selectReplyCountList(sqlSession);
@@ -97,6 +102,7 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Shorts> ajaxSelectShortsList() {
 		ArrayList<Shorts> list = mainDao.ajaxSelectShortsList(sqlSession);
 		

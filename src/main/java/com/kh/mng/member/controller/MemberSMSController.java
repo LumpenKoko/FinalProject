@@ -2,10 +2,10 @@ package com.kh.mng.member.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,6 +27,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,36 +50,72 @@ public class MemberSMSController {
 	
 	@Value("${sms.sentNum}") 
 	private String sentNum;
+	
+	
     
 	@ResponseBody
     @PostMapping(value="certification.me", produces="application/json; charset-UTF-8")
     public String sendCertifyCode(String getNum) {
+		
+//		 JsonObject params = new JsonObject();
+//	        JsonArray messages = new JsonArray();
+//
+//	        JsonObject msg = new JsonObject();
+//	        JsonArray toList = new JsonArray();
+//
+//	        toList.add("01099403102");
+//	        msg.add("to", toList);
+//	        msg.addProperty("from", "01099403102");
+//	        msg.addProperty("text",
+//	                "안녕하세요 줍깅입니다. 오늘 참여하실[같이 줍깅해요!]모임의 모임날짜가 3일 남으셨습니다.");
+//	        messages.add(msg);
+//
+//	        params.add("messages", messages);
     	
+	
+		
     	JsonObject msgInfo = new JsonObject();
+    	JsonObject messages = new JsonObject();
     	
     	msgInfo.addProperty("to", getNum);
     	msgInfo.addProperty("from", sentNum);
+    	msgInfo.addProperty("type", "SMS");
     	log.info(sentNum);
     	
     	int ranNum = (int)(Math.random()*900000 + 100000);
-    	String msgText = "[멍냥가이드] 본인확인 인증번호[" + ranNum + "]";
+    	String msgText = "멍냥가이드 본인확인 인증번호 " + ranNum;
     	
     	msgInfo.addProperty("text", msgText);
     	
-    	JsonObject header = new JsonObject();
-		header.addProperty("Authorization", getHeaders());
+    	JsonArray messageArr = new JsonArray();
+    	messageArr.add(msgInfo);
+    	messages.add("message", messageArr);
+ 
+    	
+    	
+    	
+    	
+//    	String parameters = "{\"message\":{\"to\":\""+ getNum +"\",\"from\":\""+sentNum+"\",\"text\":\""+msgText+"\",\"type\":\"SMS\"}}";
+    	
+    	
+    	
+    	
+    	Map<String, String> headerInfo = new HashMap<String, String>();
+		headerInfo.put("Authorization", getHeaders());
 		
-		log.info(msgInfo.toString());
-		log.info(header.toString());
+		log.info(messages.toString());
+		log.info(headerInfo.toString());
 		
 		String responseBody = null;
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("POST");
-			log.info(header.toString());
-			responseBody = sendRequest(apiUrl, msgInfo.toString(), header);
-			log.info(responseBody);
+			log.info(headerInfo.toString());
+			responseBody = sendRequest(apiUrl, new Gson().toJson(messages), headerInfo);
+//			responseBody = sendRequest(apiUrl, parameters, headerInfo);
+			log.info(new Gson().toJson(messages));
+			log.info(new Gson().toJson(responseBody));
 			
 //			JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
 //			System.out.println(responseBody);
@@ -101,22 +139,29 @@ public class MemberSMSController {
     
  	
     // API에 POST 요청 보내고 응답을 받아오는 메소드
- 	private static String sendRequest(String apiUrl, String msgInfo, JsonObject requestHeaders) throws IOException {
+ 	private static String sendRequest(String apiUrl, String params, Map<String, String> header) throws IOException {
  		HttpURLConnection conn = connect(apiUrl);
  		BufferedWriter bw = null;
  		try {
  			conn.setRequestMethod("POST");
  			conn.setDoOutput(true);
-// 			for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
-// 				conn.setRequestProperty(header.getKey(), header.getValue()); // conn의 헤더에 키밸류 형식으로 데이터 저장
-// 			} 
+ 			for (Map.Entry<String, String> h : header.entrySet()) {
+ 				conn.setRequestProperty(h.getKey(), h.getValue()); // conn의 헤더에 키밸류 형식으로 데이터 저장
+ 			} 
  			
- 			bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
- 			bw.write(msgInfo);
-			bw.flush();
-			bw.close();
+ 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+ 		    wr.writeBytes(params);
+ 		    wr.flush();
+ 		    wr.close();
+ 			
+// 			
+// 			bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+// 			bw.write(params);
+//			bw.flush();
+//			bw.close();
 			
  			int responseCode = conn.getResponseCode();
+ 			log.info("" + conn.getResponseCode());
  			if (responseCode == 200) {
  				return readBody(conn.getInputStream());
  			} else {

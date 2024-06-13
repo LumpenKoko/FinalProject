@@ -1,10 +1,12 @@
-package com.kh.mng.common.chat;
+package com.kh.mng.common.chat.websocket;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -15,6 +17,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kh.mng.common.chat.model.dto.ChatInfo;
+import com.kh.mng.common.chat.model.dto.MsgVo;
+import com.kh.mng.common.chat.service.ChatService;
 import com.kh.mng.member.model.vo.Member;
 
 import lombok.Getter;
@@ -35,6 +40,15 @@ public class ChatServer extends TextWebSocketHandler {
 	
 	private final Map<String,WebSocketSession> sessions= new ConcurrentHashMap<>();
 //	private final Map<Integer,String> chatRooms =new ConcurrentHashMap<>();
+	private String roomNo;
+	
+	private final ChatService chatService;
+	
+	@Autowired
+	public ChatServer(ChatService chatService) {
+		this.chatService=chatService;
+		this.roomNo="";
+	}
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -45,6 +59,7 @@ public class ChatServer extends TextWebSocketHandler {
 //	    ChatRoom chatRoom =new ChatRoom();
 //	    chatRoom.setUserId(userId);
 //	    chatRoom.setRoomNo(0);
+	    this.roomNo=UUID.randomUUID().toString();
 	    sessions.put(userId,session);
 		
 	
@@ -69,6 +84,16 @@ public class ChatServer extends TextWebSocketHandler {
 //		receivechats.setUserId(target);
 		
 		//여기서 db에 저장시키고 채팅 방 번호를 컬럼에 부여할것
+		ChatInfo chatInfo =new ChatInfo();
+		chatInfo.setUserId(userId);
+		chatInfo.setUserNickName(nickName);
+		chatInfo.setMessage(sendMessage);
+		chatInfo.setTargetId(target);
+		chatInfo.setRoomNo(this.roomNo);
+		chatInfo.setUserNo( loginUser.getUserNo());
+		
+		int count=chatService.insertChats(chatInfo);
+		
 		
 		log.info("target:{}",target);
 		

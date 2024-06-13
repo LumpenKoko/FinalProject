@@ -17,23 +17,34 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.mng.member.model.vo.Member;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-
+    @Getter
+    @Setter
+	class ChatRoom{
+		private int roomNo;
+		private String userId;
+		
+	}
 
 @Slf4j
 @Component
 public class ChatServer extends TextWebSocketHandler {
 	
 	private final Map<String,WebSocketSession> sessions= new ConcurrentHashMap<>();
-
+//	private final Map<Integer,String> chatRooms =new ConcurrentHashMap<>();
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
 		Member member = (Member)session.getAttributes().get("loginUser");
 		String userId=member.getUserId();
 	    log.info("id:{}",userId);
+//	    ChatRoom chatRoom =new ChatRoom();
+//	    chatRoom.setUserId(userId);
+//	    chatRoom.setRoomNo(0);
 	    sessions.put(userId,session);
 		
 	
@@ -49,11 +60,17 @@ public class ChatServer extends TextWebSocketHandler {
 		//메세지 db연결...
 		JsonObject obj = new JsonParser().parse(message.getPayload()).getAsJsonObject();
 		String sendMessage=obj.get("message").getAsString();
+		
 		String target=obj.get("target").getAsString();//
+		int roomNo=obj.get("roomNo").getAsInt();
 		
+//		ChatRoom receivechats =new ChatRoom();
+//		receivechats.setRoomNo(roomNo);
+//		receivechats.setUserId(target);
 		
+		//여기서 db에 저장시키고 채팅 방 번호를 컬럼에 부여할것
 		
-		 log.info("target:{}",target);
+		log.info("target:{}",target);
 		
 		MsgVo vo = new MsgVo();
 		vo.setMsg(sendMessage);

@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.service.BossPageService;
-import com.kh.mng.location.model.vo.DetailLocation;
-import com.kh.mng.location.controller.LocationController;
-import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +46,7 @@ public class bossPageController {
 			int userNo = loginUser.getUserNo();
 			
 			//사장님 정보 데이터베이스로부터 userNo보내서 가져오기
-			Location location = bossPageService.getLocation(userNo);
+			BossLocation location = bossPageService.getLocationInfo(userNo);
 			//DetailLocation detailLocation = bossPageService.getDetailLocation(userNo);
 			
 			//가게정보 request영역에 담기
@@ -164,7 +163,7 @@ public class bossPageController {
 			int userNo = loginUser.getUserNo();
 			
 			//사장님 정보 데이터베이스로부터 userNo보내서 가져오기
-			Location location = bossPageService.getLocation(userNo);
+			BossLocation location = bossPageService.getLocationInfo(userNo);
 			
 			
 			//가게정보 request영역에 담기
@@ -179,15 +178,27 @@ public class bossPageController {
 	}
 	
 	// 장소 정보 업데이트
-	@ResponseBody
+    @ResponseBody
     @PostMapping(value = "/saveLocationInfo.bm", produces = "application/json; charset=UTF-8")
-    public Map<String, Object> saveLocationInfo(@RequestBody Map<String, Object> locationInfo, HttpSession session) {
+    public Map<String, Object> saveLocationInfo(@RequestBody BossLocation locationInfo, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
+        
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             int userNo = loginUser.getUserNo();
-            locationInfo.put("userNo", userNo);
-            int result = bossPageService.saveLocationInfo(locationInfo);
+            locationInfo.setUserNo(userNo);  // 변경: put에서 setUserNo로 변경
+            
+            // DB에 해당 userNo의 데이터가 있는지 확인
+            BossLocation existingLocation = bossPageService.getLocationInfo(userNo);
+            int result;
+            if (existingLocation != null) {
+                // 업데이트
+                result = bossPageService.updateLocationInfo(locationInfo);
+            } else {
+                // 저장
+                result = bossPageService.saveLocationInfo(locationInfo);
+            }
+
             if (result > 0) {
                 response.put("message", "장소정보 업데이트를 완료하였습니다.");
                 response.put("success", true);
@@ -210,15 +221,16 @@ public class bossPageController {
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             int userNo = loginUser.getUserNo();
+            int locationNo = loginUser.getUserNo();
             
-            Location location = bossPageService.getLocation(userNo);
-//            Location locationOption = bossPageService.getLocationOption(userNo);
+            BossLocation location = bossPageService.getLocationInfo(userNo);
+//            BossLocationOption locationOption = bossPageService.getLocationOption(locationNo);
             if (location != null) {
                 response.put("locationPhone", location.getLocationPhone());
                 response.put("explanation", location.getExplanation());
                 response.put("reservationLink", location.getReservationLink());
-//                response.put("goods", locationOption.getLocationNo());
-//                response.put("goodPrice", locationOption.getLocationNo());
+//                response.put("goods", locationOption.getLocationOptionNo());
+//                response.put("goodPrice", locationOption.getLocationOptionNo());
                 // 다른 필요한 필드 추가
             }
         } else {

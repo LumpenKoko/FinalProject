@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.bosspage.model.dao.BossPageDao;
+import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
-import com.kh.mng.location.model.vo.Location;
+
 
 @Service
 public class BossPageServiceImpl implements BossPageService{
@@ -21,8 +23,13 @@ public class BossPageServiceImpl implements BossPageService{
     private SqlSessionTemplate sqlSession;
 
     @Override
-    public Location getLocation(int userNo) {
+    public BossLocation getLocationInfo(int userNo) {
         return bossPageDao.getLocation(sqlSession, userNo);
+    }
+
+    @Override
+    public BossLocationOption getLocationOption(int locationNo) {
+        return bossPageDao.getLocationOption(sqlSession, locationNo);
     }
 
     @Override
@@ -48,14 +55,15 @@ public class BossPageServiceImpl implements BossPageService{
 
     @Override
     @Transactional
-    public int saveLocationInfo(Map<String, Object> locationInfo) {
+    public int saveLocationInfo(BossLocation locationInfo) {
         return bossPageDao.saveLocationInfo(sqlSession, locationInfo);
     }
 
-//	@Override
-//	public Location getLocationOption(int userNo) {
-//		
-//		return bossPageDao.getLocationOption(sqlSession, userNo);
-//	}
+    @Override
+    @Transactional
+    public int updateLocationInfo(BossLocation locationInfo) {
+        return bossPageDao.updateLocationInfo(sqlSession, locationInfo);
+    }
+
 	
 }

@@ -6,13 +6,15 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
-import com.kh.mng.location.model.vo.Location;
+
 
 //@Repository -> 데이터베이스에 접근하기위한 객체
 @Repository
 public class BossPageDao {
-	public Location getLocation(SqlSessionTemplate sqlSession, int userNo) {
+	public BossLocation getLocation(SqlSessionTemplate sqlSession, int userNo) {
         return sqlSession.selectOne("location.getLocation", userNo);
     }
 
@@ -32,12 +34,16 @@ public class BossPageDao {
         return sqlSession.update("memberMapper.deactivateBossUser", bossId);
     }
 
-    public int saveLocationInfo(SqlSessionTemplate sqlSession, Map<String, Object> locationInfo) {
+    public int saveLocationInfo(SqlSessionTemplate sqlSession, BossLocation locationInfo) {
         return sqlSession.insert("location.insertLocation", locationInfo);
     }
     
-//    public Location getLocationOption(SqlSessionTemplate sqlSession, int userNo) {
-//        return sqlSession.selectOne("location.getLocationOption", userNo);
-//    }
+    public int updateLocationInfo(SqlSessionTemplate sqlSession, BossLocation locationInfo) {
+        return sqlSession.update("location.updateLocation", locationInfo);
+    }
+    
+    public BossLocationOption getLocationOption(SqlSessionTemplate sqlSession, int locationNo) {
+        return sqlSession.selectOne("location.getLocationOption", locationNo);
+    }
 
 }

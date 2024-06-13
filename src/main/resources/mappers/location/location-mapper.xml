@@ -6,66 +6,66 @@
 
 <mapper namespace="location">
 
-	<resultMap type="bossLocation" id="bossLocationResult">
-		<result column="LOCATION_NO" property="locationNo" />
-		<result column="LOCATION_NAME" property="locationName" />
-		<result column="LOCATION_PHONE" property="locationPhone" />
-		<result column="LOCATION_STAR" property="locationStar" />
-		<result column="CATEGORY_NAME" property="locationCategoryNo" />
-		<result column="RESERVATION_LINK" property="reservationLink" />
-		<result column="BUSINESS_NO" property="businessNo" />
-		<result column="ADDRESS" property="address" />
-		<result column="ENROLL_DATE" property="enrollDate" />
-		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="STATUS" property="status" />
-		<result column="USER_NO" property="userNo" />
-		<result column="EXPLANATION" property="explanation" />
-	</resultMap>
-	
-	<!-- <resultMap type="bossLocationOption" id="bosslocationOption">
+	<resultMap type="BossLocation" id="bossLocationResult">
+        <result column="LOCATION_NO" property="locationNo" />
+        <result column="LOCATION_NAME" property="locationName" />
+        <result column="LOCATION_PHONE" property="locationPhone" />
+        <result column="LOCATION_STAR" property="locationStar" />
+        <result column="CATEGORY_NAME" property="locationCategoryNo" />
+        <result column="RESERVATION_LINK" property="reservationLink" />
+        <result column="BUSINESS_NO" property="businessNo" />
+        <result column="ADDRESS" property="address" />
+        <result column="ENROLL_DATE" property="enrollDate" />
+        <result column="MODIFY_DATE" property="modifyDate" />
+        <result column="STATUS" property="status" />
+        <result column="USER_NO" property="userNo" />
+        <result column="EXPLANATION" property="explanation" />
+    </resultMap>
+
+    <resultMap type="BossLocationOption" id="bosslocationOption">
         <result column="LOCATION_OPTION_NO" property="locationOptionNo"/>
-   		<result column="GOODS" property="goods"/>
-   		<result column="GOODS_PRICE" property="goodPrice"/>
-   		<result column="ROOM_INFO" property="roomInfo"/>
-   		<result column="ROOM_STATUS" property="roomStatus"/>
-   		<result column="CAPACITY" property="capacity"/>
-   		<result column="LOCATION_NO" property="locationNo"/>
-   </resultMap> -->
+        <result column="GOODS" property="goods"/>
+        <result column="GOODS_PRICE" property="goodPrice"/>
+        <result column="ROOM_INFO" property="roomInfo"/>
+        <result column="ROOM_STATUS" property="roomStatus"/>
+        <result column="CAPACITY" property="capacity"/>
+        <result column="LOCATION_NO" property="locationNo"/>
+    </resultMap>
    
    
    <!-- location 컬럼과 location_category 컬럼을  location_no로  join해서 catgoryName을 가져옴  -->
    
    <select id="getLocation" resultMap="bossLocationResult">
-   		SELECT LOCATION_NO,
-   				LOCATION_NAME,
-   				LOCATION_PHONE,
-   				CATEGORY_NAME,
-   				LOCATION_STAR,
-   				RESERVATION_LINK,
-   				BUSINESS_NO,
-   				ADDRESS,
-   				ENROLL_DATE,
-   				EXPLANATION,
-   				MODIFY_DATE
-   				FROM LOCATION L
-   				JOIN LOCATION_CATEGORY C 
-   				ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
-   				WHERE L.USER_NO = #{userNo}
-   </select>
+        SELECT LOCATION_NO,
+                LOCATION_NAME,
+                LOCATION_PHONE,
+                CATEGORY_NAME,
+                LOCATION_STAR,
+                RESERVATION_LINK,
+                BUSINESS_NO,
+                ADDRESS,
+                ENROLL_DATE,
+                EXPLANATION,
+                MODIFY_DATE
+                FROM LOCATION L
+                JOIN LOCATION_CATEGORY C 
+                ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
+                WHERE L.USER_NO = #{userNo}
+    </select>
    
-   <!--  <select id="getLocationOption" resultMap="bosslocationOption">
-   		SELECT LOCATION_OPTION_NO,
-   				LOCATION_NO,
-   				GOODS,
-   				GOODS_PRICE,
-   				ROOM_INFO,
-   				ROOM_STATUS,
-   				CAPACITY
-   				FROM LOCATION_OPTION O
-   				JOIN LOCATION L 
-   				ON (O.LOCATION_NO = L.LOCATION_NO)
-   				WHERE L.USER_NO = #{userNo}
-   </select> -->
+   <select id="getLocationOption" resultMap="bosslocationOption">
+        SELECT LOCATION_OPTION_NO,
+                LOCATION_NO,
+                GOODS,
+                GOODS_PRICE,
+                ROOM_INFO,
+                ROOM_STATUS,
+                CAPACITY
+                FROM LOCATION_OPTION O
+                JOIN LOCATION L 
+                ON (O.LOCATION_NO = L.LOCATION_NO)
+                WHERE L.USER_NO = #{userNo}
+    </select>
    
    
  	<!-- 장소상세 -->
@@ -108,29 +108,35 @@
     
     
     
-    <insert id="insertLocation">
+    <insert id="insertLocation" parameterType="BossLocation">
         INSERT INTO LOCATION
-            (
-            LOCATION_NO, 
-            LOCATION_NAME, 
-            LOCATION_PHONE, 
-            EXPLANATION, 
-            BUSINESS_NO, 
-            ADDRESS, 
-            USER_NO, 
-            LOCATION_CATEGORY_NO
-            )
+            (LOCATION_NO, 
+             LOCATION_NAME, 
+             LOCATION_PHONE, 
+             EXPLANATION, 
+             BUSINESS_NO, 
+             ADDRESS, 
+             USER_NO, 
+             LOCATION_CATEGORY_NO)
         VALUES
-            (
-            NEXTVAL('SEQ_LOC'), 
-            #{locationName}, 
-            #{locationPhone}, 
-            #{explanation}, 
-            #{businessNo}, 
-            #{address}, 
-            #{userNo}, 
-            CAST(#{locationCategoryNo} AS INTEGER))
+            (NEXTVAL('SEQ_LOC'), 
+             #{locationName}, 
+             #{locationPhone}, 
+             #{explanation}, 
+             #{businessNo}, 
+             #{address}, 
+             #{userNo}, 
+             CAST(#{locationCategoryNo} AS INTEGER))
     </insert>
+
+    <update id="updateLocation" parameterType="BossLocation">
+        UPDATE LOCATION
+            SET LOCATION_PHONE = #{locationPhone},
+                EXPLANATION = #{explanation},
+                RESERVATION_LINK = #{reservationLink}
+            WHERE STATUS = true
+                AND USER_NO = #{userNo}
+    </update>
    
    
   

@@ -15,57 +15,24 @@ function initializePage() {
  * AJAX를 사용하여 장소 정보를 저장하는 함수
  */
 function saveLocationInfo() {
-    // 각 입력 필드의 값을 가져옵니다.
-    var locationPhone = document.getElementById("store-phone").value;
-    var explanation = document.getElementById("store-description").value;
-    var reservationLink = document.getElementById("reservation-link-input").value;
-    var animalTypes = Array.from(document.querySelectorAll('input[name="animal-type"]:checked')).map(checkbox => checkbox.value);
-    
-    // 운영시간 데이터를 수집합니다.
-    var operatingHours = Array.from(document.querySelectorAll('.operating-hours')).map(operatingHour => ({
-        day: operatingHour.querySelector('p').innerText,
-        closed: operatingHour.querySelector('input[name="휴무"]').checked,
-        open: operatingHour.querySelector('.open-time').value,
-        close: operatingHour.querySelector('.close-time').value
-    }));
+    const locationPhone = document.getElementById("store-phone").value;
+    const explanation = document.getElementById("store-description").value;
+    const reservationLink = document.getElementById("reservation-link-input").value;
+    const userNo = $("#userNo").val(); // userNo 가져오기 (필요 시 추가)
 
-    // 상품 데이터를 수집합니다.
-    var products = Array.from(document.querySelectorAll('.product-registration')).map(productForm => ({
-        name: productForm.querySelector('.product-name').value,
-        price: productForm.querySelector('.commodity-price').value
-    }));
-
-    // 파일 데이터를 수집합니다.
-    var formData = new FormData();
-    var files = document.querySelectorAll('.company-file');
-    files.forEach(file => {
-        if (file.files.length > 0) {
-            formData.append('files', file.files[0]);
-        }
-    });
-
-    // 다른 데이터를 객체에 저장합니다.
-    var data = {
+    const locationInfo = {
         locationPhone: locationPhone,
         explanation: explanation,
         reservationLink: reservationLink,
-        animalTypes: animalTypes,
-        operatingHours: operatingHours,
-        products: products
+        userNo: userNo
     };
-
-    // JSON 데이터를 FormData에 추가합니다.
-    formData.append('data', JSON.stringify(data));
-
-    // AJAX 요청을 통해 서버에 데이터를 저장합니다.
+    
     $.ajax({
-        url: contextPath + '/saveLocationInfo.bm', // 서버의 저장 URL
-        method: 'POST',
-        contentType: false,
-        processData: false,
-        data: formData,
+        url: contextPath + '/saveLocationInfo.bm',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(locationInfo),
         success: function(response) {
-            // 성공적으로 저장된 경우
             if (response.success) {
                 alert("장소정보 업데이트가 완료되었습니다.");
             } else {
@@ -73,7 +40,6 @@ function saveLocationInfo() {
             }
         },
         error: function(xhr, status, error) {
-            // 저장에 실패한 경우
             alert("장소정보 업데이트에 실패했습니다: " + error);
         }
     });

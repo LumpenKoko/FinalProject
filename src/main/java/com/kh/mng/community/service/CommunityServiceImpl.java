@@ -198,9 +198,20 @@ public class CommunityServiceImpl implements CommunityService{
 	@Transactional
 	public CommunityBoard selectBoardDetail(PageInfo replyPi,int bno) {
 	   
+		
 	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
    
 	    if(communityBoard!=null) {
+	    	
+	    	//조회수(업데이트)
+			communityDao.updateBoardViewCount(sqlSession,bno);
+	    	
+	    	//댓글수
+	    	int replyCount = communityDao.selectBoardReplyCount(sqlSession, bno);
+	    	
+	    	//추천횟수
+	    	int goodCount = communityDao.selectGoodCount(sqlSession, bno);
+	    	
 	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,replyPi,communityBoard.getBoardNo());
 	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
 	    
@@ -258,6 +269,8 @@ public class CommunityServiceImpl implements CommunityService{
 	    	 }
 	    	 
 	    	 communityBoard.setReplys(boardReply);
+	    	 communityBoard.setReplyCount(replyCount);
+	    	 communityBoard.setGoodCount(goodCount);
 	    
 	    }
 	    
@@ -348,20 +361,46 @@ public class CommunityServiceImpl implements CommunityService{
 	@Transactional
 	public BoardGoodInfo updateBoardGoodCount(BoardInfo boardInfo) {
 		
-//		BoardGoodInfo goodInfo =new BoardGoodInfo();
-//		int count = communityDao.checkUserCount(boardInfo);
-//		
-//		if(count==1) {
-//			communityDao.deleteGoodCount(boardInfo);
-//			goodInfo.setMessage("공감해제되었습니다");
-//		}else {
-//			communityDao.insertGoodCount(boardInfo);
-//			goodInfo.setMessage("공감되었습니다");
-//		}
-//		int updateGoodCount=communityDao.getGoodCount(boardInfo);
-//		goodInfo.setGoodCount(updateGoodCount);
+		BoardGoodInfo goodInfo =new BoardGoodInfo();
 		
-		return null;
+		//좋아요체크
+		int count = communityDao.checkUserGoodCount(sqlSession,boardInfo);
+		
+		int result=0;
+		if(count==1) {
+			//공감해제
+			result=communityDao.deleteGoodCount(sqlSession,boardInfo);
+			goodInfo.setMessage("공감해제되었습니다");
+		}else {
+			result=communityDao.insertGoodCount(sqlSession,boardInfo);
+			goodInfo.setMessage("공감되었습니다");
+		}
+		
+		//게시물 추천수(좋아요)조회
+		if(result>0) {
+			int updateGoodCount=communityDao.selectGoodCount(sqlSession,boardInfo.getBoardNo());
+			goodInfo.setGoodCount(updateGoodCount);
+			
+		}
+		else {
+			goodInfo.setMessage("공감실패하였습니다.");
+		}
+		
+		return  goodInfo;
+		
+		
+	}
+	
+	@Override
+	public int deleteReply(int replyNo) {
+	
+		return communityDao.deletReply(sqlSession,replyNo);
+	}
+
+	@Override
+	public int checkReplyOwner(int replyNo) {
+		
+		return communityDao.checkReplyOwner(sqlSession,replyNo);
 	}
 
 
@@ -384,6 +423,10 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getShortsNum(int videoId) {
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
+
+
+
+
 
 
 

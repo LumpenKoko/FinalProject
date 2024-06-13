@@ -14,6 +14,9 @@ function init(path){
 
     //답글 입력
     replyInsert();
+
+    //좋아요
+    clickGood();
 }
 
 

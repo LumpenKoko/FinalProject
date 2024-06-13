@@ -25,6 +25,9 @@
 
 #check-number>button{
     height: 60px;
+    background-color: inherit;
+    color: var(--border-color);
+    cursor: inherit;
 }
 
 #check-number>div{
@@ -141,4 +144,10 @@
 
 #radio-f, #radio-m, #radio-kind, #input-email{
     display: none;
+}
+
+#id-check{
+    background-color: inherit;
+    color: var(--border-color);
+    cursor: inherit;
 }

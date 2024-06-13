@@ -35,6 +35,9 @@ option{
 
 #check-number>button{
     height: 60px;
+    background-color: inherit;
+    color: var(--border-color);
+    cursor: inherit;
 }
 
 #check-number>div{
@@ -161,4 +164,10 @@ option{
 
 #radio-f, #radio-m, #radio-kind, #input-email, #input-address{
     display: none;
+}
+
+#id-check{
+    background-color: inherit;
+    color: var(--border-color);
+    cursor: inherit;
 }

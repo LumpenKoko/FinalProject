@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.common.model.vo.CurrentDate;
 import com.kh.mng.common.model.vo.PageInfo;
@@ -34,6 +35,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Location> selectSearchLocationList(SearchFilter sf, PageInfo pi) {
 		ArrayList<Location> list = searchDao.selectSearchLocationList(sqlSession, sf, pi);
 		// list 해당 petSize
@@ -55,16 +57,15 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<Location> selectFilterLocationList(SearchFilter sf, PageInfo pi) {
 		ArrayList<Location> list = searchDao.selectFilterLocationList(sqlSession, sf, pi);
-		System.out.println(list);
 		// list 해당 petSize
 		for (Location loc : list) {
 			loc.setCurrentDay(CurrentDate.currentDay()); // 현재 요일 (월 화 수 목 금 토 일 형식)
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
 			loc.setAttachment(new MainDao().selectAttachment(sqlSession, loc));
-			System.out.println(loc.getOpTime());
 			if (sf.getLoginUserNo() != "") {
 				loc.setUserNo(Integer.parseInt(sf.getLoginUserNo()));
 			}
@@ -83,6 +84,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	@Override
+	@Transactional
 	public SearchPick insertUserPick(SearchPick pick) {
 		int result = searchDao.insertUserPick(sqlSession, pick);
 		
@@ -93,6 +95,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	@Override
+	@Transactional
 	public SearchPick deleteUserPick(SearchPick pick) {
 		int result = searchDao.deleteUserPick(sqlSession, pick);
 		

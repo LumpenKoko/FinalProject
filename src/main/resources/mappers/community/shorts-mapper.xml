@@ -92,7 +92,7 @@
 		WHERE S.SHORTS_NO = #{shortsNum};
   	</select>
     
-    <insert id="shortsCommentEnroll" useGeneratedKeys="true" keyProperty="replyNo">
+    <insert id="shortsCommentEnroll">
     	INSERT INTO REPLY
     		( 
     		REPLY_NO,
@@ -103,7 +103,7 @@
     		)
     	VALUES
     		(
-    		NEXTVAL('SEQ_REPLY'),
+    		#{replyNo},
     		#{userNo},
     		#{shortsNo},
     		#{comment},
@@ -118,8 +118,23 @@
     			LIMIT 1 OFFSET (#{videoId} - 1);
     </select>
     
-    <select id="getNextSeqValue" resultType="int">
-	    SELECT SEQ_REPLY.NEXTVAL
-	    FROM REPLY;
+    <select id="getReplyNo" resultType="int">
+	    SELECT NEXTVAL('SEQ_REPLY');
+	</select>
+	
+	<select id="getRecentReply" resultMap="shortsReply">
+		SELECT S.SHORTS_NO,
+				R.REPLY_NO,
+				R.CREATE_DATE,
+				R.REPLY_CONTENT,
+				R.REPLY_RE_NO,
+				M.USER_NICKNAME,
+				COALESCE(P.FILE_PATH, 'resources/img/default/') AS PROFILE_FILE_PATH,
+			    COALESCE(P.CHANGE_NAME, 'default_profile.jpg') AS PROFILE_CHANGE_NAME
+		FROM SHORTS S
+		JOIN REPLY R ON S.SHORTS_NO = R.SHORTS_NO
+		JOIN MEMBER M ON R.USER_NO = M.USER_NO
+		LEFT JOIN PICTURE P ON M.USER_NO = P.USER_NO
+		WHERE R.REPLY_NO = #{replyNo};
 	</select>
   </mapper>

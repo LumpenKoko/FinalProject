@@ -11,5 +11,5 @@ public class ShortsReplyDTO {
 	private int replyNo;
 	private int userNo;
 	private String comment;
-	private int shortsNum;
+	private int shortsNo;
 }

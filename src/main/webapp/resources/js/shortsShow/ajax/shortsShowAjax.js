@@ -37,6 +37,10 @@ $(document).on('click', '[id^="submit-comment"]', function () {
     const num = parseInt(this.id.replace('submit-comment', ''));
     const commentText = $('#comment-text' + num).val().trim();
 
+    console.log(loginUserNo);
+    console.log(num);
+    console.log(commentText);
+
     if (loginUserNo === 0) {
         alert("로그인한 회원만 댓글을 작성할 수 있습니다.");
         return;

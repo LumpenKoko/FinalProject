@@ -54,11 +54,13 @@ public class CommunityServiceImpl implements CommunityService{
 		// 1. 시퀀스 가져오기
 		int replyNo = communityDao.getReplyNo(sqlSession);
 		
-		// 2. 시퀀스로 댓글 insert하기
+		log.info("replyNo:" + replyNo);
+		
+		// 2. 가져온 시퀀스로 댓글 insert하기
 		ShortsReplyDTO shortsReplyDTO = new ShortsReplyDTO();
 		shortsReplyDTO.setComment(comment);
 		shortsReplyDTO.setReplyNo(replyNo);
-		shortsReplyDTO.setShortsNum(shortsNo);
+		shortsReplyDTO.setShortsNo(shortsNo);
 		shortsReplyDTO.setUserNo(userNo);
 		
 		communityDao.addComment(sqlSession, shortsReplyDTO);

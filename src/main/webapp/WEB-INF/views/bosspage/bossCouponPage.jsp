@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="resources/css/common/minibox.css"/>
     <link rel="stylesheet" href="resources/css/bosspage/bosspage.css"/>
     <link rel="stylesheet" href="resources/css/bosspage/bossCouponPage.css"/>
+    <script src="resources/js/bosspage/bossCouponPageInit.js"></script>
     <script src="resources/js/bosspage/bossCouponPage.js"></script>
+    <script src="resources/js/bosspage/ajax/bossCouponPageAjax.js"></script>
 </head>
 
-<body>
+<body onload="init('${contextPath}')">
     <%@ include file="../common/header.jsp" %>
 
     <div id="bossmainpage-wrap" class="wrapper">
@@ -35,37 +37,54 @@
                         <th class="coupon-count">사용 / 발매</th>
                         <th class="coupon-admin">관리</th>
                     </tr>
-            
-                    <!-- 등록된 쿠폰 없을 시 -->
-                    <tr id="coupon-none">
-                        <td colspan="4">등록된 쿠폰이 없습니다.</td>
-                    </tr>
-                    
-                    <!-- 등록된 쿠폰이 있을 때 표시되는 쿠폰 항목 -->
-                    <tr class="coupon-content">
-                        <td class="coupon-title">멍냥가이드회원감사쿠폰이천원멍냥가이드회원감사쿠폰이천원멍냥</td>
-                        <td class="coupon-expiration">14</td>
-                        <td class="coupon-count">1 / 3</td>
-                        <td class="coupon-admin">
-                            <button class="common-button pink-button" onclick="editCouponForm(this)">수정</button>
-                            <button class="common-button pink-button" data-toggle="modal" data-target="#delete-coupon">삭제</button>
-                        </td>
-                    </tr>
+
+                    <c:choose>
+                        <c:when test="${empty couponList}">
+                            <tr id="coupon-none">
+                                <td colspan="4">등록된 쿠폰이 없습니다.</td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="coupon" items="${couponList}">
+                                <tr class="coupon-content registed-coupon">
+                                    <td class="coupon-title">${coupon.couponContent}</td>
+                                    <td class="coupon-expiration">
+                                    <c:choose>
+                                        <c:when test="${coupon.couponExpirationPeriod eq -1}">
+                                            영구
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${coupon.couponExpirationPeriod}일
+                                        </c:otherwise>
+                                    </c:choose>
+                                    </td>
+                                    <td class="coupon-count">${coupon.usedCount} / ${coupon.count}</td>
+                                    <td class="coupon-admin">
+                                        <button class="common-button pink-button" onclick="editCouponForm(this, '${coupon}')">수정</button>
+                                        <button class="common-button pink-button" data-toggle="modal" data-target="#delete-coupon">삭제</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
             
                     <!-- 쿠폰 추가 등록 (초기에는 숨겨짐) -->
+                    <form action="<%=contextPath%>/insertCoupon.bc">
                     <tr class="coupon-content new-coupon-form" style="display:none;">
-                        <!-- 쿠폰명 30글자 제한 필요 -->
-                        <td class="coupon-title">
-                            <input type="text" class="minibox-input" placeholder="쿠폰명을 입력하세요">
-                        </td>
-                        <td class="coupon-expiration">
-                            <input type="number" class="minibox-input" placeholder="ex)14">
-                        </td>
-                        <td class="coupon-count">0 / 0</td>
-                        <td class="coupon-admin">
-                            <button class="common-button pink-button">확인</button>
-                            <button class="common-button white-button" onclick="removeCouponForm(this)">취소</button>
-                        </td>
+                            <input type="text" name="loginUserNo" value="${loginUser.userNo}" style="display: none;">
+                            <!-- 쿠폰명 30글자 제한 필요 -->
+                            <td class="coupon-title">
+                                <input type="text" class="minibox-input coupon-title-input" name="couponContent" placeholder="쿠폰명을 입력하세요">
+                            </td>
+                            <td class="coupon-expiration">
+                                <input type="number" class="minibox-input coupon-expiration-input" name="couponExpirationPeriod" placeholder="ex)14">
+                            </td>
+                            <td class="coupon-count">0 / 0</td>
+                            <td class="coupon-admin">
+                                <button type="submit" class="insert-button common-button pink-button">확인</button>
+                                <button class="common-button white-button" onclick="removeCouponForm(this)">취소</button>
+                            </td>
+                        </form>
                     </tr>
             
                     <!-- 쿠폰 추가 버튼 -->

@@ -46,3 +46,22 @@ function replyShowAjax(data,callback){
         }
     })
 }
+
+//댓글 삭제 ajax
+
+function replyDeleteAjax(data){
+
+    $.ajax({
+        type:'GET',
+        url:contextPath+'/deleteViewReply.view',
+        data:data,
+        success:function(response){
+            alert(response)
+            replyShowAjax(data,drawReply);
+        },
+        error:function(){
+            alert("서버오류")
+        }
+    })
+
+}

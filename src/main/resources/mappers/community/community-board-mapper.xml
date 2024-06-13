@@ -237,6 +237,63 @@
 	   				 AND BOARD_NO = #{boardNo}
 	  </select>
 	  
+	  <select id="checkUserGoodCount" resultType="_int">
+	  		SELECT  COUNT(*)
+	  				FROM GOOD 
+	  				WHERE USER_NO = #{userNo}
+	  				AND BOARD_NO = #{boardNo}
+	  
+	  </select>
+	  
+	  <insert id="insertGoodCount">
+	  		INSERT INTO GOOD
+	  				 (GOOD_NO,
+	  				  COUNT,
+	  				  USER_NO,
+	  				  BOARD_NO
+	  				 )
+	  				VALUES
+	  				(NEXTVAL('SEQ_GOOD'),
+	  				1,
+	  				#{userNo},
+	  				#{boardNo}
+	  				)
+	  
+	  </insert>
+	  
+	  <delete id="deleteGoodCount">
+	      DELETE  FROM GOOD
+	     	   WHERE USER_NO = #{userNo}
+	    	AND BOARD_NO = #{boardNo}
+	  
+	  </delete>
+	  
+	  <select id="selectGoodCount" resultType="_int">
+	 	   SELECT  COUNT(*)
+	  				FROM GOOD 
+	  				WHERE  BOARD_NO = #{boardNo}
+	  
+	  </select>
+	  
+	  <update id="updateBoardViewCount">
+	 	  UPDATE BOARD SET COUNT=COUNT+1
+	 	  		WHERE BOARD_NO = #{boardNo}
+	  
+	  </update>
+	  
+	  <delete id="deletBoardReply">
+	  	  DELETE FROM REPLY
+	  		 WHERE REPLY_NO = #{replyNo}
+	  </delete>
+	  
+	  <select id="checkReplyOwner" resultType="_int">
+	  		SELECT USER_NO REPLY
+	  			FROM REPLY
+	  		   WHERE REPLY_NO = #{replyNo}
+	  
+	  </select>
+	  
+	  
    
    
   </mapper>

@@ -127,8 +127,50 @@ public class CommunityDao {
 		
 		return sqlSession.selectOne("communityBoardMapper.selectBoardReplyCount",boardNo);
 	}
+	
 
+	//좋아요체크
+	public int checkUserGoodCount(SqlSessionTemplate sqlSession,BoardInfo boardInfo) {
+		
+		return sqlSession.selectOne("communityBoardMapper.checkUserGoodCount",boardInfo);
+	}
 
+	//게시글공감해제
+	public int deleteGoodCount(SqlSessionTemplate sqlSession,BoardInfo boardInfo) {
+	
+		return sqlSession.delete("communityBoardMapper.deleteGoodCount",boardInfo);
+	}
+
+	//게시글공감
+	public int insertGoodCount(SqlSessionTemplate sqlSession,BoardInfo boardInfo) {
+	
+		return sqlSession.insert("communityBoardMapper.insertGoodCount",boardInfo);
+	}
+
+	//게시글 공감수 조회
+	public int selectGoodCount(SqlSessionTemplate sqlSession,int boardNo) {
+	
+		return sqlSession.selectOne("communityBoardMapper.selectGoodCount",boardNo);
+	}
+	
+	public int updateBoardViewCount(SqlSessionTemplate sqlSession,int boardNo) {
+		
+		return sqlSession.update("communityBoardMapper.updateBoardViewCount",boardNo);
+	}
+
+	public int deletReply(SqlSessionTemplate sqlSession, int replyNo) {
+		
+		 return sqlSession.delete("communityBoardMapper.deletBoardReply",replyNo);
+	}
+	
+	
+	public int checkReplyOwner(SqlSessionTemplate sqlSession, int replyNo) {
+	
+		return sqlSession.selectOne("communityBoardMapper.checkReplyOwner",replyNo);
+	}
+    
+
+	
 
 	public int insertShortContents(SqlSessionTemplate sqlSession, ShorstInfo shortsInfo) {
 		
@@ -144,7 +186,6 @@ public class CommunityDao {
 		
 		return sqlSession.insert("communityShortsMapper.insertShortsAttachment",fileInfos);
 	}
-	
 	
 
 	public int getShortsNum(SqlSessionTemplate sqlSession, int videoId) {
@@ -164,9 +205,10 @@ public class CommunityDao {
 	}
 
 	
-	
-	
 
+	
+	
+	
 
 
 //    public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {

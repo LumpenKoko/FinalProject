@@ -14,12 +14,30 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
             console.log(replyList);
 
             if (replyList.length === 0) {
-                const newComment = $('<div class="tmp-box"></div>').text("아직 댓글이 없어요ㅠㅠ");
+                const newComment = $('<div class="tmp-box no-reply"></div>').text("아직 댓글이 없어요ㅠㅠ");
                 $('#comments-list' + num).append(newComment);
             } else {
+                $('#comments-list' + num).empty();
                 for (let i = 0; i < replyList.length; i++) {
+                    const newCommentContainer = $('<div class="comment-container"></div>');
+
+                    // 프로필 사진을 담는 div
+                    const profilePicDiv = $('<div class="profile-pic"></div>');
+                    const profilePicImg = $('<img class="profile-img">');
+                    profilePicImg.attr('src', replyList[i].profileFilePath + replyList[i].profileChangeName);
+                    profilePicDiv.append(profilePicImg);
+                    newCommentContainer.append(profilePicDiv);
+
+                    // 사용자 정보와 댓글 내용을 담는 div
+                    const commentInfoDiv = $('<div class="comment-info"></div>').text(replyList[i].userNickname + " : " + replyList[i].replyContent + " - " + replyList[i].enrollDate);
+                    newCommentContainer.append(commentInfoDiv);
+
+                    $('#comments-list' + num).append(newCommentContainer);
+                    /*
+                    예전 코드 백업
                     const newComment = $('<div class="tmp-box"></div>').text(replyList[i].userNickname + " : " + replyList[i].replyContent + " - " + replyList[i].enrollDate);
                     $('#comments-list' + num).append(newComment);
+                    */
                 }
             }
         },
@@ -60,18 +78,31 @@ $(document).on('click', '[id^="submit-comment"]', function () {
         },
         dataType : "json",
         success: function (response) {
-            const replyList = response;
-            const thisNum = replyList.length - 1;
-            console.log(replyList);
-            console.log(thisNum);
-
-            if (response === null) {
-                alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
-            } else {
-                const newComment = $('<div class="tmp-box"></div>').text(replyList[thisNum].userNickname + " : " + replyList[thisNum].replyContent + " - " + replyList[thisNum].enrollDate);
-                $('#comments-list' + num).append(newComment);
-                $('#comment-text' + num).val('');
+            const reply = response;
+            const newComment = $('<div class="tmp-box"></div>').text(reply.userNickname + " : " + reply.replyContent + " - " + reply.enrollDate);
+            
+            if ($('#comments-list' + num).find('.no-reply').length > 0) {
+                $('#comments-list' + num).empty();
             }
+
+            // $('#comments-list' + num).prepend(newComment); // 이 부분만 이미지 들어가게 수정
+            const newCommentContainer = $('<div class="comment-container"></div>');
+
+            // 프로필 사진을 담는 div
+            const profilePicDiv = $('<div class="profile-pic"></div>');
+            const profilePicImg = $('<img class="profile-img">');
+            profilePicImg.attr('src', reply.profileFilePath + reply.profileChangeName);
+            profilePicDiv.append(profilePicImg);
+            newCommentContainer.append(profilePicDiv);
+
+            // 사용자 정보와 댓글 내용을 담는 div
+            const commentInfoDiv = $('<div class="comment-info"></div>').text(reply.userNickname + " : " + reply.replyContent + " - " + reply.enrollDate);
+            newCommentContainer.append(commentInfoDiv);
+
+            $('#comments-list' + num).prepend(newCommentContainer);
+
+            $('#comment-text' + num).val('');
+          
         },
         error: function () {
             alert("댓글을 추가하는 데 실패했습니다. 다시 시도해주세요.");
@@ -92,11 +123,17 @@ function loadVideo(num) {
 
             const videoContainer = document.getElementById('video-container' + num);
             videoContainer.innerHTML = `
-                        <video controls autoplay muted width="720" height="1080">
+                        <video id="video${num}" controls autoplay muted width="720" height="1080">
                             <source src="` + totalShortsInfo.shortsPath + totalShortsInfo.shortsName + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     `;
+
+            const videoElement = document.getElementById('video' + num);
+            videoElement.addEventListener('ended', function() {
+                videoElement.currentTime = 0;
+                videoElement.play();
+            });
         },
         error: function () {
             console.log("동영상 로드 실패");

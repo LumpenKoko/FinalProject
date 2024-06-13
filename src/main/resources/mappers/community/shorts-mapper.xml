@@ -62,7 +62,7 @@
 		JOIN 
 		    GOOD G ON S.SHORTS_NO = G.SHORTS_NO
 		WHERE 
-		    S.SHORTS_NO = #{shortsNo}
+		    S.SHORTS_NO = #{shortsNo};
   	</select>
   	
   	<select id="getVideoReplyCount" resultType="_int">
@@ -73,7 +73,7 @@
 		JOIN 
 		    REPLY R ON S.SHORTS_NO = R.SHORTS_NO
 		WHERE 
-		    S.SHORTS_NO = #{shortsNo}
+		    S.SHORTS_NO = #{shortsNo};
   	</select>
   	
   	<select id="loadReply" resultMap="shortsReply">
@@ -89,7 +89,8 @@
 		JOIN REPLY R ON S.SHORTS_NO = R.SHORTS_NO
 		JOIN MEMBER M ON R.USER_NO = M.USER_NO
 		LEFT JOIN PICTURE P ON M.USER_NO = P.USER_NO
-		WHERE S.SHORTS_NO = #{shortsNum};
+		WHERE S.SHORTS_NO = #{shortsNum}
+		ORDER BY R.CREATE_DATE DESC, R.REPLY_NO DESC;
   	</select>
     
     <insert id="shortsCommentEnroll">

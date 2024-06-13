@@ -73,9 +73,7 @@ function createItem(num) {
                         <h1>댓글</h1>
                         <div style="color: var(--border-color)">56</div>
                     </div>
-                    <div id="comments-list`+ num + `" style="height: 80%">
-                        댓글 들어가는 곳..
-                    </div>  
+                    <div id="comments-list`+ num + `" style="height: 80%"></div>  
                     <div style="height: 10%">
                         <textarea id="comment-text`+ num + `" placeholder="댓글을 입력하세요"></textarea>
                         <button id="submit-comment`+ num + `">댓글달기</button>

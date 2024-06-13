@@ -413,9 +413,15 @@ public class CommunityController {
 				            @RequestParam(value="num") int videoId, 
 				            @RequestParam(value="comment") String comment) {
 		
-		int shortsNum = communityService.getShortsNum(videoId);
+		log.info("userNo:" + userNo);
+		log.info("num:" + videoId);
+		log.info("comment:" + comment);
 		
-		ShortsReply shortsReply = communityService.addComment(userNo, shortsNum, comment);
+		int shortsNo = communityService.getShortsNum(videoId);
+		
+		log.info("shortsNum:" + shortsNo);
+		
+		ShortsReply shortsReply = communityService.addComment(userNo, shortsNo, comment);
 		return new Gson().toJson(shortsReply);
 	}
 	

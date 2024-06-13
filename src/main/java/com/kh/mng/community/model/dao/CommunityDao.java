@@ -201,7 +201,7 @@ public class CommunityDao {
 	}
 
 	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
-		return sqlSession.selectOne("shortsMapper.getRecentReply");
+		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
 	}
 
 	

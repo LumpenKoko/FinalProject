@@ -60,5 +60,9 @@ public interface CommunityService {
 
 	BoardGoodInfo updateBoardGoodCount(BoardInfo boardInfo);
 
+	int deleteReply(int replyNo);
+
+	int checkReplyOwner(int replyNo);
+
 
 }

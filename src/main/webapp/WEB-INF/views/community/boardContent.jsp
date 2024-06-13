@@ -56,7 +56,7 @@
                         <div class="board-communication-info">
                             <!-- 좋아요 여부에 따라 처리 필요 -->
                             <img src="resources/community/like-after.png" alt="">
-                            <span><a id="goodCount">좋아요<div id="goodCount">${board.goodCount}</div></a></span>
+                            <span><a id="good" style="cursor: pointer;">좋아요</a><div id="goodCount">${board.goodCount}</div></span>
                         </div>
                         <div class="board-communication-info">
                             <img src="resources/community/reply.png" alt="">
@@ -89,8 +89,7 @@
                                                 <div class="change-button-box">
                                                     <img src="resources/community/threeCircle.png" alt="">
                                                     <div class="change-box">
-                                                        <div class=""><a>수정하기</a></div>
-                                                        <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                        <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a>삭제하기</a></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,8 +112,7 @@
                                                          
                                                         </div>
                                                         <div class="change-box">
-                                                            <div class=""><a>수정하기</a></div>
-                                                            <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                            <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a>삭제하기</a></div>
                                                         </div>
                                                     </div>
                                                     <div class="reply-content">${rr.content}</div>

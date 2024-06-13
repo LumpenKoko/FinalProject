@@ -331,6 +331,40 @@ public class CommunityController {
 		
 	}
 	
+	//댓글 삭제 컨트롤러
+	@ResponseBody
+	@GetMapping(value="deleteViewReply.view", produces = "application/text; charset=utf-8")
+	public String deleteDetailReply(ReplyInfo replyInfo,  HttpSession session) {
+		
+		Member logined=(Member) session.getAttribute("loginUser");
+		if(logined==null) {
+			return "로그인을 먼저 해주세요";
+		}else {
+			//자신의 댓글인지 체크
+			int userNo= communityService.checkReplyOwner(replyInfo.getReplyNo());
+			int loginUserNo=logined.getUserNo();
+			
+					
+			if(userNo!=loginUserNo) {
+				return "본인댓글만 삭제할수 있습니다.";
+				
+			}else{
+				int count = communityService.deleteReply(replyInfo.getReplyNo());
+				
+				if(count>0) {
+					return "삭제되었습니다";
+				}
+				else {
+					return "삭제 실패";
+				}
+			}
+		}
+		
+		
+		
+	}
+	
+	//좋아요 처리 컨트롤러
 	@ResponseBody
 	@GetMapping(value="updategoodcount.bo",produces = "application/json; charset=utf-8")
 	public String updateBoardGood(BoardInfo boardInfo,HttpSession session) {
@@ -341,6 +375,7 @@ public class CommunityController {
 		
 	    BoardGoodInfo goodInfo=communityService.updateBoardGoodCount(boardInfo);
 		
+	   
 		return new Gson().toJson(goodInfo);
 		
 		

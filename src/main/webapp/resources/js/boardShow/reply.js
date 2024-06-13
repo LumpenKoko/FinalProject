@@ -34,10 +34,9 @@ function replyInsert(pageNo=1) {
 
 //답글 입력
 function replyReplyInsert(replyNo,pageNo=1) {
-   console.log(replyNo)
+ 
    let replyContent = document.querySelector("#replyReplyText" + replyNo)
 
-   console.log(replyContent.value)
    replyInsertAjax({
       replyNo: replyNo,
       content: replyContent.value,
@@ -45,6 +44,27 @@ function replyReplyInsert(replyNo,pageNo=1) {
       pageNo:pageNo
    });
 }
+
+//답글 삭제
+
+function replyDelete(replyNo,pageNo=1){
+
+    if(confirm("삭제하시겠습니까?")){
+       
+        replyDeleteAjax({
+            replyNo:replyNo,
+            boardNo:boardNo,
+            pageNo:pageNo,
+        })
+    }
+    else{
+        return false;
+    }
+
+
+
+}
+
 
 
 //댓글 그리기
@@ -55,9 +75,6 @@ function drawReply(replys) {
    let replycontent = "";
    let replyReplyContent = "";
 
-
- 
-   
 
    for (let r of replys) {
 
@@ -73,7 +90,7 @@ function drawReply(replys) {
                                                         </div>
                                                         <div class="change-box">
                                                             <div class=""><a>수정하기</a></div>
-                                                            <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                            <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a>삭제하기</a></div>
                                                         </div>
                                                     </div>
                                                     <div class="reply-content">${rr.content}</div>
@@ -102,7 +119,7 @@ function drawReply(replys) {
                                                     <img src="resources/community/threeCircle.png" alt="">
                                                     <div class="change-box">
                                                         <div class=""><a>수정하기</a></div>
-                                                        <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                         <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a>삭제하기</a></div>
                                                     </div>
                                                 </div>
                                             </div>

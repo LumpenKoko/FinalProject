@@ -38,7 +38,8 @@
  		<typeAlias type="com.kh.mng.community.model.vo.CommunityBoard" alias="CommunityBoard"/>
 
 		<typeAlias type="com.kh.mng.community.model.vo.BoardCategory" alias="BoardCategory"/>
-		<typeAlias type="com.kh.mng.location.model.vo.Location" alias="bossLocation"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.BossLocation" alias="BossLocation"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.BossLocationOption" alias="BossLocationOption"/>
 
 
  	</typeAliases> 

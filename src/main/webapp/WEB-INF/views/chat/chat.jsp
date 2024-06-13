@@ -10,24 +10,50 @@
 <script src='resources/js/chat/chat.js'></script>
 </head>
 	<%@ include file="../common/header.jsp"%>
-<body onload="init('${contextPath}','${entityId}')">
+<body onload="init('${contextPath}','${master}')">
    
    	
 	<div class="wrapper chat-wrapper">
 		<div class="main chat-main">
 			
 			<div class="chat-box">
+
+
+			 <c:if test="${!master.equals('NNNNN')}">
+
 				<div class="chat-list">
 					<div class="title t">채팅문의</div>
 					<div class="over-flow">
-						<%for(int i=0; i<15; i++){%>
-							<div class="chat-grid chat-list-area">
+					  
+						<c:set var="item" value="0"></c:set>
+							<div  id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${item}')">
 								<div class="profile-area">
 									<div class="img-div">
 										<img src="resources/img/tori.jpg">
 									</div>
 									<div class="profile-list">
+										<input id="userId${item}" type="text"  value="toribro3761" hidden>
 										<div class="title">토리형</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div  class="notice">
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(2,'${item}')">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input id="userId${item}" type="text"  value="toribro12345" hidden>
+										<div class="title">tori12345</div>
 										<div class="content">넵 감사합니다.</div>
 									</div>
 								</div>
@@ -37,9 +63,141 @@
 									<div class="notify">1</div>
 								</div>
 							</div>
-						<%}%>
+
+
+
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input type="text"  value="toribro12" hidden>
+										<div class="title">토리형1234</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div class="notice">
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input type="text"  value="toribro123" hidden>
+										<div class="title">토리형12</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div class="notice">
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input type="text"  value="toribro123" hidden>
+										<div class="title">토리형12</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div class="notice">
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+							
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input type="text"  value="toribro123" hidden>
+										<div class="title">토리형12</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div class="notice">
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+							
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input type="text"  value="toribro123" hidden>
+										<div class="title">토리형12</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div class="notice">
+									<input type="text"  value="toribro123" hidden>
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+
+							
+							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input type="text"  value="toribro123" hidden>
+										<div class="title">토리형12</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div class="notice">
+									<input type="text"  value="toribro123" hidden>
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+						
 					</div>
 				</div>
+			  </c:if>
+
+			  <c:if test="${master.equals('NNNNN')}">
+			  	  <input id="masterId" type="text" value="${masterId}" hidden>
+			  </c:if>
+
+			  
+
+
 
 				<!--채팅영역-->
 				<div class="chat-content">

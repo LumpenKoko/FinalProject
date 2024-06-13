@@ -210,11 +210,15 @@ public class bossPageController {
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             int userNo = loginUser.getUserNo();
+            
             Location location = bossPageService.getLocation(userNo);
+//            Location locationOption = bossPageService.getLocationOption(userNo);
             if (location != null) {
                 response.put("locationPhone", location.getLocationPhone());
                 response.put("explanation", location.getExplanation());
                 response.put("reservationLink", location.getReservationLink());
+//                response.put("goods", locationOption.getLocationNo());
+//                response.put("goodPrice", locationOption.getLocationNo());
                 // 다른 필요한 필드 추가
             }
         } else {

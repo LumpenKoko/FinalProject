@@ -9,9 +9,15 @@
 	<link rel="stylesheet" href="resources/css/community/community.css"/>
 	<link rel="stylesheet" href="resources/css/community/boardContent.css"/>
     <script src='resources/js/boardShow/init.js'></script>
+    <script src='resources/js/boardShow/reply.js'></script>
+    <script src='resources/js/boardShow/board.js'></script>
+    <script src='resources/js/boardShow/ajax/replyAjax.js'></script>
+    <script src='resources/js/boardShow/ajax/boardAjax.js'></script>
 </head>
-<body>
-	<%@ include file="../common/header.jsp"%>
+    <%@ include file="../common/header.jsp"%>
+
+<body onload="init('${contextPath}')">
+	
 	<div class="wrapper">
         <div class="main">
             <div class="gray-round-box">
@@ -50,7 +56,7 @@
                         <div class="board-communication-info">
                             <!-- 좋아요 여부에 따라 처리 필요 -->
                             <img src="resources/community/like-after.png" alt="">
-                            <span>좋아요 ${board.goodCount}</span>
+                            <span><a id="good" style="cursor: pointer;">좋아요</a><div id="goodCount">${board.goodCount}</div></span>
                         </div>
                         <div class="board-communication-info">
                             <img src="resources/community/reply.png" alt="">
@@ -77,14 +83,13 @@
                                                 <div>
                                                     <span class="reply-user">${r.userNickName}</span>
                                                     <span class="reply-date">${r.createDate}</span>
-                                                    <button onclick="replyInsert('${r.replyNo}')">답글 달기</button>
+                                                    <button  type="button" onclick="replyShowInsert('${r.replyNo}')">답글 달기</button>
                                                 </div>
                                                 
                                                 <div class="change-button-box">
                                                     <img src="resources/community/threeCircle.png" alt="">
                                                     <div class="change-box">
-                                                        <div class=""><a>수정하기</a></div>
-                                                        <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                        <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a>삭제하기</a></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,11 +109,10 @@
                                                         <div>
                                                             <span class="reply-user">${rr.userNickName}</span>
                                                             <span class="reply-date">${rr.createDate}</span>
-                                                            <!-- <button onclick="replyInsert('${r}')" >답글 달기</button> -->
+                                                         
                                                         </div>
                                                         <div class="change-box">
-                                                            <div class=""><a>수정하기</a></div>
-                                                            <div class="" data-toggle="modal" data-target="#delete-content"><a>삭제하기</a></div>
+                                                            <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a>삭제하기</a></div>
                                                         </div>
                                                     </div>
                                                     <div class="reply-content">${rr.content}</div>
@@ -120,38 +124,77 @@
 
                                 <!-- 답글 달기 클릭 시 나오는 input 창 -->
                                     <div id="reply-content${r.replyNo}" style="display:none;" class="re-reply-width board-reply-box">
-                                        <form action="">
+                                       
                                             <div class="reply-regist-info">
                                                 <div>
-                                                    <img src="resources/community/userProfile.jpg" alt="">
-                                                    <span>강아지왕</span>
+                                                    <img src="" alt="">
+                                                    <span>${loginUser.userNickname}</span>
                                                 </div>
-                                                <div class="replybutton-div"><button class="common-button pink-button">답글 등록</button></div>
+                                                <div  class="replybutton-div"><button  type="button"id="replyReplyButton" class="common-button pink-button" onclick="replyReplyInsert('${r.replyNo}')">답글 등록</button></div>
                                             </div>
                                             <div class="input-reply-div">
-                                                <div class="replytext-div"><textarea name="" id="replyText" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea></div>
+                                                <div class="replytext-div"><textarea id="replyReplyText${r.replyNo}" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea></div>
                                             </div>
-                                        </form>
+                                     
                                     </div>
-                              
+                            </c:forEach>
 
-                         </c:forEach>
 
                         </div>
+
+                        <!--페이지 처리 영역-->
+							<div id="page-div" class="page-div">
+								<c:choose>
+									<c:when test="${replyPi.currentPage eq 1}">
+										<div id="previous-button" class="prv-button">
+											<li class="page-disabled"><a class="page-button">◀</a></li>
+										</div>
+									</c:when>
+
+									<c:otherwise>
+										<div id="previous-button" class="prv-button">
+											<li><a class="page-button"
+													onclick="replyPaging('${replyPi.currentPage-1}')">◀</a></li>
+										</div>
+
+									</c:otherwise>
+								</c:choose>
+
+								<c:forEach var="p" begin="${replyPi.startPage }" end="${replyPi.endPage }">
+									<li class="page-item"><a class="page-link" onclick="replyPaging('${p}')">${p}</a>
+									</li>
+								</c:forEach>
+
+								<c:choose>
+									<c:when test="${replyPi.currentPage eq replyPi.maxPage}">
+										<div id="next-button" class="next-button">
+											<li class="page-disabled"><a class="page-button">▶</a></li>
+										</div>
+									</c:when>
+
+									<c:otherwise>
+										<div id="next-button" class="next-button">
+											<li><a class="page-button"
+													onclick="replyPaging('${replyPi.currentPage+1}')">▶</a></li>
+										</div>
+
+									</c:otherwise>
+								</c:choose>
+							</div>
                
 
-                <!-- 리뷰 등록란 -->
+                <!-- 댓글 등록란 -->
                 <div id="board-reply-regist">
-                    <form action="">
+                   
                         <div class="reply-regist-info">
                             <div>
-                                <img src="${board.userProfile.filePath}${board.userProfile.changeName}" alt="">
-                                <span>${r.userNickeName}</span>
+                                <img src="" alt="">
+                                <span>${loginUser.userNickname}</span>
                             </div>
-                            <button class="common-button pink-button">댓글 등록</button>
+                            <button  type="button" id="replyButton" class="common-button pink-button">댓글 등록</button>
                         </div>
-                        <textarea name="" id="" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea>
-                    </form>
+                        <textarea name="replyContent" id="replyText" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea>
+                    
                 </div>
             </div>
 

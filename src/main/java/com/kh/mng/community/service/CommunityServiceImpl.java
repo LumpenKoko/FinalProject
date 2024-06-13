@@ -12,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
+import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -192,13 +194,23 @@ public class CommunityServiceImpl implements CommunityService{
 
 	@Override
 	@Transactional
-	public CommunityBoard selectBoardDetail(int bno) {
+	public CommunityBoard selectBoardDetail(PageInfo replyPi,int bno) {
 	   
+		
 	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
-	 
-	    
+   
 	    if(communityBoard!=null) {
-	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,communityBoard.getBoardNo());
+	    	
+	    	//조회수(업데이트)
+			communityDao.updateBoardViewCount(sqlSession,bno);
+	    	
+	    	//댓글수
+	    	int replyCount = communityDao.selectBoardReplyCount(sqlSession, bno);
+	    	
+	    	//추천횟수
+	    	int goodCount = communityDao.selectGoodCount(sqlSession, bno);
+	    	
+	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,replyPi,communityBoard.getBoardNo());
 	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
 	    
 	    	 	if(!boardReply.isEmpty()) {
@@ -255,12 +267,140 @@ public class CommunityServiceImpl implements CommunityService{
 	    	 }
 	    	 
 	    	 communityBoard.setReplys(boardReply);
+	    	 communityBoard.setReplyCount(replyCount);
+	    	 communityBoard.setGoodCount(goodCount);
 	    
 	    }
 	    
 	    
 	    return communityBoard;
 	}
+	
+	
+	@Override
+	@Transactional
+	public int insertBoardReply(ReplyInfo replyInfo) {
+		
+		int count=0;
+		if(replyInfo.getReplyNo()==-1) {//댓글이면
+			 count=communityDao.insertReply(sqlSession,replyInfo);
+		}
+		else {//댓글이아니고 대댓글이면
+			 count=communityDao.insertReplyReply(sqlSession,replyInfo);
+		}
+		
+		
+		return count;
+	}
+	
+	@Override
+	public int selectBoardReplyCount(int boardNo) {
+		
+		return communityDao.selectBoardReplyCount(sqlSession,boardNo);
+	}
+
+
+	//댓글과 대댓글 비동기로 다시 가져오기
+	@Override
+	@Transactional
+	public ArrayList<BoardReply> selectBoardReplys(PageInfo replyPi, ReplyInfo replyInfo) {
+		
+		// Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
+		 
+		 ArrayList<BoardReply>selectBoardReplys=communityDao.selectBoardReplys(sqlSession,replyPi,replyInfo.getBoardNo());
+		 log.info("서비스 부모댓글 비동기 확인:{}",selectBoardReplys);
+		 if(!selectBoardReplys.isEmpty()) {
+
+			 for(BoardReply replys:selectBoardReplys) {
+				 replyInfo.setReplyNo(replys.getReplyNo());
+				 
+			
+				 ArrayList<BoardReplyReply> selectBoardReplyReply =communityDao.selectBoardrReplyReplys(sqlSession, replyInfo);
+				 log.info("서비스 비동기 확인:{}",selectBoardReplyReply);
+				 
+				 	if(!selectBoardReplyReply.isEmpty()) {
+				 		for(BoardReplyReply rr:selectBoardReplyReply) {
+				 			 
+							 Attachment userProfile = communityDao.selectUserProfile(sqlSession,rr.getUserNo());
+							 if(userProfile==null) {
+								 Attachment defaultUserProfile = new Attachment();
+								 defaultUserProfile.setFilePath("resources/img/default/");
+								 defaultUserProfile.setChangeName("star.png");
+								 rr.setReplyUserProfile(defaultUserProfile);
+							 }else {
+								 rr.setReplyUserProfile(userProfile);
+							 }
+				 		}
+				 	}
+				         
+				 
+				 
+				 
+				 Attachment userProfile = communityDao.selectUserProfile(sqlSession,replys.getUserNo());
+				 if(userProfile==null) {
+					 Attachment defaultUserProfile = new Attachment();
+					 defaultUserProfile.setFilePath("resources/img/default/");
+					 defaultUserProfile.setChangeName("star.png");
+					 replys.setReplyUserProfile(defaultUserProfile);
+				 }else {
+					 replys.setReplyUserProfile(userProfile);
+				 }
+				 
+				 replys.setReplyReply(selectBoardReplyReply);
+			 }
+			 
+		 }
+		
+		
+		return selectBoardReplys;
+	}
+	
+	@Override
+	@Transactional
+	public BoardGoodInfo updateBoardGoodCount(BoardInfo boardInfo) {
+		
+		BoardGoodInfo goodInfo =new BoardGoodInfo();
+		
+		//좋아요체크
+		int count = communityDao.checkUserGoodCount(sqlSession,boardInfo);
+		
+		int result=0;
+		if(count==1) {
+			//공감해제
+			result=communityDao.deleteGoodCount(sqlSession,boardInfo);
+			goodInfo.setMessage("공감해제되었습니다");
+		}else {
+			result=communityDao.insertGoodCount(sqlSession,boardInfo);
+			goodInfo.setMessage("공감되었습니다");
+		}
+		
+		//게시물 추천수(좋아요)조회
+		if(result>0) {
+			int updateGoodCount=communityDao.selectGoodCount(sqlSession,boardInfo.getBoardNo());
+			goodInfo.setGoodCount(updateGoodCount);
+			
+		}
+		else {
+			goodInfo.setMessage("공감실패하였습니다.");
+		}
+		
+		return  goodInfo;
+		
+		
+	}
+	
+	@Override
+	public int deleteReply(int replyNo) {
+	
+		return communityDao.deletReply(sqlSession,replyNo);
+	}
+
+	@Override
+	public int checkReplyOwner(int replyNo) {
+		
+		return communityDao.checkReplyOwner(sqlSession,replyNo);
+	}
+
 
 
 
@@ -281,6 +421,15 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getShortsNum(int videoId) {
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
+
+
+
+
+
+
+
+
+
 
 
 

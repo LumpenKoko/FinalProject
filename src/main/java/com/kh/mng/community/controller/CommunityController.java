@@ -26,12 +26,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
+import com.kh.mng.community.model.dto.BoardReplyInfo;
+import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortPage;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
 import com.kh.mng.community.model.vo.BoardCategory;
+import com.kh.mng.community.model.vo.BoardReply;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.community.model.vo.ShortsReply;
@@ -180,6 +184,7 @@ public class CommunityController {
 	}
 	
 
+	//쇼츠 등록
 	@PostMapping(value = "/enroll.short")
 	public String enrollShorts(List<MultipartFile> files , ShorstInfo shortsInfo, HttpSession session,Model model) {
 		
@@ -257,24 +262,130 @@ public class CommunityController {
 	}
 	
 	
-	
-	
-	@RequestMapping(value="shortsView.bo")
+	@GetMapping(value="shortsView.bo")
 	public String detailShortsView() {
 		return "community/shortsShow";
 	}
 	
-	@RequestMapping(value="detailView.bo")
-	public String detailBoardView(@RequestParam(value="bno") int bno,Model model) {
+	//커뮤니티 게시판 상세 컨트롤러
+	@GetMapping(value="detailView.bo")
+	public String detailBoardView(@RequestParam(value="bno") int bno,
+								  @RequestParam(value="pageNo",defaultValue="1") int pageNo,
+								  Model model) {
 		
-		 CommunityBoard communityBoard = communityService.selectBoardDetail(bno);
+		
+		int  replyCount= communityService.selectBoardReplyCount(bno);
+	    PageInfo replyPi = Pagination.getPageInfo(replyCount ,pageNo, 10, 10);
+		
+		 CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno);
+		 
 		 log.info("communityBoard:{}",communityBoard);
+		 
+		
 		 model.addAttribute("board",communityBoard);
+		 model.addAttribute("replyPi",replyPi);
 		 
 		 return "community/boardContent";
 	}
 	
-	@RequestMapping(value="enrollBoard.bo")
+	//댓글 대댓글 입력 컨트롤러
+	@ResponseBody
+	@PostMapping(value="detailViewReply.in")
+	public String detailInsertReply(ReplyInfo replyInfo,HttpSession session) {
+		
+		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
+		replyInfo.setUserNo(userNo);
+		
+		log.info("응답:{}",replyInfo);
+		
+		int count = communityService.insertBoardReply(replyInfo);
+		
+		if(count>0) {
+			return "ok";
+		}else{
+			return "fail";
+		}
+		
+	}
+	
+	//댓글정보 비동기로가져오는 컨트롤러
+	@ResponseBody
+	@GetMapping(value="detailViewReply.view", produces = "application/json; charset=utf-8")
+	public String detailReplyView(ReplyInfo replyInfo,  HttpSession session) {
+		
+		//댓글개수만 가져와야된다. (답글x)
+		int  replyCount= communityService.selectBoardReplyCount(replyInfo.getBoardNo());
+
+		
+		PageInfo replyPi = Pagination.getPageInfo(replyCount ,replyInfo.getPageNo(), 10, 10);
+		ArrayList<BoardReply> replys =  communityService.selectBoardReplys(replyPi,replyInfo);
+		
+		BoardReplyInfo boardReplyInfo =new BoardReplyInfo();
+		boardReplyInfo.setPage(replyPi);
+		boardReplyInfo.setReplys(replys);
+		
+		log.info("{}",boardReplyInfo.getReplys());
+		log.info("{}",boardReplyInfo.getPage());
+		
+		return new Gson().toJson(boardReplyInfo);
+		
+	}
+	
+	//댓글 삭제 컨트롤러
+	@ResponseBody
+	@GetMapping(value="deleteViewReply.view", produces = "application/text; charset=utf-8")
+	public String deleteDetailReply(ReplyInfo replyInfo,  HttpSession session) {
+		
+		Member logined=(Member) session.getAttribute("loginUser");
+		if(logined==null) {
+			return "로그인을 먼저 해주세요";
+		}else {
+			//자신의 댓글인지 체크
+			int userNo= communityService.checkReplyOwner(replyInfo.getReplyNo());
+			int loginUserNo=logined.getUserNo();
+			
+					
+			if(userNo!=loginUserNo) {
+				return "본인댓글만 삭제할수 있습니다.";
+				
+			}else{
+				int count = communityService.deleteReply(replyInfo.getReplyNo());
+				
+				if(count>0) {
+					return "삭제되었습니다";
+				}
+				else {
+					return "삭제 실패";
+				}
+			}
+		}
+		
+		
+		
+	}
+	
+	//좋아요 처리 컨트롤러
+	@ResponseBody
+	@GetMapping(value="updategoodcount.bo",produces = "application/json; charset=utf-8")
+	public String updateBoardGood(BoardInfo boardInfo,HttpSession session) {
+		
+		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
+		boardInfo.setUserNo(userNo);
+		
+		
+	    BoardGoodInfo goodInfo=communityService.updateBoardGoodCount(boardInfo);
+		
+	   
+		return new Gson().toJson(goodInfo);
+		
+		
+	}
+	
+	
+	 
+	
+	
+	@GetMapping(value="enrollBoard.bo")
 	public String enrollBoard() {
 		return "community/writingPage";
 	}

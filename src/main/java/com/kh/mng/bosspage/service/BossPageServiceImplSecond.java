@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.kh.mng.bosspage.model.dao.BossPageDaoSecond;
 import com.kh.mng.bosspage.model.dto.CouponKind;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class BossPageServiceImplSecond implements BossPageServiceSecond{
 	@Autowired
@@ -19,15 +22,30 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 
 	@Override
 	public ArrayList<CouponKind> selectCouponList(String loginUserNo) {
-//		ArrayList<CouponKind> couponList = bossPageDaoSecond.selectCouponList(sqlSession, loginUserNo);
 		return bossPageDaoSecond.selectCouponList(sqlSession, loginUserNo);
 	}
 
 	@Override
 	public int insertCouponKind(CouponKind coupon) {
-		String locNo = bossPageDaoSecond.selectLocationNo(sqlSession, coupon);
-		coupon.setLocationNo(locNo);
-		
+		int locNo = bossPageDaoSecond.selectLocationNo(sqlSession, coupon);
+		coupon.setLocationNo(String.valueOf(locNo));
 		return bossPageDaoSecond.insertCouponKind(sqlSession, coupon);
+	}
+
+	@Override
+	public CouponKind updateCouponKind(CouponKind coupon) {
+		int result = bossPageDaoSecond.updateCouponKind(sqlSession, coupon);
+		CouponKind newCoupon = null;
+		
+		if (result > 0) {
+			newCoupon = bossPageDaoSecond.selectCoupon(sqlSession, coupon.getCouponNo());
+		} 
+		
+		return newCoupon;
+	}
+
+	@Override
+	public int deleteCouponkind(int couponNo) {
+		return bossPageDaoSecond.deleteCouponKind(sqlSession, couponNo);
 	}
 }

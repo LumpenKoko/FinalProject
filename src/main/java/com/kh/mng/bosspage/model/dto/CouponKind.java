@@ -24,5 +24,5 @@ public class CouponKind {
 	private int count;
 	private int usedCount;
 	private String locationNo;
-	private int loginUserNo;
+	private String loginUserNo;
 }

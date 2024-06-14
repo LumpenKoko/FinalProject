@@ -13,13 +13,23 @@ public class BossPageDaoSecond {
 		return (ArrayList)sqlSession.selectList("searchMapper.selectCouponList", loginUserNo);
 	}
 	
-	public String selectLocationNo(SqlSessionTemplate sqlSession, CouponKind coupon) {
+	public int selectLocationNo(SqlSessionTemplate sqlSession, CouponKind coupon) {
 		return sqlSession.selectOne("searchMapper.selectLocationNo", coupon);
 	}
-
 	
 	public int insertCouponKind(SqlSessionTemplate sqlSession, CouponKind coupon) {
 		return sqlSession.insert("searchMapper.insertCouponKind", coupon);
 	}
 
+	public int updateCouponKind(SqlSessionTemplate sqlSession, CouponKind coupon) {
+		return sqlSession.update("searchMapper.updateCouponKind", coupon);
+	}
+	
+	public CouponKind selectCoupon(SqlSessionTemplate sqlSession, int couponNo) {
+		return sqlSession.selectOne("searchMapper.selectCoupon", couponNo);
+	}
+	
+	public int deleteCouponKind(SqlSessionTemplate sqlSession, int couponNo) {
+		return sqlSession.update("searchMapper.deleteCouponKind", couponNo);
+	}
 }

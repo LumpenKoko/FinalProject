@@ -48,20 +48,21 @@
                             <c:forEach var="coupon" items="${couponList}">
                                 <tr class="coupon-content registed-coupon">
                                     <td class="coupon-title">${coupon.couponContent}</td>
+                                    <td class="coupon-no" style="display: none;">${coupon.couponNo}</td>
                                     <td class="coupon-expiration">
                                     <c:choose>
                                         <c:when test="${coupon.couponExpirationPeriod eq -1}">
                                             영구
                                         </c:when>
                                         <c:otherwise>
-                                            ${coupon.couponExpirationPeriod}일
+                                            ${coupon.couponExpirationPeriod}
                                         </c:otherwise>
                                     </c:choose>
                                     </td>
                                     <td class="coupon-count">${coupon.usedCount} / ${coupon.count}</td>
                                     <td class="coupon-admin">
-                                        <button class="common-button pink-button" onclick="editCouponForm(this, '${coupon}')">수정</button>
-                                        <button class="common-button pink-button" data-toggle="modal" data-target="#delete-coupon">삭제</button>
+                                        <button class="common-button pink-button" onclick="editCouponForm(this)">수정</button>
+                                        <button class="common-button pink-button" data-toggle="modal" data-target="#delete-coupon" onclick="showCouponTitle(this)">삭제</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -82,7 +83,7 @@
                             <td class="coupon-count">0 / 0</td>
                             <td class="coupon-admin">
                                 <button type="submit" class="insert-button common-button pink-button">확인</button>
-                                <button class="common-button white-button" onclick="removeCouponForm(this)">취소</button>
+                                <button type="button" class="common-button white-button" onclick="removeCouponForm(this)">취소</button>
                             </td>
                         </form>
                     </tr>
@@ -109,16 +110,14 @@
                         <div class="minibox-title" id="delete-coupon-title">
                             쿠폰 삭제
                         </div>
-                        <div id="delete-coupon-text">
-                            '멍냥가이드회원감사쿠폰2000원' <!-- 데이터 가져와서 집어넣어야 함 -->
-                        </div>
+                        <div id="delete-coupon-text"></div>
                         <div class="minibox-text" id="delete-coupon-content">
                             삭제 시 해당 쿠폰의 수정과 <br>
                             사용/발매 내역 조회가 불가능합니다. <br><br>
                             해당 쿠폰을 삭제하시겠습니까?
                         </div>
-                        
-                        <button class="common-button pink-button" onclick="location.href='#'">삭제</button>
+                        <input type="text" id="delete-coupon-no" style="display: none;">
+                        <button class="common-button pink-button" onclick="deleteCoupon('${loginUser.userNo}')">삭제</button>
                         <button class="common-button white-button" data-dismiss="modal">취소</button>
                     </div>
                 </div>

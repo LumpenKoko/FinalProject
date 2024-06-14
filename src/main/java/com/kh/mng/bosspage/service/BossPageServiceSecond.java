@@ -10,4 +10,10 @@ public interface BossPageServiceSecond {
 	
 	// 쿠폰 추가
 	int insertCouponKind(CouponKind coupon);
+	
+	// 쿠폰 수정
+	CouponKind updateCouponKind(CouponKind coupon);
+	
+	// 쿠폰 삭제
+	int deleteCouponkind(int couponNo);
 }

@@ -1,8 +1,8 @@
 // 쿠폰 추가 등록
-function ajaxInsertCoupon(data, callback){
+function ajaxUpdateCoupon(data, callback){
     console.log("가랏")
     $.ajax({
-        url: contextPath + "/insertCoupon.bc", 
+        url: contextPath + "/updateCoupon.bc", 
         data: data,
         success: function (result) {
             callback(result);

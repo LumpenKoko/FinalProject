@@ -25,7 +25,7 @@ public class BossPageControllerSecond {
 	
 	@GetMapping("bossCouponPage.bcc")
 	public String bossCouponPage(String uno, Model model) {
-		ArrayList<CouponKind> couponList = bossPageServiceSecond.selectCouponList(uno);
+		ArrayList<CouponKind> couponList = bossPageServiceSecond.selectCouponKindList(uno);
 		
 //		1. 쿠폰 내용
 //		2. 쿠폰 유효기간
@@ -39,10 +39,10 @@ public class BossPageControllerSecond {
 	}
 	
 	@GetMapping("insertCoupon.bc")
-	public String insertCoupon(CouponKind coupon, Model model, HttpSession session) {
+	public String insertCouponKind(CouponKind coupon, Model model, HttpSession session) {
 		log.info(coupon.toString());
 		int result = bossPageServiceSecond.insertCouponKind(coupon);
-		ArrayList<CouponKind> couponList = bossPageServiceSecond.selectCouponList(coupon.getLoginUserNo());
+		ArrayList<CouponKind> couponList = bossPageServiceSecond.selectCouponKindList(coupon.getLoginUserNo());
 		if (result > 0) {
 			session.setAttribute("alertMsg", "쿠폰 등록에 성공했습니다.");
 			

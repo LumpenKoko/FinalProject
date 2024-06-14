@@ -21,8 +21,8 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
     private SqlSessionTemplate sqlSession;
 
 	@Override
-	public ArrayList<CouponKind> selectCouponList(String loginUserNo) {
-		return bossPageDaoSecond.selectCouponList(sqlSession, loginUserNo);
+	public ArrayList<CouponKind> selectCouponKindList(String loginUserNo) {
+		return bossPageDaoSecond.selectCouponKindList(sqlSession, loginUserNo);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 		CouponKind newCoupon = null;
 		
 		if (result > 0) {
-			newCoupon = bossPageDaoSecond.selectCoupon(sqlSession, coupon.getCouponNo());
+			newCoupon = bossPageDaoSecond.selectCouponKind(sqlSession, coupon.getCouponNo());
 		} 
 		
 		return newCoupon;

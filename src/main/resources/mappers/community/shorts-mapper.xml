@@ -23,7 +23,7 @@
 		<result column="REPLY_CONTENT" property="replyContent"/>
 		<result column="REPLY_RE_NO" property="replyReNo"/>
 		<result column="USER_NICKNAME" property="userNickname"/>
-		<result column="PROFILE_FILE_PATH" property="FilePath"/>
+		<result column="PROFILE_FILE_PATH" property="filePath"/>
 		<result column="PROFILE_CHANGE_NAME" property="changeName"/>
    </resultMap>
    
@@ -87,9 +87,9 @@
 			    COALESCE(P.CHANGE_NAME, 'default_profile.jpg') AS PROFILE_CHANGE_NAME
 		FROM SHORTS S
 		JOIN REPLY R ON S.SHORTS_NO = R.SHORTS_NO
-		JOIN MEMBER M ON R.USER_NO = M.USER_NO
+		JOIN MEMBER M ON S.USER_NO = M.USER_NO
 		LEFT JOIN PICTURE P ON M.USER_NO = P.USER_NO
-		WHERE S.SHORTS_NO = #{shortsNum}
+		WHERE R.SHORTS_NO = #{shortsNum}
 		ORDER BY R.CREATE_DATE DESC, R.REPLY_NO DESC;
   	</select>
     

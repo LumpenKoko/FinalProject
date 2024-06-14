@@ -391,10 +391,11 @@ public class CommunityController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="getVideo.sh")
+	@GetMapping(value="getVideo.sh", produces="application/json; charset=utf-8")
 	public String loadShorts(@RequestParam(value="videoId") int videoId) {
 
 	    TotalShortsInfo totalShortsInfo = communityService.getVideoInfo(videoId);
+	    System.out.println("controller" + totalShortsInfo);
 
 	    if (totalShortsInfo == null) {
 	        return "Error: Video info not found.";

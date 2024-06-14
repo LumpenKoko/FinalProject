@@ -144,6 +144,8 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	@Override
 	public TotalShortsInfo getVideoInfo(int videoId) {
+		TotalShortsInfo si = sqlSession.selectOne("shortsMapper.getVideoInfo", videoId);
+		System.out.println("service" + si);
 		return communityDao.getVideoInfo(sqlSession, videoId);
 	}
 

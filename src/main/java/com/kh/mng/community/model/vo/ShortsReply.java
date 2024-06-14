@@ -20,7 +20,7 @@ public class ShortsReply {
 	private String replyContent;
 	private int replyReNo;
 	private String userNickname;
-	private String FilePath;
+	private String filePath;
 	private String changeName;
 
 }

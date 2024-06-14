@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
+import com.kh.mng.bosspage.model.vo.LocationOperationTime;
 
 
 //@Repository -> 데이터베이스에 접근하기위한 객체
@@ -45,5 +46,20 @@ public class BossPageDao {
     public BossLocationOption getLocationOption(SqlSessionTemplate sqlSession, int locationNo) {
         return sqlSession.selectOne("location.getLocationOption", locationNo);
     }
+    
+    public int insertOperationTime(SqlSessionTemplate sqlSession, LocationOperationTime operationTime) {
+        return sqlSession.insert("location.insertOperationTime", operationTime);
+    }
 
+    public int updateOperationTime(SqlSessionTemplate sqlSession, LocationOperationTime operationTime) {
+        return sqlSession.update("location.updateOperationTime", operationTime);
+    }
+
+    public List<LocationOperationTime> getOperationTimes(SqlSessionTemplate sqlSession, int locationNo) {
+        return sqlSession.selectList("location.getOperationTimes", locationNo);
+    }
+
+    public int deleteOperationTimes(SqlSessionTemplate sqlSession, int locationNo) {
+        return sqlSession.delete("location.deleteOperationTimes", locationNo);
+    }
 }

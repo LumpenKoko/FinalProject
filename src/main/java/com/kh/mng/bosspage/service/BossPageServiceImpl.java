@@ -1,5 +1,6 @@
 package com.kh.mng.bosspage.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,7 @@ import com.kh.mng.bosspage.model.dao.BossPageDao;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
+import com.kh.mng.bosspage.model.vo.LocationOperationTime;
 
 
 @Service
@@ -65,5 +67,20 @@ public class BossPageServiceImpl implements BossPageService{
         return bossPageDao.updateLocationInfo(sqlSession, locationInfo);
     }
 
-	
+    @Override
+    @Transactional
+    public int saveOperationTimes(int locationNo, List<LocationOperationTime> operationTimes) {
+        // 기존 운영시간 삭제
+        bossPageDao.deleteOperationTimes(sqlSession, locationNo);
+        // 새로운 운영시간 삽입
+        for (LocationOperationTime operationTime : operationTimes) {
+            bossPageDao.insertOperationTime(sqlSession, operationTime);
+        }
+        return 1;
+    }
+
+    @Override
+    public List<LocationOperationTime> getOperationTimes(int locationNo) {
+        return bossPageDao.getOperationTimes(sqlSession, locationNo);
+    }
 }

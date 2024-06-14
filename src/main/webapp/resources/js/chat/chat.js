@@ -13,12 +13,13 @@ function init(path,masterKind){
     if(masterKind==='NNNNN'){
        targetId=document.querySelector("#masterId").value
       // roomNo=document.querySelector("#roomNo").value
-       console.log("masterId",targetId)
-       openChatRoom(1,targetId)
+       targetNo=document.querySelector("#masterNo").value
+       console.log("masterId",targetId, targetNo)
+       openChatRoom(1,targetId,targetNo)
     }
 }
 
-function openChatRoom(roomNo,targetId){
+function openChatRoom(roomNo,targetId,targetNo){
 
    
     let sendButton = document.querySelector("#send-button");
@@ -72,7 +73,8 @@ function openChatRoom(roomNo,targetId){
         const msgData = {
             message:sendMsg.value,
             target:targetId,
-            roomNo:roomNo
+            roomNo:roomNo,
+            targetNo:targetNo
         }
         console.log(msgData)
         socket.send(JSON.stringify(msgData));
@@ -104,8 +106,11 @@ function chooseChatRoom(roomNo,id){
   alert("채팅방에 연결되었습니다.")
    console.log(id)
    let userId=document.querySelector("#userId"+id);
-   target=userId.value;
-    openChatRoom(roomNo,target);
+   let userNo=document.querySelector("#userNo"+id);
+   targetId=userId.value;
+   targetNo=userNo.value;
+
+    openChatRoom(roomNo,targetId,targetNo);
 }
 
 //채팅방 열기 (현재 내가 유저일때)

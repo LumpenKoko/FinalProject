@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.vo.Location;
@@ -41,6 +42,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public int insertBossMember(Member m, Location loc) {
 		int result1 = memberDao.insertBossMember(sqlSession, m);
 		int result2 = 1;

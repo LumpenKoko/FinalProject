@@ -14,6 +14,7 @@ import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
+import com.kh.mng.community.model.dto.ShortsReplyDTO;
 import com.kh.mng.community.model.vo.BoardCategory;
 import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.BoardReply;
@@ -37,12 +38,9 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getVideoReplyCount", shortsNum);
 	}
 
-	public int addComment(SqlSessionTemplate sqlSession, int userNo, int shortsNo, String comment) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("userNo", userNo);
-	    params.put("shortsNo", shortsNo);
-	    params.put("comment", comment);
-	    return sqlSession.insert("shortsMapper.shortsCommentEnroll", params);
+	public int addComment(SqlSessionTemplate sqlSession, ShortsReplyDTO shortsReplyDTO) {
+	    
+		return sqlSession.insert("shortsMapper.shortsCommentEnroll", shortsReplyDTO);
 	}
 
 
@@ -102,15 +100,75 @@ public class CommunityDao {
 	  return sqlSession.selectOne("communityBoardMapper.selectDetailBoard", bno);
 	}
 	
-	public ArrayList<BoardReply> selectBoardReplys(SqlSessionTemplate sqlSession, int boardNo) {
+	public ArrayList<BoardReply> selectBoardReplys(SqlSessionTemplate sqlSession, PageInfo replyPi,int boardNo) {
 		
-		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReply",boardNo);
+		int offset=(replyPi.getCurrentPage()-1)*replyPi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,replyPi.getBoardLimit());
+		
+		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReply",boardNo,rowBounds);
 	}
 	
 	public ArrayList<BoardReplyReply> selectBoardrReplyReplys(SqlSessionTemplate sqlSession,  ReplyInfo replyInfo) {
 		
 		return  (ArrayList) sqlSession.selectList("communityBoardMapper.selectDetailBoardReplyReply",replyInfo);
 	}
+	
+	public int insertReply(SqlSessionTemplate sqlSession, ReplyInfo replyInfo) {
+
+		return sqlSession.insert("communityBoardMapper.insertReply",replyInfo);
+	}
+
+	public int insertReplyReply(SqlSessionTemplate sqlSession, ReplyInfo replyInfo) {
+		
+		 return sqlSession.insert("communityBoardMapper.insertReplyReply",replyInfo);
+	}
+	
+	public int selectBoardReplyCount(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.selectOne("communityBoardMapper.selectBoardReplyCount",boardNo);
+	}
+	
+
+	//좋아요체크
+	public int checkUserGoodCount(SqlSessionTemplate sqlSession,BoardInfo boardInfo) {
+		
+		return sqlSession.selectOne("communityBoardMapper.checkUserGoodCount",boardInfo);
+	}
+
+	//게시글공감해제
+	public int deleteGoodCount(SqlSessionTemplate sqlSession,BoardInfo boardInfo) {
+	
+		return sqlSession.delete("communityBoardMapper.deleteGoodCount",boardInfo);
+	}
+
+	//게시글공감
+	public int insertGoodCount(SqlSessionTemplate sqlSession,BoardInfo boardInfo) {
+	
+		return sqlSession.insert("communityBoardMapper.insertGoodCount",boardInfo);
+	}
+
+	//게시글 공감수 조회
+	public int selectGoodCount(SqlSessionTemplate sqlSession,int boardNo) {
+	
+		return sqlSession.selectOne("communityBoardMapper.selectGoodCount",boardNo);
+	}
+	
+	public int updateBoardViewCount(SqlSessionTemplate sqlSession,int boardNo) {
+		
+		return sqlSession.update("communityBoardMapper.updateBoardViewCount",boardNo);
+	}
+
+	public int deletReply(SqlSessionTemplate sqlSession, int replyNo) {
+		
+		 return sqlSession.delete("communityBoardMapper.deletBoardReply",replyNo);
+	}
+	
+	
+	public int checkReplyOwner(SqlSessionTemplate sqlSession, int replyNo) {
+	
+		return sqlSession.selectOne("communityBoardMapper.checkReplyOwner",replyNo);
+	}
+    
 
 	
 
@@ -138,8 +196,19 @@ public class CommunityDao {
 	    return (ArrayList)sqlSession.selectList("shortsMapper.loadReply", shortsNum);
 	}
 
+	public int getReplyNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("shortsMapper.getReplyNo");
+	}
+
+	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
+	}
+
 	
 
+	
+	
+	
 
 
 //    public ArrayList<ShortsReply> loadReply(SqlSessionTemplate sqlSession, int shortsNum) {

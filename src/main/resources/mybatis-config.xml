@@ -38,8 +38,10 @@
  		<typeAlias type="com.kh.mng.community.model.vo.CommunityBoard" alias="CommunityBoard"/>
 
 		<typeAlias type="com.kh.mng.community.model.vo.BoardCategory" alias="BoardCategory"/>
-		<typeAlias type="com.kh.mng.location.model.vo.Location" alias="bossLocation"/>
-
+		<typeAlias type="com.kh.mng.bosspage.model.vo.BossLocation" alias="BossLocation"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.BossLocationOption" alias="BossLocationOption"/>
+	<typeAlias type="com.kh.mng.common.chat.model.vo.Chat" alias="Chat"/>
+		<!--  <typeAlias type="com.kh.mng.bosspage.model.dto.CouponKind" alias="CouponKind"/>-->
 
  	</typeAliases> 
  	
@@ -59,6 +61,7 @@
  		<mapper resource="/mappers/picture-mapper.xml"/>
  	    <mapper resource="/mappers/community/community-shorts-mapper.xml"/>
  	    <mapper resource="/mappers/community/community-board-mapper.xml"/>
+ 	    <mapper resource="/mappers/chat/chat-mapper.xml"/>
  	</mappers>
  	
     

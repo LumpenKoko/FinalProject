@@ -42,6 +42,8 @@ function checkIdSuccess(result) {
     } else {
         idMessage.innerHTML = "사용할 수 있는 아이디입니다.";
         idMessage.style.color = "black";
+        let idCheck = document.querySelector('[name="userId"]');
+        idCheck.dataset.check = 'true';
     }
     
 }
@@ -50,6 +52,7 @@ function checkIdSuccess(result) {
 function checkId(){
     let id = document.querySelector("[name='userId']");
     let idMessage = document.querySelector("#id-message");
+    let idCheck = document.querySelector('#id-check')
     const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+~\-={}[\]:;"'<>,.?/|\\`]{8,14}$/;
     if(!regExp.test(id.value)){
         if (id.value == ""){
@@ -61,7 +64,9 @@ function checkId(){
     } else {
         idMessage.innerHTML = "사용 가능한 형식의 아이디입니다.";
         idMessage.style.color = "black";
-        id.readonly = false;
+        idCheck.disabled = false;
+        idCheck.style.color = 'black';
+        idCheck.style.cursor = 'pointer';
     }
 }
 
@@ -157,13 +162,18 @@ function changeEmail(){
 }
 
 // 모든 항목 기입 시 버튼 활성화
-function activeEnroll(userInfo, enroll){
+function activeEnroll(userInfo, userId, enroll){
     let checkDisable = false;
     let result = 1;
+    console.log(userInfo)
     for (let info of userInfo){
-        if (info.value == ""){
+        if (info.value == "" || info.value == null){
             result = result * 0;
         }
+    }
+
+    if (userId.dataset.check == 'false'){
+        result = result * 0;
     }
 
     let agree = document.querySelector("#check-agree-all");
@@ -185,6 +195,41 @@ function activeEnroll(userInfo, enroll){
         enroll.style.color = "var(--border-color)";
     }
 }
+
+// 번호 기입 후 약관 전체 동의 시 번호 인증 버튼 활성화
+function activeCertifyPhone(){
+    let checkDisable = false;
+    let result = 1;
+
+    let certifyButton = document.querySelector('#certify-phone-button')
+
+    let userPhone = document.querySelector("[name='userPhone']");
+    if (userPhone.value == null){
+        result = result * 0;
+    }
+    
+    let agree = document.querySelector("#check-agree-all");
+    if (!agree.checked){
+        result = result * 0;
+    }
+
+    if (result == 0){
+        checkDisable = true;
+    }
+
+    certifyButton.disabled = checkDisable;
+    if (!checkDisable){
+        certifyButton.style.background = "white";
+        certifyButton.style.cursor = "pointer";
+        certifyButton.style.color = "black";
+    } else {
+        certifyButton.style.background = "inherit";
+        certifyButton.style.color = "var(--border-color)";
+        certifyButton.style.cursor = "inherit";
+    }
+}
+
+
 
 // function enrollStylePink(enroll){
 //     enroll.style.background = "var(--main-color)";
@@ -212,9 +257,9 @@ function activeCommonEnroll(){
     let userPhone = document.querySelector("[name='userPhone']");
     let enroll = document.querySelector("#enroll-button");
 
-    let userInfo = [userId, userPwd, userName, userNickname, userGender, userBirthday, userPreEmail, userPostEmail, userPhone];
+    let userInfo = [userPwd, userName, userNickname, userGender, userBirthday, userPreEmail, userPostEmail, userPhone];
 
-    activeEnroll(userInfo, enroll);
+    activeEnroll(userInfo, userId, enroll);
 }
 
 
@@ -246,10 +291,10 @@ function activeBossEnroll(){
 
     let enroll = document.querySelector("#enroll-button");
 
-    let userInfo = [userId, userPwd, userName, userGender, userBirthday, userPreEmail, userPostEmail, userPhone, 
+    let userInfo = [userPwd, userName, userGender, userBirthday, userPreEmail, userPostEmail, userPhone, 
                     businessNo, locationName, addressContent, addressDetail];
 
-    activeEnroll(userInfo, enroll);
+    activeEnroll(userInfo, userId, enroll);
 }
 
 
@@ -266,9 +311,11 @@ function activeBossEnroll(){
 function certifyPhone(){
     let getNum = document.querySelector('[name="userPhone"]').value;
 
+    console.log(getNum)
     ajaxCertifyPhoneNum({getNum: getNum}, drawCertifySuccess);
 }
 
-function drawCertifySuccess(){
+function drawCertifySuccess(result){
     console.log("성공")
+    console.log(result)
 }

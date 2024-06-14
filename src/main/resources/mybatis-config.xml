@@ -46,6 +46,7 @@
 	    <typeAlias type="com.kh.mng.common.chat.model.vo.UserInfo" alias="UserInfo"/>
 		<typeAlias type="com.kh.mng.bosspage.model.dto.CouponKind" alias="CouponKind"/>
 		<typeAlias type="com.kh.mng.community.model.dto.BoardEnroll" alias="BoardEnroll"/>
+		<typeAlias type="com.kh.mng.community.model.dto.BoardFileInfo" alias="BoardFileInfo"/>
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationOperationTime" alias="LocationOperationTime"/>
 
  	</typeAliases> 

@@ -1,43 +1,24 @@
 package com.kh.mng.member.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.exception.NurigoEmptyResponseException;
+import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
+import net.nurigo.sdk.message.exception.NurigoUnknownException;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.response.MultipleDetailMessageSentResponse;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Slf4j
 @Controller
 public class MemberSMSController {
-
-//	final DefaultMessageService messageService;
 	
 	@Value("${sms.apiKey}") 
 	private String apiKey;
@@ -51,185 +32,229 @@ public class MemberSMSController {
 	@Value("${sms.sentNum}") 
 	private String sentNum;
 	
+	// 인증번호와 맞는지 어떻게 확인할 것인가?
+	private String certifyCode;
 	
-    
 	@ResponseBody
-    @PostMapping(value="certification.me", produces="application/json; charset-UTF-8")
-    public String sendCertifyCode(String getNum) {
+	@PostMapping(value="certification.me", produces="application/json; charset=utf-8")
+	public String certifyPhone(String getNum) {
+		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
 		
-//		 JsonObject params = new JsonObject();
-//	        JsonArray messages = new JsonArray();
-//
-//	        JsonObject msg = new JsonObject();
-//	        JsonArray toList = new JsonArray();
-//
-//	        toList.add("01099403102");
-//	        msg.add("to", toList);
-//	        msg.addProperty("from", "01099403102");
-//	        msg.addProperty("text",
-//	                "안녕하세요 줍깅입니다. 오늘 참여하실[같이 줍깅해요!]모임의 모임날짜가 3일 남으셨습니다.");
-//	        messages.add(msg);
-//
-//	        params.add("messages", messages);
-    	
-	
-		
-    	JsonObject msgInfo = new JsonObject();
-    	JsonObject messages = new JsonObject();
-    	
-    	msgInfo.addProperty("to", getNum);
-    	msgInfo.addProperty("from", sentNum);
-    	msgInfo.addProperty("type", "SMS");
-    	log.info(sentNum);
-    	
-    	int ranNum = (int)(Math.random()*900000 + 100000);
+		String ranNum = String.valueOf((int)(Math.random()*900000 + 100000));
     	String msgText = "멍냥가이드 본인확인 인증번호 " + ranNum;
-    	
-    	msgInfo.addProperty("text", msgText);
-    	
-    	JsonArray messageArr = new JsonArray();
-    	messageArr.add(msgInfo);
-    	messages.add("message", messageArr);
- 
-    	
-    	
-    	
-    	
-//    	String parameters = "{\"message\":{\"to\":\""+ getNum +"\",\"from\":\""+sentNum+"\",\"text\":\""+msgText+"\",\"type\":\"SMS\"}}";
-    	
-    	
-    	
-    	
-    	Map<String, String> headerInfo = new HashMap<String, String>();
-		headerInfo.put("Authorization", getHeaders());
 		
-		log.info(messages.toString());
-		log.info(headerInfo.toString());
+		Message message = new Message();
 		
-		String responseBody = null;
+		message.setTo(getNum);
+		message.setFrom(sentNum);
+		message.setText(msgText);
+		
+		MultipleDetailMessageSentResponse response = null;
 		try {
-			URL url = new URL(apiUrl);
-			HttpURLConnection con = (HttpURLConnection)url.openConnection();
-			con.setRequestMethod("POST");
-			log.info(headerInfo.toString());
-			responseBody = sendRequest(apiUrl, new Gson().toJson(messages), headerInfo);
-//			responseBody = sendRequest(apiUrl, parameters, headerInfo);
-			log.info(new Gson().toJson(messages));
-			log.info(new Gson().toJson(responseBody));
-			
-//			JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
-//			System.out.println(responseBody);
-////				Response의 값이 필요하므로 다시 꺼내주기
-//			JsonObject resObj = memberInfo.getAsJsonObject("response");
-//			System.out.println(resObj);
-//				데이터베이스의 이메일 정보가 맞는지 확인해주면 됨
-				
-				// 받아온 email과 데이터베이스의 email을 비교하여 가입 유무 확인 후
-				// 가입 되어 있다면 로그인, 아니라면 회원가입 창으로 정보를 가지고 이동
-//			}
-		} catch (MalformedURLException e) {
+			response = messageService.send(message);
+		} catch (NurigoMessageNotReceivedException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (NurigoEmptyResponseException e) {
+			e.printStackTrace();
+		} catch (NurigoUnknownException e) {
 			e.printStackTrace();
 		}
+		log.info(response.toString());
 		
-        
-		return responseBody;
-    }
-    
- 	
-    // API에 POST 요청 보내고 응답을 받아오는 메소드
- 	private static String sendRequest(String apiUrl, String params, Map<String, String> header) throws IOException {
- 		HttpURLConnection conn = connect(apiUrl);
- 		BufferedWriter bw = null;
- 		try {
- 			conn.setRequestMethod("POST");
- 			conn.setDoOutput(true);
- 			for (Map.Entry<String, String> h : header.entrySet()) {
- 				conn.setRequestProperty(h.getKey(), h.getValue()); // conn의 헤더에 키밸류 형식으로 데이터 저장
- 			} 
- 			
- 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
- 		    wr.writeBytes(params);
- 		    wr.flush();
- 		    wr.close();
- 			
-// 			
-// 			bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-// 			bw.write(params);
-//			bw.flush();
-//			bw.close();
-			
- 			int responseCode = conn.getResponseCode();
- 			log.info("" + conn.getResponseCode());
- 			if (responseCode == 200) {
- 				return readBody(conn.getInputStream());
- 			} else {
- 				return readBody(conn.getErrorStream());
- 			}
- 		} catch (IOException e) {
- 			throw new RuntimeException("API 요청과 응답 실패 : " + apiUrl, e);
- 		} finally {
- 			conn.disconnect(); // 스트림 닫아준 것, close()
-
- 		}
- 	}
- 	
- 	private static String readBody(InputStream body) {
-		InputStreamReader streamReader = new InputStreamReader(body);
-		
-		try (BufferedReader br = new BufferedReader(streamReader)){
-			StringBuilder responseBody = new StringBuilder();
-			
-			String line;
-			while((line = br.readLine()) != null) {
-				responseBody.append(line);
-			}
-			return responseBody.toString();
-		} catch (IOException e) {
-			throw new RuntimeException("API 응답을 읽는데 실패하였습니다.", e);
-		}
-		
+		return new Gson().toJson("");
 	}
+	
+//  public MemberSMSController() { // Parameter specified as non-null is null 오류 (Kotlin에서 null인 값이 들어올 경우의 처리를 안 해줘서 발생하는 오류라고 함)
+//	if (apiKey != null && (apiSecretKey != null && apiUrl != null)) {
+//        this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
+//	} else {
+//		this.messageService = null;
+//	}
+//}
+//  Message message = new Message();
+//  
+//  message.setFrom(sentNum); // 문자 발신번호
+//  message.setTo(getNum); // 문자 수신번호
+	
+	
     
- // API에 연결하기 위한 HttpURLConnection 객체를 생성하고 반환하는 메소드
-  	private static HttpURLConnection connect(String apiUrl) {
-  		URL url;
-  		try {
-  			url = new URL(apiUrl);
-  			return (HttpURLConnection)url.openConnection();
-  		} catch (MalformedURLException e) {
-  			throw new RuntimeException("API URL이 잘못 되었습니다. : " + apiUrl, e);
-  		} catch (IOException e){
-  			throw new RuntimeException("연결이 실패하였습니다. : " + apiUrl, e);
-  		}
-  	}
-  	
-  	 public String getHeaders() {
-     	log.info("들어옴");
- 		try {
- 			String salt = UUID.randomUUID().toString().replaceAll("-", "");
- 	    	String date = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toString().split("\\[")[0];
- 	    	log.info(apiKey);
- 	    	log.info(apiSecretKey);
- 	    	log.info(apiUrl);
- 	    	log.info(sentNum);
- 	    	Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
- 	    	log.info(new SecretKeySpec(apiSecretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256").toString());
- 			SecretKeySpec secret_key = new SecretKeySpec(apiSecretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
- 			
- 	        sha256_HMAC.init(secret_key);
- 	        String signature = new String(Hex.encodeHex(sha256_HMAC.doFinal((date + salt).getBytes(StandardCharsets.UTF_8))));
- 	        
- 	        return "HMAC-SHA256 apiKey=" + apiKey + ", date=" + date + ", salt=" + salt + ", signature=" + signature;
- 	    
- 		} catch (NoSuchAlgorithmException e) {
- 			e.printStackTrace();
- 		} catch (InvalidKeyException e) {
- 			e.printStackTrace();
- 		}
- 		return null;
-     }
+//	@ResponseBody
+//    @PostMapping(value="certification.me", produces="application/json; charset-UTF-8")
+//    public String sendCertifyCode(String getNum) {
+//		
+////		 JsonObject params = new JsonObject();
+////	        JsonArray messages = new JsonArray();
+////
+////	        JsonObject msg = new JsonObject();
+////	        JsonArray toList = new JsonArray();
+////
+////	        toList.add("01099403102");
+////	        msg.add("to", toList);
+////	        msg.addProperty("from", "01099403102");
+////	        msg.addProperty("text",
+////	                "안녕하세요 줍깅입니다. 오늘 참여하실[같이 줍깅해요!]모임의 모임날짜가 3일 남으셨습니다.");
+////	        messages.add(msg);
+////
+////	        params.add("messages", messages);
+//    	
+//	
+//		
+//    	JsonObject msgInfo = new JsonObject();
+//    	JsonObject messages = new JsonObject();
+//    	
+//    	msgInfo.addProperty("to", getNum);
+//    	msgInfo.addProperty("from", sentNum);
+//    	msgInfo.addProperty("type", "SMS");
+//    	log.info(sentNum);
+//    	
+//    	int ranNum = (int)(Math.random()*900000 + 100000);
+//    	String msgText = "멍냥가이드 본인확인 인증번호 " + ranNum;
+//    	
+//    	msgInfo.addProperty("text", msgText);
+//    	
+//    	JsonArray messageArr = new JsonArray();
+//    	messageArr.add(msgInfo);
+//    	messages.add("message", messageArr);
+// 
+//    	
+//    	
+//    	
+//    	
+////    	String parameters = "{\"message\":{\"to\":\""+ getNum +"\",\"from\":\""+sentNum+"\",\"text\":\""+msgText+"\",\"type\":\"SMS\"}}";
+//    	
+//    	
+//    	
+//    	
+//    	Map<String, String> headerInfo = new HashMap<String, String>();
+//		headerInfo.put("Authorization", getHeaders());
+//		
+//		log.info(messages.toString());
+//		log.info(headerInfo.toString());
+//		
+//		String responseBody = null;
+//		try {
+//			URL url = new URL(apiUrl);
+//			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//			con.setRequestMethod("POST");
+//			log.info(headerInfo.toString());
+//			responseBody = sendRequest(apiUrl, new Gson().toJson(messages), headerInfo);
+////			responseBody = sendRequest(apiUrl, parameters, headerInfo);
+//			log.info(new Gson().toJson(messages));
+//			log.info(new Gson().toJson(responseBody));
+//			
+////			JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
+////			System.out.println(responseBody);
+//////				Response의 값이 필요하므로 다시 꺼내주기
+////			JsonObject resObj = memberInfo.getAsJsonObject("response");
+////			System.out.println(resObj);
+////				데이터베이스의 이메일 정보가 맞는지 확인해주면 됨
+//				
+//				// 받아온 email과 데이터베이스의 email을 비교하여 가입 유무 확인 후
+//				// 가입 되어 있다면 로그인, 아니라면 회원가입 창으로 정보를 가지고 이동
+////			}
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//        
+//		return responseBody;
+//    }
+//    
+// 	
+//    // API에 POST 요청 보내고 응답을 받아오는 메소드
+// 	private static String sendRequest(String apiUrl, String params, Map<String, String> header) throws IOException {
+// 		HttpURLConnection conn = connect(apiUrl);
+// 		BufferedWriter bw = null;
+// 		try {
+// 			conn.setRequestMethod("POST");
+// 			conn.setDoOutput(true);
+// 			for (Map.Entry<String, String> h : header.entrySet()) {
+// 				conn.setRequestProperty(h.getKey(), h.getValue()); // conn의 헤더에 키밸류 형식으로 데이터 저장
+// 			} 
+// 			
+// 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+// 		    wr.writeBytes(params);
+// 		    wr.flush();
+// 		    wr.close();
+// 			
+//// 			
+//// 			bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+//// 			bw.write(params);
+////			bw.flush();
+////			bw.close();
+//			
+// 			int responseCode = conn.getResponseCode();
+// 			log.info("" + conn.getResponseCode());
+// 			if (responseCode == 200) {
+// 				return readBody(conn.getInputStream());
+// 			} else {
+// 				return readBody(conn.getErrorStream());
+// 			}
+// 		} catch (IOException e) {
+// 			throw new RuntimeException("API 요청과 응답 실패 : " + apiUrl, e);
+// 		} finally {
+// 			conn.disconnect(); // 스트림 닫아준 것, close()
+//
+// 		}
+// 	}
+// 	
+// 	private static String readBody(InputStream body) {
+//		InputStreamReader streamReader = new InputStreamReader(body);
+//		
+//		try (BufferedReader br = new BufferedReader(streamReader)){
+//			StringBuilder responseBody = new StringBuilder();
+//			
+//			String line;
+//			while((line = br.readLine()) != null) {
+//				responseBody.append(line);
+//			}
+//			return responseBody.toString();
+//		} catch (IOException e) {
+//			throw new RuntimeException("API 응답을 읽는데 실패하였습니다.", e);
+//		}
+//		
+//	}
+//    
+// // API에 연결하기 위한 HttpURLConnection 객체를 생성하고 반환하는 메소드
+//  	private static HttpURLConnection connect(String apiUrl) {
+//  		URL url;
+//  		try {
+//  			url = new URL(apiUrl);
+//  			return (HttpURLConnection)url.openConnection();
+//  		} catch (MalformedURLException e) {
+//  			throw new RuntimeException("API URL이 잘못 되었습니다. : " + apiUrl, e);
+//  		} catch (IOException e){
+//  			throw new RuntimeException("연결이 실패하였습니다. : " + apiUrl, e);
+//  		}
+//  	}
+//  	
+//  	 public String getHeaders() {
+//     	log.info("들어옴");
+// 		try {
+// 			String salt = UUID.randomUUID().toString().replaceAll("-", "");
+// 	    	String date = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toString().split("\\[")[0];
+// 	    	log.info(apiKey);
+// 	    	log.info(apiSecretKey);
+// 	    	log.info(apiUrl);
+// 	    	log.info(sentNum);
+// 	    	Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+// 	    	log.info(new SecretKeySpec(apiSecretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256").toString());
+// 			SecretKeySpec secret_key = new SecretKeySpec(apiSecretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+// 			
+// 	        sha256_HMAC.init(secret_key);
+// 	        String signature = new String(Hex.encodeHex(sha256_HMAC.doFinal((date + salt).getBytes(StandardCharsets.UTF_8))));
+// 	        
+// 	        return "HMAC-SHA256 apiKey=" + apiKey + ", date=" + date + ", salt=" + salt + ", signature=" + signature;
+// 	    
+// 		} catch (NoSuchAlgorithmException e) {
+// 			e.printStackTrace();
+// 		} catch (InvalidKeyException e) {
+// 			e.printStackTrace();
+// 		}
+// 		return null;
+//     }
   	
   	
 //  public MemberSMSController() { // Parameter specified as non-null is null 오류 (Kotlin에서 null인 값이 들어올 경우의 처리를 안 해줘서 발생하는 오류라고 함)

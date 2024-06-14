@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.common.chat.model.dao.ChatDao;
 import com.kh.mng.common.chat.model.dto.ChatInfo;
+import com.kh.mng.common.chat.model.dto.UserMaster;
 import com.kh.mng.common.chat.model.vo.Chat;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
@@ -52,9 +53,9 @@ public class ChatService {
 		return chatDao.selectUserInfo(sqlSession,locationNo);
 	}
 
-	public ArrayList<Chat> selectChats(int userNo) {
+	public ArrayList<Chat> selectUserChats(UserMaster userMasterInfo) {
 	
-		return chatDao.selectChats(sqlSession,userNo);
+		return chatDao.selectUserChats(sqlSession,userMasterInfo);
 	}
 	
 	

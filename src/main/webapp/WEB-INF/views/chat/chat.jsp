@@ -20,7 +20,7 @@
 
 
 			 <c:if test="${!master.equals('NNNNN')}">
-
+				<input id="master-id" type="text" value="${loginUser.userNo}" hidden>
 				<div class="chat-list">
 					<div class="title t">채팅문의</div>
 					<div class="over-flow">
@@ -254,66 +254,43 @@
 
 					<!--#########-->
 					<!--채팅내용 (비동기처리)-->
-					<div  id="MasterMsg" class="chat-chatting">
-
-						<!--사장님-->
-						<div class="send-master">
-							<div class="master-profile">
-								<div class="img-div">
-									<img src="resources/img/tori.jpg">
-								</div>
-								<div class="master-name title">사장님</div>
-							</div>
-							<div  class="content master-content master-color">
-								<div><%for (int i=1; i<10; i++) {%>
-										내용내용	내용내용	내용내용	내용내용
-							    <%}%></div>
-								<div class="time">20:16</div>
-							</div>
-						</div>
-
-
-						<!--유저-->
-						<div class="send-user">
-							<div class="content  user-content user-color">
-								<div>내용내용내용</div>
-							 <div class="time">20:16</div>
-							</div>
-						</div>
-
-
-						<!--유저-->
-						<div class="send-user">
-							<div class="content  user-content user-color">
-								<div>
-									<%for(int i=1; i<20; i++){%>
-									내용내용	내용내용	내용내용	내용내용
-									<%}%>
-								</div>
-								<div class="time">20:16</div>
-							</div>
-							
-						</div>
-
-
-
-
-						<!--사장님-->
-						<div class="send-master">
-							<div class="master-profile">
-								<div class="img-div">
-									<img src="resources/img/tori.jpg">
-								</div>
-								<div class="master-name title">사장님</div>
-							</div>
-							<div class="content master-color">
-								<div>내용내용	내용내용	내용내용	내용내용</div>
-								<div class="time">20:16</div>
-							</div>
-						</div>
-           
+					<div  id="chatMsg" class="chat-chatting">
 						
+						<c:forEach var="chat" items="${chats}">
+
+						<c:choose>
+							<c:when test="${chat.userNo eq masterInfo.masterNo}">
+								<!--사장님-->
+								<div class="send-master">
+									<div class="master-profile">
+										<div class="img-div">
+											<img src="resources/img/tori.jpg">
+										</div>
+										<div class="master-name title">사장님</div>
+									</div>
+									<div  class="content master-content master-color">
+										<div>${chat.message}</div>
+										<div class="time">${chat.enrollTime}</div>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+
+								<!--유저-->
+								<div class="send-user">
+									<div class="content  user-content user-color">
+										<div>${chat.message}</div>
+									<div class="time">${chat.enrollTime}</div>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						  
+					</c:forEach>
 					</div>
+
+
+
 					<!--#########-->
 
 

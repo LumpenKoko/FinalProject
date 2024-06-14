@@ -20,6 +20,7 @@ import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.BoardReply;
 import com.kh.mng.community.model.vo.BoardReplyReply;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.community.model.vo.ShortsInfo;
 import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 
@@ -27,6 +28,8 @@ import com.kh.mng.community.model.vo.TotalShortsInfo;
 public class CommunityDao {
 	
 	public TotalShortsInfo getVideoInfo(SqlSessionTemplate sqlSession, int videoId) {
+		TotalShortsInfo si = sqlSession.selectOne("shortsMapper.getVideoInfo", videoId);
+		System.out.println("service" + si);
 		return sqlSession.selectOne("shortsMapper.getVideoInfo", videoId);
 	}
 	

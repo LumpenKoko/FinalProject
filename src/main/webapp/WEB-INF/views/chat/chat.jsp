@@ -24,6 +24,33 @@
 				<div class="chat-list">
 					<div class="title t">채팅문의</div>
 					<div class="over-flow">
+
+                        <c:forEach var="userList" items="${chatUserList}">
+                            
+							<div  id="chatRoom${userList.userNo}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${userList.userNo}')">
+								<div class="profile-area">
+									<div class="img-div">
+										<img src="resources/img/tori.jpg">
+									</div>
+									<div class="profile-list">
+										<input id="userId${userList.userNo}" type="text"  value="${userList.userNickName}" hidden>
+										<input id="userNo${userList.userNo}" type="text"  value="${userList.userNo}" hidden>
+										<div class="title">토리형</div>
+										<div class="content">넵 감사합니다.</div>
+									</div>
+								</div>
+								
+								<div  class="notice">
+									<div class="date">오후 12:34</div>
+									<div class="notify">1</div>
+								</div>
+							</div>
+
+
+
+						</c:forEach>
+
+
 					  
 						<c:set var="item" value="0"></c:set>
 							<div  id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${item}')">
@@ -33,6 +60,7 @@
 									</div>
 									<div class="profile-list">
 										<input id="userId${item}" type="text"  value="toribro3761" hidden>
+										<input id="userNo${item}" type="text"  value="1" hidden>
 										<div class="title">토리형</div>
 										<div class="content">넵 감사합니다.</div>
 									</div>
@@ -53,6 +81,7 @@
 									</div>
 									<div class="profile-list">
 										<input id="userId${item}" type="text"  value="toribro12345" hidden>
+										<input id="userNo${item}" type="text"  value="1" hidden>
 										<div class="title">tori12345</div>
 										<div class="content">넵 감사합니다.</div>
 									</div>
@@ -192,7 +221,9 @@
 			  </c:if>
 
 			  <c:if test="${master.equals('NNNNN')}">
-			  	  <input id="masterId" type="text" value="${masterId}" hidden>
+			  	  <input id="masterId" type="text" value="${masterInfo.masterId}" hidden>
+				  <input id="masterNo" type="text" value="${masterInfo.masterNo}" hidden>
+				  <input id="roomNo" type="text" value="2" hidden>
 			  </c:if>
 
 			  

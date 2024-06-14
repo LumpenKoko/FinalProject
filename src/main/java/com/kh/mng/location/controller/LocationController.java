@@ -27,6 +27,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kh.mng.common.chat.model.vo.Chat;
+import com.kh.mng.common.chat.model.vo.MasterInfo;
+import com.kh.mng.common.chat.model.vo.UserInfo;
+import com.kh.mng.common.chat.service.ChatService;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
@@ -48,8 +52,9 @@ import com.kh.mng.location.model.vo.DetailLocation;
 @Controller
 @Slf4j
 public class LocationController {
-	@Autowired 
-	private LocationService detailService;
+
+	private final LocationService detailService;
+	private final ChatService chatService;
 	
 	
 //	@GetMapping("/chat")
@@ -65,6 +70,13 @@ public class LocationController {
 //		model.addAttribute("entityId", masterId);
 //		return "chat/chat";
 //	}
+	
+	
+	@Autowired 
+	public  LocationController(LocationService detailService,ChatService chatService) {
+		this.detailService=detailService;
+		this.chatService=chatService;
+	}
 
 	
 	@GetMapping("/detail")
@@ -371,8 +383,17 @@ public class LocationController {
 		//접속 유저가 사장님이면?
 		if(check.equals("Y")) {
 			
+			
+			//채팅 데이터베이스에 유저 목록 가져오기 (자기자신 빼고) status true인 상태인 유저만 가져오기 
+			ArrayList<Chat> chats=chatService.selectChats(loginUser.getUserNo());
+			ArrayList<UserInfo> userInfo= chatService.selectUserInfo(locationNo);
+			
 			//사장님이라는 것을 알려줄수있는 표시
 			model.addAttribute("master","YMYMYMMYYY");
+			model.addAttribute("chats",chats);
+			model.addAttribute("chatUserList",userInfo);
+			
+			
 		}
 		//접속유저가 일반 회원이면
 		else {
@@ -383,15 +404,15 @@ public class LocationController {
 			
 			
 			//사장님아이디찾기
-			String masterId= detailService.getMasterId(locationNo);
+			MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
 			model.addAttribute("master","NNNNN");
-			model.addAttribute("masterId",masterId);
+			model.addAttribute("masterInfo",masterInfo);
 			
 			
 			//나중에 나가기누르면 데이터베이스에서 지워주기 
 		}
 		
-		//채팅 데이터베이스에 유저 목록 가져오기 (닉네임과 아이디 가져오면 될것 같다.)
+	
 		
 		 return "chat/chat";
 	}

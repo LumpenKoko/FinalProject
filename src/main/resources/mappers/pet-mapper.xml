@@ -55,4 +55,9 @@
 		#{petSizeNo}
 		)
 	</insert>
+	
+	<delete id="deletePet">
+		DELETE FROM PET
+		WHERE PET_NO = #{petNo}
+	</delete>
 </mapper>

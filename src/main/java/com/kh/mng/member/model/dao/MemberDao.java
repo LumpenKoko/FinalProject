@@ -1,9 +1,13 @@
 package com.kh.mng.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.Picked;
+import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
 
 @Repository
@@ -39,5 +43,21 @@ public class MemberDao {
 
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	
+	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("memberMapper.deleteMember", userNo);
+	}
+	
+	public List<Picked> getPickList(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectList("picked.getPickList", userNo);
+	}
+	
+	public List<Location> getLocationList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("location.getLocationList");
+	}
+	
+	public int wishListDelete(SqlSessionTemplate sqlSession, WishListNo wishListNo) {
+		return sqlSession.delete("picked.pickedDelete", wishListNo);
 	}
 }

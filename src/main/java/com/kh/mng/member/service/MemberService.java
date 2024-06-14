@@ -1,6 +1,10 @@
 package com.kh.mng.member.service;
 
+import java.util.List;
+
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.Picked;
+import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
 
 public interface MemberService {
@@ -19,4 +23,16 @@ public interface MemberService {
 	
 	// 개인정보 수정
 	int updateMember(Member m);
+	
+	// 회원 탈퇴
+	int deleteMember(int userNo);
+	
+	// 공감 목록 불러오기
+	List<Picked> getPickList(int userNo);
+	
+	List<Location> getLocationList();
+	
+	// 공감 목록 삭제
+	int wishListDelete(WishListNo wishListNo);
+	
 }

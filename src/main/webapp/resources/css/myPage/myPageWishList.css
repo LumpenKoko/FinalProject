@@ -224,7 +224,7 @@
     float: left;
 }
 
-#wishIcon {
+.wishIcon {
     font-size: 23px;
     font-weight: bold;
     margin-right: 10px;

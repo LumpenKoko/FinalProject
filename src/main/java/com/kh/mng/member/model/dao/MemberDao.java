@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -53,7 +54,7 @@ public class MemberDao {
 		return sqlSession.selectList("picked.getPickList", userNo);
 	}
 	
-	public List<Location> getLocationList(SqlSessionTemplate sqlSession) {
+	public List<BossLocation> getLocationList(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectList("location.getLocationList");
 	}
 	

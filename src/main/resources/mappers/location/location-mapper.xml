@@ -177,10 +177,13 @@
    				ADDRESS,
    				ENROLL_DATE,
    				MODIFY_DATE,
-   				LOCATION_CATEGORY_NO
-   				FROM LOCATION
-   	</select>
-  
+
+   				CATEGORY_NAME
+   				FROM LOCATION L
+                JOIN LOCATION_CATEGORY C 
+                ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
+   </select>
+
 
 
  	</mapper>

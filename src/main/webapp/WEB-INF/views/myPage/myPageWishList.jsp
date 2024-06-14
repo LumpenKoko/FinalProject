@@ -88,29 +88,7 @@
                                                 onclick="location.href='<%=request.getContextPath()%>/detail'"
                                                 style="cursor: pointer;">
                                                 <span id="category1">분류</span>
-                                                <c:choose>
-                                                    <c:when test="${wish.locationCategoryNo == 1}">
-                                                        <span id="category2">기타</span>
-                                                    </c:when>
-                                                    <c:when test="${wish.locationCategoryNo == 2}">
-                                                        <span id="category2">식당</span>
-                                                    </c:when>
-                                                    <c:when test="${wish.locationCategoryNo == 3}">
-                                                        <span id="category2">카페</span>
-                                                    </c:when>
-                                                    <c:when test="${wish.locationCategoryNo == 4}">
-                                                        <span id="category2">숙소</span>
-                                                    </c:when>
-                                                    <c:when test="${wish.locationCategoryNo == 5}">
-                                                        <span id="category2">행사</span>
-                                                    </c:when>
-                                                    <c:when test="${wish.locationCategoryNo == 6}">
-                                                        <span id="category2">테마파크</span>
-                                                    </c:when>
-                                                    <c:when test="${wish.locationCategoryNo == 7}">
-                                                        <span id="category2">병원</span>
-                                                    </c:when>
-                                                </c:choose>
+                                                <span id="category2">${wish.locationCategoryNo}</span>
                                             </div>
                                             <div id="score"
                                                 onclick="location.href='<%=request.getContextPath()%>/detail'"

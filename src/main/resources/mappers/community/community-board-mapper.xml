@@ -295,5 +295,21 @@
 	  
 	  
    
+    <select id="getBoardList" resultMap="selectBoards">
+  		        SELECT
+					B.BOARD_NO,
+					B.BOARD_TITLE,
+					B.BOARD_CONTENT,
+					B.COUNT,
+					B.BOARD_CATEGORY_NO,
+					B.CREATE_DATE,
+					C.CATEGORY_NAME
+					FROM BOARD B
+					JOIN BOARD_CATEGORY C
+					ON (B.BOARD_CATEGORY_NO = C.BOARD_CATEGORY_NO)
+		         WHERE USER_NO = #{userNo}
+		         AND STATUS = true
+		         ORDER BY CREATE_DATE ASC
+	</select>
    
   </mapper>

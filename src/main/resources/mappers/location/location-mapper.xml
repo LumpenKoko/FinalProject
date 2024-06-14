@@ -138,7 +138,19 @@
                 AND USER_NO = #{userNo}
     </update>
    
-   
+      <select id="getLocationList" resultMap="bossLocationResult">
+   		SELECT LOCATION_NO,
+   				LOCATION_NAME,
+   				LOCATION_PHONE,
+   				LOCATION_STAR,
+   				RESERVATION_LINK,
+   				BUSINESS_NO,
+   				ADDRESS,
+   				ENROLL_DATE,
+   				MODIFY_DATE,
+   				LOCATION_CATEGORY_NO
+   				FROM LOCATION
+   </select>
   
 
  	</mapper>

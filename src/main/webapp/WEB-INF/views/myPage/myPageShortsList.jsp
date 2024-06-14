@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPageShortsList.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="resources/js/myPage/myPageShorts.js"></script>
     </head>
 
     <body>
@@ -39,7 +40,7 @@
                                 <div id="mainList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰</div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록</div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록</div>
                                 <div id="boardList"
@@ -59,9 +60,9 @@
                     <div id="right">
                         <div id="main_main_right">
                             <div id="right1">
-                                <span onclick="location.href='/myPageBoard.mp'" id="board">게시글</span>
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'" id="board">게시글</span>
                                 <span>&nbsp;/&nbsp;</span>
-                                <span onclick="location.href='/myPageShorts.mp'" id="shortsList">쇼츠</span>
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'" id="shortsList">쇼츠</span>
                             </div>
                             <div id="right2"
                                 style="background-size:cover; background-image: url(resources/img/myPage/board.png);">
@@ -79,31 +80,6 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                document.getElementById('fileInput').addEventListener('change', function () {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-                    }
-
-                    reader.readAsDataURL(file);
-                });
-
-                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
-
-                // 반려동물 이름을 표시할 요소
-                var petNamesElement = document.getElementById("petNames");
-
-                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
-                for (var i = 0; i < petNames.length; i++) {
-                    var petNameElement = document.createElement("p");
-                    petNameElement.textContent = petNames[i];
-                    petNamesElement.appendChild(petNameElement);
-                }
-            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

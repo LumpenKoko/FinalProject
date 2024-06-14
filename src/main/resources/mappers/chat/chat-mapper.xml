@@ -22,10 +22,10 @@
    </resultMap>
    
       <resultMap type="UserInfo" id="userInfo">
-   	  <result column="USER_NO" property="userNo"/>
-   	  <result column="USER_ID" property="userId"/>
-   	  <result column="USER_NICKNAME" property="userNickName"/>
-   </resultMap>
+	   	  <result column="USER_NO" property="userNo"/>
+	   	  <result column="USER_ID" property="userId"/>
+	   	  <result column="USER_NICKNAME" property="userNickName"/>
+  	   </resultMap>
   
      <insert id="insertChatRoom">
      		INSERT INTO 
@@ -86,17 +86,17 @@
     		   USER_NO,
     		   TARGET_ID
     		   FROM CHAT
-    		   WHERE USER_NO != #{USER_NO}
+    		   WHERE USER_NO != #{userNo}
     
     </select>
     
     <select id="selectUserInfo" resultMap="userInfo">
     	SELECT  distinct 
-    			USER_ID, 
+    			USER_ID,
     			USER_NICKNAME ,
     			USER_NO
     			from chat
-    			WHERE USER_NO != #{USER_NO}
+    			WHERE USER_NO != #{userNo}
     			AND STATUS = TRUE
     
     </select>

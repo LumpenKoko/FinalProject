@@ -78,6 +78,7 @@ public class ChatServer extends TextWebSocketHandler {
 		Member loginUser = (Member)session.getAttributes().get("loginUser");
 		String nickName=loginUser.getUserNickname();
 		String userId=loginUser.getUserId();
+		int userNo=loginUser.getUserNo();
 		
 		//메세지 db연결...
 		JsonObject obj = new JsonParser().parse(message.getPayload()).getAsJsonObject();
@@ -115,7 +116,7 @@ public class ChatServer extends TextWebSocketHandler {
 		vo.setNick(nickName);
 		vo.setId(userId);
 		vo.setTime(new Date().toLocaleString());
-		
+		vo.setUserNo(userNo);
 		log.info("msg:{}",vo);
 		//다른 사용자에게 메세지 전송
 		sendMessageUser(target,vo);

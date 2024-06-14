@@ -33,10 +33,10 @@
 										<img src="resources/img/tori.jpg">
 									</div>
 									<div class="profile-list">
-										<input id="userId${userList.userNo}" type="text"  value="${userList.userNickName}" hidden>
+										<input id="userId${userList.userNo}" type="text"  value="${userList.userId}" hidden>
 										<input id="userNo${userList.userNo}" type="text"  value="${userList.userNo}" hidden>
-										<div class="title">토리형</div>
-										<div class="content">넵 감사합니다.</div>
+										<div class="title">${userList.userNickName}</div>
+										<div class="content">${userList.message}</div>
 									</div>
 								</div>
 								
@@ -232,6 +232,16 @@
 
 				<!--채팅영역-->
 				<div class="chat-content">
+					<!--사장일때-->
+
+					<c:if test="${!master.equals('NNNNN')}">
+						<input  id="userKey" type="text" hidden>
+				   </c:if>
+					<!--유저일때-->
+					<c:if test="${master.equals('NNNNN')}">
+						<input  id="userKey" type="text" value="${masterInfo.masterNo}" hidden>
+				   </c:if>
+
 					<div class="profile-box">
 						<div class="hide-button">
 							<div class="title">&lt;</div>
@@ -239,7 +249,7 @@
 						<div class="img-div">
 							<img src="resources/img/tori.jpg">
 						</div>
-						<div class="title">토리형</div>
+						<div class="title">${userList.userNickName}</div>
 					</div>
 
 					<!--#########-->

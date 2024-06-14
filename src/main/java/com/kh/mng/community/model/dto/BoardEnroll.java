@@ -12,7 +12,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BoardEnroll {
-	private String boardCategoryNo;
+	private int boardNo;
+	private int boardCategoryNo;
 	private String boardTitle;
 	private String boardContent;
 	private int userNo;

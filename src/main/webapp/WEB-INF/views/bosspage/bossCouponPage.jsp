@@ -71,7 +71,7 @@
             
                     <!-- 쿠폰 추가 등록 (초기에는 숨겨짐) -->
                     <form action="<%=contextPath%>/insertCoupon.bc">
-                    <tr class="coupon-content new-coupon-form" style="display:none;">
+                        <tr class="coupon-content new-coupon-form" style="display:none; border-bottom: none;">
                             <input type="text" name="loginUserNo" value="${loginUser.userNo}" style="display: none;">
                             <!-- 쿠폰명 30글자 제한 필요 -->
                             <td class="coupon-title">
@@ -85,9 +85,9 @@
                                 <button type="submit" class="insert-button common-button pink-button">확인</button>
                                 <button type="button" class="common-button white-button" onclick="removeCouponForm(this)">취소</button>
                             </td>
-                        </form>
-                    </tr>
-            
+                        </tr>
+                    </form>
+
                     <!-- 쿠폰 추가 버튼 -->
                     <tr id="coupon-regist">
                         <td colspan="4">

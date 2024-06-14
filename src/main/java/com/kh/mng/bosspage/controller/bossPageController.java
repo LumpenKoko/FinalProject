@@ -1,6 +1,7 @@
 package com.kh.mng.bosspage.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
+import com.kh.mng.bosspage.model.vo.LocationOperationTime;
 import com.kh.mng.bosspage.service.BossPageService;
 import com.kh.mng.member.model.vo.Member;
 
@@ -181,24 +183,32 @@ public class bossPageController {
 	// 장소 정보 업데이트
     @ResponseBody
     @PostMapping(value = "/saveLocationInfo.bm", produces = "application/json; charset=UTF-8")
-    public Map<String, Object> saveLocationInfo(@RequestBody BossLocation locationInfo, HttpSession session) {
+    public Map<String, Object> saveLocationInfo(@RequestBody Map<String, Object> payload, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             int userNo = loginUser.getUserNo();
-            locationInfo.setUserNo(userNo);  // 변경: put에서 setUserNo로 변경
+            
+            // 장소 정보 업데이트
+            BossLocation locationInfo = new BossLocation();
+            locationInfo.setUserNo(userNo);
+            locationInfo.setLocationPhone((String) payload.get("locationPhone"));
+            locationInfo.setExplanation((String) payload.get("explanation"));
+            locationInfo.setReservationLink((String) payload.get("reservationLink"));
             
             // DB에 해당 userNo의 데이터가 있는지 확인
             BossLocation existingLocation = bossPageService.getLocationInfo(userNo);
             int result;
             if (existingLocation != null) {
-                // 업데이트
                 result = bossPageService.updateLocationInfo(locationInfo);
             } else {
-                // 저장
                 result = bossPageService.saveLocationInfo(locationInfo);
             }
+
+            // 운영시간 저장
+            List<LocationOperationTime> operationTimes = (List<LocationOperationTime>) payload.get("operationTimes");
+            bossPageService.saveOperationTimes(locationInfo.getLocationNo(), operationTimes);
 
             if (result > 0) {
                 response.put("message", "장소정보 업데이트를 완료하였습니다.");
@@ -215,24 +225,21 @@ public class bossPageController {
     }
 
     // 장소 정보 로드
-	@ResponseBody
+    @ResponseBody
     @GetMapping(value = "/getLocationInfo.bm", produces = "application/json; charset=UTF-8")
     public Map<String, Object> getLocationInfo(HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             int userNo = loginUser.getUserNo();
-            int locationNo = loginUser.getUserNo();
-            
             BossLocation location = bossPageService.getLocationInfo(userNo);
-//            BossLocationOption locationOption = bossPageService.getLocationOption(locationNo);
             if (location != null) {
                 response.put("locationPhone", location.getLocationPhone());
                 response.put("explanation", location.getExplanation());
                 response.put("reservationLink", location.getReservationLink());
-//                response.put("goods", locationOption.getLocationOptionNo());
-//                response.put("goodPrice", locationOption.getLocationOptionNo());
-                // 다른 필요한 필드 추가
+                
+                List<LocationOperationTime> operationTimes = bossPageService.getOperationTimes(location.getLocationNo());
+                response.put("operationTimes", operationTimes);
             }
         } else {
             response.put("message", "로그인이 필요합니다.");

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
@@ -66,11 +67,11 @@ public class myPage {
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Picked> pickList = memberService.getPickList(userNo);
-			List<Location> locationList = memberService.getLocationList();
+			List<BossLocation> locationList = memberService.getLocationList();
 
-			List<Location> wishList = new ArrayList<>();
+			List<BossLocation> wishList = new ArrayList<>();
 			for (Picked picked : pickList) {
-				for (Location location : locationList) {
+				for (BossLocation location : locationList) {
 					if (picked.getLocationNo() == location.getLocationNo()) {
 						wishList.add(location);
 					}
@@ -98,9 +99,9 @@ public class myPage {
 	public String wishListDelete(@RequestParam int locationNo, HttpSession session) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
-		 List<Location> wishList = (List<Location>) session.getAttribute("wishList");
-		 Location deleteList = null;
-		for (Location location : wishList) {
+		 List<BossLocation> wishList = (List<BossLocation>) session.getAttribute("wishList");
+		 BossLocation deleteList = null;
+		for (BossLocation location : wishList) {
 			if(location.getLocationNo() == locationNo) {
 				deleteList = location;
 				break;

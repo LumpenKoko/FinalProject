@@ -384,3 +384,40 @@
     background-color: white;
     height: 140px;
 }
+
+.profile-pic {
+    width: 50px; /* 원의 너비 */
+    height: 50px; /* 원의 높이 */
+    border-radius: 50%; /* 원형으로 만들기 */
+    overflow: hidden; /* 이미지가 원 밖으로 나가지 않도록 하기 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 원 안에 맞게 조정 */
+}
+
+.comment-container {
+    display: flex;
+    margin-bottom: 10px; /* 댓글 간의 여백 */
+}
+
+.comment-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 텍스트를 수직 중앙 정렬 */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+    word-break: break-all;
+}
+
+.white-pont{
+    color: white;
+}

@@ -2,6 +2,7 @@ package com.kh.mng.member.service;
 
 import java.util.List;
 
+import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -30,7 +31,7 @@ public interface MemberService {
 	// 공감 목록 불러오기
 	List<Picked> getPickList(int userNo);
 	
-	List<Location> getLocationList();
+	List<BossLocation> getLocationList();
 	
 	// 공감 목록 삭제
 	int wishListDelete(WishListNo wishListNo);

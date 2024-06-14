@@ -20,11 +20,21 @@ function saveLocationInfo() {
     const reservationLink = document.getElementById("reservation-link-input").value;
     const userNo = $("#userNo").val(); // userNo 가져오기 (필요 시 추가)
 
+    const operationTimes = [];
+    document.querySelectorAll('.operating-hours').forEach(element => {
+        const day = element.querySelector('p').innerText;
+        const startTime = element.querySelector('.open-time').value;
+        const endTime = element.querySelector('.close-time').value;
+        const restStatus = element.querySelector('input[name="휴무"]').checked;
+        operationTimes.push({ day, startTime, endTime, restStatus });
+    });
+
     const locationInfo = {
         locationPhone: locationPhone,
         explanation: explanation,
         reservationLink: reservationLink,
-        userNo: userNo
+        userNo: userNo,
+        operationTimes: operationTimes
     };
     
     $.ajax({

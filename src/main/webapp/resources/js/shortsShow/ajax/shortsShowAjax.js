@@ -14,7 +14,7 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
             console.log(replyList);
 
             if (replyList.length === 0) {
-                const newComment = $('<div class="tmp-box no-reply"></div>').text("아직 댓글이 없어요ㅠㅠ");
+                const newComment = $('<div class="no-reply"></div>').text("아직 댓글이 없어요ㅠㅠ");
                 $('#comments-list' + num).append(newComment);
             } else {
                 $('#comments-list' + num).empty();
@@ -24,7 +24,7 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
                     // 프로필 사진을 담는 div
                     const profilePicDiv = $('<div class="profile-pic"></div>');
                     const profilePicImg = $('<img class="profile-img">');
-                    profilePicImg.attr('src', replyList[i].profileFilePath + replyList[i].profileChangeName);
+                    profilePicImg.attr('src', replyList[i].filePath + replyList[i].changeName);
                     profilePicDiv.append(profilePicImg);
                     newCommentContainer.append(profilePicDiv);
 
@@ -33,11 +33,6 @@ $(document).on('click', '[id^="show-reply-btn"]', function () {
                     newCommentContainer.append(commentInfoDiv);
 
                     $('#comments-list' + num).append(newCommentContainer);
-                    /*
-                    예전 코드 백업
-                    const newComment = $('<div class="tmp-box"></div>').text(replyList[i].userNickname + " : " + replyList[i].replyContent + " - " + replyList[i].enrollDate);
-                    $('#comments-list' + num).append(newComment);
-                    */
                 }
             }
         },
@@ -79,19 +74,18 @@ $(document).on('click', '[id^="submit-comment"]', function () {
         dataType : "json",
         success: function (response) {
             const reply = response;
-            const newComment = $('<div class="tmp-box"></div>').text(reply.userNickname + " : " + reply.replyContent + " - " + reply.enrollDate);
+            console.log(reply);
             
             if ($('#comments-list' + num).find('.no-reply').length > 0) {
                 $('#comments-list' + num).empty();
             }
 
-            // $('#comments-list' + num).prepend(newComment); // 이 부분만 이미지 들어가게 수정
             const newCommentContainer = $('<div class="comment-container"></div>');
 
             // 프로필 사진을 담는 div
             const profilePicDiv = $('<div class="profile-pic"></div>');
             const profilePicImg = $('<img class="profile-img">');
-            profilePicImg.attr('src', reply.profileFilePath + reply.profileChangeName);
+            profilePicImg.attr('src', reply.filePath + reply.changeName);
             profilePicDiv.append(profilePicImg);
             newCommentContainer.append(profilePicDiv);
 
@@ -119,7 +113,8 @@ function loadVideo(num) {
             videoId: num
         },
         success: function (response) {
-            const totalShortsInfo = JSON.parse(response);
+            const totalShortsInfo = response;
+            console.log(totalShortsInfo);
 
             const videoContainer = document.getElementById('video-container' + num);
             videoContainer.innerHTML = `
@@ -134,6 +129,17 @@ function loadVideo(num) {
                 videoElement.currentTime = 0;
                 videoElement.play();
             });
+
+            const likeCountSection = document.getElementById('thumbnail-like-count' + num);
+            likeCountSection.innerHTML = totalShortsInfo.likeCount;
+            const rePlyCountSection = document.getElementById('thumbnail-reply-count' + num);
+            rePlyCountSection.innerHTML = totalShortsInfo.replyCount;
+            const nicknameSection = document.getElementById('thumbnail-nickname' + num);
+            nicknameSection.innerHTML = totalShortsInfo.userNickname;
+            const contentSection = document.getElementById('thumbnail-content' + num);
+            contentSection.innerHTML = totalShortsInfo.shortsContent;
+            const enrollDateSection = document.getElementById('thumbnail-enroll-date' + num);
+            enrollDateSection.innerHTML = totalShortsInfo.enrollDate;
         },
         error: function () {
             console.log("동영상 로드 실패");

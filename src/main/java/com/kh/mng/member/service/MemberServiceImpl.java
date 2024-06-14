@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
@@ -78,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Location> getLocationList() {
+	public List<BossLocation> getLocationList() {
 		return memberDao.getLocationList(sqlSession);
 	}
 

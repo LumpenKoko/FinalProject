@@ -48,23 +48,26 @@ function openChatRoom(roomNo,targetId,targetNo){
         const recevie =JSON.parse(ev.data);
         console.log(recevie);
 
-        
+        console.log("check:",recevie.userNo)
+        console.log("check1",document.querySelector("#userKey").value)
+        if(recevie.userNo===parseInt(document.querySelector("#userKey").value)){
+         
 
-        msgContainer.innerHTML+=`
-               <div class="send-master">
-							<div class="master-profile">
-								<div class="img-div">
-									<img src="resources/img/tori.jpg">
-								</div>
-								<div class="master-name title">${recevie.nick}</div>
-							</div>
-							<div class="content master-content master-color">
-                                    <div> ${recevie.msg} </div>
-								<div class="time">${now.getHours()}:${now.getMinutes()}</div>
-							</div>
-					</div>
-         `
-        
+            msgContainer.innerHTML+=`
+                <div class="send-master">
+                                <div class="master-profile">
+                                    <div class="img-div">
+                                        <img src="resources/img/tori.jpg">
+                                    </div>
+                                    <div class="master-name title">${recevie.nick}</div>
+                                </div>
+                                <div class="content master-content master-color">
+                                        <div> ${recevie.msg} </div>
+                                    <div class="time">${now.getHours()}:${now.getMinutes()}</div>
+                                </div>
+                        </div>
+            `
+        }
     }
 
     sendButton.onclick=function(){
@@ -79,17 +82,25 @@ function openChatRoom(roomNo,targetId,targetNo){
         console.log(msgData)
         socket.send(JSON.stringify(msgData));
       
-        msgContainer.innerHTML+=`
-                 <div class="send-user">
-                            <div>To:${targetId}</div>
-							<div class="content  user-content user-color">
-								<div>${sendMsg.value}</div>
-							 <div class="time">${now.getHours()}:${now.getMinutes()}</div>
-							</div>
-						</div>
-        
-        `
-       sendMsg.value=""
+        //유저 넘버에따라서 출력하기?
+        //특정 유저 메세지만 출력해주기
+        // 클릭했을때 키값을 넘기면 된다.  
+
+       
+            msgContainer.innerHTML+=`
+            <div class="send-user">
+                       <div>To:${targetId}</div>
+                       <div class="content  user-content user-color">
+                           <div>${sendMsg.value}</div>
+                        <div class="time">${now.getHours()}:${now.getMinutes()}</div>
+                       </div>
+                   </div>
+   
+             `
+             sendMsg.value=""
+
+    
+
 
 
     }
@@ -101,6 +112,8 @@ function openChatRoom(roomNo,targetId,targetNo){
 
 //채팅방 선택(현재 내가 사장일때)
 function chooseChatRoom(roomNo,id){
+ //선택시 채팅 목록에 유저 넘어 키값 부여하기?
+ document.querySelector("#userKey").value=id;
 
 
   alert("채팅방에 연결되었습니다.")

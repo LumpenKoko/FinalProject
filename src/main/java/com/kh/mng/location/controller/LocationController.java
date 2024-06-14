@@ -386,12 +386,18 @@ public class LocationController {
 			
 			//채팅 데이터베이스에 유저 목록 가져오기 (자기자신 빼고) status true인 상태인 유저만 가져오기 
 			ArrayList<Chat> chats=chatService.selectChats(loginUser.getUserNo());
+			
+			
 			ArrayList<UserInfo> userInfo= chatService.selectUserInfo(locationNo);
+			
+			
+			
 			
 			//사장님이라는 것을 알려줄수있는 표시
 			model.addAttribute("master","YMYMYMMYYY");
 			model.addAttribute("chats",chats);
 			model.addAttribute("chatUserList",userInfo);
+			
 			
 			
 		}
@@ -408,8 +414,9 @@ public class LocationController {
 			model.addAttribute("master","NNNNN");
 			model.addAttribute("masterInfo",masterInfo);
 			
+			//채팅 목록 가져오기
 			
-			//나중에 나가기누르면 데이터베이스에서 지워주기 
+			
 		}
 		
 	

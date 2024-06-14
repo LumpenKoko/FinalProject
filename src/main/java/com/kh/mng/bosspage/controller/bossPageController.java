@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
@@ -259,14 +260,5 @@ public class bossPageController {
 		return "bosspage/bossCouponPage";
 	}
 
-	@RequestMapping(value = "chatPage.cp")
-	public String chatPage(Model model,HttpSession session) {
-		Member connectedMaster =((Member)session.getAttribute("loginUser"));
-		
-		session.setAttribute("connectedMaster", connectedMaster);
-		//String userId=((Member)session.getAttribute("connectedMaster")).getUserId();
-		
-		model.addAttribute("entityId","NNNNN");			
-		return "chat/chat";
-	}
+
 }

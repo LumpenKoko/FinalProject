@@ -52,19 +52,19 @@ public class LocationController {
 	private LocationService detailService;
 	
 	
-	@GetMapping("/chat")
-	public String ChatList(int locationNo,Model model,HttpSession session) {
-		log.info("{}",locationNo);
-		
-		Member connectedUser =((Member)session.getAttribute("loginUser"));
-		session.setAttribute("connectedUser", connectedUser);
-		
-		//사장님 아이디 가져오기 
-    	String masterId= detailService.getMasterId(locationNo);
-    	log.info(masterId);
-		model.addAttribute("entityId", masterId);
-		return "chat/chat";
-	}
+//	@GetMapping("/chat")
+//	public String ChatList(int locationNo,Model model,HttpSession session) {
+//		log.info("{}",locationNo);
+//		
+//		Member connectedUser =((Member)session.getAttribute("loginUser"));
+//		session.setAttribute("connectedUser", connectedUser);
+//		
+//		//사장님 아이디 가져오기 
+//    	String masterId= detailService.getMasterId(locationNo);
+//    	log.info(masterId);
+//		model.addAttribute("entityId", masterId);
+//		return "chat/chat";
+//	}
 
 	
 	@GetMapping("/detail")
@@ -358,6 +358,43 @@ public class LocationController {
 //		//return new Gson().toJson(pageReview);
 //		return new Gson().toJson(reivewPage);
 //	}
+	
+	
+	@RequestMapping(value = "chatPage.cp")
+	public String chatPage(@RequestParam(value="locationNo",defaultValue="1") int locationNo,  Model model,HttpSession session) {
+		
+		Member loginUser =((Member)session.getAttribute("loginUser"));
+		log.info("loginUser:{}",loginUser.getUserId());;
+		
+		String check=loginUser.getUserKind();
+		log.info("userKind:{}",check);
+		//접속 유저가 사장님이면?
+		if(check.equals("Y")) {
+			
+			//사장님이라는 것을 알려줄수있는 표시
+			model.addAttribute("master","YMYMYMMYYY");
+		}
+		//접속유저가 일반 회원이면
+		else {
+			
+			//데이터베이스에 채팅방 만들고 유저 참여시키기 
+			//사장님 페이지에서 실시간?으로 유저 참여 목록 업데이트 시키키??
+		
+			
+			
+			//사장님아이디찾기
+			String masterId= detailService.getMasterId(locationNo);
+			model.addAttribute("master","NNNNN");
+			model.addAttribute("masterId",masterId);
+			
+			
+			//나중에 나가기누르면 데이터베이스에서 지워주기 
+		}
+		
+		//채팅 데이터베이스에 유저 목록 가져오기 (닉네임과 아이디 가져오면 될것 같다.)
+		
+		 return "chat/chat";
+	}
 	
 	
 	//로그인 정보 가져오기-->실패

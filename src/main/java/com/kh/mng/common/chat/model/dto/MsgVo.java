@@ -1,4 +1,4 @@
-package com.kh.mng.common.chat;
+package com.kh.mng.common.chat.model.dto;
 
 
 

@@ -1,16 +1,31 @@
+let contextPath=""
 
-function init(contextPath,targetId){
-    if(targetId==="NNNNN"){
-        targetId="toribro3761";
+
+function init(path,masterKind){
+    // if(targetId==="NNNNN"){
+    //     targetId="toribro12345";
+    //     //userId
+    // }
+    contextPath=path
+
+
+    //유저가 일반 유저면 사장님 target가져오고 바로 웹소켓(채팅방 열기)
+    if(masterKind==='NNNNN'){
+       targetId=document.querySelector("#masterId").value
+      // roomNo=document.querySelector("#roomNo").value
+       console.log("masterId",targetId)
+       openChatRoom(1,targetId)
     }
+}
 
+function openChatRoom(roomNo,targetId){
 
+   
     let sendButton = document.querySelector("#send-button");
     let msgContainer = document.querySelector("#MasterMsg");
 
     const socket = new WebSocket(contextPath+"/server");
-  
-
+   
 
     socket.onopen=function(){
         console.log("웹소켓 연결 성공..");
@@ -56,13 +71,15 @@ function init(contextPath,targetId){
         const now = new Date();	
         const msgData = {
             message:sendMsg.value,
-            target:targetId
+            target:targetId,
+            roomNo:roomNo
         }
         console.log(msgData)
         socket.send(JSON.stringify(msgData));
       
         msgContainer.innerHTML+=`
                  <div class="send-user">
+                            <div>To:${targetId}</div>
 							<div class="content  user-content user-color">
 								<div>${sendMsg.value}</div>
 							 <div class="time">${now.getHours()}:${now.getMinutes()}</div>
@@ -79,4 +96,18 @@ function init(contextPath,targetId){
 
 
 }
+
+//채팅방 선택(현재 내가 사장일때)
+function chooseChatRoom(roomNo,id){
+
+
+  alert("채팅방에 연결되었습니다.")
+   console.log(id)
+   let userId=document.querySelector("#userId"+id);
+   target=userId.value;
+    openChatRoom(roomNo,target);
+}
+
+//채팅방 열기 (현재 내가 유저일때)
+
 

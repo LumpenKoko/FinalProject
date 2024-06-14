@@ -204,4 +204,121 @@
 		FROM PICK
 		WHERE LOCATION_NO = #{locationNo}
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	<!-- bossPage 임시 매퍼 -->
+	
+	<resultMap type="CouponKind" id="couponKindResult">
+         <result column="COUPON_NO" property="couponNo"/>
+         <result column="COUPON_CONTENT" property="couponContent"/>
+         <result column="COUPON_EXPIRATION_PERIOD" property="couponExpirationPeriod"/>
+         <result column="STATUS" property="status"/>
+         <result column="COUNT" property="count"/>
+         <result column="USED_COUNT" property="usedCount"/>
+         <result column="LOCATION_NO" property="locationNo"/>
+   	</resultMap>
+   	
+   	<select id="selectCouponList" resultMap="couponKindResult">
+   		SELECT C.COUPON_NO,
+			   COUPON_CONTENT,
+			   COUPON_EXPIRATION_PERIOD,
+			   C.COUNT,
+			   H.USED_COUNT,
+			   C.LOCATION_NO
+		
+		FROM COUPON C
+		
+		JOIN LOCATION L
+		ON C.LOCATION_NO = L.LOCATION_NO
+		JOIN MEMBER M
+		ON L.USER_NO = M.USER_NO
+		
+		LEFT JOIN (SELECT HV.COUPON_NO,
+					 COUNT(*) AS USED_COUNT
+			  FROM (
+			  		SELECT HC.COUPON_NO,
+						   HC.HAVING_COUPON_NO
+					FROM HAVING_COUPON HC
+					WHERE HC.STATUS = TRUE
+					) AS HV
+			  GROUP BY HV.COUPON_NO
+			 ) AS H
+		ON C.COUPON_NO = H.COUPON_NO
+		
+		WHERE M.USER_NO = CAST(#{loginUserNo} AS INTEGER)
+		AND C.STATUS = TRUE
+		
+		ORDER BY COUPON_NO
+   	</select>
+   	
+   	<select id="selectLocationNo" resultType="_int">
+        	SELECT LOCATION_NO
+        	FROM LOCATION
+        	WHERE USER_NO = CAST(#{loginUserNo} AS INTEGER)
+    </select>
+   	
+   	<insert id="insertCouponKind">
+   		INSERT INTO COUPON 
+   						(
+   						COUPON_NO, 
+   						COUPON_CONTENT, 
+   						COUPON_EXPIRATION_PERIOD, 
+   						LOCATION_NO, 
+						COUNT
+						)
+				VALUES (
+						nextval('SEQ_CUPON'), 
+						#{couponContent}, 
+						CAST(#{couponExpirationPeriod} AS INTEGER),
+						CAST(#{locationNo} AS INTEGER), 
+						0
+						)
+   	</insert>
+   	
+   	<update id="updateCouponKind">
+   		UPDATE COUPON
+           SET COUPON_CONTENT = #{couponContent},
+           	   COUPON_EXPIRATION_PERIOD = CAST(#{couponExpirationPeriod} AS INTEGER)
+         WHERE COUPON_NO = #{couponNo}
+   	</update>
+   	
+   	<select id="selectCoupon" resultMap="couponKindResult">
+   		SELECT C.COUPON_NO,
+			   COUPON_CONTENT,
+			   COUPON_EXPIRATION_PERIOD,
+			   C.COUNT,
+			   H.USED_COUNT,
+			   C.LOCATION_NO
+		
+		FROM COUPON C
+		
+		JOIN LOCATION L
+		ON C.LOCATION_NO = L.LOCATION_NO
+		
+		LEFT JOIN (SELECT HV.COUPON_NO,
+						  COUNT(*) AS USED_COUNT
+				   FROM (
+				  		 SELECT HC.COUPON_NO,
+							    HC.HAVING_COUPON_NO
+						   FROM HAVING_COUPON HC
+						  WHERE HC.STATUS = TRUE
+						) AS HV
+				  GROUP BY HV.COUPON_NO
+			 ) AS H
+		ON C.COUPON_NO = H.COUPON_NO
+		
+		WHERE C.COUPON_NO = #{couponNo}
+		AND C.STATUS = TRUE
+   	</select>
+   	
+   	<update id="deleteCouponKind">
+   		UPDATE COUPON
+   		   SET STATUS = false
+   		 WHERE COUPON_NO = #{couponNo}
+   	</update>
 </mapper>

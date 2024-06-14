@@ -62,8 +62,17 @@ function createItem(num) {
                 <div class="text-overlay">
                     <div>
                         <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn` + num + `">
-                            test
+                            댓글버튼
                         </button>
+                        <button>
+                            좋아요버튼
+                        </button>
+                        <div class="white-pont" id="thumbnail-like-count` + num +`"> </div>
+                        <div class="white-pont" id="thumbnail-reply-count` + num +`"></div>
+                        <div>프사</div>
+                        <div class="white-pont" id="thumbnail-nickname` + num +`"></div>
+                        <div class="white-pont" id="thumbnail-content` + num +`"></div>
+                        <div class="white-pont" id="thumbnail-enroll-date` + num +`"></div>
                     </div>
                 </div>
             </div>
@@ -73,7 +82,7 @@ function createItem(num) {
                         <h1>댓글</h1>
                         <div style="color: var(--border-color)">56</div>
                     </div>
-                    <div id="comments-list`+ num + `" style="height: 80%"></div>  
+                    <div id="comments-list`+ num + `"class="tmp-box" style="height: 80%; max-height: 80%; overflow-y: auto; overflow-x: hidden; word-wrap: break-word;"></div>  
                     <div style="height: 10%">
                         <textarea id="comment-text`+ num + `" placeholder="댓글을 입력하세요"></textarea>
                         <button id="submit-comment`+ num + `">댓글달기</button>

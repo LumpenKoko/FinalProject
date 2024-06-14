@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
@@ -69,9 +70,5 @@ public class DetailDao {
 		return sqlSession.update("detail.updateLocationTotalScore",reviewStar);
 	}
 
-	public String getMasterId(SqlSessionTemplate sqlSession, int locationNo) {
-	
-		return sqlSession.selectOne("detail.getMasterId",locationNo);
-	}
 
 }

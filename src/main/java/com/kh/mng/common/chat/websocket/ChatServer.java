@@ -1,8 +1,11 @@
 package com.kh.mng.common.chat.websocket;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -41,6 +44,7 @@ public class ChatServer extends TextWebSocketHandler {
 	private final Map<String,WebSocketSession> sessions= new ConcurrentHashMap<>();
 //	private final Map<Integer,String> chatRooms =new ConcurrentHashMap<>();
 	private String roomNo;
+	private static final Map<String,Map<String,WebSocketSession>> rooms =new ConcurrentHashMap<>();
 	
 	private final ChatService chatService;
 	
@@ -59,7 +63,10 @@ public class ChatServer extends TextWebSocketHandler {
 //	    ChatRoom chatRoom =new ChatRoom();
 //	    chatRoom.setUserId(userId);
 //	    chatRoom.setRoomNo(0);
+	    
 	    this.roomNo=UUID.randomUUID().toString();
+	    
+	    chatService.joinChatRoom(member.getUserNo());
 	    sessions.put(userId,session);
 		
 	
@@ -77,21 +84,27 @@ public class ChatServer extends TextWebSocketHandler {
 		String sendMessage=obj.get("message").getAsString();
 		
 		String target=obj.get("target").getAsString();//
+		String targetNo=obj.get("targetNo").getAsString();
 		int roomNo=obj.get("roomNo").getAsInt();
 		
 //		ChatRoom receivechats =new ChatRoom();
 //		receivechats.setRoomNo(roomNo);
 //		receivechats.setUserId(target);
 		
-		//여기서 db에 저장시키고 채팅 방 번호를 컬럼에 부여할것
+	
+		
+		
+		//dto로 저장 (데이터베이스에 전송 준비)
 		ChatInfo chatInfo =new ChatInfo();
 		chatInfo.setUserId(userId);
 		chatInfo.setUserNickName(nickName);
 		chatInfo.setMessage(sendMessage);
 		chatInfo.setTargetId(target);
+		chatInfo.setTargetNo(Integer.parseInt(targetNo));
 		chatInfo.setRoomNo(this.roomNo);
 		chatInfo.setUserNo( loginUser.getUserNo());
 		
+		//db에 메세지 저장(ChatRoom에 참여)
 		int count=chatService.insertChats(chatInfo);
 		
 		
@@ -142,8 +155,14 @@ public class ChatServer extends TextWebSocketHandler {
 
 		Member loginUser = (Member) session.getAttributes().get("loginUser");
 		String userId = loginUser.getUserId();
+		int userNo=loginUser.getUserNo();
+		
 		log.info("{}", "연결끊낌.....");
 		sessions.remove(userId);
+		
+		//방에서 나가게하기 status=false로 변경
+		chatService.outChatRoom(userNo);
+		
 		super.afterConnectionClosed(session, status);
 	}
 	

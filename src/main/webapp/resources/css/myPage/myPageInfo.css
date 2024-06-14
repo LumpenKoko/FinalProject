@@ -235,3 +235,10 @@ input[type="radio"]:checked + label {
     display: flex;
     justify-content: space-between;
 }
+
+#confirmationModal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

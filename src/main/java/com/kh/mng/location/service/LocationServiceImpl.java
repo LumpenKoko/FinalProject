@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dao.DetailDao;
@@ -248,9 +249,6 @@ public class LocationServiceImpl implements LocationService {
 		return count;
 	}
 
-	@Override
-	public String getMasterId(int locationNo) {
-		return detailDao.getMasterId(sqlSession,locationNo);
-	}
+	
 
 }

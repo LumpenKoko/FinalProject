@@ -15,10 +15,17 @@ function wishDelete(userNo, locationNo, contextPath) {
         url: contextPath + '/wishListDelete',
         data: {userNo: userNo, locationNo: locationNo},
         success: function(response) {
-
+            if(response === 'NNNNY') {
+            alert('공감 목록에서 제외합니다.');
+            location.href = contextPath + '/myPageWish.mp';
+            } else if (response === 'NNNNN') {
+                alert('공감 목록에서 제외에 실패하였습니다.');
+                location.href = contextPath + '/myPageWish.mp'; 
+            }
         },
         error: function(error) {
-
+            alert('공감 목록에서 제외에 실패하였습니다.');
+            location.href = contextPath + '/myPageWish.mp'; 
         }
     });
 }

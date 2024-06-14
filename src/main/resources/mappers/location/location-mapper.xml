@@ -6,7 +6,7 @@
 
 <mapper namespace="location">
 
-	<resultMap type="BossLocation" id="bossLocationResult">
+    <resultMap type="BossLocation" id="bossLocationResult">
         <result column="LOCATION_NO" property="locationNo" />
         <result column="LOCATION_NAME" property="locationName" />
         <result column="LOCATION_PHONE" property="locationPhone" />
@@ -31,11 +31,15 @@
         <result column="CAPACITY" property="capacity"/>
         <result column="LOCATION_NO" property="locationNo"/>
     </resultMap>
+    
+    <resultMap type="LocationOperationTime" id="locationOperationTime">
+         <result column="START_TIME" property="startTime"/>
+         <result column="END_TIME" property="endTime"/>
+         <result column="DAYS" property="day"/>
+         <result column="REST_STATUS" property="restStatus"/>
+    </resultMap>
    
-   
-   <!-- location 컬럼과 location_category 컬럼을  location_no로  join해서 catgoryName을 가져옴  -->
-   
-   <select id="getLocation" resultMap="bossLocationResult">
+    <select id="getLocation" resultMap="bossLocationResult">
         SELECT LOCATION_NO,
                 LOCATION_NAME,
                 LOCATION_PHONE,
@@ -53,7 +57,7 @@
                 WHERE L.USER_NO = #{userNo}
     </select>
    
-   <select id="getLocationOption" resultMap="bosslocationOption">
+    <select id="getLocationOption" resultMap="bosslocationOption">
         SELECT LOCATION_OPTION_NO,
                 LOCATION_NO,
                 GOODS,
@@ -67,6 +71,61 @@
                 WHERE L.USER_NO = #{userNo}
     </select>
    
+    <insert id="insertLocation" parameterType="BossLocation">
+        INSERT INTO LOCATION
+            (LOCATION_NO, 
+             LOCATION_NAME, 
+             LOCATION_PHONE, 
+             EXPLANATION, 
+             BUSINESS_NO, 
+             ADDRESS, 
+             USER_NO, 
+             LOCATION_CATEGORY_NO)
+        VALUES
+            (NEXTVAL('SEQ_LOC'), 
+             #{locationName}, 
+             #{locationPhone}, 
+             #{explanation}, 
+             #{businessNo}, 
+             #{address}, 
+             #{userNo}, 
+             CAST(#{locationCategoryNo} AS INTEGER))
+    </insert>
+
+    <update id="updateLocation" parameterType="BossLocation">
+        UPDATE LOCATION
+            SET LOCATION_PHONE = #{locationPhone},
+                EXPLANATION = #{explanation},
+                RESERVATION_LINK = #{reservationLink}
+            WHERE STATUS = true
+                AND USER_NO = #{userNo}
+    </update>
+    
+    <select id="getOperationTimes" resultMap="locationOperationTime">
+        SELECT START_TIME,
+               END_TIME,
+               DAYS,
+               REST_STATUS
+        FROM OPERATION_TIME
+        WHERE LOCATION_NO = #{locationNo}
+    </select>
+
+    <insert id="insertOperationTime" parameterType="LocationOperationTime">
+        INSERT INTO OPERATION_TIME (LOCATION_NO, DAYS, START_TIME, END_TIME, REST_STATUS)
+        VALUES (#{locationNo}, #{day}, #{startTime}, #{endTime}, #{restStatus})
+    </insert>
+
+    <update id="updateOperationTime" parameterType="LocationOperationTime">
+        UPDATE OPERATION_TIME
+        SET START_TIME = #{startTime},
+            END_TIME = #{endTime},
+            REST_STATUS = #{restStatus}
+        WHERE LOCATION_NO = #{locationNo} AND DAYS = #{day}
+    </update>
+
+    <delete id="deleteOperationTimes" parameterType="int">
+        DELETE FROM OPERATION_TIME WHERE LOCATION_NO = #{locationNo}
+    </delete>
    
  	<!-- 장소상세 -->
  
@@ -106,41 +165,8 @@
 
     </select>-->
     
-    
-    
-    <insert id="insertLocation" parameterType="BossLocation">
-        INSERT INTO LOCATION
-            (LOCATION_NO, 
-             LOCATION_NAME, 
-             LOCATION_PHONE, 
-             EXPLANATION, 
-             BUSINESS_NO, 
-             ADDRESS, 
-             USER_NO, 
-             LOCATION_CATEGORY_NO)
-        VALUES
-            (NEXTVAL('SEQ_LOC'), 
-             #{locationName}, 
-             #{locationPhone}, 
-             #{explanation}, 
-             #{businessNo}, 
-             #{address}, 
-             #{userNo}, 
-             CAST(#{locationCategoryNo} AS INTEGER))
-    </insert>
-
-    <update id="updateLocation" parameterType="BossLocation">
-        UPDATE LOCATION
-            SET LOCATION_PHONE = #{locationPhone},
-                EXPLANATION = #{explanation},
-                RESERVATION_LINK = #{reservationLink}
-            WHERE STATUS = true
-                AND USER_NO = #{userNo}
-    </update>
    
    
-  
-
  	</mapper>
  
  

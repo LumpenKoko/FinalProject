@@ -44,7 +44,7 @@
 	    <typeAlias type="com.kh.mng.common.chat.model.vo.Chat" alias="Chat"/>
 	    <typeAlias type="com.kh.mng.common.chat.model.vo.MasterInfo" alias="MasterInfo"/>
 	    <typeAlias type="com.kh.mng.common.chat.model.vo.UserInfo" alias="UserInfo"/>
-		<!--  <typeAlias type="com.kh.mng.bosspage.model.dto.CouponKind" alias="CouponKind"/>-->
+		<typeAlias type="com.kh.mng.bosspage.model.dto.CouponKind" alias="CouponKind"/>
 
 
  	</typeAliases> 

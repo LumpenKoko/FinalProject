@@ -129,12 +129,14 @@
 		 WHERE STATUS = true
 	 	   AND USER_NO = #{userNo}
 	</update>
+	
 	<update id="updateEmail">
 		UPDATE MEMBER
 		   SET USER_EMAIL = #{email}
 		 WHERE STATUS = true
 		   AND USER_NO = #{userNo}
 	</update>
+	
 	<update id="updatePwd">
 		UPDATE MEMBER
 		   SET USER_PWD = #{bossPwd}
@@ -145,6 +147,12 @@
     	UPDATE MEMBER
        	   SET STATUS = false
          WHERE USER_ID = #{bossId}
+	</update>
+
+	<update id="deleteMember">
+		UPDATE MEMBER
+			SET STATUS = false
+		WHERE USER_NO = #{userNo}
 	</update>
 
 </mapper>

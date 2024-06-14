@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPagePetSignUp.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="resources/js/myPage/myPagePetSignUp.js"></script>
     </head>
 
     <body>
@@ -40,7 +41,7 @@
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록
                                 </div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
@@ -62,7 +63,7 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <form action="insertPet.mp" id="petSignUp">
+                            <form action="insertPet.mp" id="petSignUp" enctype="multipart/form-data">
                                 <h1 style="margin-top: 50px; text-align: center;">반려동물 등록</h1>
                                 <p style="margin-top: 40px; font-size: 17px; text-align: center;">반려동물 정보를 입력해<br>행복한 멍냥
                                     가이드를 누려보세요</p>
@@ -119,50 +120,6 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                document.getElementById('imgFileInput').addEventListener('change', function (event) {
-                    var file = event.target.files[0]; // 파일 가져오기
-
-                    if (file) {
-                        // 파일이 선택되었을 때에만 처리
-                        // 원래 이름
-                        var originName = file.name;
-                        console.log(file);
-                        // 서버에 저장될 파일의 이름 생성
-                        var changeName = Date.now() + '_' + originName;
-                        // 서버에 저장될 파일의 경로 설정
-                        var filePath = 'resources/uploads/' + changeName;
-                        // 파일 레벨 설정 (예: 사용자 입력, 고정 값 등)
-                        var fileLevel = 1;
-
-                        // 추출한 값들을 서버로 전송
-                        // AJAX 등을 사용하여 서버로 전송하고 값을 전달합니다.
-
-                        // 이미지 미리보기 업데이트
-                        var imgReader = new FileReader();
-                        imgReader.onload = function (e) {
-                            document.getElementById('imgInput').style.backgroundImage = "url('" + e.target.result + "')";
-                        }
-                        imgReader.readAsDataURL(file); // FileReader를 통해 파일을 읽어옵니다.
-                    } else {
-                        // 파일이 선택되지 않은 경우 처리
-                        console.error('파일이 선택되지 않았습니다.');
-                    }
-                });
-
-                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
-
-                // 반려동물 이름을 표시할 요소
-                var petNamesElement = document.getElementById("petNames");
-
-                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
-                for (var i = 0; i < petNames.length; i++) {
-                    var petNameElement = document.createElement("p");
-                    petNameElement.textContent = petNames[i];
-                    petNamesElement.appendChild(petNameElement);
-                }
-            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

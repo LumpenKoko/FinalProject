@@ -9,6 +9,8 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPageInfo.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="resources/js/myPage/myPageInfo.js"></script>
     </head>
 
     <body>
@@ -16,7 +18,7 @@
         <%@ include file="../common/header.jsp" %>
 
             <div class="wrapper main_wrapper">
-                <div class="main_main">
+                <div class="main_main" id="mainWrapper">
                     <div id="left">
                         <div id="main_main_left">
                             <div id="main_main_left1">
@@ -39,7 +41,7 @@
                                 <div id="mainList"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageMain.mp'">작성한 리뷰</div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록</div>
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록</div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록</div>
                                 <div id="boardList"
@@ -60,7 +62,9 @@
                         <form id="main_main_right" action="update.mp">
                             <h1 style="margin-top: 50px; color: #FE8B94; text-align: center;">개인정보 수정</h1>
                             <div id="id-input">
-                                <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</p>
+                                <span style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</span>
+                                <span id="hiddenId" style="color: red; font-size: 15px;"><b>경고!</b> 사용할 수 없는 아이디
+                                    입니다.</span><br>
                                 <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
                                   height: 50px; text-align: left; padding-left: 20px;" value="${loginUser.userId}"
                                     id="userId" name="userId">
@@ -96,7 +100,7 @@
                                 <input type="text" style="width: 300px; height: 50px; border-radius: 15px;
                                  border: 1px solid #bababa; padding-left: 20px;" value="${loginUser.userEmail}"
                                     id="userEmail" name="userEmail">
-                                <p style="font-size: 22px;">@</p>
+                                <p style="font-size: 22px; line-height: 50px;">@</p>
                                 <select id="website"
                                     style="border-radius: 15px; width: 300px; border: 1px solid #bababa; margin-right: 165px; padding-left: 20px;">
                                     <option value="naver.com">naver.com</option>
@@ -111,37 +115,27 @@
                             <div
                                 style="width: 80%; margin-top: 50px; margin-left: 70px; font-size: 19px; margin-bottom: 30px;">
                                 <span style="float: left; text-align: left; cursor: pointer;" onclick="">비밀번호 변경</span>
-                                <span style="float: right; text-align: right; cursor: pointer;" onclick="">회원탈퇴</span>
+                                <span style="float: right; text-align: right; cursor: pointer;"
+                                    onclick="showConfirmation()">회원탈퇴</span>
                             </div>
                         </form>
                     </div>
                 </div>
+                <div id="confirmationModal" class="modal"
+                    style="width: 400px; height: 400px; border: 1px solid #bababa; border-radius: 15px; position: absolute; z-index: 1000;"
+                    hidden>
+                    <div class="modal-content" style="text-align: center; font-size: 23px;">
+                        <h1 style="color: red; margin-top: 40px;">알림</h1>
+                        <p style="margin-top: 70px;">정말 "탈퇴" 하겠습니까?</p>
+                        <button onclick="deleteMember('${loginUser.userNo}', '<%=request.getContextPath()%>')" style="margin-top: 80px; width: 130px; height: 50px; margin-right: 10px; font-size: 20px;
+                                border-style: none; border-radius: 15px; background-color: #FE8B94; color: white; font-weight: bold;
+                                cursor: pointer;">확인</button>
+                        <button onclick="hideConfirmation()" style="margin-top: 80px; width: 130px; height: 50px; margin-left: 10px; font-size: 20px;
+                                border-style: none; border-radius: 15px; background-color: #FE8B94; color: white; font-weight: bold;
+                                cursor: pointer;">취소</button>
+                    </div>
+                </div>
             </div>
-
-            <script>
-                document.getElementById('fileInput').addEventListener('change', function () {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-                    }
-
-                    reader.readAsDataURL(file);
-                });
-
-                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
-
-                // 반려동물 이름을 표시할 요소
-                var petNamesElement = document.getElementById("petNames");
-
-                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
-                for (var i = 0; i < petNames.length; i++) {
-                    var petNameElement = document.createElement("p");
-                    petNameElement.textContent = petNames[i];
-                    petNamesElement.appendChild(petNameElement);
-                }
-            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

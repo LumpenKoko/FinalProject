@@ -9,6 +9,8 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPageWishList.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="resources/js/myPage/myPageWishList.js"></script>
     </head>
 
     <body>
@@ -40,7 +42,7 @@
                                     리뷰
                                 </div>
                                 <div id="wishList"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">찜 목록
+                                    onclick="location.href='<%=request.getContextPath()%>/myPageWish.mp'">공감 목록
                                 </div>
                                 <div id="coupon"
                                     onclick="location.href='<%=request.getContextPath()%>/myPageCoupon.mp'">쿠폰 목록
@@ -62,62 +64,92 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <div id="right1">찜 목록</div>
-                            <div id="right2">
-                                <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'"
-                                    style="cursor: pointer;">
-                                    <img src="resources/img/myPage/cafe.png" id="cafe">
-                                </div>
-                                <div id="right2-right" style="height: 80%;">
-                                    <div id="right2-right1">
-                                        <div id="top">
-                                            <span id="title"
+                            <div id="right1">공감 목록</div>
+                            <c:forEach var="wish" items="${wishList}" varStatus="loop">
+                                <div id="right2">
+                                    <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                        style="cursor: pointer;">
+                                        <img src="resources/img/myPage/cafe.png" id="cafe">
+                                    </div>
+                                    <div id="right2-right" style="height: 80%;">
+                                        <div id="right2-right1">
+                                            <div id="top" style="justify-content: space-between; margin-right: 30px;">
+                                                <span id="title"
+                                                    onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                                    style="cursor: pointer;">${wish.locationName}</span>
+                                                <div>
+                                                    <div id="wishIcon-${loop.index}" class="wishIcon"
+                                                        onclick="wishDelete('${loginUser.userNo}', '${wish.locationNo}', '<%=request.getContextPath()%>')"
+                                                        style="display: flex; color: #FE8B94;">♥</div>
+                                                    <div id="count" style="display: flex;">45</div>
+                                                </div>
+                                            </div>
+                                            <div id="category"
                                                 onclick="location.href='<%=request.getContextPath()%>/detail'"
-                                                style="cursor: pointer;">샘플 카페 하이 구로하우비점</span>
-                                            <div id="wishIcon" onclick="changeColor()">♡</div>
-                                            <div id="count">45</div>
+                                                style="cursor: pointer;">
+                                                <span id="category1">분류</span>
+                                                <c:choose>
+                                                    <c:when test="${wish.locationCategoryNo == 1}">
+                                                        <span id="category2">기타</span>
+                                                    </c:when>
+                                                    <c:when test="${wish.locationCategoryNo == 2}">
+                                                        <span id="category2">식당</span>
+                                                    </c:when>
+                                                    <c:when test="${wish.locationCategoryNo == 3}">
+                                                        <span id="category2">카페</span>
+                                                    </c:when>
+                                                    <c:when test="${wish.locationCategoryNo == 4}">
+                                                        <span id="category2">숙소</span>
+                                                    </c:when>
+                                                    <c:when test="${wish.locationCategoryNo == 5}">
+                                                        <span id="category2">행사</span>
+                                                    </c:when>
+                                                    <c:when test="${wish.locationCategoryNo == 6}">
+                                                        <span id="category2">테마파크</span>
+                                                    </c:when>
+                                                    <c:when test="${wish.locationCategoryNo == 7}">
+                                                        <span id="category2">병원</span>
+                                                    </c:when>
+                                                </c:choose>
+                                            </div>
+                                            <div id="score"
+                                                onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                                style="cursor: pointer;">
+                                                <span id="score1">평점</span>
+                                                <span id="score2">${wish.locationStar}</span>
+                                                <span id="score3">★★★★★</span>
+                                            </div>
+                                            <div id="type"
+                                                onclick="location.href='<%=request.getContextPath()%>/detail'"
+                                                style="cursor: pointer;">
+                                                <span id="type1">종류</span>
+                                                <span id="type2">소형견,중형견,고양이</span>
+                                            </div>
+                                            <div id="solid">
+                                                <div id="solid2"></div>
+                                            </div>
                                         </div>
-                                        <div id="category"
+                                        <div id="right2-right2"
                                             onclick="location.href='<%=request.getContextPath()%>/detail'"
                                             style="cursor: pointer;">
-                                            <span id="category1">분류</span>
-                                            <span id="category2">카페</span>
-                                        </div>
-                                        <div id="score" onclick="location.href='<%=request.getContextPath()%>/detail'"
-                                            style="cursor: pointer;">
-                                            <span id="score1">평점</span>
-                                            <span id="score2">4.3</span>
-                                            <span id="score3">★★★★★</span>
-                                        </div>
-                                        <div id="type" onclick="location.href='<%=request.getContextPath()%>/detail'"
-                                            style="cursor: pointer;">
-                                            <span id="type1">종류</span>
-                                            <span id="type2">소형견,중형견,고양이</span>
-                                        </div>
-                                        <div id="solid">
-                                            <div id="solid2"></div>
-                                        </div>
-                                    </div>
-                                    <div id="right2-right2"
-                                        onclick="location.href='<%=request.getContextPath()%>/detail'"
-                                        style="cursor: pointer;">
-                                        <div id="address">
-                                            <img src="resources/img/myPage/address.png" id="address1">
-                                            <span id="address2">부산광역시 해운대 극성로 북6길</span>
-                                        </div>
-                                        <div id="phone">
-                                            <img src="resources/img/myPage/phone.png" id="phone1">
-                                            <span id="phone2">02-1234-5678</span>
-                                        </div>
-                                        <div id="time">
-                                            <img src="resources/img/myPage/time.png" id="time1">
-                                            <span id="time2">영업 중</span>
-                                            <span id="time3">22:00</span>
-                                            <span id="time4">종료</span>
+                                            <div id="address">
+                                                <img src="resources/img/myPage/address.png" id="address1">
+                                                <span id="address2">${wish.address}</span>
+                                            </div>
+                                            <div id="phone">
+                                                <img src="resources/img/myPage/phone.png" id="phone1">
+                                                <span id="phone2">${wish.locationPhone}</span>
+                                            </div>
+                                            <div id="time">
+                                                <img src="resources/img/myPage/time.png" id="time1">
+                                                <span id="time2">영업 중</span>
+                                                <span id="time3">22:00</span>
+                                                <span id="time4">종료</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </c:forEach>
                             <div id="container"></div>
                             <div id="right7">
                             </div>
@@ -125,42 +157,6 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                function changeColor() {
-                    var icon = document.getElementById('wishIcon');
-                    if (icon.style.color !== 'rgb(254, 139, 148)') {
-                        icon.style.color = '#FE8B94';
-                        icon.innerHTML = '♥';
-                    } else {
-                        icon.style.color = '';
-                        icon.innerHTML = '♡';
-                    }
-                }
-
-                document.getElementById('fileInput').addEventListener('change', function () {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-                    }
-
-                    reader.readAsDataURL(file);
-                });
-
-                var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
-
-                // 반려동물 이름을 표시할 요소
-                var petNamesElement = document.getElementById("petNames");
-
-                // 각 반려동물의 이름을 동적으로 생성하여 요소에 추가
-                for (var i = 0; i < petNames.length; i++) {
-                    var petNameElement = document.createElement("p");
-                    petNameElement.textContent = petNames[i];
-                    petNamesElement.appendChild(petNameElement);
-                }
-            </script>
 
             <%@ include file="../common/footer.jsp" %>
 

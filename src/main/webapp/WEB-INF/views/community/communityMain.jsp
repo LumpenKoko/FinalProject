@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div id="category-box" class="flex-category-box">
-                                     <div><button class="common-button white-button" data-categoryno='0'>category0</button></div>
+                                    <div><button class="common-button white-button" data-categoryno='0'>전체 조회</button></div>
                                     <c:forEach var="bc" items="${boardCategory}">
                                         <div><button class="common-button white-button" data-categoryno='${bc.categoryNo}'>${bc.categoryName}</button></div>
                                     </c:forEach>
@@ -136,7 +136,7 @@
                                                 </div>
                                             </div>
                                             <div class="img-box">
-                                                <img src="${b.attahment.get(0).filePath}${b.attahment.get(0).changeName}">
+                                                <img src="${b.attachment.get(0).filePath}${b.attachment.get(0).changeName}">
                                             </div>
                                         </div>
                                     </div>
@@ -168,7 +168,7 @@
 
                                 <c:choose>
                                     <c:when test="${boardPi.currentPage eq boardPi.maxPage}">
-                                        <div id="next-board-button" class="next-button"><li><a class="page-button">▶</a></li></div>
+                                        <div id="next-board-button" class="page-disabled" class="next-button"><li><a class="page-button">▶</a></li></div>
                                     </c:when>
 
 

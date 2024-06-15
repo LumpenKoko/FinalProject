@@ -49,6 +49,10 @@
                 <!-- 글 내용 및 사진 영역 -->
                 <div id="board-content-box">
                     <div id="board-content-text">
+                        <c:forEach var="i" items="${board.attachment}">
+                            <img src="${i.filePath}${i.changeName}" alt="">
+                        </c:forEach>
+
                         <img src="resources/community/userProfile.jpg" alt="">
                         <div>${board.boardContent}</div>
                     </div>

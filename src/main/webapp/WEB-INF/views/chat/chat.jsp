@@ -20,7 +20,7 @@
 
 
 			 <c:if test="${!master.equals('NNNNN')}">
-				<input id="master-id" type="text" value="${loginUser.userNo}" hidden>
+				<input id="master-No" type="text" value="${loginUser.userNo}" hidden>
 				<div class="chat-list">
 					<div class="title t">채팅문의</div>
 					<div class="over-flow">
@@ -53,7 +53,7 @@
 
 					  
 						<c:set var="item" value="0"></c:set>
-							<div  id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${item}')">
+							<!-- <div  id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${item}')">
 								<div class="profile-area">
 									<div class="img-div">
 										<img src="resources/img/tori.jpg">
@@ -70,11 +70,11 @@
 									<div class="date">오후 12:34</div>
 									<div class="notify">1</div>
 								</div>
-							</div>
+							</div> -->
 
 
 
-							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(2,'${item}')">
+							<!-- <div id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(2,'${item}')">
 								<div class="profile-area">
 									<div class="img-div">
 										<img src="resources/img/tori.jpg">
@@ -214,7 +214,7 @@
 									<div class="date">오후 12:34</div>
 									<div class="notify">1</div>
 								</div>
-							</div>
+							</div> -->
 						
 					</div>
 				</div>

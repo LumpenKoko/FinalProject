@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.chat.model.dto.ChatInfo;
-import com.kh.mng.common.chat.model.dto.UserMaster;
+import com.kh.mng.common.chat.model.dto.UserTarget;
 import com.kh.mng.common.chat.model.vo.Chat;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
@@ -39,7 +39,7 @@ public class ChatDao {
 		return (ArrayList) sqlSession.selectList("chatMapper.selectUserInfo",locationNo);
 	}
 
-	public ArrayList<Chat> selectUserChats(SqlSessionTemplate sqlSession, UserMaster userMasterInfo) {
+	public ArrayList<Chat> selectUserChats(SqlSessionTemplate sqlSession, UserTarget userMasterInfo) {
 		
 		return (ArrayList) sqlSession.selectList("chatMapper.selectUserChats", userMasterInfo);
 	}

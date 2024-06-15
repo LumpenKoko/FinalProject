@@ -311,5 +311,13 @@
 		         AND STATUS = true
 		         ORDER BY CREATE_DATE ASC
 	</select>
+	
+	<delete id="deleteBoard" >
+		DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
+	</delete>
+	
+	<select id="checkBoardOwner" resultType="_int">
+		SELECT USER_NO FROM BOARD WHERE BOARD_NO = #{boardNo}
+	</select>
    
   </mapper>

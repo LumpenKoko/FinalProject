@@ -410,6 +410,28 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.checkReplyOwner(sqlSession,replyNo);
 	}
 
+	//게시글 삭제
+	@Override
+	@Transactional
+	public ArrayList<Attachment> deleteBoard(BoardInfo boardInfo) {
+	
+		ArrayList<Attachment> attachment= communityDao.selectBoardAttachMent(sqlSession, boardInfo.getBoardNo());
+		
+		int count=communityDao.deleteBoard(sqlSession,boardInfo);
+		
+		if(count>0) {
+			return attachment;
+		}else {
+			return null;
+		}
+		
+	}
+	
+	@Override
+	public int checkBoardOwner(int boardNo) {
+		
+		return communityDao.checkBoardOwner(sqlSession, boardNo);
+	}
 
 
 
@@ -431,6 +453,11 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 
+
+	
+
+
+	
 
 
 

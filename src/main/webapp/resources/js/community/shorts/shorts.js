@@ -53,7 +53,7 @@ function drawShortsPage(shortsPi){
 
     if(shortsPi.currentPage == shortsPi.maxPage){
         nextButton=`
-         <div id="next-button" class="next-button"><li><a class="page-button">▶</a></li></div>
+         <div id="next-button" class="page-disabled class="next-button"><li><a class="page-button">▶</a></li></div>
         `
     }
 

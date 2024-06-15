@@ -68,7 +68,10 @@
     gap:10px;
 }
 
-
+/*카테고리 버튼 영역 한글 꺠짐 해결*/
+.flex-category-box >div>button{
+    white-space:nowrap; 
+}
 
 /*쇼츠영역*/
 .community-main .short-area{
@@ -198,7 +201,7 @@
 
 /*페이징 영역*/
 
-.community-main .page-div{
+/* .community-main .page-div{
     display:flex;
     justify-content: center;
     gap:20px;
@@ -209,7 +212,8 @@
 
 .community-main .page-button{
     color:var(--main-color);
-}
+    cursor: pointer;
+} */
 
 
 /*검색 바*/

@@ -179,3 +179,24 @@ ol,ul,li{
 	align-items: center;
 	justify-content: flex-end;
 }
+
+/*페이징 처리 공통 css*/
+.page-div{
+    display:flex;
+    justify-content: center;
+    gap:20px;
+    padding:10px;
+   
+}
+
+.page-disabled{
+	display:none;
+}
+
+.page-button{
+    color:var(--main-color);
+	cursor: pointer;
+}
+.page-link{
+	cursor: pointer;
+}

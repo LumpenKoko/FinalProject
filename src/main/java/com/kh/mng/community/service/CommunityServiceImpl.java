@@ -119,7 +119,7 @@ public class CommunityServiceImpl implements CommunityService{
 				 }
 				 
 				 int replyCount =communityDao.selectBoardApplyCount(sqlSession,board.getBoardNo());
-				 board.setAttahment(attachment);
+				 board.setAttachment(attachment);
 				 board.setReplyCount(replyCount);
 				 board.setUserProfile(userProfile);
 			 }
@@ -214,6 +214,10 @@ public class CommunityServiceImpl implements CommunityService{
 	    	//추천횟수
 	    	int goodCount = communityDao.selectGoodCount(sqlSession, bno);
 	    	
+	    	//커뮤니티게시글 첨부파일
+	    	ArrayList<Attachment> boardAttachment=communityDao.selectBoardAttachMent(sqlSession, communityBoard.getBoardNo());
+	    	
+	    	
 	    	 ArrayList<BoardReply> boardReply =  communityDao.selectBoardReplys(sqlSession,replyPi,communityBoard.getBoardNo());
 	    	 Attachment userProfile = communityDao.selectUserProfile(sqlSession,communityBoard.getUserNo());
 	    
@@ -273,6 +277,7 @@ public class CommunityServiceImpl implements CommunityService{
 	    	 communityBoard.setReplys(boardReply);
 	    	 communityBoard.setReplyCount(replyCount);
 	    	 communityBoard.setGoodCount(goodCount);
+	    	 communityBoard.setAttachment(boardAttachment);
 	    
 	    }
 	    

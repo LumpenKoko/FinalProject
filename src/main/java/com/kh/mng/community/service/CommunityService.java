@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
@@ -63,6 +64,10 @@ public interface CommunityService {
 	int deleteReply(int replyNo);
 
 	int checkReplyOwner(int replyNo);
+
+	ArrayList<Attachment> deleteBoard(BoardInfo boardInfo);
+
+	int checkBoardOwner(int boardNo);
 
 
 }

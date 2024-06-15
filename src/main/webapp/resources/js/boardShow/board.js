@@ -5,3 +5,10 @@ function clickGood(){
         updateGoodCountAjax(boardNo);
     })
 }
+
+function deleteBoard(){
+
+    if(confirm("삭제하시겠습니까?")){
+        location.href=contextPath+"/delete.bo?boardNo="+boardNo
+    }
+}

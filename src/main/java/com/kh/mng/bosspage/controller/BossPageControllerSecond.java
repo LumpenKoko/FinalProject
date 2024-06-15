@@ -107,7 +107,7 @@ public class BossPageControllerSecond {
 			
 			boardFile.setOriginName(upfile.getOriginalFilename());
 			boardFile.setChangeName(changeName);
-			boardFile.setFilePath("resources/img/community");
+			boardFile.setFilePath("resources/img/community/");
 			boardFile.setUserNo(loginUser.getUserNo());
 		}
 		
@@ -135,7 +135,7 @@ public class BossPageControllerSecond {
 		
 		String changeName = currentTime + ranNum + ext;
 		
-		String savePath = session.getServletContext().getRealPath("resources/img/community");
+		String savePath = session.getServletContext().getRealPath("resources/img/community/");
 	
 		try {
 			upfile.transferTo(new File(savePath + changeName));

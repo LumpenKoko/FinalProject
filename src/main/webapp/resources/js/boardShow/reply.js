@@ -118,7 +118,6 @@ function drawReply(replys) {
                                                 <div class="change-button-box">
                                                     <img src="resources/community/threeCircle.png" alt="">
                                                     <div class="change-box">
-                                                        <div class=""><a>수정하기</a></div>
                                                          <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a>삭제하기</a></div>
                                                     </div>
                                                 </div>
@@ -139,7 +138,7 @@ function drawReply(replys) {
                                             <div class="reply-regist-info">
                                                 <div>
                                                     <img src="" alt="">
-                                                    <span>ㄴ</span>
+                                                    <span>${userNickName}</span>
                                                 </div>
                                                 <div  class="replybutton-div"><button  type="button"id="replyReplyButton" class="common-button pink-button" onclick="replyReplyInsert('${r.replyNo}')">답글 등록</button></div>
                                             </div>
@@ -201,7 +200,7 @@ function drawingPage(replyPi){
 	    </li>`
      }
 
-     if(replyPi==replyPi.maxPage){
+     if(replyPi.currentPage==replyPi.maxPage){
         nextButton=`
           <div id="next-button" class="next-button">
 				<li class="page-disabled"><a class="page-button">▶</a></li>

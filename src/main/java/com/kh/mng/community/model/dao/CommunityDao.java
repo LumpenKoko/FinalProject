@@ -172,7 +172,13 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityBoardMapper.checkReplyOwner",replyNo);
 	}
     
-
+	public int deleteBoard(SqlSessionTemplate sqlSession, BoardInfo boardInfo) {
+		
+		return sqlSession.delete("communityBoardMapper.deleteBoard",boardInfo);
+	}
+	public int checkBoardOwner(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityBoardMapper.checkBoardOwner",boardNo);
+	}
 	
 
 	public int insertShortContents(SqlSessionTemplate sqlSession, ShorstInfo shortsInfo) {
@@ -206,6 +212,8 @@ public class CommunityDao {
 	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
 	}
+
+	
 
 	
 

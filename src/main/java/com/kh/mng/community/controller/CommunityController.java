@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
@@ -185,7 +186,7 @@ public class CommunityController {
 	
 
 	//쇼츠 등록
-	@PostMapping(value = "/enroll.short")
+	@PostMapping(value = "enroll.short")
 	public String enrollShorts(List<MultipartFile> files , ShorstInfo shortsInfo, HttpSession session,Model model) {
 		
 	   log.info("files:");
@@ -261,13 +262,20 @@ public class CommunityController {
 
 	}
 	
+	//커뮤니티 게시글 삭제
 	
+	
+	//커뮤니티 게시글 수정
+	
+	
+	
+	//쇼츠 상세 페이지
 	@GetMapping(value="shortsView.bo")
 	public String detailShortsView() {
 		return "community/shortsShow";
 	}
 	
-	//커뮤니티 게시판 상세 컨트롤러
+	//커뮤니티 게시글 상세  컨트롤러
 	@GetMapping(value="detailView.bo")
 	public String detailBoardView(@RequestParam(value="bno") int bno,
 								  @RequestParam(value="pageNo",defaultValue="1") int pageNo,
@@ -290,22 +298,26 @@ public class CommunityController {
 	
 	//댓글 대댓글 입력 컨트롤러
 	@ResponseBody
-	@PostMapping(value="detailViewReply.in")
+	@PostMapping(value="detailViewReply.in" ,produces="application/text; charset=utf-8;")
 	public String detailInsertReply(ReplyInfo replyInfo,HttpSession session) {
+		Member loginUser=(Member)session.getAttribute("loginUser");
+		if(loginUser==null) {
+			return "로그인을 먼저 해주세요";
+		}else {
 		
-		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
-		replyInfo.setUserNo(userNo);
-		
-		log.info("응답:{}",replyInfo);
-		
-		int count = communityService.insertBoardReply(replyInfo);
-		
-		if(count>0) {
-			return "ok";
-		}else{
-			return "fail";
+			int userNo=loginUser.getUserNo();
+			replyInfo.setUserNo(userNo);
+			
+			log.info("응답:{}",replyInfo);
+			
+			int count = communityService.insertBoardReply(replyInfo);
+			
+			if(count>0) {
+				return "등록되었습니다.";
+			}else{
+				return "등록에 실패하였습니다.";
+			}
 		}
-		
 	}
 	
 	//댓글정보 비동기로가져오는 컨트롤러
@@ -381,14 +393,51 @@ public class CommunityController {
 		
 	}
 	
-	
-	 
-	
-	
+	//게시글 등록 페이지이동
 	@GetMapping(value="enrollBoard.bo")
 	public String enrollBoard() {
 		return "community/writingPage";
 	}
+	
+	//게시글 삭제 컨트롤러 
+	@GetMapping(value="delete.bo")
+	public String deleteBoard(BoardInfo boardInfo,HttpSession session) {
+		Member loginUser=(Member)session.getAttribute("loginUser");
+		if(loginUser==null) {
+			session.setAttribute("alertMsg", "로그인을 먼저 해주세요");
+			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
+		}
+		//본인 게시글인지 check
+		int checkNo=communityService.checkBoardOwner(boardInfo.getBoardNo());
+		System.out.println("check:"+checkNo);
+		if(loginUser.getUserNo()!=checkNo) {
+			session.setAttribute("alertMsg", "본인게시글만 삭제할 수 있습니다.");
+			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
+		}else {
+			
+			//게시글 삭제첨부파일까지 삭제
+			String savePath = session.getServletContext().getRealPath("resources/img/community/");
+			ArrayList<Attachment> deletedBoardAttachment =communityService.deleteBoard(boardInfo); 
+			if(deletedBoardAttachment!=null) {
+				if(!deletedBoardAttachment.isEmpty()) {
+					for(Attachment attachment:deletedBoardAttachment) {
+						File file =new File(savePath+attachment.getChangeName());
+						System.out.println(file.getPath());
+						if(file.exists()) {
+							file.delete();
+							System.out.println("파일삭제성공");
+						}
+					}
+				}
+				session.setAttribute("alertMsg", "삭제되었습니다.");
+				return "redirect:/community";
+			}
+			session.setAttribute("alertMsg", "삭제실패");
+			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
+		}
+	}
+	
+	
 	
 	@ResponseBody
 	@GetMapping(value="getVideo.sh", produces="application/json; charset=utf-8")

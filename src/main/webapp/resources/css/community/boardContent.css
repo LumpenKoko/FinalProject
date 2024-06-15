@@ -316,7 +316,7 @@ form{
 
 /*페이징 처리 css*/
 
- .page-div{
+ /* .page-div{
     display:flex;
     justify-content: center;
     gap:20px;
@@ -325,4 +325,4 @@ form{
 
  .page-button{
     color:var(--main-color);
-}
+} */

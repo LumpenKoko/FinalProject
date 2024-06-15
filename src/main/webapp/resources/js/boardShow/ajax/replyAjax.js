@@ -8,23 +8,20 @@ function replyInsertAjax(data){
         url:contextPath+'/detailViewReply.in',
         data:data,
         success:function(response){
-            if(response==='ok'){
-                alert("작성되었습니다.")
+          
+            alert(response)
 
-                if(data.replyNo!==-1){
+            if(data.replyNo!==-1){
                     document.querySelector("#replyReplyText"+data.replyNo).value="";
-                }
+            }
               
-                document.querySelector("#replyText").value="";
-            }
-            else{
-                alert("작성실패")
-            }
+             document.querySelector("#replyText").value="";
+           
 
             replyShowAjax(data,drawReply);
         },
         error:function(){
-            alert("서버오류")
+            alert("댓글작성에 실패하였습니다.")
         }
     })
 
@@ -42,7 +39,7 @@ function replyShowAjax(data,callback){
             drawingPage(response.page)
         },
         error:function(){
-            alert("서버오류")
+            alert("댓글작성에 실패하였습니다.")
         }
     })
 }
@@ -60,7 +57,7 @@ function replyDeleteAjax(data){
             replyShowAjax(data,drawReply);
         },
         error:function(){
-            alert("서버오류")
+            alert("댓글작성에 실패하였습니다.")
         }
     })
 

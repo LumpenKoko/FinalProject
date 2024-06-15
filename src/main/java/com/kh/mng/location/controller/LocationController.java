@@ -301,12 +301,12 @@ public class LocationController {
 	
 	@ResponseBody
 	@PostMapping(value="delete.re")
-	public String deleteReview( HttpSession session,int reviewNo,int userNo,int locationNo) {
+	public String deleteReview( ReviewInfo reviewInfo,HttpSession session) {
 	
-		ReviewInfo reviewInfo= new ReviewInfo();
-		reviewInfo.setLocationNo(locationNo);
-		reviewInfo.setReviewNo(reviewNo);
-		reviewInfo.setUserNo(userNo);
+//		ReviewInfo reviewInfo= new ReviewInfo();
+//		reviewInfo.setLocationNo(locationNo);
+//		reviewInfo.setReviewNo(reviewNo);
+//		reviewInfo.setUserNo(userNo);
 		
 		String savePath = session.getServletContext().getRealPath("resources/img/user/");
 		ArrayList<Attachment> deleteAttachment=detailService.deleteReview(reviewInfo);
@@ -314,13 +314,9 @@ public class LocationController {
 			if(!deleteAttachment.isEmpty()) {
 			for(Attachment attachment:deleteAttachment) {
 				File file = new File(savePath+attachment.getChangeName());
-			    System.out.println(file.getPath());
+				System.out.println(file.getPath());
 				if(file.exists()) {
 					file.delete();
-					System.out.println("파일 삭제됨");
-				}
-				else {
-					System.out.println("파일삭제실패");
 				}
 			}
 	    }

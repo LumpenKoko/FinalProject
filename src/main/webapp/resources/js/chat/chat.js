@@ -110,6 +110,11 @@ function openChatRoom(roomNo,targetId,targetNo){
 
 }
 
+
+
+
+
+////////
 //채팅방 선택(현재 내가 사장일때)
 function chooseChatRoom(roomNo,id){
  //선택시 채팅 목록에 유저 넘어 키값 부여하기?
@@ -118,7 +123,7 @@ function chooseChatRoom(roomNo,id){
 
   alert("채팅방에 연결되었습니다.")
    console.log(id)
-   let masterId=document.querySelector("#master-id");
+   let masterNo=document.querySelector("#master-No");
 
    let userId=document.querySelector("#userId"+id);
    let userNo=document.querySelector("#userNo"+id);
@@ -126,10 +131,10 @@ function chooseChatRoom(roomNo,id){
    targetNo=userNo.value;
 
 
-    //채팅 목록 불러와서 먼저 띄워주기
+   // 채팅 목록 불러와서 먼저 띄워주기
     onloadChatList({
-        userNo:masterId.value,
-        targetNo:userNo
+        userNo:masterNo.value,
+        targetNo:userNo.value
     },drawChatList);
 
 
@@ -143,10 +148,11 @@ function drawChatList(chatList){
 
   let chatDiv=document.querySelector("#chatMsg");
   let content="";
-
+   
    for(let chat of chatList ){
+     
 
-       if(chat.userNo ===document.querySelector("#master-id").value){
+       if(chat.userNo=== parseInt(document.querySelector("#master-No").value)){
          content+=`
             	<div class="send-user">
 						<div class="content  user-content user-color">
@@ -163,10 +169,10 @@ function drawChatList(chatList){
 					<div class="img-div">
 						<img src="resources/img/tori.jpg">
 					</div>
-					 <div class="master-name title">사장님</div>
+					 <div class="master-name title">${chat.userNickName}</div>
 				</div>
 				<div  class="content master-content master-color">
-						<div>${chat.userNickName}</div>
+					    <div>${chat.message}</div>
 						<div class="time">${chat.enrollTime}</div>
 				</div>
 			</div>
@@ -183,19 +189,21 @@ function drawChatList(chatList){
 }
 
 function onloadChatList(data,callback){
-   
+    console.log("onloadChat진입")
+    console.log(data)
     $.ajax({
         url:contextPath+"/view.chat",
         data:data,
         success:function(response){
+            console.log(response)
             callback(response)
         },
         error:function(){
             alert("에러발생")
         }
-
-
     })
+
+  
 }
 
 

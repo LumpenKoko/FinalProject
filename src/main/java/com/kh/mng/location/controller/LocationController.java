@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.kh.mng.common.chat.model.dto.UserMaster;
+import com.kh.mng.common.chat.model.dto.UserTarget;
 import com.kh.mng.common.chat.model.vo.Chat;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
@@ -413,8 +413,8 @@ public class LocationController {
 			//사장님아이디찾기
 			 MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
 			 
-			 UserMaster userMasterInfo =new UserMaster();
-			 userMasterInfo.setMasterNo(masterInfo.getMasterNo());
+			 UserTarget userMasterInfo =new UserTarget();
+			 userMasterInfo.setTargetNo(masterInfo.getMasterNo());
 			 userMasterInfo.setUserNo(loginUser.getUserNo());
 			 
 			 
@@ -436,9 +436,12 @@ public class LocationController {
 	//접속유저가 사장님일시   유저리스트 클릭시 비동기로 채팅목록 띄워주기
 	@ResponseBody
 	@GetMapping(value="view.chat" ,produces="application/json; charset=utf-8")
-	public String mastGetChatList(UserMaster userMasterInfo) {
-		
+	public String mastGetChatList(UserTarget userMasterInfo) {
+		System.out.println(userMasterInfo.getTargetNo());
+		System.out.println(userMasterInfo.getUserNo());
 		ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
+		log.info("{}"+chats);
+		System.out.println(chats);
 		return new Gson().toJson(chats);
 	}
 

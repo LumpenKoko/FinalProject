@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserMaster {
+public class UserTarget {
 	private int userNo;
-	private int masterNo;
+	private int targetNo;
 }

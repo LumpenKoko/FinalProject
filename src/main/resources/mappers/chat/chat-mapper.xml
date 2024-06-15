@@ -68,8 +68,8 @@
     		   TARGET_ID,
     		   to_char(enroll_time,'YYYY-MM-DD HH24:MI:SS') AS enroll_time
     		   FROM CHAT
-    		   WHERE (USER_NO = #{userNo} and TARGET_NO = #{masterNo})
-    		   or (USER_NO = #{masterNo} and TARGET_NO =#{userNo})
+    		   WHERE (USER_NO = #{userNo} and TARGET_NO = #{targetNo})
+    		   or (USER_NO = #{targetNo} and TARGET_NO =#{userNo})
     		   order by enroll_time
     
      </select>

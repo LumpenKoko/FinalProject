@@ -3,12 +3,9 @@
  * 장소 정보를 로드하고, 운영시간 요소를 추가하며, 이미지 업로드 및 상품 추가/삭제를 초기화합니다.
  */
 function initializePage() {
-    // 장소 정보를 로드하는 함수를 호출
-    loadLocationInfo();
-    // 요일별 운영시간 요소를 추가
-    addOperatingHoursElements();
-    // 이미지 업로드 및 상품 추가/삭제 초기화
-    locationpage('/mng');
+    loadLocationInfo(); // 장소 정보를 로드하는 함수를 호출
+    addOperatingHoursElements(); // 요일별 운영시간 요소를 추가
+    locationpage('/mng'); // 이미지 업로드 및 상품 추가/삭제 초기화
 }
 
 /**
@@ -18,7 +15,7 @@ function saveLocationInfo() {
     const locationPhone = document.getElementById("store-phone").value;
     const explanation = document.getElementById("store-description").value;
     const reservationLink = document.getElementById("reservation-link-input").value;
-    const userNo = $("#userNo").val(); // userNo 가져오기 (필요 시 추가)
+    const userNo = $("#userNo").val();
 
     const operationTimes = [];
     document.querySelectorAll('.operating-hours').forEach(element => {
@@ -29,14 +26,20 @@ function saveLocationInfo() {
         operationTimes.push({ day, startTime, endTime, restStatus });
     });
 
+    const animalTypes = [];
+    document.querySelectorAll('input[name="animal-type"]:checked').forEach(element => {
+        animalTypes.push(element.value);
+    });
+
     const locationInfo = {
         locationPhone: locationPhone,
         explanation: explanation,
         reservationLink: reservationLink,
         userNo: userNo,
-        operationTimes: operationTimes
+        operationTimes: operationTimes,
+        animalTypes: animalTypes
     };
-    
+
     $.ajax({
         url: contextPath + '/saveLocationInfo.bm',
         type: 'POST',
@@ -55,16 +58,14 @@ function saveLocationInfo() {
     });
 }
 
-
 /**
  * AJAX를 사용하여 장소 정보를 로드하는 함수
  */
 function loadLocationInfo() {
     $.ajax({
-        url: contextPath + '/getLocationInfo.bm', // 서버의 로드 URL
+        url: contextPath + '/getLocationInfo.bm',
         method: 'GET',
         success: function(response) {
-            // 서버에서 받은 데이터를 각 필드에 설정합니다.
             if (response.locationPhone) {
                 document.getElementById("store-phone").value = response.locationPhone;
             }
@@ -79,21 +80,16 @@ function loadLocationInfo() {
                     document.querySelector(`input[name="animal-type"][value="${type}"]`).checked = true;
                 });
             }
-            if (response.products) {
-                response.products.forEach(product => {
-                    var newProductForm = $("<div class='product-registration'>" +
-                        "<input type='text' class='product-name' placeholder='상품명을 입력하세요.' value='" + product.name + "'>" +
-                        "<input type='text' class='commodity-price' placeholder='가격을 입력하세요.' value='" + product.price + "'>" +
-                        "<button class='delete-product'>" +
-                        "<img class='delete-productimg' src='resources/img/bosspage/-.png'>" +
-                        "</button>" +
-                        "</div>");
-                    $("#product-registration").before(newProductForm);
+            if (response.operationTimes) {
+                response.operationTimes.forEach(time => {
+                    const element = document.querySelector(`.operating-hours p:contains('${time.day}')`).parentElement;
+                    element.querySelector('.open-time').value = time.startTime;
+                    element.querySelector('.close-time').value = time.endTime;
+                    element.querySelector('input[name="휴무"]').checked = time.restStatus;
                 });
             }
         },
         error: function(xhr, status, error) {
-            // 로드에 실패한 경우
             alert("장소정보 로드에 실패했습니다: " + error);
         }
     });
@@ -137,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
  * @param {string} path - 기본 경로
  */
 function locationpage(path){
-    /*객실 이미지 업로드*/
     const registrationupload = document.querySelectorAll('.registration-upload');
 
     for (let uploadImg of registrationupload) {
@@ -159,25 +154,22 @@ function locationpage(path){
      * @param {string} id - 입력 요소의 ID
      */
     function loadImg(inputFile, id){
-        if (inputFile.files.length == 1){ // 파일을 하나 선택한 경우
+        if (inputFile.files.length == 1){
             const reader = new FileReader();
             reader.readAsDataURL(inputFile.files[0]);
             reader.onload = function(ev){
                 const companyImg = document.querySelector(`label[for=${id}] img`);
                 companyImg.src = ev.target.result;
             }
-        } else { // 파일 선택을 취소한 경우
+        } else {
             const companyImg = document.querySelector(`label[for=${id}] img`);
             companyImg.src = path + "/resources/img/myPage/+.png";
         }
     }
 }
 
-/* (+) 버튼 클릭시 상품 추가 */
 $(document).ready(function() {
-    // "Add Product" 버튼 클릭 시
     $("#add-product").on("click", function() {
-        // 새로운 상품 등록 폼 생성
         var newProductForm = $("<div class='product-registration'>" +
             "<input type='text' class='product-name' placeholder='상품명을 입력하세요.'>" +
             "<input type='text' class='commodity-price' placeholder='가격을 입력하세요.'>" +
@@ -185,20 +177,14 @@ $(document).ready(function() {
             "<img class='delete-productimg' src='resources/img/bosspage/-.png'>" +
             "</button>" +
             "</div>");
-
-        // 생성한 상품 등록 폼을 #product-registration 요소 이전에 추가
         $("#product-registration").before(newProductForm);
     });
 
-    // 동적으로 생성된 요소에 대한 이벤트 처리
     $(document).on("click", ".delete-product", function() {
-        // 삭제 버튼 클릭 시 해당 상품 등록 폼 제거
         $(this).closest(".product-registration").remove();
     });
 
-    // 등록 버튼 클릭 시
     $(".upload-bt").click(function() {
         // 등록 로직 수행
-        // 이 부분에 등록 로직을 추가하면 됩니다.
     });
 });

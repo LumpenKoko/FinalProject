@@ -3,6 +3,7 @@ package com.kh.mng.bosspage.service;
 import java.util.ArrayList;
 
 import com.kh.mng.bosspage.model.dto.CouponKind;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 
@@ -21,4 +22,7 @@ public interface BossPageServiceSecond {
 	
 	// 게시글 등록
 	int insertBoard(BoardEnroll board, BoardFileInfo boardFile);
+	
+	// 암호화된 6자리 랜덤 숫자 저장
+	int insertCertifyNumber(PhoneSmsVo psv);
 }

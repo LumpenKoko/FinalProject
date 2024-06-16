@@ -1,11 +1,18 @@
 package com.kh.mng.member.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.mng.bosspage.controller.BossPageControllerSecond;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
+import com.kh.mng.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
@@ -20,6 +27,9 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 @Controller
 public class MemberSMSController {
 	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@Value("${sms.apiKey}") 
 	private String apiKey;
 	
@@ -31,37 +41,52 @@ public class MemberSMSController {
 	
 	@Value("${sms.sentNum}") 
 	private String sentNum;
-	
-	// 인증번호와 맞는지 어떻게 확인할 것인가?
-	private String certifyCode;
-	
+//	
+//	// 인증번호와 맞는지 어떻게 확인할 것인가?
+//	private String certifyCode;
+//	
 	@ResponseBody
 	@PostMapping(value="certification.me", produces="application/json; charset=utf-8")
-	public String certifyPhone(String getNum) {
+	public String certifyPhone(String getNum, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		PhoneSmsVo psv = new PhoneSmsVo();
+		
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
 		
 		String ranNum = String.valueOf((int)(Math.random()*900000 + 100000));
     	String msgText = "멍냥가이드 본인확인 인증번호 " + ranNum;
+    	
+    	String ranNumEnc = bcryptPasswordEncoder.encode(ranNum);
+    	
+    	psv.setUserNo(loginUser.getUserNo());
+    	psv.setRanNum(ranNumEnc);
+    	
+    	int result = new BossPageControllerSecond().insertCertifyNumber(psv);
 		
-		Message message = new Message();
+    	if (result > 0) {
+    		Message message = new Message();
+    		
+    		message.setTo(getNum);
+    		message.setFrom(sentNum);
+    		message.setText(msgText);
+    		
+    		MultipleDetailMessageSentResponse response = null;
+    		try {
+    			response = messageService.send(message);
+    		} catch (NurigoMessageNotReceivedException e) {
+    			e.printStackTrace();
+    		} catch (NurigoEmptyResponseException e) {
+    			e.printStackTrace();
+    		} catch (NurigoUnknownException e) {
+    			e.printStackTrace();
+    		}
+    		log.info(response.toString());
+    		
+    		return "NNNNY";
+    	} else {
+    		return "NNNNN";
+    	}
 		
-		message.setTo(getNum);
-		message.setFrom(sentNum);
-		message.setText(msgText);
-		
-		MultipleDetailMessageSentResponse response = null;
-		try {
-			response = messageService.send(message);
-		} catch (NurigoMessageNotReceivedException e) {
-			e.printStackTrace();
-		} catch (NurigoEmptyResponseException e) {
-			e.printStackTrace();
-		} catch (NurigoUnknownException e) {
-			e.printStackTrace();
-		}
-		log.info(response.toString());
-		
-		return new Gson().toJson("");
 	}
 	
 //  public MemberSMSController() { // Parameter specified as non-null is null 오류 (Kotlin에서 null인 값이 들어올 경우의 처리를 안 해줘서 발생하는 오류라고 함)

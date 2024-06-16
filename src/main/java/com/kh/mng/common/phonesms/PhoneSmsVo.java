@@ -15,9 +15,7 @@ import lombok.ToString;
 @ToString
 
 public class PhoneSmsVo {
-	private String apiKey;
-	private String apiSecretKey;
-	private String apiUrl;
-	private String sentNum;
+	private int userNo;
+	private String ranNum;
 
 }

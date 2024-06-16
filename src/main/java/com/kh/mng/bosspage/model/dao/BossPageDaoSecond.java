@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.dto.CouponKind;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 
@@ -48,5 +49,13 @@ public class BossPageDaoSecond {
 	
 	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
 		return sqlSession.insert("searchMapper.insertBoardAttachment", boardFile);
+	}
+	
+
+	
+	
+//	핸드폰 인증
+	public int insertCertifyNumber(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.insert("searchMapper.insertCertifyNumber", psv);
 	}
 }

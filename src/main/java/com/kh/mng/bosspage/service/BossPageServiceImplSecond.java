@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.bosspage.model.dao.BossPageDaoSecond;
 import com.kh.mng.bosspage.model.dto.CouponKind;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 
@@ -63,6 +64,16 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 		}
 		
 		return result1 * result2;
+	}
+
+	
+	
+	
+	
+	// 핸드폰 인증
+	@Override
+	public int insertCertifyNumber(PhoneSmsVo psv) {
+		return bossPageDaoSecond.insertCertifyNumber(sqlSession, psv);
 	}
 	
 	

@@ -62,8 +62,7 @@ public class CommunityController {
 			@RequestParam(value="boardContent",defaultValue="default") String boardContent,
 			Model model) {
 		
-		System.out.println(shortsPageNo);
-		System.out.println("BoardNo:"+boardPageNo);
+	
 		//쇼츠 목록 가져오기
 		int shortsCount=communityService.selectShortsCount();
 		PageInfo shortsPi =Pagination.getPageInfo(shortsCount,shortsPageNo,10,10);

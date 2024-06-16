@@ -16,7 +16,7 @@
 </head>
     <%@ include file="../common/header.jsp"%>
 
-<body onload="init('${contextPath}','${loginUser.userNickname}')">
+<body onload="init('${contextPath}','${loginUser.userNickname}','${loginUser.userNo}')">
 	
 	<div class="wrapper">
         <div class="main">
@@ -30,10 +30,12 @@
                         </div>
                         <div class="change-button-box">
                             <img src="resources/community/threeCircle.png" alt="">
-                            <div class="change-box">
-                                <div class="change-box-list" onclick="location.href='#'">수정하기</div>
-                                <div class="change-box-list change-box-last"  onclick="deleteBoard()">삭제하기</div>
-                            </div>
+                            <c:if test="${loginUser!=null && (loginUser.userNo eq board.userNo )}">
+                                <div class="change-box">
+                                    <div class="change-box-list" onclick="location.href='#'">수정하기</div>
+                                    <div class="change-box-list change-box-last"  onclick="deleteBoard()">삭제하기</div>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                     <div id="board-header-info">
@@ -44,7 +46,7 @@
                         <span>조회수 ${board.count}</span>
                         <span>등록일 ${board.createDate}</span>
                     </div>
-                </div>
+                </div> 
 
                 <!-- 글 내용 및 사진 영역 -->
                 <div id="board-content-box">
@@ -60,7 +62,7 @@
                         <div class="board-communication-info">
                             <!-- 좋아요 여부에 따라 처리 필요 -->
                             <img src="resources/community/like-after.png" alt="">
-                            <span><a id="good" style="cursor: pointer;">좋아요</a><div id="goodCount">${board.goodCount}</div></span>
+                            <span id="good" style="cursor: pointer;">좋아요 </span><span id="goodCount">${board.goodCount}</span>
                         </div>
                         <div class="board-communication-info">
                             <img src="resources/community/reply.png" alt="">
@@ -92,9 +94,11 @@
                                                 
                                                 <div class="change-button-box">
                                                     <img src="resources/community/threeCircle.png" alt="">
-                                                    <div class="change-box">
-                                                        <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a>삭제하기</a></div>
-                                                    </div>
+                                                    <c:if test="${loginUser!=null && (loginUser.userNo eq r.userNo )}">
+                                                        <div class="change-box">
+                                                            <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a style="cursor: pointer;">삭제하기</a></div>
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </div>
 
@@ -115,9 +119,11 @@
                                                             <span class="reply-date">${rr.createDate}</span>
                                                          
                                                         </div>
-                                                        <div class="change-box">
-                                                            <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a>삭제하기</a></div>
-                                                        </div>
+                                                        <c:if test="${loginUser!=null && (loginUser.userNo eq rr.userNo )}">
+                                                            <div class="change-box">
+                                                                <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a style="cursor: pointer;">삭제하기</a></div>
+                                                            </div>
+                                                        </c:if>
                                                     </div>
                                                     <div class="reply-content">${rr.content}</div>
                                                 </div>

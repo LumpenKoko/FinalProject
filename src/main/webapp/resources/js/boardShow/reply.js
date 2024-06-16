@@ -74,11 +74,30 @@ function drawReply(replys) {
 
    let replycontent = "";
    let replyReplyContent = "";
+   let replydeleteBox="";
+   let replyreplyDeleteBox="";
 
 
    for (let r of replys) {
 
-      for (let rr of r.replyReply) {
+    if(userNo!==-1&&(userNo===r.userNo)){
+        replydeleteBox=`<div class="change-box">
+                            <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a style="cursor: pointer;">삭제하기</a></div>
+                        </div>`
+    }
+
+    for (let rr of r.replyReply) {
+
+        if(userNo!==-1 && (userNo===rr.userNo)){
+            replyreplyDeleteBox=`
+             <div class="change-box">
+                     <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a style="cursor: pointer;">삭제하기</a></div>
+             </div>
+            `
+        }
+
+
+
          replyReplyContent += `
                       <div class="board-reply-box re-reply-width">
                                                 <div class="board-reply-profile"><img src="${rr.replyUserProfile.filePath}${rr.replyUserProfile.changeName}" alt=""></div>
@@ -87,12 +106,9 @@ function drawReply(replys) {
                                                         <div>
                                                             <span class="reply-user">${rr.userNickName}</span>
                                                             <span class="reply-date">${rr.createDate}</span>
-                                                        </div>
-                                                        <div class="change-box">
-                                                            <div class=""><a>수정하기</a></div>
-                                                            <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a>삭제하기</a></div>
-                                                        </div>
-                                                    </div>
+                                                        </div>`
+                                                        +replyreplyDeleteBox+
+                                                    `</div>
                                                     <div class="reply-content">${rr.content}</div>
                                                 </div>
                                             </div>
@@ -114,13 +130,11 @@ function drawReply(replys) {
                                                     <span class="reply-date">${r.createDate}</span>
                                                     <button  type="button" onclick="replyShowInsert('${r.replyNo}')">답글 달기</button>
                                                 </div>
-                                                
                                                 <div class="change-button-box">
                                                     <img src="resources/community/threeCircle.png" alt="">
-                                                    <div class="change-box">
-                                                         <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a>삭제하기</a></div>
-                                                    </div>
-                                                </div>
+                                                  `
+                                                  +replydeleteBox+
+                                               `</div>
                                             </div>
 
                                             <div class="reply-content">${r.content}</div>
@@ -151,7 +165,8 @@ function drawReply(replys) {
    
    `
     replyReplyContent=""
-
+    replydeleteBox=""
+    replyreplyDeleteBox=""
 
    }
 

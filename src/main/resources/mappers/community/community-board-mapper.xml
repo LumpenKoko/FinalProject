@@ -40,6 +40,7 @@
 	   		<result column="REPLY_CONTENT"  property="content"></result>
 	   		<result column="CREATE_DATE"  property="createDate"></result>
 	   		<result column="USER_NICKNAME"  property="userNickName"></result>
+	   		<result column="USER_NO"  property="userNo"></result>
 	   </resultMap>
 	   
 	   	<resultMap type="BoardReplyReply" id="selectReplyReplys">
@@ -47,6 +48,7 @@
 	   		<result column="REPLY_CONTENT"  property="content"></result>
 	   		<result column="CREATE_DATE"  property="createDate"></result>
 	   		<result column="USER_NICKNAME"  property="userNickName"></result>
+	   		<result column="USER_NO"  property="userNo"></result>
 	   </resultMap>
 	   
   
@@ -163,7 +165,8 @@
 				   REPLY_CONTENT,
 				   CREATE_DATE ,
 		           REPLY_RE_NO,
-				   USER_NICKNAME
+				   USER_NICKNAME,
+				   R.USER_NO
 				   FROM REPLY R JOIN 
 				   MEMBER M ON (R.USER_NO=M.USER_NO)
 				   WHERE REPLY_RE_NO IS NULL AND  BOARD_NO = #{boardNo}
@@ -177,7 +180,8 @@
 				   REPLY_CONTENT,
 				   CREATE_DATE ,
 		           REPLY_RE_NO,
-				   USER_NICKNAME
+				   USER_NICKNAME,
+				   R.USER_NO
 				   FROM REPLY R JOIN 
 				   MEMBER M ON (R.USER_NO=M.USER_NO)
 				   WHERE REPLY_RE_NO IS NOT null AND  BOARD_NO = #{boardNo}

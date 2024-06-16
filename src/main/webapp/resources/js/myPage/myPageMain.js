@@ -20,3 +20,28 @@ for (var i = 0; i < petNames.length; i++) {
     petNameElement.textContent = petNames[i];
     petNamesElement.appendChild(petNameElement);
 }
+
+function deleteReview(reviewNo, contextPath) {
+    $.ajax({
+        url: contextPath + "/deleteReview.mp",
+        type: 'POST',
+        data: {reviewNo: reviewNo},
+
+        success: function (response) {
+            console.log(response);
+            if (response === 'NNNNY') {
+                alert('리뷰 삭제에 성공하였습니다.');
+            } else {
+                alert('실패');
+            }
+            // 리다이렉트는 success 또는 error 핸들러 내에서 처리
+            location.href = contextPath + '/myPageMain.mp';
+        },
+        error: function (error) {
+            console.log(error);
+            alert('실패');
+            // 에러 발생 시도 리다이렉트 처리
+            location.href = contextPath + '/myPageMain.mp';
+        }
+    });
+}

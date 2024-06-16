@@ -220,6 +220,10 @@
     
     </select>
     
+    <delete id="deleteMyReview">
+    	DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
+    </delete>
+    
  	</mapper>
  	
  

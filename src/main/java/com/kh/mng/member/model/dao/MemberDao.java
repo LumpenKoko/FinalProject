@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -60,5 +61,17 @@ public class MemberDao {
 	
 	public int wishListDelete(SqlSessionTemplate sqlSession, WishListNo wishListNo) {
 		return sqlSession.delete("picked.pickedDelete", wishListNo);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.delete("communityBoardMapper.deleteBoard", boardNo);
+	}
+
+	public int deleteReview(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.delete("review.deleteMyReview", reviewNo);
+	}
+
+	public List<Shorts> getShortsList(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectList("shortsMapper.getVideoInfo", userNo);
 	}
 }

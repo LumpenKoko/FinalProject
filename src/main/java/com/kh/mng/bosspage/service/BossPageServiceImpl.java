@@ -1,7 +1,6 @@
 package com.kh.mng.bosspage.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,10 @@ import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
 
-
 @Service
-public class BossPageServiceImpl implements BossPageService{
-	
-	@Autowired
+public class BossPageServiceImpl implements BossPageService {
+
+    @Autowired
     private BossPageDao bossPageDao;
 
     @Autowired
@@ -70,17 +68,39 @@ public class BossPageServiceImpl implements BossPageService{
     @Override
     @Transactional
     public int saveOperationTimes(int locationNo, List<LocationOperationTime> operationTimes) {
-        // 기존 운영시간 삭제
         bossPageDao.deleteOperationTimes(sqlSession, locationNo);
-        // 새로운 운영시간 삽입
         for (LocationOperationTime operationTime : operationTimes) {
             bossPageDao.insertOperationTime(sqlSession, operationTime);
         }
         return 1;
     }
+    
 
     @Override
     public List<LocationOperationTime> getOperationTimes(int locationNo) {
         return bossPageDao.getOperationTimes(sqlSession, locationNo);
+    }
+
+    @Override
+    @Transactional
+    public int savePetKindsAndSizes(int locationNo, List<String> petKinds, List<String> petSizes) {
+        bossPageDao.deletePetKindsAndSizes(sqlSession, locationNo);
+        for (String petKind : petKinds) {
+            bossPageDao.insertPetKind(sqlSession, locationNo, petKind);
+        }
+        for (String petSize : petSizes) {
+            bossPageDao.insertPetSize(sqlSession, locationNo, petSize);
+        }
+        return 1;
+    }
+
+    @Override
+    public List<String> getPetKinds(int locationNo) {
+        return bossPageDao.getPetKinds(sqlSession, locationNo);
+    }
+
+    @Override
+    public List<String> getPetSizes(int locationNo) {
+        return bossPageDao.getPetSizes(sqlSession, locationNo);
     }
 }

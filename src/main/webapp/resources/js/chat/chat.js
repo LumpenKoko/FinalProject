@@ -14,7 +14,6 @@ function init(path,masterKind){
        targetId=document.querySelector("#masterId").value
       // roomNo=document.querySelector("#roomNo").value
        targetNo=document.querySelector("#masterNo").value
-       console.log("masterId",targetId, targetNo)
        openChatRoom(1,targetId,targetNo)
     }
 }
@@ -44,12 +43,8 @@ function openChatRoom(roomNo,targetId,targetNo){
     socket.onmessage=function(ev){
 
         const now = new Date();	
-        console.log(ev)
         const recevie =JSON.parse(ev.data);
-        console.log(recevie);
-
-        console.log("check:",recevie.userNo)
-        console.log("check1",document.querySelector("#userKey").value)
+     
         if(recevie.userNo===parseInt(document.querySelector("#userKey").value)){
          
 
@@ -117,30 +112,26 @@ function openChatRoom(roomNo,targetId,targetNo){
 ////////
 //채팅방 선택(현재 내가 사장일때)
 function chooseChatRoom(roomNo,id){
- //선택시 채팅 목록에 유저 넘어 키값 부여하기?
- document.querySelector("#userKey").value=id;
-
-
-  alert("채팅방에 연결되었습니다.")
-   console.log(id)
-   let masterNo=document.querySelector("#master-No");
+ //선택시 채팅 목록에 유저 넘버 키값 부여하기?
+  document.querySelector("#userKey").value=id;
+  let masterNo=document.querySelector("#master-No");
 
    let userId=document.querySelector("#userId"+id);
    let userNo=document.querySelector("#userNo"+id);
    targetId=userId.value;
    targetNo=userNo.value;
 
-
+   
+   //유저닉네임 채팅목록에 띄워주기
+   document.querySelector("#chattingUser").innerText=document.querySelector("#userNickName"+id).innerText;
    // 채팅 목록 불러와서 먼저 띄워주기
     onloadChatList({
         userNo:masterNo.value,
         targetNo:userNo.value
     },drawChatList);
 
-
-  
-
     openChatRoom(roomNo,targetId,targetNo);
+    alert("채팅방에 연결되었습니다.")
 }
 
 
@@ -189,14 +180,14 @@ function drawChatList(chatList){
 }
 
 function onloadChatList(data,callback){
-    console.log("onloadChat진입")
-    console.log(data)
+ 
     $.ajax({
         url:contextPath+"/view.chat",
         data:data,
         success:function(response){
             console.log(response)
             callback(response)
+            document.querySelector("#notifyCount"+data.targetNo).remove();
         },
         error:function(){
             alert("에러발생")

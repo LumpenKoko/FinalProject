@@ -2,10 +2,12 @@ package com.kh.mng.common.chat.service;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.common.chat.model.dao.ChatDao;
 import com.kh.mng.common.chat.model.dto.ChatInfo;
@@ -48,14 +50,46 @@ public class ChatService {
 		return chatDao.selectMasterInfo(sqlSession,locationNo);
 	}
 	
-	public ArrayList<UserInfo> selectUserInfo(int locationNo) {
-		// TODO Auto-generated method stub
-		return chatDao.selectUserInfo(sqlSession,locationNo);
+	@Transactional
+	public ArrayList<UserInfo> selectUserInfo(int userNo) {
+		//넘어오는 userNo는 사장님 userNO
+		ArrayList<UserInfo> userInfo=chatDao.selectUserInfo(sqlSession,userNo);
+		 
+		if(!userInfo.isEmpty()) {
+			//UserInfo에서 반환되는 userNo는 유저userNo
+			for(UserInfo userList:userInfo) {
+				int messageCount=chatDao.selectNotifyMessageCount(sqlSession,userList.getUserNo());
+				Map<String,String> lastestMessage=chatDao.selectNotifyMessage(sqlSession,userList.getUserNo());
+				userList.setMessageCount(messageCount);
+				userList.setLastestMessage(lastestMessage);
+			}
+			
+		}
+		
+		return  userInfo;
 	}
 
-	public ArrayList<Chat> selectUserChats(UserTarget userMasterInfo) {
+	//유저 채팅목록 가져오는 서비스
+	@Transactional
+	public ArrayList<Chat> selectUserChats(UserTarget userTargetInfo) {
 	
-		return chatDao.selectUserChats(sqlSession,userMasterInfo);
+		//notify상태를 fasle로 변환시켜준다.
+		ArrayList<Chat> selectUserChats = chatDao.selectUserChats(sqlSession,userTargetInfo);
+		int count=1;
+		if(!selectUserChats.isEmpty()) {
+			for(Chat chats:selectUserChats) {
+			    count=chatDao.updateNotify(sqlSession,chats.getChatNo());
+				count*=count;
+			}
+		}
+		
+		if(count>0) {
+			return selectUserChats;
+		}else {
+			return null;
+		}
+		
+		
 	}
 	
 	

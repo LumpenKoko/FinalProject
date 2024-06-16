@@ -387,9 +387,9 @@ public class LocationController {
 			//ArrayList<Chat> masterchats=chatService.selectChats(loginUser.getUserNo());
 			
 
-			//채팅 데이터베이스에 유저 목록 가져오기 (자기자신 빼고) status true인 상태인 유저만 가져오기 
-		    ArrayList<UserInfo> userInfo= chatService.selectUserInfo(locationNo);
-		    
+			//채팅 데이터베이스에 유저 목록 가져오기 (자기자신뺀 유저만 가져오기 
+		    ArrayList<UserInfo> userInfo= chatService.selectUserInfo(loginUser.getUserNo());
+		    System.out.println(userInfo);
 		 
 		   // ArrayList<Chat> entireChats=chatService.selectEntireUserChats(loginUser.getUserNo());
 			
@@ -417,7 +417,6 @@ public class LocationController {
 			//채팅 데이터베이스에서 현재 자신의 채팅 목록 가져오기  status true인 상태인 채팅만
 			ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
 			log.info("chats:{}",chats.toString());
-			System.out.println(chats.toString());
 			model.addAttribute("master","NNNNN");
 			model.addAttribute("masterInfo",masterInfo);
 			model.addAttribute("chats",chats);
@@ -429,15 +428,12 @@ public class LocationController {
 	   return "chat/chat";
 	}
 	
-	//접속유저가 사장님일시   유저리스트 클릭시 비동기로 채팅목록 띄워주기
+	//접속유저가 사장님일시   유저리스트 클릭시 비동기로 채팅목록 띄워주기 notify를 false로 만들자
 	@ResponseBody
 	@GetMapping(value="view.chat" ,produces="application/json; charset=utf-8")
 	public String mastGetChatList(UserTarget userMasterInfo) {
-		System.out.println(userMasterInfo.getTargetNo());
-		System.out.println(userMasterInfo.getUserNo());
 		ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
 		log.info("{}"+chats);
-		System.out.println(chats);
 		return new Gson().toJson(chats);
 	}
 

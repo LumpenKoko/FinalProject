@@ -30,19 +30,22 @@
 							<div  id="chatRoom${userList.userNo}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${userList.userNo}')">
 								<div class="profile-area">
 									<div class="img-div">
-										<img src="resources/img/tori.jpg">
+										<img src="resources/img/star.png">
 									</div>
 									<div class="profile-list">
 										<input id="userId${userList.userNo}" type="text"  value="${userList.userId}" hidden>
 										<input id="userNo${userList.userNo}" type="text"  value="${userList.userNo}" hidden>
-										<div class="title">${userList.userNickName}</div>
-										<div class="content">${userList.message}</div>
+										<div id="userNickName${userList.userNo}" class="title">${userList.userNickName}</div>
+										<div class="content">${userList.lastestMessage.message}</div>
 									</div>
 								</div>
 								
+								<!--실시간 처리-->
 								<div  class="notice">
-									<div class="date">오후 12:34</div>
-									<div class="notify">1</div>
+									<div class="date">${userList.lastestMessage.enroll_time}</div>
+									<c:if test="${userList.messageCount != 0}">
+										<div id="notifyCount${userList.userNo}" class="notify">${userList.messageCount}</div>
+									</c:if>
 								</div>
 							</div>
 
@@ -243,13 +246,10 @@
 				   </c:if>
 
 					<div class="profile-box">
-						<div class="hide-button">
-							<div class="title">&lt;</div>
-						</div>
 						<div class="img-div">
-							<img src="resources/img/tori.jpg">
+							<img src="resources/img/star.png">
 						</div>
-						<div class="title">${userList.userNickName}</div>
+						<div id="chattingUser" class="title"></div>
 					</div>
 
 					<!--#########-->

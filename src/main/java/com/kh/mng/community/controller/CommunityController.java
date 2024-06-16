@@ -144,8 +144,6 @@ public class CommunityController {
 	@GetMapping(value="search", produces="application/json; charset=utf-8")
 	public String searchBoard(@RequestParam(value="boardCategoryNo",defaultValue="0")int boardCategoryNo,
 			                  @RequestParam(value="boardContent",defaultValue="default") String boardContent) {
-		System.out.println("boardCategoryNo"+boardCategoryNo);
-		System.out.println(boardContent);
 		BoardInfo boardInfo=new BoardInfo();
 		boardInfo.setBoardCategoryNo(boardCategoryNo);
 		boardInfo.setBoardContent(boardContent);
@@ -164,7 +162,6 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value = "shorts", produces = "application/json; charset=utf-8")
 	public String selecShorts(int shortsPageNo) {
-		System.out.println(shortsPageNo);
 		int shortsCount = communityService.selectShortsCount();
 
 		PageInfo shortsPi = Pagination.getPageInfo(shortsCount, shortsPageNo, 10, 10);
@@ -190,10 +187,7 @@ public class CommunityController {
 		
 	   log.info("files:");
 	   log.info("text:"+shortsInfo.getShortsContent());
-	   System.out.println(files);
-	   System.out.println(shortsInfo.getShortsContent());
-	   System.out.println(shortsInfo.getShowRange());
-	   
+	 
 	   Member loginMember=(Member)(session.getAttribute("loginUser"));
 	   shortsInfo.setUserNo(loginMember.getUserNo());
 	
@@ -263,8 +257,7 @@ public class CommunityController {
 	
 	//커뮤니티 게시글 삭제
 	
-	
-	//커뮤니티 게시글 수정
+
 	
 	
 	
@@ -278,13 +271,14 @@ public class CommunityController {
 	@GetMapping(value="detailView.bo")
 	public String detailBoardView(@RequestParam(value="bno") int bno,
 								  @RequestParam(value="pageNo",defaultValue="1") int pageNo,
-								  Model model) {
+								  Model model,HttpSession session) {
 		
+		//int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
 		
 		int  replyCount= communityService.selectBoardReplyCount(bno);
 	    PageInfo replyPi = Pagination.getPageInfo(replyCount ,pageNo, 10, 10);
 		
-		 CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno);
+		 CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno,0);
 		 
 		 log.info("communityBoard:{}",communityBoard);
 		 
@@ -380,15 +374,18 @@ public class CommunityController {
 	@GetMapping(value="updategoodcount.bo",produces = "application/json; charset=utf-8")
 	public String updateBoardGood(BoardInfo boardInfo,HttpSession session) {
 		
-		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
-		boardInfo.setUserNo(userNo);
 		
+		Member loginUser=(Member)session.getAttribute("loginUser");
+		BoardGoodInfo goodInfo=new BoardGoodInfo();
+		if(loginUser==null) {
+			goodInfo.setMessage("fail");
+		}else {
+			int userNo=(loginUser.getUserNo());
+			boardInfo.setUserNo(userNo);
+			goodInfo=communityService.updateBoardGoodCount(boardInfo);
+		}
 		
-	    BoardGoodInfo goodInfo=communityService.updateBoardGoodCount(boardInfo);
-		
-	   
 		return new Gson().toJson(goodInfo);
-		
 		
 	}
 	
@@ -398,7 +395,7 @@ public class CommunityController {
 		return "community/writingPage";
 	}
 	
-	//게시글 삭제 컨트롤러 
+	//게시글 삭제 컨트롤러
 	@GetMapping(value="delete.bo")
 	public String deleteBoard(BoardInfo boardInfo,HttpSession session) {
 		Member loginUser=(Member)session.getAttribute("loginUser");

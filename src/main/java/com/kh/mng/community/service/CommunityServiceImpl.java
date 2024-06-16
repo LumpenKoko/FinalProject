@@ -196,18 +196,19 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 
+	//게시판 상세 정보 가져오는 서비스
 	@Override
 	@Transactional
-	public CommunityBoard selectBoardDetail(PageInfo replyPi,int bno) {
+	public CommunityBoard selectBoardDetail(PageInfo replyPi,int bno,int userNo) {
 	   
 		
 	    CommunityBoard communityBoard =  communityDao.selectBoardDetail(sqlSession,bno);
    
 	    if(communityBoard!=null) {
 	    	
-	    	//조회수(업데이트)
-			communityDao.updateBoardViewCount(sqlSession,bno);
-	    	
+	    	//조회수 업데이트
+	    	communityDao.updateBoardViewCount(sqlSession,bno);
+	    
 	    	//댓글수
 	    	int replyCount = communityDao.selectBoardReplyCount(sqlSession, bno);
 	    	
@@ -286,6 +287,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	
+	//게시판댓글 대댓글 입력 서비스
 	@Override
 	@Transactional
 	public int insertBoardReply(ReplyInfo replyInfo) {
@@ -364,6 +366,7 @@ public class CommunityServiceImpl implements CommunityService{
 		return selectBoardReplys;
 	}
 	
+	//좋아요 체크 서비스
 	@Override
 	@Transactional
 	public BoardGoodInfo updateBoardGoodCount(BoardInfo boardInfo) {

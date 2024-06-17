@@ -67,9 +67,9 @@ function createItem(num) {
                         <button>
                             좋아요버튼
                         </button>
-                        <div class="white-pont" id="thumbnail-like-count` + num +`"> </div>
+                        <div class="white-pont" id="thumbnail-like-count` + num +`"></div>
                         <div class="white-pont" id="thumbnail-reply-count` + num +`"></div>
-                        <div>프사</div>
+                        <div id="thumbnail-profile` + num + `"></div>
                         <div class="white-pont" id="thumbnail-nickname` + num +`"></div>
                         <div class="white-pont" id="thumbnail-content` + num +`"></div>
                         <div class="white-pont" id="thumbnail-enroll-date` + num +`"></div>

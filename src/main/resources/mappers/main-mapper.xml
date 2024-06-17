@@ -184,6 +184,7 @@
 				     COUNT(*) AS REPLY_COUNT
 			    FROM REPLY
 			   GROUP BY BOARD_NO
+			   HAVING BOARD_NO != 0
 			ORDER BY REPLY_COUNT DESC)
 		LIMIT 5
 	</select>

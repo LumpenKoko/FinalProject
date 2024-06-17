@@ -18,7 +18,7 @@
 			
 			<div class="chat-box">
 
-
+               <!--유저가 사장님이면-->
 			 <c:if test="${!master.equals('NNNNN')}">
 				<input id="master-No" type="text" value="${loginUser.userNo}" hidden>
 				<div class="chat-list">
@@ -41,15 +41,13 @@
 								</div>
 								
 								<!--실시간 처리-->
-								<div  class="notice">
+								<div id="notice${userList.userNo}" class="notice">
 									<div class="date">${userList.lastestMessage.enroll_time}</div>
 									<c:if test="${userList.messageCount != 0}">
 										<div id="notifyCount${userList.userNo}" class="notify">${userList.messageCount}</div>
 									</c:if>
 								</div>
 							</div>
-
-
 
 						</c:forEach>
 
@@ -264,7 +262,7 @@
 								<div class="send-master">
 									<div class="master-profile">
 										<div class="img-div">
-											<img src="resources/img/tori.jpg">
+											<img src="resources/img/star.png">
 										</div>
 										<div class="master-name title">사장님</div>
 									</div>

@@ -16,6 +16,45 @@ function init(path,masterKind){
        targetNo=document.querySelector("#masterNo").value
        openChatRoom(1,targetId,targetNo)
     }
+    //사장님일때도 먼저 소켓을 연결한다. (알림창때문)
+    else{
+
+        const socket = new WebSocket(contextPath+"/server");
+   
+
+        socket.onopen=function(){
+            console.log("웹소켓 연결 성공..");
+        }
+    
+        socket.onclose = function(){
+            console.log("웹소켓 연결 끊어짐...");
+        }
+    
+        socket.onerr = function(){
+            console.log("웹소켓 연결 실패....")
+            alert("웹소켓 연결 실패")
+        }
+    
+        socket.onmessage=function(ev){
+           
+            const recevie =JSON.parse(ev.data);
+            //유저목록 count 증가 시킨다. 
+            //let userNo=document.querySelector("#userKey").value
+            if(document.querySelector("#notifyCount"+recevie.userNo)===null){
+                let notifyCount=document.createElement("div");
+                notifyCount.id="notifyCount"+recevie.userNo
+                notifyCount.className="notify"
+                notifyCount.innerText=1
+                console.log(notifyCount)
+                document.querySelector("#notice"+recevie.userNo).appendChild(notifyCount)
+            }   
+            else{
+            document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
+            parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
+        }
+      }
+    
+    }
 }
 
 function openChatRoom(roomNo,targetId,targetNo){
@@ -45,14 +84,16 @@ function openChatRoom(roomNo,targetId,targetNo){
         const now = new Date();	
         const recevie =JSON.parse(ev.data);
      
-        if(recevie.userNo===parseInt(document.querySelector("#userKey").value)){
+        let sendUserNo=parseInt(document.querySelector("#userKey").value);
+
+        if(recevie.userNo===sendUserNo){
          
 
             msgContainer.innerHTML+=`
                 <div class="send-master">
                                 <div class="master-profile">
                                     <div class="img-div">
-                                        <img src="resources/img/tori.jpg">
+                                        <img src="resources/img/star.png">
                                     </div>
                                     <div class="master-name title">${recevie.nick}</div>
                                 </div>
@@ -62,7 +103,30 @@ function openChatRoom(roomNo,targetId,targetNo){
                                 </div>
                         </div>
             `
-        }
+    }
+     else{
+
+        //유저목록 count 증가 시킨다. 
+          //let userNo=document.querySelector("#userKey").value
+          if(document.querySelector("#notifyCount"+recevie.userNo)===null){
+            let notifyCount=document.createElement("div");
+            notifyCount.id="notifyCount"+recevie.userNo
+            notifyCount.className="notify"
+            notifyCount.innerText=1
+            console.log(notifyCount)
+            document.querySelector("#notice"+recevie.userNo).appendChild(notifyCount)
+        }   
+        else{
+           document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
+           parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
+       }
+     }
+
+
+         
+
+
+
     }
 
     sendButton.onclick=function(){
@@ -94,18 +158,13 @@ function openChatRoom(roomNo,targetId,targetNo){
              `
              sendMsg.value=""
 
-    
-
-
-
+           
+            
     }
 
 
 
-
 }
-
-
 
 
 
@@ -158,7 +217,7 @@ function drawChatList(chatList){
             <div class="send-master">
 				<div class="master-profile">
 					<div class="img-div">
-						<img src="resources/img/tori.jpg">
+						<img src="resources/img/star.png">
 					</div>
 					 <div class="master-name title">${chat.userNickName}</div>
 				</div>
@@ -187,7 +246,10 @@ function onloadChatList(data,callback){
         success:function(response){
             console.log(response)
             callback(response)
-            document.querySelector("#notifyCount"+data.targetNo).remove();
+            if(document.querySelector("#notifyCount"+data.targetNo)){
+                document.querySelector("#notifyCount"+data.targetNo).remove();
+            }
+          
         },
         error:function(){
             alert("에러발생")

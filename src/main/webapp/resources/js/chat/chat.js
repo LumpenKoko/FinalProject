@@ -45,7 +45,9 @@ function openChatRoom(roomNo,targetId,targetNo){
         const now = new Date();	
         const recevie =JSON.parse(ev.data);
      
-        if(recevie.userNo===parseInt(document.querySelector("#userKey").value)){
+        let sendUserNo=parseInt(document.querySelector("#userKey").value);
+
+        if(recevie.userNo===sendUserNo){
          
 
             msgContainer.innerHTML+=`
@@ -62,7 +64,30 @@ function openChatRoom(roomNo,targetId,targetNo){
                                 </div>
                         </div>
             `
-        }
+    }
+     else{
+
+        //유저목록 count 증가 시킨다. 
+          //let userNo=document.querySelector("#userKey").value
+          if(document.querySelector("#notifyCount"+recevie.userNo)===null){
+            let notifyCount=document.createElement("div");
+            notifyCount.id="notifyCount"+recevie.userNo
+            notifyCount.className="notify"
+            notifyCount.innerText=1
+            console.log(notifyCount)
+            document.querySelector("#notice"+recevie.userNo).appendChild(notifyCount)
+        }   
+        else{
+           document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
+           parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
+       }
+     }
+
+
+         
+
+
+
     }
 
     sendButton.onclick=function(){
@@ -94,18 +119,13 @@ function openChatRoom(roomNo,targetId,targetNo){
              `
              sendMsg.value=""
 
-    
-
-
-
+           
+            
     }
 
 
 
-
 }
-
-
 
 
 
@@ -187,7 +207,10 @@ function onloadChatList(data,callback){
         success:function(response){
             console.log(response)
             callback(response)
-            document.querySelector("#notifyCount"+data.targetNo).remove();
+            if(document.querySelector("#notifyCount"+data.targetNo)){
+                document.querySelector("#notifyCount"+data.targetNo).remove();
+            }
+          
         },
         error:function(){
             alert("에러발생")

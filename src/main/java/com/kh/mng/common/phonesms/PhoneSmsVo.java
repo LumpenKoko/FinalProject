@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 
 public class PhoneSmsVo {
-	private int userNo;
-	private String ranNum;
+	private String phone;
+	private String certifyCode;
 
 }

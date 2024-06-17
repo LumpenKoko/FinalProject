@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.bosspage.model.dao.BossPageDaoSecond;
 import com.kh.mng.bosspage.model.dto.CouponKind;
@@ -17,12 +19,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class BossPageServiceImplSecond implements BossPageServiceSecond{
-	@Autowired
-    private BossPageDaoSecond bossPageDaoSecond;
-
+	
+//private final MemberService memberService;
+//	
+//	private final BCryptPasswordEncoder bcryptPasswordEncoder;
+//	
+////	이 생성자는 객체가 생성될 때 만들어지는 것이므로 사이에 null이 들어갈 시차가 생기지 않음
+//	@Autowired
+//	public MemberController(MemberService memberService, BCryptPasswordEncoder bcryptPasswordEncoder) {
+//		this.memberService = memberService;
+//		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
+//	}
+	
+	private final BossPageDaoSecond bossPageDaoSecond;
+    private final SqlSessionTemplate sqlSession;
+    
     @Autowired
-    private SqlSessionTemplate sqlSession;
+    public BossPageServiceImplSecond(BossPageDaoSecond bossPageDaoSecond, SqlSessionTemplate sqlSession) {
+    	this.bossPageDaoSecond = bossPageDaoSecond;
+    	this.sqlSession = sqlSession;
+    }
+//	@Autowired
+//    private BossPageDaoSecond bossPageDaoSecond;
 
+//    @Autowired
+//    private SqlSessionTemplate sqlSession;
+
+    
+    
 	@Override
 	public ArrayList<CouponKind> selectCouponKindList(String loginUserNo) {
 		return bossPageDaoSecond.selectCouponKindList(sqlSession, loginUserNo);
@@ -70,11 +94,23 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 	
 	
 	
-	// 핸드폰 인증
+	// 핸드폰 중복 체크
 	@Override
-	public int insertCertifyNumber(PhoneSmsVo psv) {
-		return bossPageDaoSecond.insertCertifyNumber(sqlSession, psv);
+	public int checkPhoneNumber(String userPhone) {
+		return bossPageDaoSecond.checkPhoneNumber(sqlSession, userPhone);
 	}
+	
+	@Override
+	public int insertCertifyCode(PhoneSmsVo psv) {
+//		이 메소드에서만 sqlSession이 null로 뜨는 현상 발생 / 생성자 주입 방식을 통해 해결
+		return bossPageDaoSecond.insertCertifyCode(sqlSession, psv);
+	}
+
+	@Override
+	public PhoneSmsVo checkCertifyCode(String phone) {
+		return bossPageDaoSecond.checkCertifyCode(sqlSession, phone);
+	}
+
 	
 	
 }

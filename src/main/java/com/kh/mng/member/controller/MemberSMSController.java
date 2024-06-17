@@ -9,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.kh.mng.bosspage.controller.BossPageControllerSecond;
+import com.kh.mng.bosspage.service.BossPageServiceImplSecond;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.member.model.vo.Member;
 
@@ -26,6 +25,8 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 @Slf4j
 @Controller
 public class MemberSMSController {
+	@Autowired
+	private BossPageServiceImplSecond bossPageServiceSecond;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -46,24 +47,30 @@ public class MemberSMSController {
 //	private String certifyCode;
 //	
 	@ResponseBody
-	@PostMapping(value="certification.me", produces="application/json; charset=utf-8")
+	@PostMapping("certification.me")
 	public String certifyPhone(String getNum, HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		// 이미 저장된 인증 번호가 있으면 삭제해야 함
+		
+		
+		
+		
+		String code = String.valueOf((int)(Math.random()*900000 + 100000));
+    	String msgText = "멍냥가이드 본인확인 인증번호 " + code;
+    	
+    	String codeEnc = bcryptPasswordEncoder.encode(code);
+    	
 		PhoneSmsVo psv = new PhoneSmsVo();
-		
-		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
-		
-		String ranNum = String.valueOf((int)(Math.random()*900000 + 100000));
-    	String msgText = "멍냥가이드 본인확인 인증번호 " + ranNum;
     	
-    	String ranNumEnc = bcryptPasswordEncoder.encode(ranNum);
+    	psv.setPhone(getNum);
+    	psv.setCertifyCode(codeEnc);
     	
-    	psv.setUserNo(loginUser.getUserNo());
-    	psv.setRanNum(ranNumEnc);
+    	log.info(psv.toString());
     	
-    	int result = new BossPageControllerSecond().insertCertifyNumber(psv);
-		
+    	int result = bossPageServiceSecond.insertCertifyCode(psv);
+		log.info(String.valueOf(result));
     	if (result > 0) {
+    		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
     		Message message = new Message();
     		
     		message.setTo(getNum);
@@ -80,13 +87,26 @@ public class MemberSMSController {
     		} catch (NurigoUnknownException e) {
     			e.printStackTrace();
     		}
-    		log.info(response.toString());
     		
     		return "NNNNY";
     	} else {
     		return "NNNNN";
     	}
 		
+	}
+	
+	@ResponseBody
+	@PostMapping("checkCertifyCode.me")
+	public String checkCertifyCode(String phone, String certifyCode) {
+		PhoneSmsVo psv = bossPageServiceSecond.checkCertifyCode(phone);
+		log.info("psv : {}", psv);
+		log.info("code : {}", certifyCode);
+		if (psv != null && bcryptPasswordEncoder.matches(certifyCode, psv.getCertifyCode())) {
+			// 인증번호 삭제 메소드 추가
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
 	}
 	
 //  public MemberSMSController() { // Parameter specified as non-null is null 오류 (Kotlin에서 null인 값이 들어올 경우의 처리를 안 해줘서 발생하는 오류라고 함)

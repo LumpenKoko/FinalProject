@@ -1,0 +1,17 @@
+.before-check-button{
+    color: var(--border-color);
+    cursor: inherit;
+}
+
+.after-check-button{
+    color: black;
+    cursor: pointer;
+}
+
+.before-check-message{
+    color: red;
+}
+
+.after-check-message{
+    color: black;
+}

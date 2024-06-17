@@ -64,7 +64,7 @@
    		
    		JOIN LOCATION_CATEGORY LC
    		ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
-   		JOIN (SELECT COUNT(*) AS PICK_COUNT,
+   		LEFT JOIN (SELECT COUNT(*) AS PICK_COUNT,
 							P.LOCATION_NO
 				  FROM PICK P
 				  GROUP BY P.LOCATION_NO) PC
@@ -389,12 +389,26 @@
    	
    	
    	
-   	
-   	
-   	
-   	
-   	
-   	
-   	
    	<!-- 핸드폰 문자 인증 -->
+   	<resultMap type="PhoneSmsVo" id="phoneResult">
+         <result column="PHONE" property="phone"/>
+         <result column="CERTIFY_CODE" property="certifyCode"/>
+   	</resultMap>
+   	
+   	<select id="checkPhoneNumber" resultType="_int">
+   		SELECT COUNT(*) AS COUNT
+   		FROM MEMBER
+   		WHERE USER_PHONE = #{userPhone}
+   	</select>
+   	<insert id="insertCertifyCode">
+   		INSERT INTO CERTIFY_CODE (PHONE, CERTIFY_CODE)
+   		VALUES (#{phone}, #{certifyCode})
+   	</insert>
+   	
+   	 <select id="checkCertifyCode" resultMap="phoneResult">
+   		SELECT PHONE,
+   			   CERTIFY_CODE
+   		FROM CERTIFY_CODE
+   		WHERE PHONE = #{phone}
+   	</select>
 </mapper>

@@ -5,7 +5,11 @@ import java.util.List;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
+import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
+import com.kh.mng.bosspage.model.vo.LocationPetKind;
+import com.kh.mng.bosspage.model.vo.LocationPetSize;
+import com.kh.mng.bosspage.model.vo.LocationPicture;
 
 public interface BossPageService {
     BossLocation getLocationInfo(int userNo);
@@ -23,4 +27,15 @@ public interface BossPageService {
     int savePetKindsAndSizes(int locationNo, List<String> petKinds, List<String> petSizes);
     List<String> getPetKinds(int locationNo);
     List<String> getPetSizes(int locationNo);
+    
+    int saveImages(int locationNo, List<LocationPicture> pictures);
+    List<LocationPicture> getImages(int locationNo);
+    int deleteImages(int locationNo);
+    int savePictures(int locationNo, List<LocationPicture> pictures);
+    List<LocationPicture> getPicturesByLocation(int locationNo);
+
+    LocationPetKind getPetKindByName(String petKindName);
+    LocationPetSize getPetSizeByName(String petSizeName);
+    int saveLocationEnterGrade(LocationEnterGrade locationEnterGrade);
+    List<LocationEnterGrade> getLocationEnterGrades(int locationNo);
 }

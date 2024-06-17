@@ -52,6 +52,8 @@
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPetSize" alias="LocationPetSize"/>
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationEnterGrade" alias="LocationEnterGrade"/>
 		<typeAlias type="com.kh.mng.common.phonesms.PhoneSmsVo" alias="PhoneSmsVo"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationEnterGrade" alias="LocationEnterGrade"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPicture" alias="LocationPicture"/>
 
  	</typeAliases> 
  	

@@ -18,7 +18,7 @@
 			
 			<div class="chat-box">
 
-
+               <!--유저가 사장님이면-->
 			 <c:if test="${!master.equals('NNNNN')}">
 				<input id="master-No" type="text" value="${loginUser.userNo}" hidden>
 				<div class="chat-list">
@@ -41,15 +41,13 @@
 								</div>
 								
 								<!--실시간 처리-->
-								<div  class="notice">
+								<div id="notice${userList.userNo}" class="notice">
 									<div class="date">${userList.lastestMessage.enroll_time}</div>
 									<c:if test="${userList.messageCount != 0}">
 										<div id="notifyCount${userList.userNo}" class="notify">${userList.messageCount}</div>
 									</c:if>
 								</div>
 							</div>
-
-
 
 						</c:forEach>
 

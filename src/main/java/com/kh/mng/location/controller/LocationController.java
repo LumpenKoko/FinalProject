@@ -35,6 +35,7 @@ import com.kh.mng.common.chat.service.ChatService;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.location.model.dto.AddressInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
@@ -439,7 +440,16 @@ public class LocationController {
 
 	
 	
+	//장소 목록 가져오기 
 	
+	@ResponseBody
+	@GetMapping(value="/getAddress",produces="application/json; charset=utf-8")
+	public String getAddress() {
+		
+		ArrayList<AddressInfo> addressInfo = detailService.selectAddress();
+		return new Gson().toJson(addressInfo);
+		
+	}
 	
 	
 	//로그인 정보 가져오기-->실패

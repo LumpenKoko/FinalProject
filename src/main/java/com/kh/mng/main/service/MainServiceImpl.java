@@ -13,6 +13,9 @@ import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.model.dao.MainDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MainServiceImpl implements MainService{
 	
@@ -90,10 +93,11 @@ public class MainServiceImpl implements MainService{
 		// 댓글 개수 카운트 해서 가장 많은 5개의 boardNo 가져오기
 		ArrayList<Board> reply = mainDao.selectReplyCountList(sqlSession);
 		ArrayList<Board> replyList = new ArrayList<Board>();
-		
+		log.info(reply.toString());
 		// 댓글 개수 많은 5개 게시글 정보 가져오기
 		for(int i = 0; i < reply.size(); i++) {
 			Board b = mainDao.ajaxSelectBoardMain(sqlSession, reply.get(i).getBoardNo());
+			log.info(b.toString());
 			b.setReplyCount(mainDao.selectReplyCount(sqlSession, reply.get(i).getBoardNo()));
 			replyList.add(b);
 		}

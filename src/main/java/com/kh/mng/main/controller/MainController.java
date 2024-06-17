@@ -12,8 +12,10 @@ import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.main.service.MainServiceImpl;
-import com.kh.mng.pet.model.vo.Pet;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class MainController {
 
@@ -24,6 +26,7 @@ public class MainController {
 	@RequestMapping(value="topPlace.ma", produces="application/json; charset-UTF-8")
 	public String ajaxSelectLocationMainList() {
 		ArrayList<Location> list = mainService.ajaxSelectLocationMainList();
+		log.info(list.toString());
 		return new Gson().toJson(list);
 	}
 	

@@ -16,6 +16,7 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.dao.PickedDao;
 import com.kh.mng.location.model.dao.ReviewDao;
+import com.kh.mng.location.model.dto.AddressInfo;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
@@ -247,6 +248,12 @@ public class LocationServiceImpl implements LocationService {
 	   
 		
 		return count;
+	}
+
+	@Override
+	public ArrayList<AddressInfo> selectAddress() {
+	
+		return detailDao.selectAddress(sqlSession);
 	}
 
 	

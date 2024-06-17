@@ -8,6 +8,9 @@
 <%@ include file="./common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
 <link rel="stylesheet" href="resources/css/main/main.css"/>
+<script type="text/javascript"
+src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
+<script src="resources/js/location/map/main-map.js"></script>
 <script src="resources/js/main/mainInit.js"></script>
 <script src="resources/js/main/main.js"></script>
 <script src="resources/js/main/mainAjax.js"></script>
@@ -165,7 +168,9 @@
 							</div>
 						</div>
 					</div>
-					<div id="mainpage-map-map" class="gray-round-box"><img src="resources/img/main/KakaoTalk_20240517_154417343.png" alt=""></div>
+					<div id="mainpage-map-map" class="gray-round-box">
+						<!-- <img src="resources/img/main/KakaoTalk_20240517_154417343.png" alt=""> -->
+					</div>
 				</div>
 			</div>
 		</div>

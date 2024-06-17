@@ -262,7 +262,7 @@
 								<div class="send-master">
 									<div class="master-profile">
 										<div class="img-div">
-											<img src="resources/img/tori.jpg">
+											<img src="resources/img/star.png">
 										</div>
 										<div class="master-name title">사장님</div>
 									</div>

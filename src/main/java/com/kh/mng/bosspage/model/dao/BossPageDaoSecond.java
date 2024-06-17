@@ -6,9 +6,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.dto.CouponKind;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class BossPageDaoSecond {
 	public ArrayList<CouponKind> selectCouponKindList(SqlSessionTemplate sqlSession, String loginUserNo){
@@ -48,5 +52,21 @@ public class BossPageDaoSecond {
 	
 	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
 		return sqlSession.insert("searchMapper.insertBoardAttachment", boardFile);
+	}
+	
+
+	
+	
+//	핸드폰 인증
+	public int checkPhoneNumber(SqlSessionTemplate sqlSession, String userPhone) {
+		return sqlSession.selectOne("searchMapper.checkPhoneNumber", userPhone);
+	}
+	
+	public int insertCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.insert("searchMapper.insertCertifyCode", psv);
+	}
+	
+	public PhoneSmsVo checkCertifyCode(SqlSessionTemplate sqlSession, String phone) {
+		return sqlSession.selectOne("searchMapper.checkCertifyCode", phone);
 	}
 }

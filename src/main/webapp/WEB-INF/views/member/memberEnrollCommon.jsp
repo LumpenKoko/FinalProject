@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
+<link rel="stylesheet" href="resources/css/member/memberEnroll.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollCommon.css"/>
 <script src="resources/js/member/memberInit.js"></script>
 <script src="resources/js/member/memberEnroll.js"></script>
@@ -28,20 +29,33 @@
                 <div class="minibox-mini-title">
                     <span>휴대폰번호 인증</span>
                     <span class="required-color">*</span>
-                    <!-- <span class="error-message-margin">필수 항목입니다.</span> -->
+                    <span id="phone-message"></span>
                 </div>
                 <!-- 휴대폰번호 API 인증 필요 -->
                 <!-- <form action=""> -->
-                    <select name="" id="" class="minibox-input">
+                    <!-- <select name="" id="" class="minibox-input">
                         <option value="SKT" class="minibox-input">SKT</option>
                         <option value="KT" class="minibox-input">KT</option>
                         <option value="LGU+" class="minibox-input">LGU+</option>
                         <option value="알뜰폰" class="minibox-input">알뜰폰</option>
-                    </select>
+                    </select> -->
+                <div class="double-check-box">
+                    <input type="text" name="userPhone" class="minibox-input" data-check='false' onkeyup="checkDoublePhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
+                    <button type="button" id="phone-check" class="common-button white-button before-check-button" onclick="checkPhoneNumber()" disabled>중복확인</button>
+                </div>
 
-                    <input type="text" name="userPhone" class="minibox-input" onkeyup="activeCommonEnroll(), activeCertifyPhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
+                    <!-- 
+                        1. userPhone onkeyup 해서 형식에 맞는 번호면 중복 체크 활성화
+                        2. 중복 체크 확인 되면 회원가입 버튼 활성화 할 데이터로 바꾸기
+                        3. 중복 체크 확인 되고 약관 동의 누르면 인증 요청 버튼 활성화
+                        
+                        4. 인증 요청하면 시간 체크해서 3분 지나면 데이터 삭제 ajax 실행하기
+                        5. 인증 되면 display 확인된 형식으로 바꾸기
+                        6. 인증 되면 회원가입 가능한 데이터로 바꾸기
+                    -->
                     
-
+                    
+                <div id="after-certify-box">
                     <div id="check-agree-title" class="minibox-mini-title">
                         <span>본인 인증 약관 동의</span>
                         <span class="required-color">*</span>
@@ -72,21 +86,21 @@
                     <br>
                     
                     <div class="minibox-mini-title">
-                        <span class="error-message-nomargin">인증번호가 일치하지 않습니다.</span>
+                        <span id="certify-message" class="error-message-nomargin"></span>
                     </div>
 
                     <div id="check-number">
-                        <input type="text" class="minibox-input" placeholder="인증번호 6자리 숫자">
-                        <button type="submit" id="certify-phone-button" class="common-button white-button" onclick="certifyPhone()" disabled>인증번호 요청</button>
+                        <input type="text" id="certify-code" class="minibox-input" placeholder="인증번호 6자리 숫자">
+                        <button type="button" id="certify-phone-button" class="common-button white-button" onclick="getCertifyCode()" disabled>인증번호 요청</button>
                         <div>2:00</div>
                     </div>
                     
                     <div id="plus-time">시간 연장</div>
-                    <button type="submit" id="check-phone-button" class="common-button pink-button minibox-full-button">확인</button>
+                    <button type="button" id="check-phone-button" class="common-button pink-button minibox-full-button" onclick="checkCertifyCode()">확인</button>
                 <!-- </form> -->
+                </div>
 
-                <input type="text" id="checked-phone-number" class="minibox-input" value="010-1234-5678" readonly>
-                <div id="checked-phone-text" class="common-button">휴대폰번호 인증이 완료되었습니다.</div>
+                <div id="checked-phone-text" class="common-button" style="display: none;">휴대폰번호 인증이 완료되었습니다.</div>
 
                 <div class="minibox-mini-title">
                     <span>아이디</span>
@@ -94,8 +108,8 @@
                     <span id="id-message" class="error-message-margin"></span>
                 </div>
                 <div id="check-user-info">
-                    <input id="user-id" type="text" name="userId" class="minibox-input" data-check='false' onkeyup="checkId(), activeCommonEnroll()" minlength="8" maxlength="12" placeholder="8~12자리의 영문, 숫자로 입력하세요.">
-                    <button type="button" id="id-check" class="common-button white-button" onclick="checkDoubleId(), activeCommonEnroll()" disabled>중복확인</button>
+                    <input id="user-id" type="text" name="userId" class="minibox-input" data-check='false' onkeyup="checkId()" minlength="8" maxlength="12" placeholder="8~12자리의 영문, 숫자로 입력하세요.">
+                    <button type="button" id="id-check" class="common-button white-button before-check-button" onclick="checkDoubleId()" disabled>중복확인</button>
                 </div>
                 
                 <div class="minibox-mini-title">

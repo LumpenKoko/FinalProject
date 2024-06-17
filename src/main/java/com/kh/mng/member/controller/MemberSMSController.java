@@ -1,11 +1,17 @@
 package com.kh.mng.member.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
+import com.kh.mng.bosspage.service.BossPageServiceImplSecond;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
+import com.kh.mng.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
@@ -19,6 +25,11 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 @Slf4j
 @Controller
 public class MemberSMSController {
+	@Autowired
+	private BossPageServiceImplSecond bossPageServiceSecond;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@Value("${sms.apiKey}") 
 	private String apiKey;
@@ -31,37 +42,71 @@ public class MemberSMSController {
 	
 	@Value("${sms.sentNum}") 
 	private String sentNum;
-	
-	// 인증번호와 맞는지 어떻게 확인할 것인가?
-	private String certifyCode;
+//	
+//	// 인증번호와 맞는지 어떻게 확인할 것인가?
+//	private String certifyCode;
+//	
+	@ResponseBody
+	@PostMapping("certification.me")
+	public String certifyPhone(String getNum, HttpSession session) {
+		
+		// 이미 저장된 인증 번호가 있으면 삭제해야 함
+		
+		
+		
+		
+		String code = String.valueOf((int)(Math.random()*900000 + 100000));
+    	String msgText = "멍냥가이드 본인확인 인증번호 " + code;
+    	
+    	String codeEnc = bcryptPasswordEncoder.encode(code);
+    	
+		PhoneSmsVo psv = new PhoneSmsVo();
+    	
+    	psv.setPhone(getNum);
+    	psv.setCertifyCode(codeEnc);
+    	
+    	log.info(psv.toString());
+    	
+    	int result = bossPageServiceSecond.insertCertifyCode(psv);
+		log.info(String.valueOf(result));
+    	if (result > 0) {
+    		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
+    		Message message = new Message();
+    		
+    		message.setTo(getNum);
+    		message.setFrom(sentNum);
+    		message.setText(msgText);
+    		
+    		MultipleDetailMessageSentResponse response = null;
+    		try {
+    			response = messageService.send(message);
+    		} catch (NurigoMessageNotReceivedException e) {
+    			e.printStackTrace();
+    		} catch (NurigoEmptyResponseException e) {
+    			e.printStackTrace();
+    		} catch (NurigoUnknownException e) {
+    			e.printStackTrace();
+    		}
+    		
+    		return "NNNNY";
+    	} else {
+    		return "NNNNN";
+    	}
+		
+	}
 	
 	@ResponseBody
-	@PostMapping(value="certification.me", produces="application/json; charset=utf-8")
-	public String certifyPhone(String getNum) {
-		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
-		
-		String ranNum = String.valueOf((int)(Math.random()*900000 + 100000));
-    	String msgText = "멍냥가이드 본인확인 인증번호 " + ranNum;
-		
-		Message message = new Message();
-		
-		message.setTo(getNum);
-		message.setFrom(sentNum);
-		message.setText(msgText);
-		
-		MultipleDetailMessageSentResponse response = null;
-		try {
-			response = messageService.send(message);
-		} catch (NurigoMessageNotReceivedException e) {
-			e.printStackTrace();
-		} catch (NurigoEmptyResponseException e) {
-			e.printStackTrace();
-		} catch (NurigoUnknownException e) {
-			e.printStackTrace();
+	@PostMapping("checkCertifyCode.me")
+	public String checkCertifyCode(String phone, String certifyCode) {
+		PhoneSmsVo psv = bossPageServiceSecond.checkCertifyCode(phone);
+		log.info("psv : {}", psv);
+		log.info("code : {}", certifyCode);
+		if (psv != null && bcryptPasswordEncoder.matches(certifyCode, psv.getCertifyCode())) {
+			// 인증번호 삭제 메소드 추가
+			return "NNNNY";
+		} else {
+			return "NNNNN";
 		}
-		log.info(response.toString());
-		
-		return new Gson().toJson("");
 	}
 	
 //  public MemberSMSController() { // Parameter specified as non-null is null 오류 (Kotlin에서 null인 값이 들어올 경우의 처리를 안 해줘서 발생하는 오류라고 함)

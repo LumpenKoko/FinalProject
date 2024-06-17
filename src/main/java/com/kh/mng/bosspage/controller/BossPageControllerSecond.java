@@ -99,9 +99,7 @@ public class BossPageControllerSecond {
 	public String enrollBoard(BoardEnroll board, MultipartFile upfile, HttpSession session, Model model) {
 		BoardFileInfo boardFile = new BoardFileInfo();
 		Member loginUser = (Member)(session.getAttribute("loginUser"));
-		log.info(loginUser.toString());
-		log.info(board.toString());
-		log.info(upfile.toString());
+
 		if(!upfile.getOriginalFilename().equals("")) {
 			String changeName = saveFile(upfile, session);
 			
@@ -112,9 +110,6 @@ public class BossPageControllerSecond {
 		}
 		
 		board.setUserNo(loginUser.getUserNo());
-		
-		log.info(board.toString());
-		log.info(boardFile.toString());
 		
 		int result = bossPageServiceSecond.insertBoard(board, boardFile);
 		if(result > 0) { // 성공 -> list 페이지로 이동
@@ -149,4 +144,29 @@ public class BossPageControllerSecond {
 		
 		return changeName;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 핸드폰 번호 중복 체크
+	@ResponseBody
+	@GetMapping(value="checkPhone.me")
+	public String checkPhoneNumber(String userPhone) {
+		log.info(userPhone);
+		int result = bossPageServiceSecond.checkPhoneNumber(userPhone);
+		log.info(String.valueOf(result));
+		if (result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
+	}
+	
+	
+	
 }

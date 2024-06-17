@@ -26,7 +26,7 @@
 	   	  <result column="USER_NO" property="userNo"/>
 	   	  <result column="USER_ID" property="userId"/>
 	   	  <result column="USER_NICKNAME" property="userNickName"/>
-  	   </resultMap>
+  	  </resultMap>
   
      <insert id="insertChatRoom">
      		INSERT INTO 
@@ -106,9 +106,25 @@
     			USER_NO
     			from chat
     			WHERE USER_NO != #{userNo}
-    			AND STATUS = TRUE
     
     </select>
     
+    <select id="selectlastestMessage"  resultType="map">
+    	SELECT MESSAGE ,to_char(enroll_time,'YYYY-MM-DD HH24:MI:SS') AS ENROLL_TIME 
+    	FROM CHAT
+		WHERE  USER_NO = #{userNo}  
+		ORDER BY  ENROLL_TIME DESC LIMIT 1
+    </select>
+    
+    <select id="selectNotifyMessageCount" resultType="_int">
+		    
+		SELECT COUNT(MESSAGE) AS messageCount FROM CHAT   
+		WHERE NOTIFY = TRUE AND  USER_NO = #{userNo}  
+    </select>
+    
+    <update id="updateNotify" >
+    	UPDATE CHAT SET NOTIFY = FALSE
+    	WHERE CHAT_NO=#{chatNo}
+    </update>
   
   </mapper>

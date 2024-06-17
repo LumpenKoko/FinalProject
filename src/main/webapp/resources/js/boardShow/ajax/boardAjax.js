@@ -9,8 +9,15 @@ function updateGoodCountAjax(boardNo){
             boardNo:boardNo
         },
         success:function(response){
-            alert(response.message)
-            document.querySelector("#goodCount").innerHTML=parseInt(response.goodCount);
+            if(response.message!=="fail"){
+                alert(response.message)
+                document.querySelector("#goodCount").innerHTML=parseInt(response.goodCount);
+            }
+            else{
+                alert("로그인을하세요")
+            }
+          
+          
         },
         error:function(){
             alert("공감실패")

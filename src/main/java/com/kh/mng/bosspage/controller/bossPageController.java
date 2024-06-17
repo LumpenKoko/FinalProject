@@ -161,7 +161,7 @@ public class bossPageController {
     @PostMapping(value = "/saveLocationInfo.bm", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> saveLocationInfo(@RequestBody Map<String, Object> payload, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
-        log.info("payload:{}",payload);
+        log.info("payload:{}", payload);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
@@ -184,31 +184,35 @@ public class bossPageController {
                 }
 
                 List<Map<String, Object>> operationTimesData = (List<Map<String, Object>>) payload.get("operationTimes");
-                List<LocationOperationTime> operationTimes = new ArrayList<>();
-                for (Map<String, Object> operationTimeData : operationTimesData) {
-                    LocationOperationTime operationTime = new LocationOperationTime();
-                    operationTime.setLocationNo(locationInfo.getLocationNo());
-                    operationTime.setDay((String) operationTimeData.get("day"));
-                    operationTime.setStartTime(Time.valueOf(operationTimeData.get("startTime") + ":00"));
-                    operationTime.setEndTime(Time.valueOf(operationTimeData.get("endTime") + ":00"));
-                    operationTime.setRestStatus((Boolean) operationTimeData.get("restStatus"));
-                    operationTimes.add(operationTime);
+                if (operationTimesData != null) {
+                    List<LocationOperationTime> operationTimes = new ArrayList<>();
+                    for (Map<String, Object> operationTimeData : operationTimesData) {
+                        LocationOperationTime operationTime = new LocationOperationTime();
+                        operationTime.setLocationNo(locationInfo.getLocationNo());
+                        operationTime.setDay((String) operationTimeData.get("day"));
+                        operationTime.setStartTime(Time.valueOf(operationTimeData.get("startTime") + ":00"));
+                        operationTime.setEndTime(Time.valueOf(operationTimeData.get("endTime") + ":00"));
+                        operationTime.setRestStatus((Boolean) operationTimeData.get("restStatus"));
+                        operationTimes.add(operationTime);
+                    }
+                    bossPageService.saveOperationTimes(locationInfo.getLocationNo(), operationTimes);
                 }
-                bossPageService.saveOperationTimes(locationInfo.getLocationNo(), operationTimes);
 
                 // Pet kind and size handling
                 List<String> petKinds = (List<String>) payload.get("petKinds");
                 List<String> petSizes = (List<String>) payload.get("petSizes");
-                bossPageService.savePetKindsAndSizes(locationInfo.getLocationNo(), petKinds, petSizes);
+                if (petKinds != null && petSizes != null) {
+                    bossPageService.savePetKindsAndSizes(locationInfo.getLocationNo(), petKinds, petSizes);
 
-                // Save LocationEnterGrade information
-                for (String petSize : petSizes) {
-                    LocationPetSize locationPetSize = bossPageService.getPetSizeByName(petSize);
-                    if (locationPetSize != null) {
-                        LocationEnterGrade locationEnterGrade = new LocationEnterGrade();
-                        locationEnterGrade.setLocationNo(locationInfo.getLocationNo());
-                        locationEnterGrade.setPetSizeNo(locationPetSize.getPetSizeNo());
-                        bossPageService.saveLocationEnterGrade(locationEnterGrade);
+                    // Save LocationEnterGrade information
+                    for (String petSizeName : petSizes) {
+                        LocationPetSize locationPetSize = bossPageService.getPetSizeByName(petSizeName);
+                        if (locationPetSize != null) {
+                            LocationEnterGrade locationEnterGrade = new LocationEnterGrade();
+                            locationEnterGrade.setLocationNo(locationInfo.getLocationNo());
+                            locationEnterGrade.setPetSizeNo(locationPetSize.getPetSizeNo());
+                            bossPageService.saveLocationEnterGrade(locationEnterGrade);
+                        }
                     }
                 }
 

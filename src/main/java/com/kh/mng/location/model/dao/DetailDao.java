@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.location.model.dto.AddressInfo;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.dto.ReviewStarInfo;
@@ -68,6 +69,11 @@ public class DetailDao {
 	public int updateLocationTotalScore(SqlSessionTemplate sqlSession, ReviewStarInfo reviewStar) {
 	
 		return sqlSession.update("detail.updateLocationTotalScore",reviewStar);
+	}
+
+	public ArrayList<AddressInfo> selectAddress(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return  (ArrayList)sqlSession.selectList("d");
 	}
 
 

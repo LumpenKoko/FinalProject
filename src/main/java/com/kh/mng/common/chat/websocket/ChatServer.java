@@ -103,7 +103,7 @@ public class ChatServer extends TextWebSocketHandler {
 		chatInfo.setTargetId(target);
 		chatInfo.setTargetNo(Integer.parseInt(targetNo));
 		chatInfo.setRoomNo(this.roomNo);
-		chatInfo.setUserNo( loginUser.getUserNo());
+		chatInfo.setUserNo(loginUser.getUserNo());
 		
 		//db에 메세지 저장(ChatRoom에 참여)
 		int count=chatService.insertChats(chatInfo);

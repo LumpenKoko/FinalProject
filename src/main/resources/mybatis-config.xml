@@ -48,6 +48,9 @@
 		<typeAlias type="com.kh.mng.community.model.dto.BoardEnroll" alias="BoardEnroll"/>
 		<typeAlias type="com.kh.mng.community.model.dto.BoardFileInfo" alias="BoardFileInfo"/>
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationOperationTime" alias="LocationOperationTime"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPetKind" alias="LocationPetKind"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPetSize" alias="LocationPetSize"/>
+		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationEnterGrade" alias="LocationEnterGrade"/>
 
  	</typeAliases> 
  	

@@ -13,13 +13,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class LocationOperationTime {
+public class LocationEnterGrade {
 	
-	private int operationNo; // 시퀀스 적용을 위해 필드 추가
-    private int locationNo;
-    private String day;
-    private Time startTime;
-    private Time endTime;
-    private boolean restStatus;
-	
+	private int enterNo;
+	private int locationNo;
+	private int petSizeNo;
+
 }

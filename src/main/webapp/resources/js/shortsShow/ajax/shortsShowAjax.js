@@ -140,6 +140,9 @@ function loadVideo(num) {
             contentSection.innerHTML = totalShortsInfo.shortsContent;
             const enrollDateSection = document.getElementById('thumbnail-enroll-date' + num);
             enrollDateSection.innerHTML = totalShortsInfo.enrollDate;
+            const profileSection = document.getElementById('thumbnail-profile' + num);
+            profileSection.innerHTML = `<img src="${totalShortsInfo.profilePath + totalShortsInfo.profileName}">`;
+
         },
         error: function () {
             console.log("동영상 로드 실패");

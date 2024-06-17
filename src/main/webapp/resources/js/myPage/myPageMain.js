@@ -45,3 +45,48 @@ function deleteReview(reviewNo, contextPath) {
         }
     });
 }
+
+function ShowUpdateForm(element) {
+    // 해당 span 태그를 클릭했을 때 그 부모의 div에서 updateForm을 찾는다.
+    var updateForm = element.closest('#right2').querySelector('#updateForm');
+    // updateForm의 hidden 속성을 제거하여 보이게 한다.
+    updateForm.removeAttribute('hidden');
+}
+
+function HideUpdateForm(element) {
+    var updateForm = element.closest('#right2').querySelector('#updateForm');
+    updateForm.setAttribute('hidden', true);
+}
+
+function updateReview(reviewNo, contextPath) {
+    var reviewContent = document.getElementById("updateContent").value; // updateContent의 값을 가져옴
+    // FormData 객체 생성
+    var formData = new FormData();
+    formData.append('reviewNo', reviewNo);
+    formData.append('reviewContent', reviewContent);
+
+    $.ajax({
+        url: contextPath + "/updateReview.mp",
+        type: 'POST',
+        data: formData,
+        processData: false, // 데이터 처리 방법을 지정하지 않음
+        contentType: false, // 컨텐츠 타입을 false로 지정하여 jQuery가 기본적으로 설정하는 application/x-www-form-urlencoded를 사용하지 않도록 함
+
+        success: function (response) {
+            console.log(response);
+            if (response === 'NNNNY') {
+                alert('리뷰 수정에 성공하였습니다.');
+            } else {
+                alert('실패');
+            }
+            // 리다이렉트는 success 또는 error 핸들러 내에서 처리
+            location.href = contextPath + '/myPageMain.mp';
+        },
+        error: function (error) {
+            console.log(error);
+            alert('실패');
+            // 에러 발생 시도 리다이렉트 처리
+            location.href = contextPath + '/myPageMain.mp';
+        }
+    });
+}

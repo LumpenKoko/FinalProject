@@ -1,11 +1,13 @@
 package com.kh.mng.member.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -58,6 +61,38 @@ public class myPage {
 			return "myPage/myPageMain"; // 로그인 페이지로 이동 또는 에러 메시지 표시
 		}
 	}
+	
+    @ResponseBody
+    @PostMapping("/updateReview.mp")
+    public String updateReview(@RequestParam int reviewNo,
+                               @RequestParam String reviewContent,
+                               HttpSession session) {
+        // 세션에서 로그인 사용자 정보 가져오기
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "SESSION_EXPIRED"; // 예시: 세션이 만료된 경우 처리 방법
+        }
+
+        // 사용자 정보 설정
+        int userNo = loginUser.getUserNo();
+        String userNickName = loginUser.getUserNickname();
+
+        // 리뷰 정보 설정
+        MyPageReview myReview = new MyPageReview();
+        myReview.setUserNo(userNo);
+        myReview.setReviewNo(reviewNo);
+        myReview.setReviewContent(reviewContent);
+
+        // 리뷰 수정 서비스 호출
+        int result = memberService.updateReview(myReview);
+
+        // 결과에 따른 처리
+        if (result > 0) {
+            return "NNNNY"; // 수정 성공
+        } else {
+            return "NNNNN"; // 수정 실패
+        }
+    }
 	
 	@ResponseBody
 	@PostMapping("/deleteReview.mp")

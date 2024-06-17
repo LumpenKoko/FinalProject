@@ -6,6 +6,7 @@ import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.community.model.vo.BoardNum;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
@@ -46,4 +47,7 @@ public interface MemberService {
 	
 	// 쇼츠 불러오기
 	List<Shorts> getShortsList(int userNo);
+	
+	// 리뷰 업데이트
+	int updateReview(MyPageReview myReview);
 }

@@ -19,6 +19,18 @@
    	   <result column="LOCATION_NO" property="locationNo"/>
    </resultMap>
    
+   <resultMap type="Review" id="myPageReview">
+   	  <result column="REVIEW_NO" property="reviewNo"/>
+   	  <result column="REVIEW_STAR" property="reviewStar"/>
+   	  <result column="REVIEW_CONTENT" property="reviewContent"/>
+   	  <result column="ENROLL_DATE" property="enrollDate"/>
+   	  <result column="MODIFY_DATE" property="modifyDate"/>
+   	  <result column="USER_NICKNAME" property="userNickName"/>
+   	  <result column="LOCATION_STAR" property="locationStar"/>
+   	  <result column="USER_NO" property="userNo"/>
+   	   <result column="LOCATION_NO" property="locationNo"/>
+   </resultMap>
+   
    
    <resultMap type="Attachment" id="reviewAttachment">
 	   		<result column="ORIGIN_NAME" property="originName"/>
@@ -203,14 +215,15 @@
     			WHERE  REVIEW_NO = #{reviewNo}
     </update>
 
-    <select id="selectMyPageReview" resultMap="detailReview">
+    <select id="selectMyPageReview" resultMap="myPageReview">
      SELECT	REVIEW_NO,
      		REVIEW_STAR,
      		REVIEW_CONTENT,
-     		ENROLL_DATE
+     		ENROLL_DATE,
+     		MODIFY_DATE
      		FROM REVIEW
      		WHERE USER_NO = #{userNo}
-     		ORDER BY ENROLL_DATE ASC
+     		ORDER BY MODIFY_DATE DESC
     </select>
     
     
@@ -223,6 +236,14 @@
     <delete id="deleteMyReview">
     	DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
     </delete>
+    
+    <update id="updateReview">
+    	UPDATE REVIEW SET
+    		USER_NO = #{userNo},
+    		MODIFY_DATE = DEFAULT,
+    		REVIEW_CONTENT = #{reviewContent}
+    		WHERE REVIEW_NO = #{reviewNo}
+    </update>
     
  	</mapper>
  	

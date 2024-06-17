@@ -11,6 +11,7 @@ import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.dao.MemberDao;
@@ -102,5 +103,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Shorts> getShortsList(int userNo) {
 		return memberDao.getShortsList(sqlSession, userNo);
+	}
+
+	@Override
+	public int updateReview(MyPageReview myReview) {
+		return memberDao.updateReview(sqlSession, myReview);
 	}
 }

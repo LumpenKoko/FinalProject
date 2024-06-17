@@ -79,7 +79,11 @@
                                             <span id="title">${board.boardTitle}</span>
                                         </div>
                                         <div style="height: 100px;">
-                                            <p id="content">${board.boardContent}</p>
+                                            <p id="content" style="width: 100%;">${board.boardContent}</p>
+                                            <div id="updateForm" style="margin-left: 20px;">
+                                                <input type="text" style="width: 400px; height: 40px; border: 1px solid #bababa;
+                                                    border-top-left-radius: 15px; border-bottom-left-radius: 15px; float: left; padding-left: 10px;">
+                                            </div>
                                         </div>
                                         <div id="bottom">
                                             <span id="watch">${board.count}</span>
@@ -92,7 +96,7 @@
                                             <img src="resources/img/myPage/board.png">
                                         </div>
                                         <div id="right2-right-bottom" style="margin-left: 85px;">
-                                            <span style="color: #bababa; cursor: pointer;" onclick="updateBoard('${board.boardNo}', '<%=request.getContextPath()%>')">수정</span>
+                                            <span style="color: #bababa; cursor: pointer;" onclick="ShowUpdateForm(this)">수정</span>
                                             <span style="color: #bababa; cursor:default;">｜</span>
                                             <span style="color: #bababa; cursor: pointer;" onclick="deleteBoard('${board.boardNo}', '<%=request.getContextPath()%>')">삭제</span>
                                         </div>

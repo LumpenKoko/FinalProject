@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
@@ -73,5 +74,9 @@ public class MemberDao {
 
 	public List<Shorts> getShortsList(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectList("shortsMapper.getVideoInfo", userNo);
+	}
+
+	public int updateReview(SqlSessionTemplate sqlSession, MyPageReview myReview) {
+		return sqlSession.update("review.updateReview", myReview);
 	}
 }

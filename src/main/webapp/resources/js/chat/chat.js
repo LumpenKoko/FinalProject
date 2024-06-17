@@ -158,13 +158,8 @@ function openChatRoom(roomNo,targetId,targetNo){
              `
              sendMsg.value=""
 
-           
-            
+        }
     }
-
-
-
-}
 
 
 

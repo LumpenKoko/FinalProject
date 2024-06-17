@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.dto.CouponKind;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 
 @Repository
 public class BossPageDaoSecond {
@@ -31,5 +33,20 @@ public class BossPageDaoSecond {
 	
 	public int deleteCouponKind(SqlSessionTemplate sqlSession, int couponNo) {
 		return sqlSession.update("searchMapper.deleteCouponKind", couponNo);
+	}
+	
+	
+	
+	
+	
+	
+//	community 게시글
+	
+	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
+		return sqlSession.insert("searchMapper.insertBoard", board);
+	}
+	
+	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
+		return sqlSession.insert("searchMapper.insertBoardAttachment", boardFile);
 	}
 }

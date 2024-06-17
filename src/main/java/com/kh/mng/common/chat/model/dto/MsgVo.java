@@ -11,4 +11,5 @@ public class MsgVo {
 	private String nick;
 	private String target;
 	private String time;
+	private int userNo;
 }

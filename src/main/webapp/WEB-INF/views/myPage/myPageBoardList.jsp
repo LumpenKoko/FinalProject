@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPageBoardList.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="resources/js/myPage/myPageBoardList.js"></script>
     </head>
 
@@ -70,9 +71,8 @@
                                 <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'"
                                     id="shorts">쇼츠</span>
                             </div>
-                            <c:forEach var="board" items="${BoardList}">
-                                <div id="right2" onclick="location.href='<%=request.getContextPath()%>/community'"
-                                    style="cursor: pointer;">
+                            <c:forEach var="board" items="${BoardList}" varStatus="loop">
+                                <div id="right2" style="cursor: pointer;">
                                     <div id="right2-left">
                                         <div style="height: 45px;">
                                             <span id="category">${board.categoryName}</span>
@@ -92,9 +92,9 @@
                                             <img src="resources/img/myPage/board.png">
                                         </div>
                                         <div id="right2-right-bottom" style="margin-left: 85px;">
-                                            <span style="color: #bababa; cursor: pointer;" onclick="">수정</span>
+                                            <span style="color: #bababa; cursor: pointer;" onclick="updateBoard('${board.boardNo}', '<%=request.getContextPath()%>')">수정</span>
                                             <span style="color: #bababa; cursor:default;">｜</span>
-                                            <span style="color: #bababa; cursor: pointer;" onclick="">삭제</span>
+                                            <span style="color: #bababa; cursor: pointer;" onclick="deleteBoard('${board.boardNo}', '<%=request.getContextPath()%>')">삭제</span>
                                         </div>
                                     </div>
                                 </div>

@@ -20,7 +20,7 @@
 
 
 			 <c:if test="${!master.equals('NNNNN')}">
-
+				<input id="master-No" type="text" value="${loginUser.userNo}" hidden>
 				<div class="chat-list">
 					<div class="title t">채팅문의</div>
 					<div class="over-flow">
@@ -33,10 +33,10 @@
 										<img src="resources/img/tori.jpg">
 									</div>
 									<div class="profile-list">
-										<input id="userId${userList.userNo}" type="text"  value="${userList.userNickName}" hidden>
+										<input id="userId${userList.userNo}" type="text"  value="${userList.userId}" hidden>
 										<input id="userNo${userList.userNo}" type="text"  value="${userList.userNo}" hidden>
-										<div class="title">토리형</div>
-										<div class="content">넵 감사합니다.</div>
+										<div class="title">${userList.userNickName}</div>
+										<div class="content">${userList.message}</div>
 									</div>
 								</div>
 								
@@ -53,7 +53,7 @@
 
 					  
 						<c:set var="item" value="0"></c:set>
-							<div  id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${item}')">
+							<!-- <div  id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${item}')">
 								<div class="profile-area">
 									<div class="img-div">
 										<img src="resources/img/tori.jpg">
@@ -70,11 +70,11 @@
 									<div class="date">오후 12:34</div>
 									<div class="notify">1</div>
 								</div>
-							</div>
+							</div> -->
 
 
 
-							<div id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(2,'${item}')">
+							<!-- <div id="chatRoom${item=item+1}" class="chat-grid chat-list-area" onclick="chooseChatRoom(2,'${item}')">
 								<div class="profile-area">
 									<div class="img-div">
 										<img src="resources/img/tori.jpg">
@@ -214,7 +214,7 @@
 									<div class="date">오후 12:34</div>
 									<div class="notify">1</div>
 								</div>
-							</div>
+							</div> -->
 						
 					</div>
 				</div>
@@ -232,6 +232,16 @@
 
 				<!--채팅영역-->
 				<div class="chat-content">
+					<!--사장일때-->
+
+					<c:if test="${!master.equals('NNNNN')}">
+						<input  id="userKey" type="text" hidden>
+				   </c:if>
+					<!--유저일때-->
+					<c:if test="${master.equals('NNNNN')}">
+						<input  id="userKey" type="text" value="${masterInfo.masterNo}" hidden>
+				   </c:if>
+
 					<div class="profile-box">
 						<div class="hide-button">
 							<div class="title">&lt;</div>
@@ -239,71 +249,48 @@
 						<div class="img-div">
 							<img src="resources/img/tori.jpg">
 						</div>
-						<div class="title">토리형</div>
+						<div class="title">${userList.userNickName}</div>
 					</div>
 
 					<!--#########-->
 					<!--채팅내용 (비동기처리)-->
-					<div  id="MasterMsg" class="chat-chatting">
-
-						<!--사장님-->
-						<div class="send-master">
-							<div class="master-profile">
-								<div class="img-div">
-									<img src="resources/img/tori.jpg">
-								</div>
-								<div class="master-name title">사장님</div>
-							</div>
-							<div  class="content master-content master-color">
-								<div><%for (int i=1; i<10; i++) {%>
-										내용내용	내용내용	내용내용	내용내용
-							    <%}%></div>
-								<div class="time">20:16</div>
-							</div>
-						</div>
-
-
-						<!--유저-->
-						<div class="send-user">
-							<div class="content  user-content user-color">
-								<div>내용내용내용</div>
-							 <div class="time">20:16</div>
-							</div>
-						</div>
-
-
-						<!--유저-->
-						<div class="send-user">
-							<div class="content  user-content user-color">
-								<div>
-									<%for(int i=1; i<20; i++){%>
-									내용내용	내용내용	내용내용	내용내용
-									<%}%>
-								</div>
-								<div class="time">20:16</div>
-							</div>
-							
-						</div>
-
-
-
-
-						<!--사장님-->
-						<div class="send-master">
-							<div class="master-profile">
-								<div class="img-div">
-									<img src="resources/img/tori.jpg">
-								</div>
-								<div class="master-name title">사장님</div>
-							</div>
-							<div class="content master-color">
-								<div>내용내용	내용내용	내용내용	내용내용</div>
-								<div class="time">20:16</div>
-							</div>
-						</div>
-           
+					<div  id="chatMsg" class="chat-chatting">
 						
+						<c:forEach var="chat" items="${chats}">
+
+						<c:choose>
+							<c:when test="${chat.userNo eq masterInfo.masterNo}">
+								<!--사장님-->
+								<div class="send-master">
+									<div class="master-profile">
+										<div class="img-div">
+											<img src="resources/img/tori.jpg">
+										</div>
+										<div class="master-name title">사장님</div>
+									</div>
+									<div  class="content master-content master-color">
+										<div>${chat.message}</div>
+										<div class="time">${chat.enrollTime}</div>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+
+								<!--유저-->
+								<div class="send-user">
+									<div class="content  user-content user-color">
+										<div>${chat.message}</div>
+									<div class="time">${chat.enrollTime}</div>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						  
+					</c:forEach>
 					</div>
+
+
+
 					<!--#########-->
 
 

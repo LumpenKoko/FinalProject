@@ -13,6 +13,7 @@
   	  <result column="ROOM_NO" property="roomNo"/>
   	  <result column="USER_NO" property="userNo"/>
   	  <result column="TARGET_ID" property="targetId"/>
+  	  <result column="enroll_time" property="enrollTime"/>
   </resultMap>
   
   
@@ -22,10 +23,10 @@
    </resultMap>
    
       <resultMap type="UserInfo" id="userInfo">
-   	  <result column="USER_NO" property="userNo"/>
-   	  <result column="USER_ID" property="userId"/>
-   	  <result column="USER_NICKNAME" property="userNickName"/>
-   </resultMap>
+	   	  <result column="USER_NO" property="userNo"/>
+	   	  <result column="USER_ID" property="userId"/>
+	   	  <result column="USER_NICKNAME" property="userNickName"/>
+  	   </resultMap>
   
      <insert id="insertChatRoom">
      		INSERT INTO 
@@ -38,7 +39,8 @@
      		 USER_NO,
      		 TARGET_ID,
      		 TARGET_NO,
-     		 STATUS
+     		 STATUS,
+     		 re_chat_no
      		)
      		VALUES(
      		 NEXTVAL('SEQ_CHAT'),
@@ -49,10 +51,28 @@
      		 #{userNo},
      		 #{targetId},
      		 #{targetNo},
-     		 TRUE
+     		 TRUE,
+     		 CURRVAL('SEQ_CHAT')
      		)
      
      </insert>
+     
+      <select id="selectUserChats" resultMap="chat">
+    	SELECT CHAT_NO,
+    		   USER_ID,
+    		   USER_NICKNAME,
+    		   MESSAGE,
+    		   ROOM_NO,
+    		   USER_NO,
+    		   TARGET_NO,
+    		   TARGET_ID,
+    		   to_char(enroll_time,'YYYY-MM-DD HH24:MI:SS') AS enroll_time
+    		   FROM CHAT
+    		   WHERE (USER_NO = #{userNo} and TARGET_NO = #{targetNo})
+    		   or (USER_NO = #{targetNo} and TARGET_NO =#{userNo})
+    		   order by enroll_time
+    
+     </select>
     
     <update id="outChatRoom">
     
@@ -77,26 +97,15 @@
     
     </select>
      
-    <select id="selectChats" resultMap="chat">
-    	SELECT CHAT_NO,
-    		   USER_ID,
-    		   USER_NICKNAME,
-    		   MESSAGE,
-    		   ROOM_NO,
-    		   USER_NO,
-    		   TARGET_ID
-    		   FROM CHAT
-    		   WHERE USER_NO != #{USER_NO}
-    
-    </select>
+ 
     
     <select id="selectUserInfo" resultMap="userInfo">
     	SELECT  distinct 
-    			USER_ID, 
+    			USER_ID,
     			USER_NICKNAME ,
     			USER_NO
     			from chat
-    			WHERE USER_NO != #{USER_NO}
+    			WHERE USER_NO != #{userNo}
     			AND STATUS = TRUE
     
     </select>

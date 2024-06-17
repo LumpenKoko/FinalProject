@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.community.model.vo.Board;
-import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -56,6 +57,19 @@ public class myPage {
 			model.addAttribute("errorMsg", "로그인이 필요합니다.");
 			return "myPage/myPageMain"; // 로그인 페이지로 이동 또는 에러 메시지 표시
 		}
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteReview.mp")
+	public String deleteReview(@RequestParam int reviewNo, HttpSession session) {	    	    	    
+	    int result = memberService.deleteReview(reviewNo);
+	    System.out.println(reviewNo);
+	    if (result > 0) {
+	        // 삭제 성공 시 리스트에서도 삭제
+	        return "NNNNY"; // 삭제 성공
+	    } else {
+	        return "NNNNN"; // 삭제 실패
+	    }
 	}
 
 	@GetMapping("/myPageWish.mp")
@@ -167,6 +181,19 @@ public class myPage {
 			return "myPage/myPageBoardList"; // 로그인 페이지로 이동 또는 에러 메시지 표시
 		}
 	}
+	
+	@ResponseBody
+	@PostMapping("/deleteBoard.mp")
+	public String deleteBoard(@RequestParam int boardNo, HttpSession session) {	    	    	    
+	    int result = memberService.deleteBoard(boardNo);
+	    System.out.println(boardNo);
+	    if (result > 0) {
+	        // 삭제 성공 시 리스트에서도 삭제
+	        return "NNNNY"; // 삭제 성공
+	    } else {
+	        return "NNNNN"; // 삭제 실패
+	    }
+	}
 
 	@GetMapping("/myPageShorts.mp")
 	public String myPageShortsList(Model model, HttpSession session) {
@@ -176,6 +203,9 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
+			List<Shorts> shortsList = memberService.getShortsList(userNo);
+			System.out.println(shortsList);
+			session.setAttribute("shortsList", shortsList);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);

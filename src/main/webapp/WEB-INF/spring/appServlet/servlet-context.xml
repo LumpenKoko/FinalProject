@@ -34,6 +34,8 @@
 	 		<mapping path="/myPageMain.mp"/>
 	 		<mapping path="/enrollshort.view"/>
 	 		<mapping path="/enroll.short"/>
+	 		<mapping path="/enrollBoard.bo"/>
+	 		<mapping path="/chatPage.cp"/>
 	 		<beans:bean class="com.kh.mng.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
 	 	</interceptor>
 	</interceptors>

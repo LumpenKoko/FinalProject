@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kh.mng.common.chat.model.dto.UserTarget;
 import com.kh.mng.common.chat.model.vo.Chat;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
@@ -300,12 +301,12 @@ public class LocationController {
 	
 	@ResponseBody
 	@PostMapping(value="delete.re")
-	public String deleteReview( HttpSession session,int reviewNo,int userNo,int locationNo) {
+	public String deleteReview( ReviewInfo reviewInfo,HttpSession session) {
 	
-		ReviewInfo reviewInfo= new ReviewInfo();
-		reviewInfo.setLocationNo(locationNo);
-		reviewInfo.setReviewNo(reviewNo);
-		reviewInfo.setUserNo(userNo);
+//		ReviewInfo reviewInfo= new ReviewInfo();
+//		reviewInfo.setLocationNo(locationNo);
+//		reviewInfo.setReviewNo(reviewNo);
+//		reviewInfo.setUserNo(userNo);
 		
 		String savePath = session.getServletContext().getRealPath("resources/img/user/");
 		ArrayList<Attachment> deleteAttachment=detailService.deleteReview(reviewInfo);
@@ -313,13 +314,9 @@ public class LocationController {
 			if(!deleteAttachment.isEmpty()) {
 			for(Attachment attachment:deleteAttachment) {
 				File file = new File(savePath+attachment.getChangeName());
-			    System.out.println(file.getPath());
+				System.out.println(file.getPath());
 				if(file.exists()) {
 					file.delete();
-					System.out.println("파일 삭제됨");
-				}
-				else {
-					System.out.println("파일삭제실패");
 				}
 			}
 	    }
@@ -371,8 +368,9 @@ public class LocationController {
 //		return new Gson().toJson(reivewPage);
 //	}
 	
+	///////채팅///////
 	
-	@RequestMapping(value = "chatPage.cp")
+	@GetMapping(value = "chatPage.cp")
 	public String chatPage(@RequestParam(value="locationNo",defaultValue="1") int locationNo,  Model model,HttpSession session) {
 		
 		Member loginUser =((Member)session.getAttribute("loginUser"));
@@ -380,18 +378,26 @@ public class LocationController {
 		
 		String check=loginUser.getUserKind();
 		log.info("userKind:{}",check);
+		
+		
+		
+		
 		//접속 유저가 사장님이면?
 		if(check.equals("Y")) {
+			//ArrayList<Chat> masterchats=chatService.selectChats(loginUser.getUserNo());
 			
-			
+
 			//채팅 데이터베이스에 유저 목록 가져오기 (자기자신 빼고) status true인 상태인 유저만 가져오기 
-			ArrayList<Chat> chats=chatService.selectChats(loginUser.getUserNo());
-			ArrayList<UserInfo> userInfo= chatService.selectUserInfo(locationNo);
+		    ArrayList<UserInfo> userInfo= chatService.selectUserInfo(locationNo);
+		    
+		 
+		   // ArrayList<Chat> entireChats=chatService.selectEntireUserChats(loginUser.getUserNo());
 			
 			//사장님이라는 것을 알려줄수있는 표시
 			model.addAttribute("master","YMYMYMMYYY");
-			model.addAttribute("chats",chats);
+			//model.addAttribute("entireChats",entireChats);
 			model.addAttribute("chatUserList",userInfo);
+			
 			
 			
 		}
@@ -399,23 +405,45 @@ public class LocationController {
 		else {
 			
 			//데이터베이스에 채팅방 만들고 유저 참여시키기 
-			//사장님 페이지에서 실시간?으로 유저 참여 목록 업데이트 시키키??
-		
-			
 			
 			//사장님아이디찾기
-			MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
+			 MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
+			 
+			 UserTarget userMasterInfo =new UserTarget();
+			 userMasterInfo.setTargetNo(masterInfo.getMasterNo());
+			 userMasterInfo.setUserNo(loginUser.getUserNo());
+			 
+			 
+			//채팅 데이터베이스에서 현재 자신의 채팅 목록 가져오기  status true인 상태인 채팅만
+			ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
+			log.info("chats:{}",chats.toString());
+			System.out.println(chats.toString());
 			model.addAttribute("master","NNNNN");
 			model.addAttribute("masterInfo",masterInfo);
+			model.addAttribute("chats",chats);
 			
-			
-			//나중에 나가기누르면 데이터베이스에서 지워주기 
+			//채팅 목록 가져오기
+				
 		}
 		
-	
-		
-		 return "chat/chat";
+	   return "chat/chat";
 	}
+	
+	//접속유저가 사장님일시   유저리스트 클릭시 비동기로 채팅목록 띄워주기
+	@ResponseBody
+	@GetMapping(value="view.chat" ,produces="application/json; charset=utf-8")
+	public String mastGetChatList(UserTarget userMasterInfo) {
+		System.out.println(userMasterInfo.getTargetNo());
+		System.out.println(userMasterInfo.getUserNo());
+		ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
+		log.info("{}"+chats);
+		System.out.println(chats);
+		return new Gson().toJson(chats);
+	}
+
+	
+	
+	
 	
 	
 	//로그인 정보 가져오기-->실패

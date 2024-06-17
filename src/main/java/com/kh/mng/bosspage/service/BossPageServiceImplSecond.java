@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.mng.bosspage.model.dao.BossPageDaoSecond;
 import com.kh.mng.bosspage.model.dto.CouponKind;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,4 +50,20 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 	public int deleteCouponkind(int couponNo) {
 		return bossPageDaoSecond.deleteCouponKind(sqlSession, couponNo);
 	}
+
+	@Override
+	public int insertBoard(BoardEnroll board, BoardFileInfo boardfile) {
+		int result1 = bossPageDaoSecond.insertBoard(sqlSession, board);
+		int result2 = 1;
+		
+		if (result1 > 0) {
+			result2 = bossPageDaoSecond.insertBoardAttachment(sqlSession, boardfile);
+		} else {
+			result1 = result1 * 0;
+		}
+		
+		return result1 * result2;
+	}
+	
+	
 }

@@ -16,7 +16,7 @@
 </head>
     <%@ include file="../common/header.jsp"%>
 
-<body onload="init('${contextPath}')">
+<body onload="init('${contextPath}','${loginUser.userNickname}')">
 	
 	<div class="wrapper">
         <div class="main">
@@ -32,7 +32,7 @@
                             <img src="resources/community/threeCircle.png" alt="">
                             <div class="change-box">
                                 <div class="change-box-list" onclick="location.href='#'">수정하기</div>
-                                <div class="change-box-list change-box-last" data-toggle="modal" data-target="#delete-content">삭제하기</div>
+                                <div class="change-box-list change-box-last"  onclick="deleteBoard()">삭제하기</div>
                             </div>
                         </div>
                     </div>
@@ -49,6 +49,10 @@
                 <!-- 글 내용 및 사진 영역 -->
                 <div id="board-content-box">
                     <div id="board-content-text">
+                        <c:forEach var="i" items="${board.attachment}">
+                            <img src="${i.filePath}${i.changeName}" alt="">
+                        </c:forEach>
+
                         <img src="resources/community/userProfile.jpg" alt="">
                         <div>${board.boardContent}</div>
                     </div>
@@ -128,7 +132,7 @@
                                             <div class="reply-regist-info">
                                                 <div>
                                                     <img src="" alt="">
-                                                    <span>${loginUser.userNickname}</span>
+                                                    <span>${(loginUser!=null)?loginUser.userNickname:'로그인하세요'}</span>
                                                 </div>
                                                 <div  class="replybutton-div"><button  type="button"id="replyReplyButton" class="common-button pink-button" onclick="replyReplyInsert('${r.replyNo}')">답글 등록</button></div>
                                             </div>
@@ -189,7 +193,7 @@
                         <div class="reply-regist-info">
                             <div>
                                 <img src="" alt="">
-                                <span>${loginUser.userNickname}</span>
+                                <span>${(loginUser!=null)?loginUser.userNickname:'로그인하세요'}</span>
                             </div>
                             <button  type="button" id="replyButton" class="common-button pink-button">댓글 등록</button>
                         </div>

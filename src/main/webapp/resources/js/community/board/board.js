@@ -30,7 +30,7 @@ function drawBoards(boards){
                     </div>
                 </div>
                 <div class="img-box">
-                    <img src="${b.attahment[0].filePath}${b.attahment[0].changeName}">
+                    <img src="${b.attachment[0].filePath}${b.attachment[0].changeName}">
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@ function drawBoardPage(boardPi,category,boardContent="default"){
 
     if(boardPi.currentPage == boardPi.maxPage){
         nextButton=`
-        <div id="next-board-button" class="next-button"><li><a class="page-button">▶</a></li></div>
+        <div id="next-board-button"  class="page-disabled" class="next-button"><li><a class="page-button">▶</a></li></div>
         `
     }
 

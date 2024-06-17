@@ -10,6 +10,7 @@
 
                 <link rel="stylesheet" href="resources/css/myPage/myPageMain.css" />
                 <link rel="stylesheet" href="resources/css/common/common.css" />
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script src="resources/js/myPage/myPageMain.js"></script>
         </head>
 
@@ -107,7 +108,7 @@
                                                 </span>
                                                 <span style="color: #bababa;">수정</span>
                                                 <span style="color: #bababa; cursor:default;">｜</span>
-                                                <span style="color: #bababa;">삭제</span>
+                                                <span style="color: #bababa;" onclick="deleteReview('${review.reviewNo}', '<%=request.getContextPath()%>')">삭제</span>
                                             </div>
                                         </div>
                                         <div id="right2-mid">

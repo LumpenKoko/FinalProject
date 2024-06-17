@@ -1,5 +1,6 @@
 package com.kh.mng.bosspage.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,9 +12,16 @@ import com.kh.mng.bosspage.model.dao.BossPageDao;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
+import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
+import com.kh.mng.bosspage.model.vo.LocationPetKind;
+import com.kh.mng.bosspage.model.vo.LocationPetSize;
+import com.kh.mng.bosspage.model.vo.LocationPicture;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class BossPageServiceImpl implements BossPageService {
 
     @Autowired
@@ -24,83 +32,149 @@ public class BossPageServiceImpl implements BossPageService {
 
     @Override
     public BossLocation getLocationInfo(int userNo) {
-        return bossPageDao.getLocation(sqlSession, userNo);
+        return bossPageDao.getLocation(userNo);
     }
 
     @Override
     public BossLocationOption getLocationOption(int locationNo) {
-        return bossPageDao.getLocationOption(sqlSession, locationNo);
+        return bossPageDao.getLocationOption(locationNo);
     }
 
     @Override
     public int updatePhoneNumber(BossPage bossPage) {
-        return bossPageDao.updatePhonNo(sqlSession, bossPage);
+        return bossPageDao.updatePhonNo(bossPage);
     }
 
     @Override
     public int updateEmail(BossPage bossPage) {
-        return bossPageDao.updateEmail(sqlSession, bossPage);
+        return bossPageDao.updateEmail(bossPage);
     }
 
     @Override
     public int updatePwd(BossPage bossPage) {
-        return bossPageDao.updatePwd(sqlSession, bossPage);
+        return bossPageDao.updatePwd(bossPage);
     }
 
     @Override
     @Transactional
     public int deleteBossUser(String bossId) {
-        return bossPageDao.deleteBossUser(sqlSession, bossId);
+        return bossPageDao.deleteBossUser(bossId);
     }
 
     @Override
     @Transactional
     public int saveLocationInfo(BossLocation locationInfo) {
-        return bossPageDao.saveLocationInfo(sqlSession, locationInfo);
+        return bossPageDao.saveLocationInfo(locationInfo);
     }
 
     @Override
     @Transactional
     public int updateLocationInfo(BossLocation locationInfo) {
-        return bossPageDao.updateLocationInfo(sqlSession, locationInfo);
+        return bossPageDao.updateLocationInfo(locationInfo);
     }
 
     @Override
     @Transactional
     public int saveOperationTimes(int locationNo, List<LocationOperationTime> operationTimes) {
-        bossPageDao.deleteOperationTimes(sqlSession, locationNo);
+        bossPageDao.deleteOperationTimes(locationNo);
         for (LocationOperationTime operationTime : operationTimes) {
-            bossPageDao.insertOperationTime(sqlSession, operationTime);
+            bossPageDao.insertOperationTime(operationTime);
         }
         return 1;
     }
-    
 
     @Override
     public List<LocationOperationTime> getOperationTimes(int locationNo) {
-        return bossPageDao.getOperationTimes(sqlSession, locationNo);
+        return bossPageDao.getOperationTimes(locationNo);
     }
 
     @Override
     @Transactional
     public int savePetKindsAndSizes(int locationNo, List<String> petKinds, List<String> petSizes) {
-        bossPageDao.deletePetKindsAndSizes(sqlSession, locationNo);
+        if (petKinds == null) {
+            petKinds = new ArrayList<>();
+        }
+        if (petSizes == null) {
+            petSizes = new ArrayList<>();
+        }
+
+        bossPageDao.deletePetKindsAndSizes(locationNo);
         for (String petKind : petKinds) {
-            bossPageDao.insertPetKind(sqlSession, locationNo, petKind);
+            bossPageDao.insertPetKind(locationNo, petKind);
         }
         for (String petSize : petSizes) {
-            bossPageDao.insertPetSize(sqlSession, locationNo, petSize);
+            bossPageDao.insertPetSize(locationNo, petSize);
+
+            // Save LocationEnterGrade information
+            LocationPetSize locationPetSize = bossPageDao.getPetSizeByName(petSize);
+            if (locationPetSize != null) {
+                LocationEnterGrade locationEnterGrade = new LocationEnterGrade();
+                locationEnterGrade.setLocationNo(locationNo);
+                locationEnterGrade.setPetSizeNo(locationPetSize.getPetSizeNo());
+                bossPageDao.insertLocationEnterGrade(locationEnterGrade);
+            }
         }
         return 1;
     }
 
     @Override
     public List<String> getPetKinds(int locationNo) {
-        return bossPageDao.getPetKinds(sqlSession, locationNo);
+        return bossPageDao.getPetKinds(locationNo);
     }
 
     @Override
     public List<String> getPetSizes(int locationNo) {
-        return bossPageDao.getPetSizes(sqlSession, locationNo);
+        return bossPageDao.getPetSizes(locationNo);
     }
+
+    @Override
+    public LocationPetKind getPetKindByName(String petKindName) {
+        return bossPageDao.getPetKindByName(petKindName);
+    }
+
+    @Override
+    public LocationPetSize getPetSizeByName(String petSizeName) {
+        return bossPageDao.getPetSizeByName(petSizeName);
+    }
+
+    @Override
+    @Transactional
+    public int saveLocationEnterGrade(LocationEnterGrade locationEnterGrade) {
+        return bossPageDao.insertLocationEnterGrade(locationEnterGrade);
+    }
+
+    @Override
+    public List<LocationEnterGrade> getLocationEnterGrades(int locationNo) {
+        return bossPageDao.getLocationEnterGrades(locationNo);
+    }
+
+	@Override
+	public int saveImages(int locationNo, List<LocationPicture> pictures) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<LocationPicture> getImages(int locationNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleteImages(int locationNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int savePictures(int locationNo, List<LocationPicture> pictures) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<LocationPicture> getPicturesByLocation(int locationNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

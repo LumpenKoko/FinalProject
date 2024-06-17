@@ -61,8 +61,16 @@ function getStorage(name){
 // 장소 ajax 성공 시 추천 장소 출력
 function drawPlaceTop(locationList){
     let placeImg = document.querySelector("#place-img");
-    placeImg.src = locationList[0].attachment.filePath + locationList[0].attachment.changeName;
-
+    if (locationList[0].attachment != null){
+        placeImg.src = locationList[0].attachment.filePath + locationList[0].attachment.changeName;
+    } else if(locationList[0].attachment == null){
+        placeImg.src = locationList[1].attachment.filePath + locationList[1].attachment.changeName;
+    } else if(locationList[1].attachment == null){
+        placeImg.src = locationList[2].attachment.filePath + locationList[2].attachment.changeName;
+    } else {
+        placeImg.src = 'resources/img/default/default_location_img.jpg'
+    }
+    
     let searchContentsWrap = document.querySelector("#search-contents-wrap");
 
     for (let loc of locationList){
@@ -77,7 +85,12 @@ function drawPlaceTop(locationList){
 
         // 장소 사진
         place += `<img src="`;
-        place += loc.attachment.filePath + loc.attachment.changeName;
+        if (loc.attachment != null){
+            place += loc.attachment.filePath + loc.attachment.changeName;
+        } else {
+            place += 'resources/img/default/default_location_img.jpg';
+        }
+        
         place += `" alt="">`;
 
         // 텍스트를 감싸는 박스, 장소 이름

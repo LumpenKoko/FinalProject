@@ -3,7 +3,10 @@ package com.kh.mng.member.service;
 import java.util.List;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.community.model.vo.BoardNum;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
@@ -36,4 +39,15 @@ public interface MemberService {
 	// 공감 목록 삭제
 	int wishListDelete(WishListNo wishListNo);
 	
+	// 게시글 삭제
+	int deleteBoard(int boardNo);
+	
+	// 리뷰 삭제
+	int deleteReview(int reviewNo);
+	
+	// 쇼츠 불러오기
+	List<Shorts> getShortsList(int userNo);
+	
+	// 리뷰 업데이트
+	int updateReview(MyPageReview myReview);
 }

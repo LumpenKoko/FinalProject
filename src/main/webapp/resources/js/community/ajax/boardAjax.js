@@ -20,7 +20,6 @@ function pagIngBoard(currentPage,category=0,boardContent="default"){
 }
 
 function categoryAjax(category){
-    console.log("category",category)
     $.ajax({
         url:contextPath+"/category",
         data:{

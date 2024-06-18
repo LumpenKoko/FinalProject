@@ -35,7 +35,6 @@ import com.kh.mng.common.chat.service.ChatService;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
-import com.kh.mng.location.model.dto.AddressInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
@@ -48,6 +47,7 @@ import com.kh.mng.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.kh.mng.location.model.vo.AddressInfo;
 import com.kh.mng.location.model.vo.DetailLocation; 
 
 
@@ -440,13 +440,15 @@ public class LocationController {
 
 	
 	
-	//장소 목록 가져오기 
+	//장소 목록 가져오기 (메인페이지 지도)
 	
 	@ResponseBody
-	@GetMapping(value="/getAddress",produces="application/json; charset=utf-8")
-	public String getAddress() {
+	@GetMapping(value="getAddress",produces="application/json; charset=utf-8")
+	public String getAddress(@RequestParam(value="type",defaultValue="default") String type) {
 		
-		ArrayList<AddressInfo> addressInfo = detailService.selectAddress();
+		log.info("type:{}",type);
+		ArrayList<AddressInfo> addressInfo = detailService.selectAddress(type);
+		log.info("address:{}",addressInfo.toString());
 		return new Gson().toJson(addressInfo);
 		
 	}

@@ -54,6 +54,11 @@
    			<result column=" PET_KIND_NAME" property="petKindName"/>
    </resultMap>
    
+   <resultMap type="AddressInfo" id="addressInfo">
+   			<result column="ADDRESS" property="address"/>
+   			<result column="LOCATION_NAME" property="locationName"/>
+   </resultMap>
+   
    
  
  	<!-- 장소상세 -->
@@ -135,6 +140,35 @@
     			WHERE LOCATION_NO = #{locationNo}
     
     </update>
+    
+    <select id="getAddress" resultMap="addressInfo">
+    	SELECT ADDRESS , LOCATION_NAME FROM LOCATION L
+    	JOIN LOCATION_CATEGORY C
+    	ON(L.LOCATION_CATEGORY_NO=C.LOCATION_CATEGORY_NO)
+    	 <choose>
+				<when test='type == "식당/카페"'>
+						 WHERE C.CATEGORY_NAME LIKE CONCAT('%','카페','%') 
+						 OR  C.CATEGORY_NAME LIKE CONCAT('%','식당','%')
+				</when>
+				
+				<when test='type == "숙소"'>
+					 WHERE C.CATEGORY_NAME LIKE CONCAT('%','숙소','%')
+				</when>
+				<when test='type == "행사/테마파크"'>
+					 WHERE C.CATEGORY_NAME LIKE CONCAT('%','행사','%')
+					 OR C.CATEGORY_NAME LIKE CONCAT('%','테마파크','%')
+				</when>
+				<when test='type == "병원"'>
+					 WHERE C.CATEGORY_NAME LIKE CONCAT('%','병원','%')
+				</when>
+				
+				<when test='type == "기타"'>
+					 WHERE 	C.CATEGORY_NAME LIKE CONCAT('%','기타','%')
+				</when>
+				
+		</choose>
+    	
+    </select>
     
     
    </mapper>

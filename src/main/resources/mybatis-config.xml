@@ -54,6 +54,7 @@
 		<typeAlias type="com.kh.mng.common.phonesms.PhoneSmsVo" alias="PhoneSmsVo"/>
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationEnterGrade" alias="LocationEnterGrade"/>
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPicture" alias="LocationPicture"/>
+		<typeAlias type="com.kh.mng.location.model.vo.AddressInfo" alias="AddressInfo"/>
 
  	</typeAliases> 
  	

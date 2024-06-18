@@ -2,27 +2,17 @@
     //      onload랑 같은 함수
     //})
 
-
-$(function(){  
-
-   
-    getAddress(drawMap);
-    
-})
-
-function getAddress(callback){
+function getAddress(data,callback){
 
     $.ajax({
-        url:contextPath+'/getAddress',
+        url:contextPath+"/getAddress",
+        data:data,
         success:function(response){
             callback(response);
 
         },error:function(){
-            alert("지도 로딩 실패!!")
+           console.log("지도 로딩 실패")
         }
-
-
-
     })
 
 }
@@ -32,7 +22,6 @@ function getAddress(callback){
 function drawMap(addresses){
     // let address=document.getElementById('address');
     // let locationName=document.getElementById('locationName');
- 
 
     let mapContainer = document.getElementById('mainpage-map-map'), // 지도를 표시할 div 
     mapOption = {
@@ -46,24 +35,7 @@ function drawMap(addresses){
     // 주소-좌표 변환 객체를 생성합니다
     let geocoder = new kakao.maps.services.Geocoder();
 
-    let addresses = [
-        {
-            address:'충남 부여군 부여읍 석탑로 49 문광사서점',
-            text: '문광사서점'
-        },
-        {
-            address:'충남 부여군 부여읍 성왕로 215 카페써니',
-            text: '카페써니'
-        },
-        {
-            address:'충남 부여군 부여읍 중앙로 10 추성희헤어스투디오',
-            text: '추성희헤어스투디오'
-        }
-        ,{
-            address:'충남 부여군 부여읍 중앙로 7 리헤어리더',
-            text:'리헤어리더'
-        }
-    ];
+  
 
 
     
@@ -86,7 +58,7 @@ function drawMap(addresses){
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 let infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-                infowindow.setContent('<div style="padding:5px;font-size:12px; border-style:none; border-radius:50px;">' +  "서울특별시 강남구 강남역 쉐르빌 2층 203호"+ '</div>')
+                infowindow.setContent('<div style="padding:5px;font-size:12px; border-style:none; border-radius:50px;">' +address.locationName+ '</div>')
                 infowindow.open(map, marker);
             
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다

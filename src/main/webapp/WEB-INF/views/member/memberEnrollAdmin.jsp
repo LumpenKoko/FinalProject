@@ -7,12 +7,15 @@
 <title>Insert title here</title>
 <%@ include file="../common/common-file.jsp"%>
 <link rel="stylesheet" href="resources/css/common/minibox.css"/>
+<link rel="stylesheet" href="resources/css/member/memberEnroll.css"/>
 <link rel="stylesheet" href="resources/css/member/memberEnrollAdmin.css"/>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="resources/js/member/memberInit.js"></script>
 <script src="resources/js/member/memberEnroll.js"></script>
 <script src="resources/js/member/memberAjax.js"></script>
+
 </head>
-<body onload="init('<%=request.getContextPath()%>')">
+<body onload="init('<%=request.getContextPath()%>', 'Y')">
 	<%@ include file="../common/header.jsp"%>
 	
     <div class="wrapper">
@@ -54,103 +57,102 @@
                 <div class="minibox-mini-title">
                     <span>휴대폰번호 인증</span>
                     <span class="required-color">*</span>
-                    <!-- <span class="error-message-margin">필수 항목입니다.</span> -->
+                    <span id="phone-message"></span>
                 </div>
-                <!-- 휴대폰번호 API 인증 필요 -->
-                <!-- <form action=""> -->
-                    <select name="" id="" class="minibox-input">
+                    <!-- <select name="" id="" class="minibox-input">
                         <option value="SKT" class="minibox-input">SKT</option>
                         <option value="KT" class="minibox-input">KT</option>
                         <option value="LGU+" class="minibox-input">LGU+</option>
                         <option value="알뜰폰" class="minibox-input">알뜰폰</option>
-                    </select>
-
-                    <input type="text" name="userPhone" class="minibox-input" onkeyup="activeBossEnroll(), activeCertifyPhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
-                    
-
-                    <div id="check-agree-title" class="minibox-mini-title">
-                        <span>본인 인증 약관 동의</span>
-                        <span class="required-color">*</span>
-                        <!-- <span class="error-message-margin">체크되지 않은 필수 항목이 있습니다.</span> -->
-                    </div>
-                    <div class="check-agree-box">
-                        <input type="checkbox" id="check-agree-all" class="checkbox-color-pink check-agree" onchange="clickAllAgree(), activeBossEnroll(), activeCertifyPhone()">
-                        <label for="check-agree-all">전체 동의합니다.</label>
-                    </div>
-                    <hr>
-                    <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-first" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
-                        <label for="check-agree-first">[필수] 본인 확인 서비스 이용 약관 동의</label>
-                    </div>
-                    <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-second" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
-                        <label for="check-agree-second">[필수] 통신사 이용 약관 동의</label>
-                    </div>
-                    <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-third" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
-                        <label for="check-agree-third">[필수] 통신사/인증사의 개인정보 이용, 제공 동의</label>
-                    </div>
-                    <div class="check-agree-box check-box">
-                        <input type="checkbox" id="check-agree-fourth" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
-                        <label for="check-agree-fourth">[필수] 고유식별 정보 처리 동의</label>
+                    </select> -->
+                    <div class="double-check-box">
+                        <input type="text" name="userPhone" class="minibox-input" data-check='false' onkeyup="checkDoublePhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
+                        <button type="button" id="phone-check" class="common-button white-button before-check-button" data-check='false' onclick="checkPhoneNumber()" disabled>중복확인</button>
                     </div>
 
-                    <br>
-                    
-                    <div class="minibox-mini-title">
-                        <span class="error-message-nomargin">인증번호가 일치하지 않습니다.</span>
+                    <div id="after-certify-box">
+                        <div id="check-agree-title" class="minibox-mini-title">
+                            <span>본인 인증 약관 동의</span>
+                            <span class="required-color">*</span>
+                            <!-- <span class="error-message-margin">체크되지 않은 필수 항목이 있습니다.</span> -->
+                        </div>
+                        <div class="check-agree-box">
+                            <input type="checkbox" id="check-agree-all" class="checkbox-color-pink check-agree" onchange="clickAllAgree(), activeBossEnroll(), activeCertifyPhone()">
+                            <label for="check-agree-all">전체 동의합니다.</label>
+                        </div>
+                        <hr>
+                        <div class="check-agree-box check-box">
+                            <input type="checkbox" id="check-agree-first" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
+                            <label for="check-agree-first">[필수] 본인 확인 서비스 이용 약관 동의</label>
+                        </div>
+                        <div class="check-agree-box check-box">
+                            <input type="checkbox" id="check-agree-second" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
+                            <label for="check-agree-second">[필수] 통신사 이용 약관 동의</label>
+                        </div>
+                        <div class="check-agree-box check-box">
+                            <input type="checkbox" id="check-agree-third" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
+                            <label for="check-agree-third">[필수] 통신사/인증사의 개인정보 이용, 제공 동의</label>
+                        </div>
+                        <div class="check-agree-box check-box">
+                            <input type="checkbox" id="check-agree-fourth" class="checkbox-color-pink check-agree" onchange="clickAgree(), activeBossEnroll(), activeCertifyPhone()">
+                            <label for="check-agree-fourth">[필수] 고유식별 정보 처리 동의</label>
+                        </div>
+
+                        <br>
+                        
+                        <div class="minibox-mini-title">
+                            <span id="certify-message" class="error-message-nomargin"></span>
+                        </div>
+
+                        <div id="check-number">
+                            <input type="text" id="certify-code" class="minibox-input" placeholder="인증번호 6자리 숫자">
+                            <button type="button" id="certify-phone-button" class="common-button white-button" onclick="getCertifyCode()" disabled>인증번호 요청</button>
+                            <!-- <div>2:00</div> -->
+                        </div>
+                        
+                        <!-- <div id="plus-time">시간 연장</div> -->
+                        <button type="button" id="check-phone-button" class="common-button pink-button minibox-full-button" onclick="checkCertifyCode()">확인</button>
                     </div>
 
-                    <div id="check-number">
-                        <input type="text" class="minibox-input" placeholder="인증번호 6자리 숫자">
-                        <button type="submit" id="certify-phone-button" class="common-button white-button" onclick="certifyPhone()" disabled>인증번호 요청</button>
-                        <div>2:00</div>
-                    </div>
-                    
-                    <div id="plus-time">시간 연장</div>
-                    <button type="submit" id="check-phone-button" class="common-button pink-button minibox-full-button">확인</button>
-                <!-- </form> -->
-
-                <input type="text" id="checked-phone-number" class="minibox-input" value="010-1234-5678" readonly>
-                <div id="checked-phone-text" class="common-button">휴대폰번호 인증이 완료되었습니다.</div>
+                <div id="checked-phone-text" class="common-button" style="display: none;">휴대폰번호 인증이 완료되었습니다.</div>
 
 
-                <div class="minibox-mini-title minibox-mini-title-bold">사업자 정보 인증</div>
+                <div class="minibox-mini-title minibox-mini-title-bold">사업자 정보 <!--인증--></div>
                 
                 <!-- <form action=""> -->
                     <div class="minibox-mini-title">
                         <span>사업자등록번호</span>
                         <span class="required-color">*</span>
-                        <span class="error-message-margin">존재하지 않는 사업자등록번호입니다.</span>
+                        <span class="error-message-margin"></span>
                     </div>
                     <input type="text" name="businessNo" class="minibox-input" placeholder="000-00-00000">
 
                     <div class="minibox-mini-title">
                         <span>상호명</span>
                         <span class="required-color">*</span>
-                        <span class="error-message-margin">필수 항목입니다.</span>
+                        <span class="error-message-margin"></span>
                     </div>
                     <input type="text" name="locationName" class="minibox-input" placeholder="상호명을 입력하세요.">
 
                     <div class="minibox-mini-title">
                         <span>소재지</span>
                         <span class="required-color">*</span>
-                        <span class="error-message-margin">필수 항목입니다.</span>
+                        <span class="error-message-margin"></span>
                     </div>
 
                     <div id="check-boss-info">
                         <input type="text" id="address-zipCode" class="minibox-input" placeholder="우편번호 입력">
-                        <button type="" class="common-button white-button">우편번호 검색</button>
+                        <button type="button" class="common-button white-button" onclick="showAddress()">우편번호 검색</button>
                     </div>
                     <input type="text" id="address-content" class="minibox-input" onchange="changeAddress()" placeholder="">
-                    <input type="text" id="address-detail" class="minibox-input" onkeyup="changeAddress()" placeholder="상세 주소를 입력하세요.">
+                    <!-- <input type="text" id="address-detail" class="minibox-input" onkeyup="changeAddress()" placeholder="상세 주소를 입력하세요."> -->
 
                     <input type="text" name="address" id="input-address">
 
-                    <button type="submit" id="check-admin-button" class="common-button pink-button minibox-full-button">사업자 정보 인증</button>
+                    <!-- <button type="submit" id="check-admin-button" class="common-button pink-button minibox-full-button">사업자 정보 인증</button> -->
                 <!-- </form> -->
 
-                <div id="checked-boss-info" class="common-button">사업자 정보 인증이 완료되었습니다.</div>
+                <!-- <div id="checked-boss-info" class="common-button">사업자 정보 인증이 완료되었습니다.</div> -->
 
 
                 <div class="minibox-mini-title minibox-mini-title-bold">사용자 정보 입력</div>
@@ -161,8 +163,8 @@
                     <span id="id-message" class="error-message-margin"></span>
                 </div>
                 <div id="check-boss-info">
-                    <input id="user-id" type="text" name="userId" class="minibox-input" data-check='false' onkeyup="checkId(), activeBossEnroll()" minlength="8" maxlength="12" placeholder="8~12자리의 영문, 숫자로 입력하세요.">
-                    <button type="button" id="id-check" class="common-button white-button" onclick="checkDoubleId()" disabled>중복확인</button>
+                    <input id="user-id" type="text" name="userId" class="minibox-input" data-check='false' onkeyup="checkId()" minlength="8" maxlength="12" placeholder="8~12자리의 영문, 숫자로 입력하세요.">
+                    <button type="button" id="id-check" class="common-button white-button before-check-button" onclick="checkDoubleId()" disabled>중복확인</button>
                 </div>
                 
                 <div class="minibox-mini-title">

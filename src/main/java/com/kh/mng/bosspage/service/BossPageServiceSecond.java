@@ -26,7 +26,7 @@ public interface BossPageServiceSecond {
 	// 핸드폰 번호 중복 체크
 	int checkPhoneNumber(String userPhone);
 	
-	// 암호화된 6자리 랜덤 숫자 저장
+	// 기존 인증코드 있는지 확인 및 삭제 후 암호화된 6자리 랜덤 숫자 저장
 	int insertCertifyCode(PhoneSmsVo psv);
 
 	// 저장된 핸드폰 번호로 된 인증번호 가져오기

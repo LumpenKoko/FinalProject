@@ -33,15 +33,20 @@ function checkDoublePhone(){
     let phone = document.querySelector('[name="userPhone"]');
     let phoneMessage = document.querySelector('#phone-message');
     let phoneCheck = document.querySelector('#phone-check');
+    let certify = document.querySelector('#certify-phone-button');
 
     phone.dataset.check = 'false'
+    phoneCheck.dataset.check = 'false'
     const regExp = /^[0-9]{9,12}$/;
-
+    console.log(phone.dataset.check)
+    console.log(phoneCheck.dataset.check)
     if(!regExp.test(phone.value)){
         if (phone.value == ""){
             changeStyle("X", phoneCheck, phoneMessage, "");
+            changeStyle("X", certify, phoneMessage, "");
         } else {
             changeStyle("N", phoneCheck, phoneMessage, "사용할 수 없는 형식의 번호입니다.");
+            changeStyle("N", certify, phoneMessage, "사용할 수 없는 형식의 번호입니다.");
         }
     } else {
         changeStyle("Y", phoneCheck, phoneMessage, "사용 가능한 형식의 번호입니다.");
@@ -65,8 +70,8 @@ function drawDoublePhoneResult(result){
     } else if (result == "NNNNN"){
         changeStyle("Y", phoneCheck, phoneMessage, "사용 가능한 전화번호입니다.");
         // 인증 성공 시로 옮겨야 함
-        phone.dataset.check = 'true';
-        activeCommonEnroll();
+        phoneCheck.dataset.check = 'true';
+        activeCertifyPhone();
     }
 }
 
@@ -78,9 +83,6 @@ function getCertifyCode(){
 
 // 인증번호 요청 ajax 성공 시 콜백 함수
 function drawGetCertifySuccess(result){
-    console.log("성공")
-    console.log(result)
-
     // 타이머 돌아가는 함수, 시간 지나면 데이터 삭제하는 함수
 }
 
@@ -92,6 +94,7 @@ function checkCertifyCode(){
     ajaxCheckCertifyCode({phone:phone, certifyCode:certifyCode}, drawCertifyCodeSuccess);
 }
 
+// 인증번호 확인 ajax 성공 시 콜백 함수
 function drawCertifyCodeSuccess(result){
     let dummy = document.querySelector('button');
     let certifyMessage = document.querySelector('#certify-message');
@@ -100,6 +103,14 @@ function drawCertifyCodeSuccess(result){
         document.querySelector('[name="userPhone"]').disabled = true;
         document.querySelector('#after-certify-box').style.display = 'none';
         document.querySelector('#checked-phone-text').style.display = 'block'
+        document.querySelector('[name="userPhone"]').dataset.check = 'true'
+
+        if (userKind == 'N'){
+            activeCommonEnroll();
+        } else if(userKind == 'Y'){
+            activeBossEnroll();
+        }
+
     } else if (result == "NNNNN"){
         changeStyle("N", dummy, certifyMessage, "인증번호가 일치하지 않습니다.");
     }
@@ -128,7 +139,12 @@ function checkIdSuccess(result) {
     } else {
         changeStyle("Y", dummy, idMessage, "사용 가능한 아이디입니다.");
         id.dataset.check = 'true';
-        activeCommonEnroll();
+
+        if (userKind == 'N'){
+            activeCommonEnroll();
+        } else if(userKind == 'Y'){
+            activeBossEnroll();
+        }
     }
     
 }
@@ -141,7 +157,17 @@ function checkId(){
     let id = document.querySelector("[name='userId']");
     let idMessage = document.querySelector("#id-message");
     let idCheck = document.querySelector('#id-check')
+
+    id.dataset.check = 'false'
+    
+    if (userKind == 'N'){
+        activeCommonEnroll();
+    } else if(userKind == 'Y'){
+        activeBossEnroll();
+    }
+
     const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+~\-={}[\]:;"'<>,.?/|\\`]{8,14}$/;
+    
     if(!regExp.test(id.value)){
         if (id.value == ""){
             changeStyle("X", idCheck, idMessage, "");
@@ -277,10 +303,12 @@ function changeEmail(){
 function activeEnroll(userInfo, userId, userPhone, enroll){
     let checkDisable = false;
     let result = 1;
+    let phoneResult = 1;
     // console.log(userInfo)
     for (let info of userInfo){
         if (info.value == "" || info.value == null){
             result = result * 0;
+            phoneResult = 0;
         }
     }
 
@@ -309,9 +337,15 @@ function activeEnroll(userInfo, userId, userPhone, enroll){
         enroll.style.background = "var(--main-color)";
         enroll.style.color = "#FFFFFF";
         enroll.style.cursor = "pointer";
+        userPhone.disabled = false;
     } else {
         enroll.style.background = "inherit";
         enroll.style.color = "var(--border-color)";
+        enroll.style.cursor = "inherit";
+        if (phoneResult == 1){
+            userPhone.disabled = true;
+        }
+        
     }
 }
 
@@ -321,9 +355,9 @@ function activeCertifyPhone(){
     let result = 1;
 
     let certifyButton = document.querySelector('#certify-phone-button')
-
-    let userPhone = document.querySelector("[name='userPhone']");
-    if (userPhone.value == null){
+    
+    let phoneCheck = document.querySelector('#phone-check');
+    if (phoneCheck.dataset.check == 'false'){
         result = result * 0;
     }
     
@@ -389,7 +423,8 @@ function changeAddress(){
     let content = document.querySelector("#address-content");
     let detail = document.querySelector("#address-detail");
     let userAddress = document.querySelector("[name='address']");
-    userAddress.value = content.value + " " + detail.value;
+    userAddress.value = content.value
+    // userAddress.value = content.value + " " + detail.value;
 }
 
 // 사장 회원가입 버튼 활성화 데이터
@@ -406,12 +441,15 @@ function activeBossEnroll(){
     let businessNo = document.querySelector("[name='businessNo']");
     let locationName = document.querySelector("[name='locationName']");
     let addressContent = document.querySelector("#address-content");
-    let addressDetail = document.querySelector("#address-detail");
+    // let addressDetail = document.querySelector("#address-detail");
 
     let enroll = document.querySelector("#enroll-button");
 
+    // let userInfo = [userPwd, userName, userGender, userBirthday, userPreEmail, userPostEmail,
+    //                 businessNo, locationName, addressContent, addressDetail];
+
     let userInfo = [userPwd, userName, userGender, userBirthday, userPreEmail, userPostEmail,
-                    businessNo, locationName, addressContent, addressDetail];
+        businessNo, locationName, addressContent];
 
     activeEnroll(userInfo, userId, userPhone, enroll);
 }
@@ -427,3 +465,50 @@ function activeBossEnroll(){
 
 //---------------------------------
 
+
+
+// 우편번호 주소 api
+function showAddress(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // // 조합된 참고항목을 해당 필드에 넣는다.
+                    // document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('address-zipCode').value = data.zonecode;
+                document.getElementById("address-content").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("address-detail").focus();
+            }
+        
+    }).open();
+}

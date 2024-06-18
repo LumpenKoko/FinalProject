@@ -13,7 +13,7 @@
 <script src="resources/js/member/memberEnroll.js"></script>
 <script src="resources/js/member/memberAjax.js"></script>
 </head>
-<body onload="init('<%=request.getContextPath()%>')">
+<body onload="init('<%=request.getContextPath()%>', 'N')">
 	<%@ include file="../common/header.jsp"%>
 	
     <div class="wrapper">
@@ -41,17 +41,17 @@
                     </select> -->
                 <div class="double-check-box">
                     <input type="text" name="userPhone" class="minibox-input" data-check='false' onkeyup="checkDoublePhone()" placeholder="- 없이 입력하세요. (ex) 01012345678)">
-                    <button type="button" id="phone-check" class="common-button white-button before-check-button" onclick="checkPhoneNumber()" disabled>중복확인</button>
+                    <button type="button" id="phone-check" class="common-button white-button before-check-button" data-check='false' onclick="checkPhoneNumber()" disabled>중복확인</button>
                 </div>
 
                     <!-- 
                         1. userPhone onkeyup 해서 형식에 맞는 번호면 중복 체크 활성화
                         2. 중복 체크 확인 되면 회원가입 버튼 활성화 할 데이터로 바꾸기
                         3. 중복 체크 확인 되고 약관 동의 누르면 인증 요청 버튼 활성화
-                        
-                        4. 인증 요청하면 시간 체크해서 3분 지나면 데이터 삭제 ajax 실행하기
                         5. 인증 되면 display 확인된 형식으로 바꾸기
                         6. 인증 되면 회원가입 가능한 데이터로 바꾸기
+                        
+                        4. 인증 요청하면 시간 체크해서 3분 지나면 데이터 삭제 ajax 실행하기
                     -->
                     
                     
@@ -92,10 +92,10 @@
                     <div id="check-number">
                         <input type="text" id="certify-code" class="minibox-input" placeholder="인증번호 6자리 숫자">
                         <button type="button" id="certify-phone-button" class="common-button white-button" onclick="getCertifyCode()" disabled>인증번호 요청</button>
-                        <div>2:00</div>
+                        <!-- <div>2:00</div> -->
                     </div>
                     
-                    <div id="plus-time">시간 연장</div>
+                    <!-- <div id="plus-time">시간 연장</div> -->
                     <button type="button" id="check-phone-button" class="common-button pink-button minibox-full-button" onclick="checkCertifyCode()">확인</button>
                 <!-- </form> -->
                 </div>

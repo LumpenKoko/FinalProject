@@ -32,7 +32,7 @@
                             <img src="resources/community/threeCircle.png" alt="">
                             <c:if test="${loginUser!=null && (loginUser.userNo eq board.userNo )}">
                                 <div class="change-box">
-                                    <div class="change-box-list" onclick="location.href='#'">수정하기</div>
+                                    <div class="change-box-list" onclick="update()">수정하기</div>
                                     <div class="change-box-list change-box-last"  onclick="deleteBoard()">삭제하기</div>
                                 </div>
                             </c:if>

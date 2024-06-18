@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -93,57 +94,57 @@ public class BossPageControllerSecond {
 	
 	
 	
-//	커뮤니티 게시글 등록
-	
-	@PostMapping("enrollBoard.bo")
-	public String enrollBoard(BoardEnroll board, MultipartFile upfile, HttpSession session, Model model) {
-		BoardFileInfo boardFile = new BoardFileInfo();
-		Member loginUser = (Member)(session.getAttribute("loginUser"));
-
-		if(!upfile.getOriginalFilename().equals("")) {
-			String changeName = saveFile(upfile, session);
-			
-			boardFile.setOriginName(upfile.getOriginalFilename());
-			boardFile.setChangeName(changeName);
-			boardFile.setFilePath("resources/img/community/");
-			boardFile.setUserNo(loginUser.getUserNo());
-		}
-		
-		board.setUserNo(loginUser.getUserNo());
-		
-		int result = bossPageServiceSecond.insertBoard(board, boardFile);
-		if(result > 0) { // 성공 -> list 페이지로 이동
-			session.setAttribute("alertMsg", "게시글 작성 성공");
-			return "redirect:/community";
-		} else { // 실패 -> 에러 페이지
-			model.addAttribute("errorMsg", "게시글 작성 실패");
-			return "";
-		}
-	}
-	
-	// 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
-	public String saveFile(MultipartFile upfile, HttpSession session) {
-		String originName = upfile.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		int ranNum = (int)(Math.random() * 90000 ) + 10000;
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ranNum + ext;
-		
-		String savePath = session.getServletContext().getRealPath("resources/img/community/");
-	
-		try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-//		경로 또는 url, 해당 파일 객체를 저장할 때 사용
-		
-		return changeName;
-	}
+////	커뮤니티 게시글 등록
+//	
+//	@PostMapping("enrollBoard.bo")
+//	public String enrollBoard(BoardEnroll board, MultipartFile upfile, HttpSession session, Model model) {
+//		BoardFileInfo boardFile = new BoardFileInfo();
+//		Member loginUser = (Member)(session.getAttribute("loginUser"));
+//
+//		if(!upfile.getOriginalFilename().equals("")) {
+//			String changeName = saveFile(upfile, session);
+//			
+//			boardFile.setOriginName(upfile.getOriginalFilename());
+//			boardFile.setChangeName(changeName);
+//			boardFile.setFilePath("resources/img/community/");
+//			boardFile.setUserNo(loginUser.getUserNo());
+//		}
+//		
+//		board.setUserNo(loginUser.getUserNo());
+//		
+//		int result = bossPageServiceSecond.insertBoard(board, boardFile);
+//		if(result > 0) { // 성공 -> list 페이지로 이동
+//			session.setAttribute("alertMsg", "게시글 작성 성공");
+//			return "redirect:/community";
+//		} else { // 실패 -> 에러 페이지
+//			model.addAttribute("errorMsg", "게시글 작성 실패");
+//			return "";
+//		}
+//	}
+//	
+//	// 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
+//	public String saveFile(MultipartFile upfile, HttpSession session) {
+//		String originName = upfile.getOriginalFilename();
+//		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+//		int ranNum = (int)(Math.random() * 90000 ) + 10000;
+//		String ext = originName.substring(originName.lastIndexOf("."));
+//		
+//		String changeName = currentTime + ranNum + ext;
+//		
+//		String savePath = session.getServletContext().getRealPath("resources/img/community/");
+//	
+//		try {
+//			upfile.transferTo(new File(savePath + changeName));
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+////		경로 또는 url, 해당 파일 객체를 저장할 때 사용
+//		
+//		return changeName;
+//	}
 	
 	
 	
@@ -154,19 +155,33 @@ public class BossPageControllerSecond {
 	
 	
 	// 핸드폰 번호 중복 체크
-	@ResponseBody
-	@GetMapping(value="checkPhone.me")
-	public String checkPhoneNumber(String userPhone) {
-		log.info(userPhone);
-		int result = bossPageServiceSecond.checkPhoneNumber(userPhone);
-		log.info(String.valueOf(result));
-		if (result > 0) {
-			return "NNNNY";
-		} else {
-			return "NNNNN";
-		}
+//	@ResponseBody
+//	@GetMapping(value="checkPhone.me")
+//	public String checkPhoneNumber(String userPhone) {
+//		int result = bossPageServiceSecond.checkPhoneNumber(userPhone);
+//		if (result > 0) {
+//			return "NNNNY";
+//		} else {
+//			return "NNNNN";
+//		}
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 아이디 및 비밀번호 찾기
+	@RequestMapping("searchMemberForm.mee")
+	public String memberSearchForm(String type, Model model) {
+		model.addAttribute("type", type);
+		return "member/memberSearch";
 	}
-	
-	
-	
 }

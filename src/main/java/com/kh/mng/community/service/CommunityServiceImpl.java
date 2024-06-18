@@ -108,14 +108,14 @@ public class CommunityServiceImpl implements CommunityService{
 				 if(attachment.isEmpty()) {
 					 Attachment defaultAttachMent = new Attachment();
 					 defaultAttachMent.setFilePath("resources/img/default/");
-					 defaultAttachMent.setChangeName("star.png");
+					 defaultAttachMent.setChangeName("defaultImg.png");
 					 attachment.add(defaultAttachMent);
 				 }
 				 
 				 if(userProfile==null) {
 					 userProfile=new Attachment();
 					 userProfile.setFilePath("resources/img/default/");
-					 userProfile.setChangeName("star.png");
+					 userProfile.setChangeName("default_profile.jpg");
 				 }
 				 
 				 int replyCount =communityDao.selectBoardApplyCount(sqlSession,board.getBoardNo());
@@ -239,7 +239,7 @@ public class CommunityServiceImpl implements CommunityService{
 	    	 					if(replyReplyProfile==null) {
 	    	 						 Attachment defaultUserProfile=new  Attachment();
 	    	 			    		 defaultUserProfile.setFilePath("resources/img/default/");
-	    	 			    		 defaultUserProfile.setChangeName("star.png");
+	    	 			    		 defaultUserProfile.setChangeName("default_profile.jpg");
 	    	 			    		 rr.setReplyUserProfile(defaultUserProfile);
 	    	 					}
 	    	 					else {
@@ -252,7 +252,7 @@ public class CommunityServiceImpl implements CommunityService{
 	    	 			if(replyProfile==null) {
 	    	 				 Attachment defaultUserProfile=new  Attachment();
 	 			    		 defaultUserProfile.setFilePath("resources/img/default/");
-	 			    		 defaultUserProfile.setChangeName("star.png");
+	 			    		 defaultUserProfile.setChangeName("default_profile.jpg");
 	 			    		 re.setReplyUserProfile(defaultUserProfile);
 
 	    	 			}
@@ -269,7 +269,7 @@ public class CommunityServiceImpl implements CommunityService{
 	    	 if(userProfile==null) {
 	    		 Attachment defaultUserProfile=new  Attachment();
 	    		 defaultUserProfile.setFilePath("resources/img/default/");
-	    		 defaultUserProfile.setChangeName("star.png");
+	    		 defaultUserProfile.setChangeName("default_profile.jpg");
 	    		 communityBoard.setUserProfile(defaultUserProfile);
 	    	 }else {
 	    		 communityBoard.setUserProfile(userProfile);
@@ -336,7 +336,7 @@ public class CommunityServiceImpl implements CommunityService{
 							 if(userProfile==null) {
 								 Attachment defaultUserProfile = new Attachment();
 								 defaultUserProfile.setFilePath("resources/img/default/");
-								 defaultUserProfile.setChangeName("star.png");
+								 defaultUserProfile.setChangeName("default_profile.jpg");
 								 rr.setReplyUserProfile(defaultUserProfile);
 							 }else {
 								 rr.setReplyUserProfile(userProfile);
@@ -351,7 +351,7 @@ public class CommunityServiceImpl implements CommunityService{
 				 if(userProfile==null) {
 					 Attachment defaultUserProfile = new Attachment();
 					 defaultUserProfile.setFilePath("resources/img/default/");
-					 defaultUserProfile.setChangeName("star.png");
+					 defaultUserProfile.setChangeName("default_profile.jpg");
 					 replys.setReplyUserProfile(defaultUserProfile);
 				 }else {
 					 replys.setReplyUserProfile(userProfile);

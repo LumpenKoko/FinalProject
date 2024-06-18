@@ -137,14 +137,14 @@
                                        
                                             <div class="reply-regist-info">
                                                 <div>
-                                                    <img src="" alt="">
+                                                    <img src="${r.replyUserProfile.filePath}${r.replyUserProfile.changeName}" alt="">
                                                     <span>${(loginUser!=null)?loginUser.userNickname:'로그인하세요'}</span>
                                                 </div>
-                                                <div  class="replybutton-div"><button  type="button"id="replyReplyButton" class="common-button pink-button" onclick="replyReplyInsert('${r.replyNo}')">답글 등록</button></div>
                                             </div>
                                             <div class="input-reply-div">
                                                 <div class="replytext-div"><textarea id="replyReplyText${r.replyNo}" class="reply-textarea gray-round-box" placeholder="댓글을 입력하세요."></textarea></div>
                                             </div>
+                                            <div  class="replybutton-div"><button  type="button"id="replyReplyButton" class="common-button pink-button" onclick="replyReplyInsert('${r.replyNo}')">답글 등록</button></div>
                                      
                                     </div>
                             </c:forEach>
@@ -198,7 +198,7 @@
                    
                         <div class="reply-regist-info">
                             <div>
-                                <img src="" alt="">
+                                <img src="resources/img/default/default_profile.jpg" alt="">
                                 <span>${(loginUser!=null)?loginUser.userNickname:'로그인하세요'}</span>
                             </div>
                             <button  type="button" id="replyButton" class="common-button pink-button">댓글 등록</button>

@@ -12,3 +12,9 @@ function deleteBoard(){
         location.href=contextPath+"/delete.bo?boardNo="+boardNo
     }
 }
+
+
+//수정버튼
+function update(){
+    location.href=contextPath+"/updateview.bo?boardNo="+boardNo;
+}

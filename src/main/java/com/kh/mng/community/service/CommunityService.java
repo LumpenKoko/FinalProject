@@ -54,6 +54,7 @@ public interface CommunityService {
 	int insertShorts(Map<String, ShortsFileInfo> fileInfos, ShorstInfo shortsInfo);
 
 	CommunityBoard selectBoardDetail(PageInfo replyPi,int bno,int userNo);
+	CommunityBoard selectBoardDetail(int boardNo);
 
 	int insertBoardReply(ReplyInfo replyInfo);
 
@@ -73,4 +74,5 @@ public interface CommunityService {
 
 	// 게시글 등록
 	int insertBoard(BoardEnroll board, BoardFileInfo boardFile);
+
 }

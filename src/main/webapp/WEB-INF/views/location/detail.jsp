@@ -43,13 +43,6 @@
                  
 					<div id="headerImg" class="header-img">
 
-						<!-- <div class="head-img-pre">
-							<button>&gt;</button>
-						</div> -->
-								
-						<!-- <c:forEach var="h" begin="0" end="${l.mainAttachMent.size()-1}">
-							<input id="radio${h}" type="radio" name="radio-btn" class="radio-button">
-						</c:forEach> -->
 
 					
 							<div class="slide">
@@ -116,8 +109,7 @@
 										<div class="content">
 											<c:forEach var="k" items="${l.petKindGrade}">
 												<span>
-													${k.petSizeName},
-													${k.petKindName}
+													${k.petSizeName}
 												</span>
 											</c:forEach>
 										</div><br>

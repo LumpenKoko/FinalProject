@@ -30,7 +30,7 @@
 							<div  id="chatRoom${userList.userNo}" class="chat-grid chat-list-area" onclick="chooseChatRoom(1,'${userList.userNo}')">
 								<div class="profile-area">
 									<div class="img-div">
-										<img src="resources/img/star.png">
+										<img src="resources/img/default/default_profile.jpg">
 									</div>
 									<div class="profile-list">
 										<input id="userId${userList.userNo}" type="text"  value="${userList.userId}" hidden>
@@ -245,7 +245,7 @@
 
 					<div class="profile-box">
 						<div class="img-div">
-							<img src="resources/img/star.png">
+							<img src="resources/img/default/default_profile.jpg">
 						</div>
 						<div id="chattingUser" class="title"></div>
 					</div>
@@ -262,7 +262,7 @@
 								<div class="send-master">
 									<div class="master-profile">
 										<div class="img-div">
-											<img src="resources/img/star.png">
+											<img src="resources/img/default/default_profile.jpg">
 										</div>
 										<div class="master-name title">사장님</div>
 									</div>

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.Attachment;
@@ -31,6 +28,7 @@ import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
 import com.kh.mng.community.model.dto.BoardReplyInfo;
+import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortPage;
@@ -437,17 +435,33 @@ public class CommunityController {
 	
 	@ResponseBody
 	@GetMapping(value="getVideo.sh", produces="application/json; charset=utf-8")
-	public String loadShorts(@RequestParam(value="videoId") int videoId) {
+	public String loadShorts(@RequestParam(value="videoId") int videoId,
+							@RequestParam(value="userNo") int userNo) { // 로그인 안 했을 경우 default : 0
 
-	    TotalShortsInfo totalShortsInfo = communityService.getVideoInfo(videoId);
-	    System.out.println("controller" + totalShortsInfo);
-
+	    TotalShortsInfo totalShortsInfo = communityService.getVideoInfo(videoId); // 여기 들어오는 거 확인
 	    if (totalShortsInfo == null) {
 	        return "Error: Video info not found.";
 	    } else {
 	        int shortsNum = totalShortsInfo.getShortsNo();
 	        totalShortsInfo.setLikeCount(communityService.getVideoLikeCount(shortsNum));
 	        totalShortsInfo.setReplyCount(communityService.getVideoReplyCount(shortsNum));
+	        
+	        boolean isLike = false;
+	        
+	        if(userNo != 0) {
+	        	// 검사해봄
+	        	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
+	        	int isLikeReturn = communityService.getIsLike(forIsLike);
+	        	
+	        	if (isLikeReturn > 0) {
+	        		isLike = true;
+	        	}
+	        }
+	        
+	        totalShortsInfo.setLike(isLike);
+	        
+	        log.info("totalInfo:" + totalShortsInfo);
+	        
 	        return new Gson().toJson(totalShortsInfo);
 	    }
 	}
@@ -478,5 +492,17 @@ public class CommunityController {
 		
 		ArrayList<ShortsReply> replyList = communityService.loadReply(shortsNum);
 		return new Gson().toJson(replyList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="like.sh", produces="application/json; charset=utf-8")
+	public String likeShorts(@RequestParam(value="num") int videoId,
+							@RequestParam(value="userNum") int userNo){
+		int shortsNum = communityService.getShortsNum(videoId);
+		
+		ForIsLike forisLike = new ForIsLike(userNo, shortsNum);
+		
+		return communityService.likeShorts(forisLike);
+//		return new Gson().toJson(replyList);
 	}
 }

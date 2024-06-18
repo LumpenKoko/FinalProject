@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
@@ -211,6 +212,10 @@ public class CommunityDao {
 
 	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
+	}
+
+	public int getIsLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
+		return sqlSession.selectOne("shortsMapper.getIsLike", forIsLike);
 	}
 
 	

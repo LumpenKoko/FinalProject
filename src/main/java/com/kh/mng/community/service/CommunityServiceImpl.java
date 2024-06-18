@@ -16,6 +16,7 @@ import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
@@ -456,6 +457,18 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 
+
+	@Override
+	public int getIsLike(ForIsLike forIsLike) {
+		return communityDao.getIsLike(sqlSession, forIsLike);
+	}
+
+
+	@Override
+	public String likeShorts(ForIsLike forisLike) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 

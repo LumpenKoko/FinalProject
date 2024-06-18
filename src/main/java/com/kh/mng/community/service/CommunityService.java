@@ -9,6 +9,7 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
@@ -68,6 +69,10 @@ public interface CommunityService {
 	ArrayList<Attachment> deleteBoard(BoardInfo boardInfo);
 
 	int checkBoardOwner(int boardNo);
+
+	int getIsLike(ForIsLike forIsLike);
+
+	String likeShorts(ForIsLike forisLike);
 
 
 }

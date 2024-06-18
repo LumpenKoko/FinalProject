@@ -51,7 +51,6 @@
    
    <resultMap type="PetKindGrade" id="petKindGrade">
    			<result column="PET_SIZE_NAME" property="petSizeName"/>
-   			<result column=" PET_KIND_NAME" property="petKindName"/>
    </resultMap>
    
    <resultMap type="AddressInfo" id="addressInfo">
@@ -124,11 +123,8 @@
     </select>
     
     <select id="selectPetKindGradeList" resultMap="petKindGrade">
-          SELECT PET_SIZE_NAME,
-          		 PET_KIND_NAME
-          		 FROM PET_KIND P
-          		 JOIN PET_SIZE S
-          		 ON(P.PET_KIND_NO=S.PET_KIND_NO)
+          SELECT PET_SIZE_NAME
+          		 FROM PET_SIZE S
           		 JOIN ENTER_GRADE G
           		 ON(G.PET_SIZE_NO=S.PET_SIZE_NO)
           		 WHERE G.LOCATION_NO = #{locationNo}

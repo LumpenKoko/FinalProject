@@ -140,11 +140,9 @@
 	<!-- 어떤 객체인지를 아예 동적으로 처리해줄 수 있는 방법은 없나? -->
 	
 	<select id="selectEnterGradeList" resultMap="enterGradeResult">
-		SELECT PET_SIZE_NAME,
-			   PET_KIND_NAME
+		SELECT PET_SIZE_NAME
 		FROM ENTER_GRADE E
 		JOIN PET_SIZE S ON E.PET_SIZE_NO = S.PET_SIZE_NO
-		JOIN PET_KIND K ON S.PET_KIND_NO = K.PET_KIND_NO
 		WHERE E.LOCATION_NO = #{locationNo}
 	</select>	
 	

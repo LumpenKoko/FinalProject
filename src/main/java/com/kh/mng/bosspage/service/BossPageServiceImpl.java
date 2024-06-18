@@ -1,7 +1,9 @@
 package com.kh.mng.bosspage.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,11 +101,22 @@ public class BossPageServiceImpl implements BossPageService {
         }
 
         bossPageDao.deletePetKindsAndSizes(locationNo);
+        
         for (String petKind : petKinds) {
-            bossPageDao.insertPetKind(locationNo, petKind);
+            LocationPetKind existingPetKind = bossPageDao.getPetKindByName(petKind);
+            if (existingPetKind == null) {
+                Map<String, Object> params = new HashMap<>();
+                params.put("petKind", petKind);
+                bossPageDao.insertPetKind(params);
+                existingPetKind = bossPageDao.getPetKindByName(petKind);
+            }
+            // 추가 코드가 필요하면 여기서 추가
         }
+        
         for (String petSize : petSizes) {
-            bossPageDao.insertPetSize(locationNo, petSize);
+            Map<String, Object> params = new HashMap<>();
+            params.put("petSize", petSize);
+            bossPageDao.insertPetSize(params);
 
             // Save LocationEnterGrade information
             LocationPetSize locationPetSize = bossPageDao.getPetSizeByName(petSize);

@@ -199,9 +199,10 @@ public class bossPageController {
                 }
 
                 // Pet kind and size handling
-                List<String> petKinds = (List<String>) payload.get("petKinds");
-                List<String> petSizes = (List<String>) payload.get("petSizes");
-                if (petKinds != null && petSizes != null) {
+                List<String> petKinds = (List<String>) payload.get("animalTypes");  // 여기서 animalTypes를 가져와서 petKinds로 사용
+                List<String> petSizes = (List<String>) payload.get("petSizes");  // 여기서 petSizes를 가져와서 사용
+
+                if (petKinds != null && !petKinds.isEmpty()) {
                     bossPageService.savePetKindsAndSizes(locationInfo.getLocationNo(), petKinds, petSizes);
 
                     // Save LocationEnterGrade information
@@ -236,6 +237,7 @@ public class bossPageController {
         }
         return ResponseEntity.ok(response);
     }
+
 
     @ResponseBody
     @GetMapping(value = "/getLocationInfo.bm", produces = "application/json; charset=UTF-8")

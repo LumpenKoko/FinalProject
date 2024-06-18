@@ -287,6 +287,13 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	
+	@Override
+	public CommunityBoard selectBoardDetail(int boardNo) {
+		
+		return  communityDao.selectBoardDetail(sqlSession, boardNo);
+	}
+	
+	
 	//게시판댓글 대댓글 입력 서비스
 	@Override
 	@Transactional
@@ -455,6 +462,9 @@ public class CommunityServiceImpl implements CommunityService{
 	public int getShortsNum(int videoId) {
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
+
+
+
 
 
 	

@@ -52,6 +52,7 @@ public interface CommunityService {
 	int insertShorts(Map<String, ShortsFileInfo> fileInfos, ShorstInfo shortsInfo);
 
 	CommunityBoard selectBoardDetail(PageInfo replyPi,int bno,int userNo);
+	CommunityBoard selectBoardDetail(int boardNo);
 
 	int insertBoardReply(ReplyInfo replyInfo);
 
@@ -68,6 +69,8 @@ public interface CommunityService {
 	ArrayList<Attachment> deleteBoard(BoardInfo boardInfo);
 
 	int checkBoardOwner(int boardNo);
+
+	
 
 
 }

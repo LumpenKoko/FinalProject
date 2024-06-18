@@ -432,6 +432,16 @@ public class CommunityController {
 			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
 		}
 	}
+	//게시글 수정 컨트롤러 (수정 페이지로 이동)
+    @GetMapping(value="updateview.bo")
+    public String updateBoardView(int boardNo ,Model model) {
+    	
+    	
+    	CommunityBoard updateBoard = communityService.selectBoardDetail(boardNo);
+    	model.addAttribute("updateBoard",updateBoard);
+    	log.info("updateBoard:{}",updateBoard);
+    	return "community/editPage";
+    }
 	
 	
 	

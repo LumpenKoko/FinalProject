@@ -437,7 +437,7 @@
 								<div class="enroll-div">
 									<div class="enroll-profile">
 										<div class="img-div">
-											<img src="resources/img/김지원.jpg" alt="Profile Image">
+											<img src="resources/img/default/default_profile.jpg" alt="Profile Image">
 										</div>
 										<div class="star-rating">
 											<input type="radio" class="star" name="rating" value="1">

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
-import com.kh.mng.location.model.dto.AddressInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
+import com.kh.mng.location.model.vo.AddressInfo;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
@@ -35,6 +35,6 @@ public interface LocationService {
 	int insertReply(ReplyInfo reply);
 	ArrayList<Review> selectCategoryReviewList(ReviewInfo review, PageInfo pi);
 	int updateDateReviewScore(int locationNo, int reviewCount);
-	ArrayList<AddressInfo> selectAddress();
+	ArrayList<AddressInfo> selectAddress(String type);
 
 }

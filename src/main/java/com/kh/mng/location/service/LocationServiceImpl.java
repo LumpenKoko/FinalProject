@@ -16,12 +16,12 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.dao.PickedDao;
 import com.kh.mng.location.model.dao.ReviewDao;
-import com.kh.mng.location.model.dto.AddressInfo;
 import com.kh.mng.location.model.dto.FileInfo;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
 import com.kh.mng.location.model.dto.ReviewStarInfo;
+import com.kh.mng.location.model.vo.AddressInfo;
 import com.kh.mng.location.model.vo.DetailLocation;
 import com.kh.mng.location.model.vo.DetailLocationAttachment;
 import com.kh.mng.location.model.vo.Location;
@@ -251,9 +251,9 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public ArrayList<AddressInfo> selectAddress() {
+	public ArrayList<AddressInfo> selectAddress(String type) {
 	
-		return detailDao.selectAddress(sqlSession);
+		return detailDao.selectAddress(sqlSession,type);
 	}
 
 	

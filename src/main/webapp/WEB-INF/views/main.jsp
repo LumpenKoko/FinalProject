@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="resources/css/main/main.css"/>
 <script type="text/javascript"
 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&libraries=services,clusterer,drawing"></script>
-<script src="resources/js/location/map/main-map.js"></script>
 <script src="resources/js/main/mainInit.js"></script>
+<script src="resources/js/location/map/main-map.js"></script>
 <script src="resources/js/main/main.js"></script>
 <script src="resources/js/main/mainAjax.js"></script>
 </head>
@@ -142,27 +142,27 @@ src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f595fad336a38c5fdd5a3f12c81c8cdb&lib
 				<div id="mainpage-map-content">
 					<div id="mainpage-map-inbox" class="gray-round-box">
 						<div class="mainpage-map-inbox-row">
-							<div class="mainpage-map-category">
+							<div class="mainpage-map-category"  data-categoryName='식당/카페'>
 								<div><img src="resources/img/main/food.png" alt=""></div>
 								<span>식당/카페</span>
 							</div>
-							<div class="mainpage-map-category">
+							<div class="mainpage-map-category" data-categoryName='숙소'>
 								<div class="padding-category"><img src="resources/img/main/hotel.png" alt=""></div>
 								<span>숙소</span>
 							</div>
 						</div>
 						<div class="mainpage-map-inbox-row">
-							<div class="mainpage-map-category">
+							<div class="mainpage-map-category" data-categoryName='행사/테마파크'>
 								<div class="padding-category"><img src="resources/img/main/themepark.png" alt=""></div>
 								<span>행사/테마파크</span>
 							</div>
-							<div class="mainpage-map-category">
+							<div class="mainpage-map-category" data-categoryName='병원'>
 								<div class="padding-category"><img src="resources/img/main/hospital.png" alt=""></div>
 								<span>병원</span>
 							</div>
 						</div>
 						<div class="mainpage-map-inbox-row">
-							<div class="mainpage-map-category">
+							<div class="mainpage-map-category" data-categoryName='기타'>
 								<div class="padding-category"><img src="resources/img/main/etc.png" alt=""></div>
 								<span>기타</span>
 							</div>

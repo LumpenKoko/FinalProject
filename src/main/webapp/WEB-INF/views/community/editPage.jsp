@@ -18,7 +18,7 @@
 	<div class="wrapper">
 		<div class="main">
 			<div class="community-area">
-				<form action="enrollBoard.bo" method="POST" enctype="multipart/form-data">
+				<form action="#" method="POST" enctype="multipart/form-data">
 					<div>
 						<div>
 							<select id="category" name="boardCategoryNo">
@@ -40,7 +40,9 @@
 
 					<hr>
 					
-					<textarea id="summernote" name="boardContent"></textarea>
+					<textarea id="summernote" name="boardContent">
+						
+					</textarea>
 
 					<hr>
 

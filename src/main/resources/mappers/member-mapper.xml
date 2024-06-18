@@ -21,6 +21,11 @@
 		<result column="USER_PHONE" property="userPhone"/>
 		<result column="USER_KIND" property="userKind"/>
 </resultMap>
+
+<resultMap type="PhoneSmsVo" id="phoneResult">
+     	<result column="PHONE" property="phone"/>
+       	<result column="CERTIFY_CODE" property="certifyCode"/>
+</resultMap>
     
 	<select id="loginMember" resultMap="memberResult">
 		SELECT USER_NO,
@@ -109,6 +114,40 @@
 	<select id="selectUserNo" resultType="_int">
         	SELECT CURRVAL('SEQ_USER')
     </select>
+    
+    
+    <!-- 핸드폰 문자 인증 -->
+    <select id="checkPhoneNumber" resultType="_int">
+   		SELECT COUNT(*) AS COUNT
+   		FROM MEMBER
+   		WHERE USER_PHONE = #{userPhone}
+   	</select>
+   	
+   	<select id="selectCertifyCode" resultType="_int">
+   		SELECT COUNT(*) AS COUNT
+   		FROM CERTIFY_CODE
+   		WHERE PHONE = #{phone}
+   	</select>
+   	
+   	<delete id="deleteCertifyCode">
+   		DELETE FROM CERTIFY_CODE
+   		WHERE PHONE = #{phone}
+   	</delete>
+   	
+   	<insert id="insertCertifyCode">
+   		INSERT INTO CERTIFY_CODE (PHONE, CERTIFY_CODE)
+   		VALUES (#{phone}, #{certifyCode})
+   	</insert>
+   	
+   	 <select id="checkCertifyCode" resultMap="phoneResult">
+   		SELECT PHONE,
+   			   CERTIFY_CODE
+   		FROM CERTIFY_CODE
+   		WHERE PHONE = #{phone}
+   	</select>
+   	
+   	
+   	
 
 	<update id="updateMember">
 		UPDATE MEMBER

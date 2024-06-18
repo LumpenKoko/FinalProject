@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.MyPageReview;
@@ -42,6 +43,27 @@ public class MemberDao {
 	
 	public int insertLocation(SqlSessionTemplate sqlSession, Location loc) {
 		return sqlSession.insert("location.insertLocation", loc);
+	}
+	
+//	핸드폰 인증
+	public int checkPhoneNumber(SqlSessionTemplate sqlSession, String userPhone) {
+		return sqlSession.selectOne("memberMapper.checkPhoneNumber", userPhone);
+	}
+	
+	public int selectCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.selectOne("memberMapper.selectCertifyCode", psv);
+	}
+	
+	public int deleteCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.delete("memberMapper.deleteCertifyCode", psv);
+	}
+	
+	public int insertCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.insert("memberMapper.insertCertifyCode", psv);
+	}
+	
+	public PhoneSmsVo checkCertifyCode(SqlSessionTemplate sqlSession, String phone) {
+		return sqlSession.selectOne("memberMapper.checkCertifyCode", phone);
 	}
 
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {

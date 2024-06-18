@@ -1,4 +1,7 @@
 let contextPath;
-function init(path){
+let userKind;
+function init(path, kind){
     contextPath = path;
+    userKind = kind;
 }
+

@@ -62,6 +62,14 @@ public class BossPageDaoSecond {
 		return sqlSession.selectOne("searchMapper.checkPhoneNumber", userPhone);
 	}
 	
+	public int selectCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.selectOne("searchMapper.selectCertifyCode", psv);
+	}
+	
+	public int deleteCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.delete("searchMapper.deleteCertifyCode", psv);
+	}
+	
 	public int insertCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
 		return sqlSession.insert("searchMapper.insertCertifyCode", psv);
 	}

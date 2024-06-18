@@ -400,6 +400,18 @@
    		FROM MEMBER
    		WHERE USER_PHONE = #{userPhone}
    	</select>
+   	
+   	<select id="selectCertifyCode" resultType="_int">
+   		SELECT COUNT(*) AS COUNT
+   		FROM CERTIFY_CODE
+   		WHERE PHONE = #{phone}
+   	</select>
+   	
+   	<delete id="deleteCertifyCode">
+   		DELETE FROM CERTIFY_CODE
+   		WHERE PHONE = #{phone}
+   	</delete>
+   	
    	<insert id="insertCertifyCode">
    		INSERT INTO CERTIFY_CODE (PHONE, CERTIFY_CODE)
    		VALUES (#{phone}, #{certifyCode})

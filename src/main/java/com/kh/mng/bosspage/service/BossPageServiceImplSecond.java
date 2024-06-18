@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,11 +80,18 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 		int result1 = bossPageDaoSecond.insertBoard(sqlSession, board);
 		int result2 = 1;
 		
-		if (result1 > 0) {
+		//게시글 등록이 성공하고 첨부파일이 비어있지 않으면
+		if (result1 > 0 && boardfile != null) {
 			result2 = bossPageDaoSecond.insertBoardAttachment(sqlSession, boardfile);
-		} else {
-			result1 = result1 * 0;
-		}
+		} 
+		
+//		else if (result1 > 0 && boardfile == null){
+//			result2 = 1;
+//		} else {
+//			result1 = result1 * 0;
+//		}
+		
+		
 		
 		return result1 * result2;
 	}
@@ -101,9 +107,27 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 	}
 	
 	@Override
+	@Transactional
 	public int insertCertifyCode(PhoneSmsVo psv) {
 //		이 메소드에서만 sqlSession이 null로 뜨는 현상 발생 / 생성자 주입 방식을 통해 해결
-		return bossPageDaoSecond.insertCertifyCode(sqlSession, psv);
+//		return bossPageDaoSecond.insertCertifyCode(sqlSession, psv);
+		
+		// 저장되어 있는 코드 있는지 전화번호로 확인
+		int code = bossPageDaoSecond.selectCertifyCode(sqlSession, psv);
+		int result1 = 1;
+		int result2 = 1;
+		
+		// 저장된 코드 있는 경우 delete문 실행
+		if (code > 0) {
+			result1 = bossPageDaoSecond.deleteCertifyCode(sqlSession, psv);
+		}
+		
+		// 삭제 쿼리 실행 후 결과가 성공이면 insert문 실행
+		if (result1 > 0) {
+			result2 = bossPageDaoSecond.insertCertifyCode(sqlSession, psv);
+		}
+		
+		return result1 * result2;
 	}
 
 	@Override

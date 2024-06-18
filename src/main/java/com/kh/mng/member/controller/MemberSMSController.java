@@ -49,12 +49,6 @@ public class MemberSMSController {
 	@ResponseBody
 	@PostMapping("certification.me")
 	public String certifyPhone(String getNum, HttpSession session) {
-		
-		// 이미 저장된 인증 번호가 있으면 삭제해야 함
-		
-		
-		
-		
 		String code = String.valueOf((int)(Math.random()*900000 + 100000));
     	String msgText = "멍냥가이드 본인확인 인증번호 " + code;
     	
@@ -65,10 +59,8 @@ public class MemberSMSController {
     	psv.setPhone(getNum);
     	psv.setCertifyCode(codeEnc);
     	
-    	log.info(psv.toString());
-    	
     	int result = bossPageServiceSecond.insertCertifyCode(psv);
-		log.info(String.valueOf(result));
+    	
     	if (result > 0) {
     		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
     		Message message = new Message();
@@ -92,15 +84,13 @@ public class MemberSMSController {
     	} else {
     		return "NNNNN";
     	}
-		
+
 	}
 	
 	@ResponseBody
 	@PostMapping("checkCertifyCode.me")
 	public String checkCertifyCode(String phone, String certifyCode) {
 		PhoneSmsVo psv = bossPageServiceSecond.checkCertifyCode(phone);
-		log.info("psv : {}", psv);
-		log.info("code : {}", certifyCode);
 		if (psv != null && bcryptPasswordEncoder.matches(certifyCode, psv.getCertifyCode())) {
 			// 인증번호 삭제 메소드 추가
 			return "NNNNY";

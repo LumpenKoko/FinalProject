@@ -81,7 +81,7 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 		int result2 = 1;
 		
 		//게시글 등록이 성공하고 첨부파일이 비어있지 않으면
-		if (result1 > 0 && boardfile != null) {
+		if (result1 > 0 && boardfile.getChangeName() != null) {
 			result2 = bossPageDaoSecond.insertBoardAttachment(sqlSession, boardfile);
 		} 
 		

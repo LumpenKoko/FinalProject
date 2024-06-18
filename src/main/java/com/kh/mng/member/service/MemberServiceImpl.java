@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.location.model.dao.DetailDao;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
@@ -61,6 +62,41 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return result1 * result2;
+	}
+	
+	// 핸드폰 중복 체크
+	@Override
+	public int checkPhoneNumber(String userPhone) {
+		return memberDao.checkPhoneNumber(sqlSession, userPhone);
+	}
+	
+	@Override
+	@Transactional
+	public int insertCertifyCode(PhoneSmsVo psv) {
+//			이 메소드에서만 sqlSession이 null로 뜨는 현상 발생 / 생성자 주입 방식을 통해 해결
+//			return bossPageDaoSecond.insertCertifyCode(sqlSession, psv);
+		
+		// 저장되어 있는 코드 있는지 전화번호로 확인
+		int code = memberDao.selectCertifyCode(sqlSession, psv);
+		int result1 = 1;
+		int result2 = 1;
+		
+		// 저장된 코드 있는 경우 delete문 실행
+		if (code > 0) {
+			result1 = memberDao.deleteCertifyCode(sqlSession, psv);
+		}
+		
+		// 삭제 쿼리 실행 후 결과가 성공이면 insert문 실행
+		if (result1 > 0) {
+			result2 = memberDao.insertCertifyCode(sqlSession, psv);
+		}
+		
+		return result1 * result2;
+	}
+
+	@Override
+	public PhoneSmsVo checkCertifyCode(String phone) {
+		return memberDao.checkCertifyCode(sqlSession, phone);
 	}
 
 	@Override

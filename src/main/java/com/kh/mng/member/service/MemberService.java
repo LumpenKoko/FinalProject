@@ -3,6 +3,7 @@ package com.kh.mng.member.service;
 import java.util.List;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -21,6 +22,15 @@ public interface MemberService {
 	
 	// 사장 회원가입
 	int insertBossMember(Member m, Location loc);
+	
+	// 핸드폰 번호 중복 체크
+		int checkPhoneNumber(String userPhone);
+		
+	// 기존 인증코드 있는지 확인 및 삭제 후 암호화된 6자리 랜덤 숫자 저장
+	int insertCertifyCode(PhoneSmsVo psv);
+
+	// 저장된 핸드폰 번호로 된 인증번호 가져오기
+	PhoneSmsVo checkCertifyCode(String phone);
 	
 	// 개인정보 수정
 	int updateMember(Member m);

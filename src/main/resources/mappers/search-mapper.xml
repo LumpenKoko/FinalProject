@@ -327,7 +327,7 @@
    	
    	<!-- community 게시글 임시 매퍼 -->
 	
-	<resultMap type="BoardEnroll" id="boardEnrollResult">
+<!-- 	<resultMap type="BoardEnroll" id="boardEnrollResult">
          <result column="BOARD_NO" property="boardNo"/>
          <result column="BOARD_TITLE" property="boardTitle"/>
          <result column="BOARD_CONTENT" property="boardContent"/>
@@ -381,7 +381,7 @@
 							currval('SEQ_BORD')
 							)
 							
-   	</insert>
+   	</insert> -->
    	
    	
    	
@@ -390,7 +390,7 @@
    	
    	
    	<!-- 핸드폰 문자 인증 -->
-   	<resultMap type="PhoneSmsVo" id="phoneResult">
+   	<!-- <resultMap type="PhoneSmsVo" id="phoneResult">
          <result column="PHONE" property="phone"/>
          <result column="CERTIFY_CODE" property="certifyCode"/>
    	</resultMap>
@@ -422,5 +422,5 @@
    			   CERTIFY_CODE
    		FROM CERTIFY_CODE
    		WHERE PHONE = #{phone}
-   	</select>
+   	</select> -->
 </mapper>

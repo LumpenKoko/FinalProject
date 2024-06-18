@@ -44,37 +44,37 @@ public class BossPageDaoSecond {
 	
 	
 	
-//	community 게시글
-	
-	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
-		return sqlSession.insert("searchMapper.insertBoard", board);
-	}
-	
-	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
-		return sqlSession.insert("searchMapper.insertBoardAttachment", boardFile);
-	}
+////	community 게시글
+//	
+//	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
+//		return sqlSession.insert("searchMapper.insertBoard", board);
+//	}
+//	
+//	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
+//		return sqlSession.insert("searchMapper.insertBoardAttachment", boardFile);
+//	}
 	
 
 	
 	
 //	핸드폰 인증
-	public int checkPhoneNumber(SqlSessionTemplate sqlSession, String userPhone) {
-		return sqlSession.selectOne("searchMapper.checkPhoneNumber", userPhone);
-	}
-	
-	public int selectCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
-		return sqlSession.selectOne("searchMapper.selectCertifyCode", psv);
-	}
-	
-	public int deleteCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
-		return sqlSession.delete("searchMapper.deleteCertifyCode", psv);
-	}
-	
-	public int insertCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
-		return sqlSession.insert("searchMapper.insertCertifyCode", psv);
-	}
-	
-	public PhoneSmsVo checkCertifyCode(SqlSessionTemplate sqlSession, String phone) {
-		return sqlSession.selectOne("searchMapper.checkCertifyCode", phone);
-	}
+//	public int checkPhoneNumber(SqlSessionTemplate sqlSession, String userPhone) {
+//		return sqlSession.selectOne("searchMapper.checkPhoneNumber", userPhone);
+//	}
+//	
+//	public int selectCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+//		return sqlSession.selectOne("searchMapper.selectCertifyCode", psv);
+//	}
+//	
+//	public int deleteCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+//		return sqlSession.delete("searchMapper.deleteCertifyCode", psv);
+//	}
+//	
+//	public int insertCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+//		return sqlSession.insert("searchMapper.insertCertifyCode", psv);
+//	}
+//	
+//	public PhoneSmsVo checkCertifyCode(SqlSessionTemplate sqlSession, String phone) {
+//		return sqlSession.selectOne("searchMapper.checkCertifyCode", phone);
+//	}
 }

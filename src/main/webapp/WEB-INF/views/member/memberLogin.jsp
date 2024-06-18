@@ -38,8 +38,8 @@
             <hr>
 
             <div id="search-id-password">
-                <div onclick="location.href='<%=contextPath%>/searchMemberForm.me?type=1'">아이디 찾기</div>
-                <div onclick="location.href='<%=contextPath%>/searchMemberForm.me?type=2'">비밀번호 찾기</div>
+                <div onclick="location.href='<%=contextPath%>/searchMemberForm.mee?type=1'">아이디 찾기</div>
+                <div onclick="location.href='<%=contextPath%>/searchMemberForm.mee?type=2'">비밀번호 찾기</div>
             </div>
         </div>
 	</div>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -213,7 +215,15 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
 	}
 
+//	community 게시글 등록
 	
+	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
+		return sqlSession.insert("communityBoardMapper.insertBoard", board);
+	}
+	
+	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
+		return sqlSession.insert("communityBoardMapper.insertBoardAttachment", boardFile);
+	}
 
 	
 

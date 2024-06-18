@@ -14,6 +14,8 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
@@ -456,7 +458,26 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 
-
+	@Override
+	public int insertBoard(BoardEnroll board, BoardFileInfo boardfile) {
+		int result1 = communityDao.insertBoard(sqlSession, board);
+		int result2 = 1;
+		
+		//게시글 등록이 성공하고 첨부파일이 비어있지 않으면
+		if (result1 > 0 && boardfile.getChangeName() != null) {
+			result2 = communityDao.insertBoardAttachment(sqlSession, boardfile);
+		} 
+		
+//		else if (result1 > 0 && boardfile == null){
+//			result2 = 1;
+//		} else {
+//			result1 = result1 * 0;
+//		}
+		
+		
+		
+		return result1 * result2;
+	}
 	
 
 

@@ -169,9 +169,11 @@ function drawBoardDetailTop(type, boardList){
         board = boardList[i];
         let boardRanking = document.createElement('tr');
         boardRanking.className = "community-ranking-box-content";
+        let boardNo = board.boardNo;
 
-        boardRanking.onclick = function(board){
-            location.href = contextPath + "/detailView.bo?bno=" + board.boardNo;
+        boardRanking.onclick = function(){
+            location.href = contextPath + "/detailView.bo?bno=" + boardNo;
+        console.log(contextPath + "/detailView.bo?bno=" + boardNo)
         }
         communityTable.append(boardRanking);
 

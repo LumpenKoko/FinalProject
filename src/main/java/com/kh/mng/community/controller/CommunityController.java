@@ -257,9 +257,6 @@ public class CommunityController {
 
 	}
 	
-	//커뮤니티 게시글 삭제
-	
-
 	
 	
 	
@@ -459,7 +456,6 @@ public class CommunityController {
 		}
 		//본인 게시글인지 check
 		int checkNo=communityService.checkBoardOwner(boardInfo.getBoardNo());
-		System.out.println("check:"+checkNo);
 		if(loginUser.getUserNo()!=checkNo) {
 			session.setAttribute("alertMsg", "본인게시글만 삭제할 수 있습니다.");
 			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
@@ -486,15 +482,60 @@ public class CommunityController {
 			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
 		}
 	}
-	//게시글 수정 컨트롤러 (수정 페이지로 이동)
+	//게시글 수정페이지 이동 컨트롤러 (수정 페이지로 이동)
     @GetMapping(value="updateview.bo")
-    public String updateBoardView(int boardNo ,Model model) {
+    public String updateBoardView(int boardNo ,Model model ,HttpSession session) {
     	
     	
-    	CommunityBoard updateBoard = communityService.selectBoardDetail(boardNo);
-    	model.addAttribute("updateBoard",updateBoard);
-    	log.info("updateBoard:{}",updateBoard);
-    	return "community/editPage";
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+    	
+    	//본인 게시글인지 check
+		int checkNo=communityService.checkBoardOwner(boardNo);
+		if(loginUser.getUserNo()!=checkNo) {
+			session.setAttribute("alertMsg", "본인게시글만 수정할 수 있습니다.");
+			return "redirect:/detailView.bo?bno="+boardNo;
+		}else {
+			
+			CommunityBoard updateBoard = communityService.selectBoardDetail(boardNo);
+	    	model.addAttribute("updateBoard",updateBoard);
+	    	return "community/editPage";
+		}
+    	
+    
+    }
+    
+    //게시글 수정
+    
+    @PostMapping(value="update.bo")
+    public String updatedBoard(BoardEnroll board, MultipartFile upfile,HttpSession session, Model model) {
+    	
+    	BoardFileInfo boardFile = new BoardFileInfo();
+		Member loginUser = (Member)(session.getAttribute("loginUser"));
+		board.setUserNo(loginUser.getUserNo());
+		boardFile.setBoardNo(board.getBoardNo());
+		
+		String path="resources/img/community/";
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeName = saveFile(upfile, session,path);
+			
+			boardFile.setOriginName(upfile.getOriginalFilename());
+			boardFile.setChangeName(changeName);
+			boardFile.setFilePath("resources/img/community/");
+			boardFile.setUserNo(loginUser.getUserNo());
+		}
+		
+		
+		int result=communityService.updateBoard(board, boardFile);
+		log.info("result:{}",result);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "게시글이 수정 되었습니다.");
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 수정에 실패하였습니다.");
+		}
+		return "redirect:/community";
+		
     }
 	
 	

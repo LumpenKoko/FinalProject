@@ -345,6 +345,22 @@
 		SELECT USER_NO FROM BOARD WHERE BOARD_NO = #{boardNo}
 	</select>
 	
+
+	<update id="updateBoard">
+	   UPDATE BOARD SET BOARD_TITLE = #{boardTitle},
+	   					BOARD_CONTENT = #{boardContent},
+	   					BOARD_CATEGORY_NO = #{boardCategoryNo}
+	   					WHERE BOARD_NO = #{boardNo}
+	   					
+	</update>
+
+	<update id="updateBoardAttachment">
+	  UPDATE PICTURE SET FILE_PATH = #{filePath},
+	  					 ORIGIN_NAME = #{originName},
+	  					 CHANGE_NAME = #{changeName}
+	  					WHERE BOARD_NO = #{boardNo}
+	</update>
+
 	
 	
 	
@@ -385,5 +401,6 @@
 							)
 							
    	</insert>
+
    
   </mapper>

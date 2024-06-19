@@ -17,5 +17,5 @@ public class BoardFileInfo {
 	private String changeName;
 	private String filePath;
 	private int userNo;
-	private String boardNo;
+	private int boardNo;
 }

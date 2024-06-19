@@ -290,9 +290,17 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	
 	@Override
+	@Transactional
 	public CommunityBoard selectBoardDetail(int boardNo) {
 		
-		return  communityDao.selectBoardDetail(sqlSession, boardNo);
+		 CommunityBoard board=communityDao.selectBoardDetail(sqlSession, boardNo);
+			//커뮤니티게시글 첨부파일
+		 if(board!=null) {
+				ArrayList<Attachment> boardAttachment=communityDao.selectBoardAttachMent(sqlSession, boardNo);
+				board.setAttachment(boardAttachment);
+		 }
+    
+		return board;
 	}
 	
 	
@@ -450,9 +458,18 @@ public class CommunityServiceImpl implements CommunityService{
 		log.info(" s result1:{}",result);
 		int result2=1;
 		if(result>0&&boardFile.getChangeName()!=null) {
-			result2=communityDao.updateAttachment(sqlSession,boardFile);
+			
+			ArrayList<Attachment>attachment= communityDao.selectBoardAttachMent(sqlSession, board.getBoardNo());
+			if(attachment.isEmpty()) {
+				result2=communityDao.insertUpdateBoardAttachment(sqlSession, boardFile);
+			}
+			else {
+				result2=communityDao.updateAttachment(sqlSession,boardFile);
+			}
+			
+			
 		}
-		log.info(" s result2:{}",result2);
+		
 		return result*result2;
 	}
 

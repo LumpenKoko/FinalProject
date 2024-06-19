@@ -401,6 +401,24 @@
 							)
 							
    	</insert>
+   	
+   	   	<insert id="insertUpdateBoardAttachment">
+   		INSERT INTO PICTURE(
+   							PIC_NO, 
+   							ORIGIN_NAME, 
+   							CHANGE_NAME, 
+   							FILE_PATH,
+							BOARD_NO
+							)
+					 VALUES(
+							nextval('SEQ_PIC'),
+							#{originName},
+							#{changeName},
+							#{filePath},
+							#{boardNo}
+							)
+							
+   	</insert>
 
    
   </mapper>

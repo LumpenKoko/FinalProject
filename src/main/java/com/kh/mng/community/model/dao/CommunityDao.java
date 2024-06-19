@@ -238,6 +238,11 @@ public class CommunityDao {
 		return sqlSession.insert("communityBoardMapper.insertBoardAttachment", boardFile);
 	}
 
+	public int insertUpdateBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("communityBoardMapper.insertUpdateBoardAttachment", boardFile);
+	}
+
 	
 
 	

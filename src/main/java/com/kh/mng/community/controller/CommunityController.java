@@ -497,6 +497,7 @@ public class CommunityController {
 		}else {
 			
 			CommunityBoard updateBoard = communityService.selectBoardDetail(boardNo);
+			System.out.println(updateBoard.toString());
 	    	model.addAttribute("updateBoard",updateBoard);
 	    	return "community/editPage";
 		}
@@ -514,6 +515,7 @@ public class CommunityController {
 		board.setUserNo(loginUser.getUserNo());
 		boardFile.setBoardNo(board.getBoardNo());
 		
+		System.out.println("upfile:"+upfile);
 		String path="resources/img/community/";
 		if(!upfile.getOriginalFilename().equals("")) {
 			String changeName = saveFile(upfile, session,path);

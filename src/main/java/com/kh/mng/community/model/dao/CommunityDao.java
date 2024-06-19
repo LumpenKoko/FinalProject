@@ -216,12 +216,9 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
 	}
 
-<<<<<<< HEAD
 	public int getIsLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
 		return sqlSession.selectOne("shortsMapper.getIsLike", forIsLike);
 	}
-
-=======
 
 	public int updateBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		
@@ -236,8 +233,6 @@ public class CommunityDao {
 
 //	community 게시글 등록
 
->>>>>>> 5a6397c815046546beee0bcdae8ba17b6638ecd9
-	
 	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		return sqlSession.insert("communityBoardMapper.insertBoard", board);
 	}

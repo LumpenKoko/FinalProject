@@ -50,7 +50,6 @@ public class myPage {
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Review> ReviewList = petService.getReviewList(userNo);
 			ProfileImg profileImg = memberService.getProfileImg(userNo);
-			session.setAttribute("profileImg", profileImg);
 			model.addAttribute("ReviewList", ReviewList);
 			System.out.println(ReviewList);
 			System.out.println(profileImg);
@@ -342,31 +341,79 @@ public class myPage {
 		}
 	}
 	
+//	@ResponseBody
+//	@PostMapping("/insertProfileImg.mp")
+//	public String insertProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
+//		Member loginUser = (Member) session.getAttribute("loginUser");
+//		int userNo = loginUser.getUserNo();
+//		
+//		String path="resources/img/user/";
+//		ProfileImg profileImg = new ProfileImg();
+//		if(!upfile.getOriginalFilename().equals("")) {
+//			String changeName = saveFile(upfile, session);
+//			
+//			profileImg.setOriginName(upfile.getOriginalFilename());
+//			profileImg.setChangeName("resources/img/user/" + changeName);
+//			profileImg.setUserNo(userNo);
+//			profileImg.setFilePath("resources/img/user/");
+//			profileImg.setFileLevel(0);
+//		}
+//		
+//		int result = memberService.insertProfileImg(profileImg);
+//		System.out.println(profileImg);
+//		if(result > 0) {
+//			return "NNNNY";
+//		} else {
+//			return "NNNNN";
+//		}
+//	}
+	
 	@ResponseBody
 	@PostMapping("/insertProfileImg.mp")
-	public String insertProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		
-		String path="resources/img/user/";
-		ProfileImg profileImg = new ProfileImg();
-		if(!upfile.getOriginalFilename().equals("")) {
-			String changeName = saveFile(upfile, session);
-			
-			profileImg.setOriginName(upfile.getOriginalFilename());
-			profileImg.setChangeName("resources/img/user/" + changeName);
-			profileImg.setUserNo(userNo);
-			profileImg.setFilePath("resources/img/user/");
-			profileImg.setFileLevel(0);
-		}
-		
-		int result = memberService.insertProfileImg(profileImg);
-		System.out.println(profileImg);
-		if(result > 0) {
-			return "NNNNY";
-		} else {
-			return "NNNNN";
-		}
+	public String insertOrUpdateProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    int userNo = loginUser.getUserNo();
+	    
+	    // 이미지 정보를 데이터베이스에서 가져오기
+	    ProfileImg existingProfileImg = memberService.getProfileImg(userNo);
+	    
+	    System.out.println(existingProfileImg);
+	    // 새로 업로드된 파일 처리
+	    if (!upfile.isEmpty()) {
+	        String changeName = saveFile(upfile, session);
+	        
+	        ProfileImg profileImg = new ProfileImg();
+	        profileImg.setOriginName(upfile.getOriginalFilename());
+	        profileImg.setChangeName(changeName);
+	        profileImg.setUserNo(userNo);
+	        profileImg.setFilePath("resources/img/user/");
+	        profileImg.setFileLevel(0);
+	        
+	        // 이미 등록된 이미지가 있으면 update 수행
+	        if (existingProfileImg != null) {
+	            profileImg.setPicNo(existingProfileImg.getPicNo());
+	            int updateResult = memberService.updateProfileImg(profileImg);
+	            
+	            if (updateResult > 0) {
+	            	session.setAttribute("profileImg", profileImg);
+	                return "NNNNY"; // Update 성공 시 반환할 메시지
+	            } else {
+	                return "NNNNN"; // Update 실패 시 반환할 메시지
+	            }
+	        } else {
+	            // 등록된 이미지가 없으면 insert 수행
+	            int insertResult = memberService.insertProfileImg(profileImg);
+	            
+	            if (insertResult > 0) {
+	            	session.setAttribute("profileImg", profileImg);
+	                return "NNNNY"; // Insert 성공 시 반환할 메시지
+	            } else {
+	                return "NNNNN"; // Insert 실패 시 반환할 메시지
+	            }
+	        }
+	    }
+	    
+	    return "NNNNN"; // 파일이 없을 경우 반환할 메시지
 	}
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {

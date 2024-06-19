@@ -18,35 +18,45 @@
 		<result column="PET_NO" property="petNo" />
 		<result column="BOARD_NO" property="boardNo" />
 	</resultMap>
-	
+
 	<insert id="insertProfileImg">
 		INSERT INTO PICTURE(
-			PIC_NO,
-			ORIGIN_NAME,
-			CHANGE_NAME,
-			FILE_PATH,
-			FILE_LEVEL,
-			USER_NO
+		PIC_NO,
+		ORIGIN_NAME,
+		CHANGE_NAME,
+		FILE_PATH,
+		FILE_LEVEL,
+		USER_NO
 		)
 		VALUES(
-			NEXTVAL('SEQ_PIC'),
-			#{originName},
-			#{changeName},
-			#{filePath},
-			#{fileLevel},
-			#{userNo}	
-		)			
+		NEXTVAL('SEQ_PIC'),
+		#{originName},
+		#{changeName},
+		#{filePath},
+		#{fileLevel},
+		#{userNo}
+		)
 	</insert>
-	
+
 	<select id="getProfileImg" resultMap="imgResult">
 		SELECT ORIGIN_NAME,
-			   CHANGE_NAME,
-			   FILE_PATH
+		PIC_NO,
+		CHANGE_NAME,
+		FILE_PATH
 		FROM PICTURE
 		WHERE USER_NO = #{userNo}
 		AND FILE_LEVEL = 0
-		ORDER BY PIC_NO DESC
-    	LIMIT 1
+		ORDER BY PIC_NO
+		DESC
+		LIMIT 1;
 	</select>
-	
+
+	<update id="updateProfileImg" parameterType="ProfileImg">
+		UPDATE PICTURE
+		SET ORIGIN_NAME = #{originName},
+		CHANGE_NAME = #{changeName},
+		FILE_PATH = #{filePath}
+		WHERE PIC_NO = #{picNo}
+	</update>
+
 </mapper>

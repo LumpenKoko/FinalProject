@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/myPage/myPageCoupon.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="resources/js/myPage/myPageCoupon.js"></script>
     </head>
 
@@ -23,7 +24,7 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(${profileImg.changeName})">
+                                <div id="profile" style="background-image: url(${profileImg.filePath}${profileImg.changeName})">
                                     <input type="file" id="fileInput" style="display: none;"
                                         onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>

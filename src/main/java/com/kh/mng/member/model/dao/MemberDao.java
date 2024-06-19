@@ -115,4 +115,8 @@ public class MemberDao {
 	public ProfileImg getProfileImg(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("imgMapper.getProfileImg", userNo);
 	}
+
+	public int updateProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
+		return sqlSession.update("imgMapper.updateProfileImg", profileImg);
+	}
 }

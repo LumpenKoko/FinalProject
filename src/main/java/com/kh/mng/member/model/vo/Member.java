@@ -2,6 +2,8 @@ package com.kh.mng.member.model.vo;
 
 import java.sql.Date;
 
+import com.kh.mng.common.model.vo.Attachment;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,4 +30,5 @@ public class Member {
 	private Date userBirthday;
 	private String userPhone;
 	private String userKind;
+	private Attachment userProfile;
 }

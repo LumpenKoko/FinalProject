@@ -94,8 +94,12 @@ $(document).on('click', '[id^="submit-comment"]', function () {
             newCommentContainer.append(commentInfoDiv);
 
             $('#comments-list' + num).prepend(newCommentContainer);
-
             $('#comment-text' + num).val('');
+
+            let replyCount = parseInt($('#reply-reply-count' + num).html());
+            replyCount += 1;
+            $('#reply-reply-count' + num).html(replyCount);
+            $('#thumbnail-reply-count' + num).html(replyCount);
           
         },
         error: function () {
@@ -110,7 +114,8 @@ function loadVideo(num) {
     $.ajax({
         url: contextPath + '/getVideo.sh',
         data: {
-            videoId: num
+            videoId: num,
+            userNo: parseInt(userNo)
         },
         success: function (response) {
             const totalShortsInfo = response;
@@ -134,6 +139,8 @@ function loadVideo(num) {
             likeCountSection.innerHTML = totalShortsInfo.likeCount;
             const rePlyCountSection = document.getElementById('thumbnail-reply-count' + num);
             rePlyCountSection.innerHTML = totalShortsInfo.replyCount;
+            const replyRePlyCountSection = document.getElementById('reply-reply-count' + num);
+            replyRePlyCountSection.innerHTML = totalShortsInfo.replyCount;
             const nicknameSection = document.getElementById('thumbnail-nickname' + num);
             nicknameSection.innerHTML = totalShortsInfo.userNickname;
             const contentSection = document.getElementById('thumbnail-content' + num);
@@ -141,7 +148,9 @@ function loadVideo(num) {
             const enrollDateSection = document.getElementById('thumbnail-enroll-date' + num);
             enrollDateSection.innerHTML = totalShortsInfo.enrollDate;
             const profileSection = document.getElementById('thumbnail-profile' + num);
-            profileSection.innerHTML = `<img src="${totalShortsInfo.profilePath + totalShortsInfo.profileName}">`;
+            profileSection.innerHTML = `<img src="${totalShortsInfo.profilePath + totalShortsInfo.profileName}" class="shorts-profile-img">`;
+            // totalShortsInfo.isLike boolean형으로 받아오는 것 확인했음.
+            // 추후 js만든 후 해당 데이터 이용해서 좋아요 깜빡이게 구현 필요.
 
         },
         error: function () {
@@ -149,3 +158,58 @@ function loadVideo(num) {
         }
     });
 }
+
+// 좋아요 누르는 함수
+$(document).on('click', '[id^="like-btn"]', function () {
+
+    console.log("제발");
+    console.log(userNo);
+    console.log(typeof(userNo)); //String임....
+    console.log("여기");
+
+    if (userNo === null) {
+        alert("로그인한 회원만 좋아요를 누를 수 있습니다.");
+        return;
+    }
+
+    const num = parseInt(this.id.replace('like-btn', ''));
+
+    $.ajax({
+        url: contextPath + '/like.sh',
+        data: {
+            num: num,
+            userNum: parseInt(userNo)
+        },
+        dataType : "json",
+        success: function (response) {
+            const replyList = response;
+            console.log(replyList);
+
+            if (replyList.length === 0) {
+                const newComment = $('<div class="no-reply"></div>').text("아직 댓글이 없어요ㅠㅠ");
+                $('#comments-list' + num).append(newComment);
+            } else {
+                $('#comments-list' + num).empty();
+                for (let i = 0; i < replyList.length; i++) {
+                    const newCommentContainer = $('<div class="comment-container"></div>');
+
+                    // 프로필 사진을 담는 div
+                    const profilePicDiv = $('<div class="profile-pic"></div>');
+                    const profilePicImg = $('<img class="profile-img">');
+                    profilePicImg.attr('src', replyList[i].filePath + replyList[i].changeName);
+                    profilePicDiv.append(profilePicImg);
+                    newCommentContainer.append(profilePicDiv);
+
+                    // 사용자 정보와 댓글 내용을 담는 div
+                    const commentInfoDiv = $('<div class="comment-info"></div>').text(replyList[i].userNickname + " : " + replyList[i].replyContent + " - " + replyList[i].enrollDate);
+                    newCommentContainer.append(commentInfoDiv);
+
+                    $('#comments-list' + num).append(newCommentContainer);
+                }
+            }
+        },
+        error: function () {
+            console.log("댓글 로드 실패");
+        }
+    });
+});

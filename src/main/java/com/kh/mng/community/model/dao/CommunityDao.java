@@ -215,7 +215,20 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
 	}
 
+
+	public int updateBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
+		
+		return sqlSession.update("communityBoardMapper.updateBoard",board);
+	}
+
+	public int updateAttachment(SqlSessionTemplate sqlSession,BoardFileInfo boardFile) {
+		
+		return sqlSession.update("communityBoardMapper.updateBoardAttachment",boardFile);
+	}
+
+
 //	community 게시글 등록
+
 	
 	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		return sqlSession.insert("communityBoardMapper.insertBoard", board);

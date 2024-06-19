@@ -13,6 +13,7 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
 import com.kh.mng.community.model.dto.ShortsFileInfo;
@@ -215,6 +216,9 @@ public class CommunityDao {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
 	}
 
+	public int getIsLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
+		return sqlSession.selectOne("shortsMapper.getIsLike", forIsLike);
+	}
 
 	public int updateBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		
@@ -229,13 +233,17 @@ public class CommunityDao {
 
 //	community 게시글 등록
 
-	
 	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		return sqlSession.insert("communityBoardMapper.insertBoard", board);
 	}
 	
 	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
 		return sqlSession.insert("communityBoardMapper.insertBoardAttachment", boardFile);
+	}
+
+	public int insertUpdateBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("communityBoardMapper.insertUpdateBoardAttachment", boardFile);
 	}
 
 	

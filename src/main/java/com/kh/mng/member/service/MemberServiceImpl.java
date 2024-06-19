@@ -19,6 +19,9 @@ import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.dao.MemberDao;
 import com.kh.mng.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -33,8 +36,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member loginMember(Member m) {
-		return memberDao.loginMember(sqlSession, m);
+		Member loginUser = memberDao.loginMember(sqlSession, m);
+		if (loginUser != null) {
+			log.info("들어옴 {}", loginUser.toString());
+			loginUser.setUserProfile(memberDao.selectMemberProfile(sqlSession, loginUser.getUserNo()));
+			log.info("여기는 {}", loginUser.toString());
+		}
+		return loginUser;
 	}
+	
+//	MemberDto loginUser = memberDao.loginMember(sqlSession, m);
+//	if (loginUser != null) {
+//		loginUser.setUserProfile(memberDao.selectMemberProfile(sqlSession, loginUser));
+//	}
 
 	@Override
 	public int checkMemberId(String userId) {

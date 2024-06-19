@@ -8,8 +8,8 @@
 	
 	<%@ include file="../common/common-file.jsp" %>
 	<link rel="stylesheet" href="resources/css/community/community.css"/>
-	<script src="resources/js/community/board/writingPageInit.js"></script>
-	<script src="resources/js/community/board/writingPage.js"></script>
+	<script src="resources/js/community/board/editPageInit.js"></script>
+	<script src="resources/js/community/board/editPage.js"></script>
 </head>
 <body onload="init('${contextPath}')">
 	<%@ include file="../common/header.jsp"%>
@@ -46,7 +46,13 @@
 
 					<hr>
 
-					<input type="file" name="upfile" style="display: none;" onchange="thumbnailImg(this)" value="${( not empty updateBoard.attachment)?updateBoard.attachment.get(0):''}">
+					<!--"${( not empty updateBoard.attachment)?updateBoard.attachment.get(0):''}"-->
+					<input type="file" name="upfile" style="display: none;" onchange="thumbnailImg(this)">
+					<c:if test = "${!updateBoard.attachment.isEmpty()}">
+                      <div id="existingFile">현재 업로드된 파일 : 
+                      	 <a  href="${updateBoard.attachment.get(0).changeName}" download="${updateBoard.attachment.get(0).originName}">${updateBoard.attachment.get(0).originName}</a>
+					  </div>
+                    </c:if>
 					<div class="flex-box" style="height: 100px; justify-content: space-between;">
 						<div id="img-box">
 							<img src="resources/img/default/defaultImg.png" alt="이미지등록" id="img-icon" style="cursor: pointer;" width="50" height="50" onclick="insertImg()">

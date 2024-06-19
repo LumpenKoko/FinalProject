@@ -29,6 +29,11 @@ function thumbnailImg(imgFile){
     // const reader = new FileReader();
     let nameBox = document.querySelector('#img-box>span');
     fileName = imgFile.files[0].name;
-    nameBox.innerHTML = fileName;
+
+
+
+    nameBox.innerHTML = fileName + ``;
+
+
 }
 

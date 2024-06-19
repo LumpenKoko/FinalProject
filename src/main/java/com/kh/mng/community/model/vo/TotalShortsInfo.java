@@ -24,6 +24,7 @@ public class TotalShortsInfo {
 	private String profileName;
 	private int likeCount;
 	private int replyCount;
+	private boolean isLike;
 	
 	
 	public TotalShortsInfo(int shortsNo, Date enrollDate, String shortsContent, String shortsPath, String shortsName, String userNickname, String profilePath, String profileName) {

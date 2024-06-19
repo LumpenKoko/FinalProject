@@ -24,7 +24,9 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
+                                <div id="profile" style="background-image: url(${profileImg.changeName})">
+                                    <input type="file" id="fileInput" style="display: none;"
+                                        onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
                                 <input type="file" id="fileInput" style="display: none;">
                                 <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
@@ -81,10 +83,11 @@
                                         <div style="height: 100px;">
                                             <p id="content" style="width: 100%;">${board.boardContent}</p>
                                             <div id="updateForm" style="margin-left: 20px;">
-                                                <input type="text" style="width: 400px; height: 40px; border: 1px solid #bababa;
+                                                <input type="text"
+                                                    style="width: 400px; height: 40px; border: 1px solid #bababa;
                                                     border-top-left-radius: 15px; border-bottom-left-radius: 15px; float: left; padding-left: 10px;">
-                                                    <button></button>
-                                                    <button></button>
+                                                <button></button>
+                                                <button></button>
                                             </div>
                                         </div>
                                         <div id="bottom">
@@ -98,9 +101,11 @@
                                             <img src="resources/img/myPage/board.png">
                                         </div>
                                         <div id="right2-right-bottom" style="margin-left: 85px;">
-                                            <span style="color: #bababa; cursor: pointer;" onclick="ShowUpdateForm(this)">수정</span>
+                                            <span style="color: #bababa; cursor: pointer;"
+                                                onclick="ShowUpdateForm(this)">수정</span>
                                             <span style="color: #bababa; cursor:default;">｜</span>
-                                            <span style="color: #bababa; cursor: pointer;" onclick="deleteBoard('${board.boardNo}', '<%=request.getContextPath()%>')">삭제</span>
+                                            <span style="color: #bababa; cursor: pointer;"
+                                                onclick="deleteBoard('${board.boardNo}', '<%=request.getContextPath()%>')">삭제</span>
                                         </div>
                                     </div>
                                 </div>

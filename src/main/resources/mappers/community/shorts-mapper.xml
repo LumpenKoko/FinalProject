@@ -138,4 +138,25 @@
 		LEFT JOIN PICTURE P ON M.USER_NO = P.USER_NO
 		WHERE R.REPLY_NO = #{replyNo};
 	</select>
+	
+	<select id="getIsLike" resultType="int">
+		SELECT GOOD_NO
+		FROM GOOD
+		WHERE USER_NO = #{userNo} AND SHORTS_NO = #{shortsNo};
+	</select>
+	
+	<insert id="enrollLike">
+    	INSERT INTO GOOD
+    		( 
+    		GOOD_NO,
+    		USER_NO,
+    		SHORTS_NO
+    		)
+    	VALUES
+    		(
+    		SEQ_GOOD.NEXTVAL,
+    		#{userNo},
+    		#{shortsNo}
+    		)
+    </insert>
   </mapper>

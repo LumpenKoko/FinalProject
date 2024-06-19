@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.Shorts;
@@ -19,6 +20,10 @@ import com.kh.mng.member.model.vo.Member;
 public class MemberDao {
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
+	}
+	
+	public ProfileImg selectMemberProfile(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("imgMapper.getProfileImg", userNo);
 	}
 	
 	public int checkMemberId(SqlSessionTemplate sqlSession, String checkId) {
@@ -105,5 +110,9 @@ public class MemberDao {
 
 	public int insertProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
 		return sqlSession.insert("imgMapper.insertProfileImg", profileImg);
+	}
+
+	public ProfileImg getProfileImg(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("imgMapper.getProfileImg", userNo);
 	}
 }

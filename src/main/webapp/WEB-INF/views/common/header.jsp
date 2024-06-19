@@ -84,7 +84,16 @@
 	    <% if(loginUser != null){ %>
             <c:choose>
                 <c:when test="${loginUser.userKind eq 'N'}">
-                    <img src="profile_image_url.jpg" alt="Profile Image">
+                    
+                    <c:choose>
+                        <c:when test="${empty loginUser.userProfile}">
+                            <img src="resources/img/default/default_profile.jpg" alt="Profile Image" style="object-fit: cover;">
+                            
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}" alt="Profile Image" style="object-fit: cover;">
+                        </c:otherwise>
+                    </c:choose>
                     <div>
                         <span>${loginUser.userNickname}</span><br>
                          <a href="<%=contextPath%>/myPageMain.mp">마이페이지</a>&nbsp;&nbsp;<a href="<%=contextPath%>/logout.me">로그아웃</a>

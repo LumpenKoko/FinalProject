@@ -11,12 +11,17 @@ function uploadProfileImage(contextPath) {
         processData: false,
         contentType: false,
         success: function(response) {
-            alert('프로필 이미지 업로드 성공!');
-            // 응답으로 받은 새로운 이미지 URL로 프로필 이미지 업데이트
-            $('#profile').css('background-image', 'url(' + response.newImageUrl + ')');
+            if(response === "NNNNY") {
+                alert('프로필 이미지 업로드 성공');
+                location.href = contextPath + '/myPageMain.mp';
+            } else {
+                alert('프로필 이미지 업로드 실패');
+                location.href = contextPath + '/myPageMain.mp';
+            }
         },
         error: function() {
             alert('프로필 이미지 업로드 실패');
+            location.href = contextPath + '/myPageMain.mp';
         }
     });
 }

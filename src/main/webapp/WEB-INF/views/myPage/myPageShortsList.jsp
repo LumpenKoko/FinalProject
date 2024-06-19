@@ -23,7 +23,9 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
+                                <div id="profile" style="background-image: url(${profileImg.changeName})">
+                                    <input type="file" id="fileInput" style="display: none;"
+                                        onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
                                 <input type="file" id="fileInput" style="display: none;">
                                 <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
@@ -60,9 +62,11 @@
                     <div id="right">
                         <div id="main_main_right">
                             <div id="right1">
-                                <span onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'" id="board">게시글</span>
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageBoard.mp'"
+                                    id="board">게시글</span>
                                 <span>&nbsp;/&nbsp;</span>
-                                <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'" id="shortsList">쇼츠</span>
+                                <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'"
+                                    id="shortsList">쇼츠</span>
                             </div>
                             <div id="right2"
                                 style="background-size:cover; background-image: url(resources/img/myPage/board.png);">

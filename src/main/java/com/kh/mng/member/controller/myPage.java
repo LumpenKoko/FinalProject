@@ -49,8 +49,11 @@ public class myPage {
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Review> ReviewList = petService.getReviewList(userNo);
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
+			session.setAttribute("profileImg", profileImg);
 			model.addAttribute("ReviewList", ReviewList);
 			System.out.println(ReviewList);
+			System.out.println(profileImg);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);
@@ -121,6 +124,7 @@ public class myPage {
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Picked> pickList = memberService.getPickList(userNo);
 			List<BossLocation> locationList = memberService.getLocationList();
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
 			
 			System.out.println(userNo);
 			System.out.println(locationList);
@@ -182,6 +186,7 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);
@@ -206,6 +211,7 @@ public class myPage {
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Board> BoardList = petService.getBoardList(userNo);
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
 			model.addAttribute("BoardList", BoardList);
 			System.out.println(BoardList);
 			if (petList != null) {
@@ -245,6 +251,7 @@ public class myPage {
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Shorts> shortsList = memberService.getShortsList(userNo);
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
 			System.out.println(shortsList);
 			session.setAttribute("shortsList", shortsList);
 			if (petList != null) {
@@ -270,6 +277,7 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);
@@ -298,6 +306,7 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
+			ProfileImg profileImg = memberService.getProfileImg(userNo);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				session.setAttribute("petList", petList);
@@ -334,7 +343,7 @@ public class myPage {
 	}
 	
 	@ResponseBody
-	@PostMapping("/insertProfileImg")
+	@PostMapping("/insertProfileImg.mp")
 	public String insertProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
@@ -352,7 +361,7 @@ public class myPage {
 		}
 		
 		int result = memberService.insertProfileImg(profileImg);
-		
+		System.out.println(profileImg);
 		if(result > 0) {
 			return "NNNNY";
 		} else {

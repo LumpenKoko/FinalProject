@@ -18,12 +18,11 @@ public class Attachment {
 	private String originName;
 	private String changeName;
 	private String filePath;
-//	private int fileLevel;
+	private int fileLevel;
 	private int locationNo;
 	private int locationOptionNo;
 	private int reviewNo;
 	private int userNo;
 	private int petNo;
 	private int boardNo;
-
 }

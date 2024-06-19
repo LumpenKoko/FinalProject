@@ -1,6 +1,10 @@
 package com.kh.mng.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
-import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -57,6 +65,51 @@ public class myPage {
 			return "myPage/myPageMain"; // 로그인 페이지로 이동 또는 에러 메시지 표시
 		}
 	}
+	
+    @ResponseBody
+    @PostMapping("/updateReview.mp")
+    public String updateReview(@RequestParam int reviewNo,
+                               @RequestParam String reviewContent,
+                               HttpSession session) {
+        // 세션에서 로그인 사용자 정보 가져오기
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "SESSION_EXPIRED"; // 예시: 세션이 만료된 경우 처리 방법
+        }
+
+        // 사용자 정보 설정
+        int userNo = loginUser.getUserNo();
+        String userNickName = loginUser.getUserNickname();
+
+        // 리뷰 정보 설정
+        MyPageReview myReview = new MyPageReview();
+        myReview.setUserNo(userNo);
+        myReview.setReviewNo(reviewNo);
+        myReview.setReviewContent(reviewContent);
+
+        // 리뷰 수정 서비스 호출
+        int result = memberService.updateReview(myReview);
+
+        // 결과에 따른 처리
+        if (result > 0) {
+            return "NNNNY"; // 수정 성공
+        } else {
+            return "NNNNN"; // 수정 실패
+        }
+    }
+	
+	@ResponseBody
+	@PostMapping("/deleteReview.mp")
+	public String deleteReview(@RequestParam int reviewNo, HttpSession session) {	    	    	    
+	    int result = memberService.deleteReview(reviewNo);
+	    System.out.println(reviewNo);
+	    if (result > 0) {
+	        // 삭제 성공 시 리스트에서도 삭제
+	        return "NNNNY"; // 삭제 성공
+	    } else {
+	        return "NNNNN"; // 삭제 실패
+	    }
+	}
 
 	@GetMapping("/myPageWish.mp")
 	public String myPageWishList(Model model, HttpSession session) {
@@ -68,7 +121,9 @@ public class myPage {
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			List<Picked> pickList = memberService.getPickList(userNo);
 			List<BossLocation> locationList = memberService.getLocationList();
-
+			
+			System.out.println(userNo);
+			System.out.println(locationList);
 			List<BossLocation> wishList = new ArrayList<>();
 			for (Picked picked : pickList) {
 				for (BossLocation location : locationList) {
@@ -167,6 +222,19 @@ public class myPage {
 			return "myPage/myPageBoardList"; // 로그인 페이지로 이동 또는 에러 메시지 표시
 		}
 	}
+	
+	@ResponseBody
+	@PostMapping("/deleteBoard.mp")
+	public String deleteBoard(@RequestParam int boardNo, HttpSession session) {	    	    	    
+	    int result = memberService.deleteBoard(boardNo);
+	    System.out.println(boardNo);
+	    if (result > 0) {
+	        // 삭제 성공 시 리스트에서도 삭제
+	        return "NNNNY"; // 삭제 성공
+	    } else {
+	        return "NNNNN"; // 삭제 실패
+	    }
+	}
 
 	@GetMapping("/myPageShorts.mp")
 	public String myPageShortsList(Model model, HttpSession session) {
@@ -176,6 +244,9 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
+			List<Shorts> shortsList = memberService.getShortsList(userNo);
+			System.out.println(shortsList);
+			session.setAttribute("shortsList", shortsList);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);
@@ -260,5 +331,62 @@ public class myPage {
 		} else {
 			return "NNNNN";
 		}
+	}
+	
+	@ResponseBody
+	@PostMapping("/insertProfileImg")
+	public String insertProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		
+		String path="resources/img/user/";
+		ProfileImg profileImg = new ProfileImg();
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeName = saveFile(upfile, session);
+			
+			profileImg.setOriginName(upfile.getOriginalFilename());
+			profileImg.setChangeName("resources/img/user/" + changeName);
+			profileImg.setUserNo(userNo);
+			profileImg.setFilePath("resources/img/user/");
+			profileImg.setFileLevel(0);
+		}
+		
+		int result = memberService.insertProfileImg(profileImg);
+		
+		if(result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
+	}
+	
+	public String saveFile(MultipartFile upfile, HttpSession session) {
+		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
+				String originName = upfile.getOriginalFilename();
+				
+				//년월일시분초 
+				String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+				
+				//5자리 랜덤값
+				int ranNum = (int)(Math.random() * 90000) + 10000;
+				
+				//확장자
+				String ext = originName.substring(originName.lastIndexOf("."));
+				
+				//수정된 첨부파일명
+				String changeName = currentTime + ranNum + ext;
+				
+				//첨부파일을 저장할 폴더의 물리적 경로(session)
+				String savePath = session.getServletContext().getRealPath("resources/img/user/");
+				try {
+					upfile.transferTo(new File(savePath + changeName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				return changeName;
+		
 	}
 }

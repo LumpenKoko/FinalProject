@@ -72,9 +72,14 @@ public interface CommunityService {
 
 	int checkBoardOwner(int boardNo);
 
+
 	int updateBoard(BoardEnroll board, BoardFileInfo boardFile);
 
 	
+
+
+	// 게시글 등록
+	int insertBoard(BoardEnroll board, BoardFileInfo boardFile);
 
 
 }

@@ -9,9 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kh.mng.bosspage.service.BossPageServiceImplSecond;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
-import com.kh.mng.member.model.vo.Member;
+import com.kh.mng.member.service.MemberServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
@@ -25,8 +24,9 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 @Slf4j
 @Controller
 public class MemberSMSController {
+//	private BossPageServiceImplSecond bossPageServiceSecond;
 	@Autowired
-	private BossPageServiceImplSecond bossPageServiceSecond;
+	private MemberServiceImpl memberService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -59,27 +59,27 @@ public class MemberSMSController {
     	psv.setPhone(getNum);
     	psv.setCertifyCode(codeEnc);
     	
-    	int result = bossPageServiceSecond.insertCertifyCode(psv);
+    	int result = memberService.insertCertifyCode(psv);
     	
     	if (result > 0) {
-    		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
-    		Message message = new Message();
-    		
-    		message.setTo(getNum);
-    		message.setFrom(sentNum);
-    		message.setText(msgText);
-    		
-    		MultipleDetailMessageSentResponse response = null;
-    		try {
-    			response = messageService.send(message);
-    		} catch (NurigoMessageNotReceivedException e) {
-    			e.printStackTrace();
-    		} catch (NurigoEmptyResponseException e) {
-    			e.printStackTrace();
-    		} catch (NurigoUnknownException e) {
-    			e.printStackTrace();
-    		}
-    		
+//    		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
+//    		Message message = new Message();
+//    		
+//    		message.setTo(getNum);
+//    		message.setFrom(sentNum);
+//    		message.setText(msgText);
+//    		
+//    		MultipleDetailMessageSentResponse response = null;
+//    		try {
+//    			response = messageService.send(message);
+//    		} catch (NurigoMessageNotReceivedException e) {
+//    			e.printStackTrace();
+//    		} catch (NurigoEmptyResponseException e) {
+//    			e.printStackTrace();
+//    		} catch (NurigoUnknownException e) {
+//    			e.printStackTrace();
+//    		}
+//    		
     		return "NNNNY";
     	} else {
     		return "NNNNN";
@@ -90,7 +90,7 @@ public class MemberSMSController {
 	@ResponseBody
 	@PostMapping("checkCertifyCode.me")
 	public String checkCertifyCode(String phone, String certifyCode) {
-		PhoneSmsVo psv = bossPageServiceSecond.checkCertifyCode(phone);
+		PhoneSmsVo psv = memberService.checkCertifyCode(phone);
 		if (psv != null && bcryptPasswordEncoder.matches(certifyCode, psv.getCertifyCode())) {
 			// 인증번호 삭제 메소드 추가
 			return "NNNNY";

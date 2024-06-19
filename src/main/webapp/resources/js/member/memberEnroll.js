@@ -84,6 +84,7 @@ function getCertifyCode(){
 // 인증번호 요청 ajax 성공 시 콜백 함수
 function drawGetCertifySuccess(result){
     // 타이머 돌아가는 함수, 시간 지나면 데이터 삭제하는 함수
+    console.log(result)
 }
 
 // 인증번호 입력 후 확인 시 ajax 실행 트리거 함수

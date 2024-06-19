@@ -10,6 +10,7 @@
 
                 <link rel="stylesheet" href="resources/css/myPage/myPageMain.css" />
                 <link rel="stylesheet" href="resources/css/common/common.css" />
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script src="resources/js/myPage/myPageMain.js"></script>
         </head>
 
@@ -25,7 +26,7 @@
                                     <img src="resources/img/myPage/camera.png"
                                         onclick="document.getElementById('fileInput').click()" id="camera">
                                     <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
-                                        <input type="file" id="fileInput" style="display: none;">
+                                        <input type="file" id="fileInput" style="display: none;" onchange="uploadProfileImage()">
                                     </div>
                                     <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
                                     <div id="solid"></div>
@@ -78,7 +79,7 @@
                                                         style="margin-top: 20px; margin-bottom: 0px; font-size: 18px; font-weight: bold; text-align: left;">
                                                         ${loginUser.userName}</p>
                                                     <p style="margin-top: 0px; font-size: 13px; color: #bababa;">
-                                                        ${review.enrollDate}</p>
+                                                        ${review.modifyDate}</p>
                                                 </div>
                                             </div>
                                             <div id="right2-top2">
@@ -105,9 +106,9 @@
                                                         }
                                                     </script>
                                                 </span>
-                                                <span style="color: #bababa;">수정</span>
+                                                <span style="color: #bababa;" onclick="ShowUpdateForm(this)">수정</span>
                                                 <span style="color: #bababa; cursor:default;">｜</span>
-                                                <span style="color: #bababa;">삭제</span>
+                                                <span style="color: #bababa;" onclick="deleteReview('${review.reviewNo}', '<%=request.getContextPath()%>')">삭제</span>
                                             </div>
                                         </div>
                                         <div id="right2-mid">
@@ -119,9 +120,19 @@
                                                 alt="">
                                         </div>
                                         <div id="right2-bottom">
-                                            <p style="text-align: left; overflow: initial; white-space: initial;">
+                                            <p style="text-align: left; overflow: initial; white-space: initial; margin-bottom: 0px;">
                                                 ${review.reviewContent}
                                             </p>
+                                            <div id="updateForm" style="margin-top: 0px;" hidden>
+                                                <input type="text" style="width: 500px; height: 40px; border: 1px solid #bababa;
+                                                    border-top-left-radius: 15px; border-bottom-left-radius: 15px; float: left; padding-left: 10px;"
+                                                    value="${review.reviewContent}" id="updateContent">
+                                                <button style="width: 40px; height: 40px; border: 1px solid #bababa; float: left;"
+                                                    onclick="updateReview('${review.reviewNo}', '<%=request.getContextPath()%>')">확인</button>
+                                                <button style="width: 40px; height: 40px; border: 1px solid #bababa; float: left;
+                                                    border-top-right-radius: 15px; border-bottom-right-radius: 15px;"
+                                                    onclick="HideUpdateForm(this)">취소</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>

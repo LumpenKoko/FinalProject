@@ -85,6 +85,14 @@ public class BossPageDao {
         return sqlSession.selectOne("location.getPetSizeByName", petSizeName);
     }
 
+    public int insertPetKind(Map<String, Object> params) {
+        return sqlSession.insert("location.insertPetKind", params);
+    }
+
+    public int insertPetSize(Map<String, Object> params) {
+        return sqlSession.insert("location.insertPetSize", params);
+    }
+
     public int insertLocationEnterGrade(LocationEnterGrade locationEnterGrade) {
         return sqlSession.insert("location.insertLocationEnterGrade", locationEnterGrade);
     }

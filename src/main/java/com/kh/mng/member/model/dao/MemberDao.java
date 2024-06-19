@@ -6,7 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.model.vo.ProfileImg;
+import com.kh.mng.common.phonesms.PhoneSmsVo;
+import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
@@ -41,6 +45,27 @@ public class MemberDao {
 	public int insertLocation(SqlSessionTemplate sqlSession, Location loc) {
 		return sqlSession.insert("location.insertLocation", loc);
 	}
+	
+//	핸드폰 인증
+	public int checkPhoneNumber(SqlSessionTemplate sqlSession, String userPhone) {
+		return sqlSession.selectOne("memberMapper.checkPhoneNumber", userPhone);
+	}
+	
+	public int selectCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.selectOne("memberMapper.selectCertifyCode", psv);
+	}
+	
+	public int deleteCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.delete("memberMapper.deleteCertifyCode", psv);
+	}
+	
+	public int insertCertifyCode(SqlSessionTemplate sqlSession, PhoneSmsVo psv) {
+		return sqlSession.insert("memberMapper.insertCertifyCode", psv);
+	}
+	
+	public PhoneSmsVo checkCertifyCode(SqlSessionTemplate sqlSession, String phone) {
+		return sqlSession.selectOne("memberMapper.checkCertifyCode", phone);
+	}
 
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateMember", m);
@@ -60,5 +85,25 @@ public class MemberDao {
 	
 	public int wishListDelete(SqlSessionTemplate sqlSession, WishListNo wishListNo) {
 		return sqlSession.delete("picked.pickedDelete", wishListNo);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.delete("communityBoardMapper.deleteBoard", boardNo);
+	}
+
+	public int deleteReview(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.delete("review.deleteMyReview", reviewNo);
+	}
+
+	public List<Shorts> getShortsList(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectList("shortsMapper.getVideoInfo", userNo);
+	}
+
+	public int updateReview(SqlSessionTemplate sqlSession, MyPageReview myReview) {
+		return sqlSession.update("review.updateReview", myReview);
+	}
+
+	public int insertProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
+		return sqlSession.insert("imgMapper.insertProfileImg", profileImg);
 	}
 }

@@ -20,3 +20,27 @@ for (var i = 0; i < petNames.length; i++) {
     petNameElement.textContent = petNames[i];
     petNamesElement.appendChild(petNameElement);
 }
+
+function deleteBoard(boardNo, contextPath) {
+    $.ajax({
+        url : contextPath+"/deleteBoard.mp",
+        type : 'POST',
+        data : {boardNo:boardNo},
+
+        success : function(response){
+            console.log(response)
+            if(response === 'NNNNY') {
+            location.href= contextPath + '/myPageBoard.mp';
+            alert('게시글 삭제에 성공하였습니다.');
+            } else {
+                alert('실패');
+                location.href= contextPath + '/myPageBoard.mp';
+            }
+        },
+        error : function(error){
+            console.log(error)
+            alert('실패');
+            location.href= contextPath + '/myPageBoard.mp';
+        }                        
+    });
+}

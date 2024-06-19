@@ -484,24 +484,47 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 
-	
-
-
-
-
-	
-
 
 	
 
 
 
 
+	
+
+
+	
 
 
 
 
 
+
+
+
+
+
+
+	@Override
+	public int insertBoard(BoardEnroll board, BoardFileInfo boardfile) {
+		int result1 = communityDao.insertBoard(sqlSession, board);
+		int result2 = 1;
+		
+		//게시글 등록이 성공하고 첨부파일이 비어있지 않으면
+		if (result1 > 0 && boardfile.getChangeName() != null) {
+			result2 = communityDao.insertBoardAttachment(sqlSession, boardfile);
+		} 
+		
+//		else if (result1 > 0 && boardfile == null){
+//			result2 = 1;
+//		} else {
+//			result1 = result1 * 0;
+//		}
+		
+		
+		
+		return result1 * result2;
+	}
 
 
 }

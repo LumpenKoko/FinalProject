@@ -1,4 +1,5 @@
 package com.kh.mng.bosspage.controller;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +32,6 @@ import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
-import com.kh.mng.bosspage.model.vo.LocationPetKind;
 import com.kh.mng.bosspage.model.vo.LocationPetSize;
 import com.kh.mng.bosspage.model.vo.LocationPicture;
 import com.kh.mng.bosspage.service.BossPageService;
@@ -198,23 +198,11 @@ public class bossPageController {
                     bossPageService.saveOperationTimes(locationInfo.getLocationNo(), operationTimes);
                 }
 
-                // Pet kind and size handling
-                List<String> petKinds = (List<String>) payload.get("animalTypes");  // 여기서 animalTypes를 가져와서 petKinds로 사용
-                List<String> petSizes = (List<String>) payload.get("petSizes");  // 여기서 petSizes를 가져와서 사용
+                // Pet size handling
+                List<String> petSizes = (List<String>) payload.get("petSizes");
 
-                if (petKinds != null && !petKinds.isEmpty()) {
-                    bossPageService.savePetKindsAndSizes(locationInfo.getLocationNo(), petKinds, petSizes);
-
-                    // Save LocationEnterGrade information
-                    for (String petSizeName : petSizes) {
-                        LocationPetSize locationPetSize = bossPageService.getPetSizeByName(petSizeName);
-                        if (locationPetSize != null) {
-                            LocationEnterGrade locationEnterGrade = new LocationEnterGrade();
-                            locationEnterGrade.setLocationNo(locationInfo.getLocationNo());
-                            locationEnterGrade.setPetSizeNo(locationPetSize.getPetSizeNo());
-                            bossPageService.saveLocationEnterGrade(locationEnterGrade);
-                        }
-                    }
+                if (petSizes != null && !petSizes.isEmpty()) {
+                    bossPageService.savePetSizes(locationInfo.getLocationNo(), petSizes);
                 }
 
                 if (result > 0) {
@@ -237,7 +225,6 @@ public class bossPageController {
         }
         return ResponseEntity.ok(response);
     }
-
 
     @ResponseBody
     @GetMapping(value = "/getLocationInfo.bm", produces = "application/json; charset=UTF-8")

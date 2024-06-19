@@ -42,9 +42,9 @@ function saveLocationInfo() {
         reservationLink: reservationLink,
         userNo: userNo,
         operationTimes: operationTimes,
-        animalTypes: animalTypes,
-        petSizes: petSizes
+        petSizes: petSizes // petSizes를 추가하여 전송
     };
+
 
     $.ajax({
         url: contextPath + '/saveLocationInfo.bm',

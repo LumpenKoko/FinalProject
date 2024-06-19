@@ -7,16 +7,16 @@
 
 <mapper namespace="imgMapper">
 	<resultMap type="ProfileImg" id="imgResult">
-		<result column="PIC_NO" property="petNo" />
-		<result column="ORIGIN_NAME" property="petName" />
-		<result column="CHANGE_NAME" property="petBirthday" />
-		<result column="FILE_PATH" property="petGender" />
-		<result column="FILE_LEVEL" property="userNo" />
-		<result column="LOCATION_NO" property="petSizeNo" />
-		<result column="REVIEW_NO" property="petSizeNo" />
-		<result column="USER_NO" property="petSizeNo" />
-		<result column="PET_NO" property="petSizeNo" />
-		<result column="BOARD_NO" property="petSizeNo" />
+		<result column="PIC_NO" property="picNo" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="FILE_PATH" property="filePath" />
+		<result column="FILE_LEVEL" property="fileLevel" />
+		<result column="LOCATION_NO" property="locationNo" />
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PET_NO" property="petNo" />
+		<result column="BOARD_NO" property="boardNo" />
 	</resultMap>
 	
 	<insert id="insertProfileImg">
@@ -26,11 +26,7 @@
 			CHANGE_NAME,
 			FILE_PATH,
 			FILE_LEVEL,
-			LOCATION_NO,
-			REVIEW_NO,
-			USER_NO,
-			PET_NO,
-			BOARD_NO
+			USER_NO
 		)
 		VALUES(
 			NEXTVAL('SEQ_PIC'),
@@ -38,12 +34,19 @@
 			#{changeName},
 			#{filePath},
 			#{fileLevel},
-			#{locationNo},
-			#{reviewNo},
-			#{userNo},
-			#{petNo},
-			#{boardNo}		
-		)
-			
+			#{userNo}	
+		)			
 	</insert>
+	
+	<select id="getProfileImg" resultMap="imgResult">
+		SELECT ORIGIN_NAME,
+			   CHANGE_NAME,
+			   FILE_PATH
+		FROM PICTURE
+		WHERE USER_NO = #{userNo}
+		AND FILE_LEVEL = 0
+		ORDER BY PIC_NO DESC
+    	LIMIT 1
+	</select>
+	
 </mapper>

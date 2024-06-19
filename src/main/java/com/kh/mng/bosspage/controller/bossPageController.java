@@ -253,7 +253,7 @@ public class bossPageController {
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("locationNo") int locationNo) {
         try {
             // 파일 저장 경로 설정
-            String uploadDir = "/path/to/upload/directory";
+            String uploadDir = "/path/to/upload/directory";  // 실제 파일 저장 경로로 변경해야 합니다.
             String originalFileName = file.getOriginalFilename();
             String newFileName = UUID.randomUUID().toString() + "_" + originalFileName;
             Path path = Paths.get(uploadDir, newFileName);
@@ -269,7 +269,7 @@ public class bossPageController {
 
             bossPageService.savePictures(locationNo, Arrays.asList(picture));
 
-            return ResponseEntity.ok("파일 업로드 성공");
+            return ResponseEntity.ok(newFileName);  // 업로드된 파일명을 반환
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 실패");
         }

@@ -66,4 +66,6 @@ public interface MemberService {
 	int insertProfileImg(ProfileImg profileImg);
 
 	ProfileImg getProfileImg(int userNo);
+
+	int updateProfileImg(ProfileImg profileImg);
 }

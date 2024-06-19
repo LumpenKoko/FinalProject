@@ -77,7 +77,6 @@ public class BossPageDao {
         return sqlSession.insert("location.insertPicture", picture);
     }
 
-
     public List<LocationPicture> getPicturesByLocation(int locationNo) {
         return sqlSession.selectList("location.getPicturesByLocation", locationNo);
     }

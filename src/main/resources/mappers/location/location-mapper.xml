@@ -54,6 +54,10 @@
         <result column="LOCATION_NO" property="locationNo"/>
         <result column="PET_SIZE_NO" property="petSizeNo"/>
     </resultMap>
+    
+    <resultMap type="LocationPicture" id="locationPicture">
+    	
+    </resultMap>
 
     <!-- SQL Queries -->
     <select id="getLocation" resultMap="bossLocationResult">
@@ -210,6 +214,19 @@
         FROM LOCATION L
         JOIN LOCATION_CATEGORY C
         ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
+    </select>
+    
+    <!-- Insert Picture -->
+    <insert id="insertPicture" parameterType="LocationPicture">
+        INSERT INTO PICTURE (PIC_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL, LOCATION_NO)
+        VALUES (NEXTVAL('seq_pic'), #{originName}, #{changeName}, #{filePath}, #{fileLevel}, #{locationNo})
+    </insert>
+
+    <!-- Select Pictures By Location -->
+    <select id="getPicturesByLocation" parameterType="int" resultType="LocationPicture">
+        SELECT PIC_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL, LOCATION_NO
+        FROM PICTURE
+        WHERE LOCATION_NO = #{locationNo}
     </select>
     
 </mapper>

@@ -97,6 +97,7 @@ input{
   width: 100%;
   height: 100%;
   border-radius: 8px;
+  object-fit: cover;
 }
 .registration-upload {
   width: 117px;
@@ -109,6 +110,13 @@ input{
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+.registration-upload img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
 }
 .registration-upload:hover {
   background: #b1b0b0;

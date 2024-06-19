@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="imgMapper">
+	<resultMap type="ProfileImg" id="imgResult">
+		<result column="PIC_NO" property="petNo" />
+		<result column="ORIGIN_NAME" property="petName" />
+		<result column="CHANGE_NAME" property="petBirthday" />
+		<result column="FILE_PATH" property="petGender" />
+		<result column="FILE_LEVEL" property="userNo" />
+		<result column="LOCATION_NO" property="petSizeNo" />
+		<result column="REVIEW_NO" property="petSizeNo" />
+		<result column="USER_NO" property="petSizeNo" />
+		<result column="PET_NO" property="petSizeNo" />
+		<result column="BOARD_NO" property="petSizeNo" />
+	</resultMap>
+	
+	<insert id="insertProfileImg">
+		INSERT INTO PICTURE(
+			PIC_NO,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			FILE_PATH,
+			FILE_LEVEL,
+			LOCATION_NO,
+			REVIEW_NO,
+			USER_NO,
+			PET_NO,
+			BOARD_NO
+		)
+		VALUES(
+			NEXTVAL('SEQ_PIC'),
+			#{originName},
+			#{changeName},
+			#{filePath},
+			#{fileLevel},
+			#{locationNo},
+			#{reviewNo},
+			#{userNo},
+			#{petNo},
+			#{boardNo}		
+		)
+			
+	</insert>
+</mapper>

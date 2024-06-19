@@ -26,7 +26,7 @@
                                     <img src="resources/img/myPage/camera.png"
                                         onclick="document.getElementById('fileInput').click()" id="camera">
                                     <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
-                                        <input type="file" id="fileInput" style="display: none;">
+                                        <input type="file" id="fileInput" style="display: none;" onchange="uploadProfileImage()">
                                     </div>
                                     <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
                                     <div id="solid"></div>

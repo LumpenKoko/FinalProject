@@ -165,6 +165,18 @@ public class MemberController {
 	public String memberEnrollSelectForm() {
 		return "member/memberEnrollSelect";
 	}
+	
+	// 핸드폰 번호 중복 체크
+	@ResponseBody
+	@GetMapping(value="checkPhone.me")
+	public String checkPhoneNumber(String userPhone) {
+		int result = memberService.checkPhoneNumber(userPhone);
+		if (result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
+	}
 
 	@RequestMapping("update.mp")
 	public String updateMember(Member m, HttpSession session, Model model, RedirectAttributes redirectAttributes) {

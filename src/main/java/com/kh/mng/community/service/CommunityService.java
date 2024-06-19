@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ForIsLike;
@@ -53,6 +55,7 @@ public interface CommunityService {
 	int insertShorts(Map<String, ShortsFileInfo> fileInfos, ShorstInfo shortsInfo);
 
 	CommunityBoard selectBoardDetail(PageInfo replyPi,int bno,int userNo);
+	CommunityBoard selectBoardDetail(int boardNo);
 
 	int insertBoardReply(ReplyInfo replyInfo);
 
@@ -73,6 +76,15 @@ public interface CommunityService {
 	int getIsLike(ForIsLike forIsLike);
 
 	String likeShorts(ForIsLike forisLike);
+
+
+	int updateBoard(BoardEnroll board, BoardFileInfo boardFile);
+
+	
+
+
+	// 게시글 등록
+	int insertBoard(BoardEnroll board, BoardFileInfo boardFile);
 
 
 }

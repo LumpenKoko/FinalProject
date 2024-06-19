@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
@@ -253,9 +255,6 @@ public class CommunityController {
 
 	}
 	
-	//커뮤니티 게시글 삭제
-	
-
 	
 	
 	
@@ -393,6 +392,58 @@ public class CommunityController {
 		return "community/writingPage";
 	}
 	
+//	커뮤니티 게시글 등록
+	
+	@PostMapping("enrollBoard.bo")
+	public String enrollBoard(BoardEnroll board, MultipartFile upfile, HttpSession session, Model model) {
+		BoardFileInfo boardFile = new BoardFileInfo();
+		Member loginUser = (Member)(session.getAttribute("loginUser"));
+
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeName = saveFile(upfile, session);
+			
+			boardFile.setOriginName(upfile.getOriginalFilename());
+			boardFile.setChangeName(changeName);
+			boardFile.setFilePath("resources/img/community/");
+			boardFile.setUserNo(loginUser.getUserNo());
+		}
+		
+		board.setUserNo(loginUser.getUserNo());
+		
+		int result = communityService.insertBoard(board, boardFile);
+		if(result > 0) { // 성공 -> list 페이지로 이동
+			session.setAttribute("alertMsg", "게시글 작성 성공");
+			return "redirect:/community";
+		} else { // 실패 -> 에러 페이지
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "";
+		}
+	}
+	
+	// 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
+	public String saveFile(MultipartFile upfile, HttpSession session) {
+		String originName = upfile.getOriginalFilename();
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		int ranNum = (int)(Math.random() * 90000 ) + 10000;
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		String changeName = currentTime + ranNum + ext;
+		
+		String savePath = session.getServletContext().getRealPath("resources/img/community/");
+	
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//		경로 또는 url, 해당 파일 객체를 저장할 때 사용
+		
+		return changeName;
+	}
+	
 	//게시글 삭제 컨트롤러
 	@GetMapping(value="delete.bo")
 	public String deleteBoard(BoardInfo boardInfo,HttpSession session) {
@@ -403,7 +454,6 @@ public class CommunityController {
 		}
 		//본인 게시글인지 check
 		int checkNo=communityService.checkBoardOwner(boardInfo.getBoardNo());
-		System.out.println("check:"+checkNo);
 		if(loginUser.getUserNo()!=checkNo) {
 			session.setAttribute("alertMsg", "본인게시글만 삭제할 수 있습니다.");
 			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
@@ -430,6 +480,61 @@ public class CommunityController {
 			return "redirect:/detailView.bo?bno="+boardInfo.getBoardNo();
 		}
 	}
+	//게시글 수정페이지 이동 컨트롤러 (수정 페이지로 이동)
+    @GetMapping(value="updateview.bo")
+    public String updateBoardView(int boardNo ,Model model ,HttpSession session) {
+    	
+    	
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+    	
+    	//본인 게시글인지 check
+		int checkNo=communityService.checkBoardOwner(boardNo);
+		if(loginUser.getUserNo()!=checkNo) {
+			session.setAttribute("alertMsg", "본인게시글만 수정할 수 있습니다.");
+			return "redirect:/detailView.bo?bno="+boardNo;
+		}else {
+			
+			CommunityBoard updateBoard = communityService.selectBoardDetail(boardNo);
+	    	model.addAttribute("updateBoard",updateBoard);
+	    	return "community/editPage";
+		}
+    	
+    
+    }
+    
+    //게시글 수정
+    
+    @PostMapping(value="update.bo")
+    public String updatedBoard(BoardEnroll board, MultipartFile upfile,HttpSession session, Model model) {
+    	
+    	BoardFileInfo boardFile = new BoardFileInfo();
+		Member loginUser = (Member)(session.getAttribute("loginUser"));
+		board.setUserNo(loginUser.getUserNo());
+		boardFile.setBoardNo(board.getBoardNo());
+		
+		String path="resources/img/community/";
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeName = saveFile(upfile, session,path);
+			
+			boardFile.setOriginName(upfile.getOriginalFilename());
+			boardFile.setChangeName(changeName);
+			boardFile.setFilePath("resources/img/community/");
+			boardFile.setUserNo(loginUser.getUserNo());
+		}
+		
+		
+		int result=communityService.updateBoard(board, boardFile);
+		log.info("result:{}",result);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "게시글이 수정 되었습니다.");
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 수정에 실패하였습니다.");
+		}
+		return "redirect:/community";
+		
+    }
 	
 	
 	

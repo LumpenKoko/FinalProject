@@ -14,6 +14,8 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ForIsLike;
@@ -288,6 +290,15 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	
+	@Override
+	public CommunityBoard selectBoardDetail(int boardNo) {
+		
+		return  communityDao.selectBoardDetail(sqlSession, boardNo);
+	}
+	
+	
+	
+	
 	//게시판댓글 대댓글 입력 서비스
 	@Override
 	@Transactional
@@ -431,6 +442,22 @@ public class CommunityServiceImpl implements CommunityService{
 		
 	}
 	
+	//게시글 수정
+	@Override
+	@Transactional
+	public int updateBoard(BoardEnroll board, BoardFileInfo boardFile) {
+		
+		int result=communityDao.updateBoard(sqlSession, board);
+		log.info(" s result1:{}",result);
+		int result2=1;
+		if(result>0&&boardFile.getChangeName()!=null) {
+			result2=communityDao.updateAttachment(sqlSession,boardFile);
+		}
+		log.info(" s result2:{}",result2);
+		return result*result2;
+	}
+
+	
 	@Override
 	public int checkBoardOwner(int boardNo) {
 		
@@ -470,12 +497,11 @@ public class CommunityServiceImpl implements CommunityService{
 		return null;
 	}
 
-	
-
 
 	
 
 
+	
 
 
 
@@ -483,6 +509,30 @@ public class CommunityServiceImpl implements CommunityService{
 
 
 
+
+
+
+
+	@Override
+	public int insertBoard(BoardEnroll board, BoardFileInfo boardfile) {
+		int result1 = communityDao.insertBoard(sqlSession, board);
+		int result2 = 1;
+		
+		//게시글 등록이 성공하고 첨부파일이 비어있지 않으면
+		if (result1 > 0 && boardfile.getChangeName() != null) {
+			result2 = communityDao.insertBoardAttachment(sqlSession, boardfile);
+		} 
+		
+//		else if (result1 > 0 && boardfile == null){
+//			result2 = 1;
+//		} else {
+//			result1 = result1 * 0;
+//		}
+		
+		
+		
+		return result1 * result2;
+	}
 
 
 }

@@ -158,29 +158,26 @@
     </delete>
     
     <select id="getPetKindByName" parameterType="string" resultMap="locationPetKind">
-        SELECT PET_KIND_NO, 
-        		PET_KIND_NAME
-        FROM PET_KIND
-        WHERE PET_KIND_NAME = #{petKindName}
-    </select>
+    SELECT PET_KIND_NO, PET_KIND_NAME
+    FROM PET_KIND
+    WHERE PET_KIND_NAME = #{petKindName}
+</select>
 
-    <select id="getPetSizeByName" parameterType="string" resultMap="locationPetSize">
-        SELECT PET_SIZE_NO, 
-		        PET_SIZE_NAME, 
-		        PET_KIND_NO
-        FROM PET_SIZE
-        WHERE PET_SIZE_NAME = #{petSizeName}
-    </select>
+<select id="getPetSizeByName" parameterType="string" resultMap="locationPetSize">
+    SELECT PET_SIZE_NO, PET_SIZE_NAME, PET_KIND_NO
+    FROM PET_SIZE
+    WHERE PET_SIZE_NAME = #{petSizeName}
+</select>
 
-    <insert id="insertPetKind" parameterType="map">
-        INSERT INTO PET_KIND (LOCATION_NO, PET_KIND_NAME)
-        VALUES (#{locationNo}, #{petKind})
-    </insert>
+<insert id="insertPetKind" parameterType="map">
+    INSERT INTO PET_KIND (PET_KIND_NO, PET_KIND_NAME)
+    VALUES (NEXTVAL('seq_pki'), #{petKind})
+</insert>
 
-    <insert id="insertPetSize" parameterType="map">
-        INSERT INTO PET_SIZE (LOCATION_NO, PET_SIZE_NAME)
-        VALUES (#{locationNo}, #{petSize})
-    </insert>
+<insert id="insertPetSize" parameterType="map">
+    INSERT INTO PET_SIZE (PET_SIZE_NO, PET_SIZE_NAME, PET_KIND_NO)
+    VALUES (NEXTVAL('seq_ps'), #{petSize}, #{petKindNo})
+</insert>
 
     <select id="getPetKinds" parameterType="int" resultType="string">
         SELECT PET_KIND_NAME
@@ -195,13 +192,13 @@
     </select>
 
     <insert id="insertLocationEnterGrade" parameterType="LocationEnterGrade">
-        INSERT INTO LOCATION_ENTER_GRADE (ENTER_NO, LOCATION_NO, PET_SIZE_NO)
-        VALUES (NEXTVAL('seq_ent'), #{locationNo}, #{petSizeNo})
-    </insert>
+	    INSERT INTO ENTER_GRADE (ENTER_NO, LOCATION_NO, PET_SIZE_NO)
+	    VALUES (NEXTVAL('seq_ent'), #{locationNo}, #{petSizeNo})
+	</insert>
 
     <select id="getLocationEnterGrades" parameterType="int" resultMap="locationEnterGrade">
         SELECT ENTER_NO, LOCATION_NO, PET_SIZE_NO
-        FROM LOCATION_ENTER_GRADE
+        FROM ENTER_GRADE
         WHERE LOCATION_NO = #{locationNo}
     </select>
     
@@ -214,6 +211,24 @@
         JOIN PET_KIND pk ON ps.PET_KIND_NO = pk.PET_KIND_NO
         WHERE leg.LOCATION_NO = #{locationNo}
     </select>
+    
+    <select id="getLocationList" resultMap="bossLocationResult">
+        SELECT LOCATION_NO,
+               LOCATION_NAME,
+               LOCATION_PHONE,
+               CATEGORY_NAME,
+               LOCATION_STAR,
+               RESERVATION_LINK,
+               BUSINESS_NO,
+               ADDRESS,
+               ENROLL_DATE,
+               EXPLANATION,
+               MODIFY_DATE
+        FROM LOCATION L
+        JOIN LOCATION_CATEGORY C
+        ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
+    </select>
+    
     
     
 </mapper>

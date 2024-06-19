@@ -1,4 +1,5 @@
 package com.kh.mng.bosspage.controller;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +32,6 @@ import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
-import com.kh.mng.bosspage.model.vo.LocationPetKind;
 import com.kh.mng.bosspage.model.vo.LocationPetSize;
 import com.kh.mng.bosspage.model.vo.LocationPicture;
 import com.kh.mng.bosspage.service.BossPageService;
@@ -198,22 +198,11 @@ public class bossPageController {
                     bossPageService.saveOperationTimes(locationInfo.getLocationNo(), operationTimes);
                 }
 
-                // Pet kind and size handling
-                List<String> petKinds = (List<String>) payload.get("petKinds");
+                // Pet size handling
                 List<String> petSizes = (List<String>) payload.get("petSizes");
-                if (petKinds != null && petSizes != null) {
-                    bossPageService.savePetKindsAndSizes(locationInfo.getLocationNo(), petKinds, petSizes);
 
-                    // Save LocationEnterGrade information
-                    for (String petSizeName : petSizes) {
-                        LocationPetSize locationPetSize = bossPageService.getPetSizeByName(petSizeName);
-                        if (locationPetSize != null) {
-                            LocationEnterGrade locationEnterGrade = new LocationEnterGrade();
-                            locationEnterGrade.setLocationNo(locationInfo.getLocationNo());
-                            locationEnterGrade.setPetSizeNo(locationPetSize.getPetSizeNo());
-                            bossPageService.saveLocationEnterGrade(locationEnterGrade);
-                        }
-                    }
+                if (petSizes != null && !petSizes.isEmpty()) {
+                    bossPageService.savePetSizes(locationInfo.getLocationNo(), petSizes);
                 }
 
                 if (result > 0) {

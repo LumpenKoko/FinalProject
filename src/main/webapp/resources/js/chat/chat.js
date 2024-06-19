@@ -93,7 +93,7 @@ function openChatRoom(roomNo,targetId,targetNo){
                 <div class="send-master">
                                 <div class="master-profile">
                                     <div class="img-div">
-                                        <img src="resources/img/star.png">
+                                        <img src="resources/img/default/default_profile.jpg">
                                     </div>
                                     <div class="master-name title">${recevie.nick}</div>
                                 </div>
@@ -131,7 +131,7 @@ function openChatRoom(roomNo,targetId,targetNo){
 
     sendButton.onclick=function(){
         let sendMsg=document.querySelector("input[name=msg]");
-        const now = new Date();	
+        const now = new Date();
         const msgData = {
             message:sendMsg.value,
             target:targetId,
@@ -151,7 +151,7 @@ function openChatRoom(roomNo,targetId,targetNo){
                        <div>To:${targetId}</div>
                        <div class="content  user-content user-color">
                            <div>${sendMsg.value}</div>
-                        <div class="time">${now.getHours()}:${now.getMinutes()}</div>
+                        <div class="time">${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}</div>
                        </div>
                    </div>
    
@@ -212,7 +212,7 @@ function drawChatList(chatList){
             <div class="send-master">
 				<div class="master-profile">
 					<div class="img-div">
-						<img src="resources/img/star.png">
+						<img src="resources/img/default/default_profile.jpg">
 					</div>
 					 <div class="master-name title">${chat.userNickName}</div>
 				</div>

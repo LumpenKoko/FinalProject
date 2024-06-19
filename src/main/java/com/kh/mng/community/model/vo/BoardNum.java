@@ -1,4 +1,6 @@
-package com.kh.mng.community.model.dto;
+package com.kh.mng.community.model.vo;
+
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BoardFileInfo {
-	private int picNo;
-	private String originName;
-	private String changeName;
-	private String filePath;
+public class BoardNum {
 	private int userNo;
 	private int boardNo;
 }

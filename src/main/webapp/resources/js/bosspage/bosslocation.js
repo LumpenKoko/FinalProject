@@ -31,14 +31,20 @@ function saveLocationInfo() {
         animalTypes.push(element.value);
     });
 
+    const petSizes = [];
+    document.querySelectorAll('input[name="pet-size"]:checked').forEach(element => {
+        petSizes.push(element.value);
+});
+
     const locationInfo = {
         locationPhone: locationPhone,
         explanation: explanation,
         reservationLink: reservationLink,
         userNo: userNo,
         operationTimes: operationTimes,
-        animalTypes: animalTypes
+        petSizes: petSizes // petSizes를 추가하여 전송
     };
+
 
     $.ajax({
         url: contextPath + '/saveLocationInfo.bm',

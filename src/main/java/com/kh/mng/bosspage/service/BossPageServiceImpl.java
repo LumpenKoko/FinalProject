@@ -14,7 +14,6 @@ import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
-import com.kh.mng.bosspage.model.vo.LocationPetKind;
 import com.kh.mng.bosspage.model.vo.LocationPetSize;
 import com.kh.mng.bosspage.model.vo.LocationPicture;
 
@@ -90,27 +89,23 @@ public class BossPageServiceImpl implements BossPageService {
 
     @Override
     @Transactional
-    public int savePetKindsAndSizes(int locationNo, List<String> petKinds, List<String> petSizes) {
-        if (petKinds == null) {
-            petKinds = new ArrayList<>();
-        }
+    public int savePetSizes(int locationNo, List<String> petSizes) {
         if (petSizes == null) {
             petSizes = new ArrayList<>();
         }
 
-        bossPageDao.deletePetKindsAndSizes(locationNo);
-        for (String petKind : petKinds) {
-            bossPageDao.insertPetKind(locationNo, petKind);
-        }
-        for (String petSize : petSizes) {
-            bossPageDao.insertPetSize(locationNo, petSize);
+        // 기존 사이즈 삭제
+        bossPageDao.deletePetSizesByLocation(locationNo);
 
-            // Save LocationEnterGrade information
-            LocationPetSize locationPetSize = bossPageDao.getPetSizeByName(petSize);
-            if (locationPetSize != null) {
+        for (String petSize : petSizes) {
+            // petSize 이름으로 기존 petSize 검색
+            LocationPetSize existingPetSize = bossPageDao.getPetSizeByName(petSize);
+
+            // LocationEnterGrade 정보 저장
+            if (existingPetSize != null) {
                 LocationEnterGrade locationEnterGrade = new LocationEnterGrade();
                 locationEnterGrade.setLocationNo(locationNo);
-                locationEnterGrade.setPetSizeNo(locationPetSize.getPetSizeNo());
+                locationEnterGrade.setPetSizeNo(existingPetSize.getPetSizeNo());
                 bossPageDao.insertLocationEnterGrade(locationEnterGrade);
             }
         }
@@ -118,18 +113,8 @@ public class BossPageServiceImpl implements BossPageService {
     }
 
     @Override
-    public List<String> getPetKinds(int locationNo) {
-        return bossPageDao.getPetKinds(locationNo);
-    }
-
-    @Override
     public List<String> getPetSizes(int locationNo) {
         return bossPageDao.getPetSizes(locationNo);
-    }
-
-    @Override
-    public LocationPetKind getPetKindByName(String petKindName) {
-        return bossPageDao.getPetKindByName(petKindName);
     }
 
     @Override
@@ -148,33 +133,33 @@ public class BossPageServiceImpl implements BossPageService {
         return bossPageDao.getLocationEnterGrades(locationNo);
     }
 
-	@Override
-	public int saveImages(int locationNo, List<LocationPicture> pictures) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int saveImages(int locationNo, List<LocationPicture> pictures) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public List<LocationPicture> getImages(int locationNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<LocationPicture> getImages(int locationNo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public int deleteImages(int locationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int deleteImages(int locationNo) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int savePictures(int locationNo, List<LocationPicture> pictures) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int savePictures(int locationNo, List<LocationPicture> pictures) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public List<LocationPicture> getPicturesByLocation(int locationNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<LocationPicture> getPicturesByLocation(int locationNo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

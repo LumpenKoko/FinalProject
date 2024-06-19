@@ -3,6 +3,7 @@ package com.kh.mng.member.service;
 import java.util.List;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.BoardNum;
 import com.kh.mng.community.model.vo.Shorts;
@@ -60,4 +61,7 @@ public interface MemberService {
 	
 	// 리뷰 업데이트
 	int updateReview(MyPageReview myReview);
+	
+	// 프로필 사진 업로드
+	int insertProfileImg(ProfileImg profileImg);
 }

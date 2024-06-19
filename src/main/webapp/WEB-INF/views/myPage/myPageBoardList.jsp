@@ -83,6 +83,8 @@
                                             <div id="updateForm" style="margin-left: 20px;">
                                                 <input type="text" style="width: 400px; height: 40px; border: 1px solid #bababa;
                                                     border-top-left-radius: 15px; border-bottom-left-radius: 15px; float: left; padding-left: 10px;">
+                                                    <button></button>
+                                                    <button></button>
                                             </div>
                                         </div>
                                         <div id="bottom">

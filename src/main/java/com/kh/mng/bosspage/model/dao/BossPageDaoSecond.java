@@ -15,29 +15,29 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 public class BossPageDaoSecond {
-	public ArrayList<CouponKind> selectCouponKindList(SqlSessionTemplate sqlSession, String loginUserNo){
-		return (ArrayList)sqlSession.selectList("searchMapper.selectCouponKindList", loginUserNo);
-	}
-	
-	public int selectLocationNo(SqlSessionTemplate sqlSession, CouponKind coupon) {
-		return sqlSession.selectOne("searchMapper.selectLocationNo", coupon);
-	}
-	
-	public int insertCouponKind(SqlSessionTemplate sqlSession, CouponKind coupon) {
-		return sqlSession.insert("searchMapper.insertCouponKind", coupon);
-	}
-
-	public int updateCouponKind(SqlSessionTemplate sqlSession, CouponKind coupon) {
-		return sqlSession.update("searchMapper.updateCouponKind", coupon);
-	}
-	
-	public CouponKind selectCouponKind(SqlSessionTemplate sqlSession, int couponNo) {
-		return sqlSession.selectOne("searchMapper.selectCouponKind", couponNo);
-	}
-	
-	public int deleteCouponKind(SqlSessionTemplate sqlSession, int couponNo) {
-		return sqlSession.update("searchMapper.deleteCouponKind", couponNo);
-	}
+//	public ArrayList<CouponKind> selectCouponKindList(SqlSessionTemplate sqlSession, String loginUserNo){
+//		return (ArrayList)sqlSession.selectList("searchMapper.selectCouponKindList", loginUserNo);
+//	}
+//	
+//	public int selectLocationNo(SqlSessionTemplate sqlSession, CouponKind coupon) {
+//		return sqlSession.selectOne("searchMapper.selectLocationNo", coupon);
+//	}
+//	
+//	public int insertCouponKind(SqlSessionTemplate sqlSession, CouponKind coupon) {
+//		return sqlSession.insert("searchMapper.insertCouponKind", coupon);
+//	}
+//
+//	public int updateCouponKind(SqlSessionTemplate sqlSession, CouponKind coupon) {
+//		return sqlSession.update("searchMapper.updateCouponKind", coupon);
+//	}
+//	
+//	public CouponKind selectCouponKind(SqlSessionTemplate sqlSession, int couponNo) {
+//		return sqlSession.selectOne("searchMapper.selectCouponKind", couponNo);
+//	}
+//	
+//	public int deleteCouponKind(SqlSessionTemplate sqlSession, int couponNo) {
+//		return sqlSession.update("searchMapper.deleteCouponKind", couponNo);
+//	}
 	
 	
 	

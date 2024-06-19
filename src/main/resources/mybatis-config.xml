@@ -55,6 +55,7 @@
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationEnterGrade" alias="LocationEnterGrade"/>
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPicture" alias="LocationPicture"/>
 		<typeAlias type="com.kh.mng.location.model.vo.AddressInfo" alias="AddressInfo"/>
+		<typeAlias type="com.kh.mng.common.model.vo.ProfileImg" alias="ProfileImg"/>
 
  	</typeAliases> 
  	
@@ -75,6 +76,7 @@
  	    <mapper resource="/mappers/community/community-shorts-mapper.xml"/>
  	    <mapper resource="/mappers/community/community-board-mapper.xml"/>
  	    <mapper resource="/mappers/chat/chat-mapper.xml"/>
+ 	    <mapper resource="/mappers/image-mapper.xml"/>
  	</mappers>
  	
     

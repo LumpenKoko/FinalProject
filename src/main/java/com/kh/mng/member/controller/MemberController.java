@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +18,9 @@ import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.member.service.MemberServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class MemberController {
 	
@@ -39,7 +41,6 @@ public class MemberController {
 	@PostMapping("login.me")
 	public ModelAndView memberLogin(Member m, ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		Member loginUser = memberService.loginMember(m);
-		
 //		// 아이디가 없을 때
 //				if (loginUser == null) {
 //					model.addAttribute("errorMsg", "아이디가 일치하지 않습니다.");

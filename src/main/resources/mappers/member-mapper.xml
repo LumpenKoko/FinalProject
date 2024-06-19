@@ -58,7 +58,7 @@
 		   AND STATUS = 'true'
 	</select>	
 	
-	<select id="selectMemberProfile" resultMap="attachmentResult">
+<!-- 	<select id="selectMemberProfile" resultMap="attachmentResult">
 		SELECT PIC_NO,
 			   ORIGIN_NAME,
 			   CHANGE_NAME,
@@ -66,7 +66,7 @@
 		FROM PICTURE
 		WHERE USER_NO = #{userNo}
 		AND FILE_LEVEL = 0
-	</select>
+	</select> -->
 	
 	<select id="checkMemberId" resultType="_int">
 		SELECT COUNT(*)

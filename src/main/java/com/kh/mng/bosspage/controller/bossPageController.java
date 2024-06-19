@@ -200,7 +200,6 @@ public class bossPageController {
 
                 // Pet size handling
                 List<String> petSizes = (List<String>) payload.get("petSizes");
-
                 if (petSizes != null && !petSizes.isEmpty()) {
                     bossPageService.savePetSizes(locationInfo.getLocationNo(), petSizes);
                 }

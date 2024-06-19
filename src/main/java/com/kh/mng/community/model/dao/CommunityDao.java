@@ -253,6 +253,7 @@ public class CommunityDao {
 
 	public int deleteLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
 		return sqlSession.delete("communityBoardMapper.deleteLike", forIsLike);
+	}
 
 	public int insertUpdateBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
 		// TODO Auto-generated method stub

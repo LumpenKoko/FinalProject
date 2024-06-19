@@ -75,7 +75,7 @@ public interface CommunityService {
 
 	int getIsLike(ForIsLike forIsLike);
 
-	String likeShorts(ForIsLike forisLike);
+	int likeShorts(ForIsLike forisLike);
 
 
 	int updateBoard(BoardEnroll board, BoardFileInfo boardFile);
@@ -85,6 +85,8 @@ public interface CommunityService {
 
 	// 게시글 등록
 	int insertBoard(BoardEnroll board, BoardFileInfo boardFile);
+
+	int deleteLike(ForIsLike forIsLike);
 
 
 }

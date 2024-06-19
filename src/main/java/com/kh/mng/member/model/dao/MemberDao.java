@@ -22,8 +22,8 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 	
-	public Attachment selectMemberProfile(SqlSessionTemplate sqlSession, int userNo) {
-		return sqlSession.selectOne("memberMapper.selectMemberProfile", userNo);
+	public ProfileImg selectMemberProfile(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("imgMapper.getProfileImg", userNo);
 	}
 	
 	public int checkMemberId(SqlSessionTemplate sqlSession, String checkId) {

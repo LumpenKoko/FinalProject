@@ -2,7 +2,7 @@ package com.kh.mng.member.model.vo;
 
 import java.sql.Date;
 
-import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.common.model.vo.ProfileImg;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +30,5 @@ public class Member {
 	private Date userBirthday;
 	private String userPhone;
 	private String userKind;
-	private Attachment userProfile;
+	private ProfileImg userProfile;
 }

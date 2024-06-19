@@ -94,7 +94,6 @@
                             <img src="${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}" alt="Profile Image" style="object-fit: cover;">
                         </c:otherwise>
                     </c:choose>
-
                     <div>
                         <span>${loginUser.userNickname}</span><br>
                          <a href="<%=contextPath%>/myPageMain.mp">마이페이지</a>&nbsp;&nbsp;<a href="<%=contextPath%>/logout.me">로그아웃</a>

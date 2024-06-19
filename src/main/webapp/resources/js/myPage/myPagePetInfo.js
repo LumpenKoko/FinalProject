@@ -34,7 +34,7 @@ function deletePet(petNo,contextPath) {
         error : function(error){
             console.log(error)
             alert('실패');
-            location.href='<%=request.getContextPath()%>/myPagePetInfo.mp';
+            location.href= contextPath + '/myPagePetInfo.mp';
         }                        
     });
 }
@@ -65,15 +65,15 @@ function uploadProfileImage(contextPath) {
         success: function(response) {
             if(response === "NNNNY") {
                 alert('프로필 이미지 업로드 성공');
-                location.href = contextPath + '/myPageMain.mp';
+                location.href= contextPath + '/myPagePetInfo.mp';
             } else {
                 alert('프로필 이미지 업로드 실패');
-                location.href = contextPath + '/myPageMain.mp';
+                location.href= contextPath + '/myPagePetInfo.mp';
             }
         },
         error: function() {
             alert('프로필 이미지 업로드 실패');
-            location.href = contextPath + '/myPageMain.mp';
+            location.href= contextPath + '/myPagePetInfo.mp';
         }
     });
 }

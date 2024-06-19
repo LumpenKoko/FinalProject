@@ -64,7 +64,7 @@ function createItem(num) {
                         <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn` + num + `">
                             댓글버튼
                         </button>
-                        <button>
+                        <button id="like-btn` + num +`">
                             좋아요버튼
                         </button>
                         <div class="white-pont" id="thumbnail-like-count` + num +`"></div>
@@ -80,7 +80,7 @@ function createItem(num) {
                 <div style="width: 100%; height: 100%">
                     <div class="row-box" style="height: 10%">
                         <h1>댓글</h1>
-                        <div style="color: var(--border-color)">56</div>
+                        <div style="color: var(--border-color)" id="reply-reply-count` + num +`"></div>
                     </div>
                     <div id="comments-list`+ num + `"class="tmp-box" style="height: 80%; max-height: 80%; overflow-y: auto; overflow-x: hidden; word-wrap: break-word;"></div>  
                     <div style="height: 10%">

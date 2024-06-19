@@ -509,14 +509,15 @@ public class CommunityServiceImpl implements CommunityService{
 
 
 	@Override
-	public String likeShorts(ForIsLike forisLike) {
-		// TODO Auto-generated method stub
-		return null;
+	public int likeShorts(ForIsLike forIsLike) {
+		return communityDao.likeShorts(sqlSession, forIsLike);
 	}
-
-
 	
-
+	
+	@Override
+	public int deleteLike(ForIsLike forIsLike) {
+		return communityDao.deleteLike(sqlSession, forIsLike);
+	}
 
 	
 
@@ -550,6 +551,9 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return result1 * result2;
 	}
+
+
+	
 
 
 }

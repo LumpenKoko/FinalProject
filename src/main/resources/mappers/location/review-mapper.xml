@@ -84,6 +84,8 @@
     			   FILE_PATH 
     			   FROM PICTURE
     			   WHERE USER_NO = #{userNo}
+    			   ORDER BY PIC_NO DESC
+    			   LIMIT 1
     </select>
     
       <insert id="insertReview">

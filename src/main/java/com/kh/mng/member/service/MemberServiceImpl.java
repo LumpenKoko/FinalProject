@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.dao.DetailDao;
@@ -144,5 +145,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateReview(MyPageReview myReview) {
 		return memberDao.updateReview(sqlSession, myReview);
+	}
+
+	@Override
+	public int insertProfileImg(ProfileImg profileImg) {
+		return memberDao.insertProfileImg(sqlSession, profileImg);
 	}
 }

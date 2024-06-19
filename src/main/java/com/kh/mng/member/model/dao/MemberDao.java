@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.Location;
@@ -100,5 +101,9 @@ public class MemberDao {
 
 	public int updateReview(SqlSessionTemplate sqlSession, MyPageReview myReview) {
 		return sqlSession.update("review.updateReview", myReview);
+	}
+
+	public int insertProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
+		return sqlSession.insert("imgMapper.insertProfileImg", profileImg);
 	}
 }

@@ -1,13 +1,25 @@
-document.getElementById('fileInput').addEventListener('change', function () {
-    var file = this.files[0];
-    var reader = new FileReader();
+function uploadProfileImage(contextPath) {
+    var fileInput = document.getElementById('fileInput');
+    var upfile = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('profileImage', upfile);
 
-    reader.onload = function (e) {
-        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-    }
-
-    reader.readAsDataURL(file);
-});
+    $.ajax({
+        url: contextPath + '/insertProfileImg.mp',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            alert('프로필 이미지 업로드 성공!');
+            // 응답으로 받은 새로운 이미지 URL로 프로필 이미지 업데이트
+            $('#profile').css('background-image', 'url(' + response.newImageUrl + ')');
+        },
+        error: function() {
+            alert('프로필 이미지 업로드 실패');
+        }
+    });
+}
 
 var petNames = ["반려동물1", "반려동물2", "반려동물3"]; // 실제로는 해당 데이터를 서버로부터 받아와야 합니다.
 

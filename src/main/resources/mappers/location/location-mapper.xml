@@ -212,5 +212,21 @@
         WHERE leg.LOCATION_NO = #{locationNo}
     </select>
     
+    <select id="getLocationList" resultMap="bossLocationResult">
+        SELECT LOCATION_NO,
+               LOCATION_NAME,
+               LOCATION_PHONE,
+               CATEGORY_NAME,
+               LOCATION_STAR,
+               RESERVATION_LINK,
+               BUSINESS_NO,
+               ADDRESS,
+               ENROLL_DATE,
+               EXPLANATION,
+               MODIFY_DATE
+        FROM LOCATION L
+        JOIN LOCATION_CATEGORY C
+        ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
+    </select>
     
 </mapper>

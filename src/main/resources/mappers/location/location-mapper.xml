@@ -38,15 +38,9 @@
         <result column="LOCATION_NO" property="locationNo"/>
     </resultMap>
 
-    <resultMap type="LocationPetKind" id="locationPetKind">
-        <result column="PET_KIND_NO" property="petKindNo"/>
-        <result column="PET_KIND_NAME" property="petKindName"/>
-    </resultMap>
-
     <resultMap type="LocationPetSize" id="locationPetSize">
         <result column="PET_SIZE_NO" property="petSizeNo"/>
         <result column="PET_SIZE_NAME" property="petSizeName"/>
-        <result column="PET_KIND_NO" property="petKindNo"/>
     </resultMap>
 
     <resultMap type="LocationEnterGrade" id="locationEnterGrade">
@@ -147,54 +141,16 @@
         WHERE LOCATION_NO = #{locationNo}
     </delete>
 
-    <delete id="deletePetKinds" parameterType="int">
-        DELETE FROM PET_KIND 
-        WHERE PET_KIND_NO = #{petSizeNo}
-    </delete>
-    
-    <delete id="deletePetSizes" parameterType="int">
-        DELETE FROM PET_SIZE 
-        WHERE PET_KIND_NO = #{petSizeNo}
-    </delete>
-    
-    <select id="getPetKindByName" parameterType="string" resultMap="locationPetKind">
-    SELECT PET_KIND_NO, PET_KIND_NAME
-    FROM PET_KIND
-    WHERE PET_KIND_NAME = #{petKindName}
-</select>
-
-<select id="getPetSizeByName" parameterType="string" resultMap="locationPetSize">
-    SELECT PET_SIZE_NO, PET_SIZE_NAME, PET_KIND_NO
-    FROM PET_SIZE
-    WHERE PET_SIZE_NAME = #{petSizeName}
-</select>
-
-<insert id="insertPetKind" parameterType="map">
-    INSERT INTO PET_KIND (PET_KIND_NO, PET_KIND_NAME)
-    VALUES (NEXTVAL('seq_pki'), #{petKind})
-</insert>
-
-<insert id="insertPetSize" parameterType="map">
-    INSERT INTO PET_SIZE (PET_SIZE_NO, PET_SIZE_NAME, PET_KIND_NO)
-    VALUES (NEXTVAL('seq_ps'), #{petSize}, #{petKindNo})
-</insert>
-
-    <select id="getPetKinds" parameterType="int" resultType="string">
-        SELECT PET_KIND_NAME
-        FROM PET_KIND
-        WHERE LOCATION_NO = #{locationNo}
-    </select>
-
-    <select id="getPetSizes" parameterType="int" resultType="string">
-        SELECT PET_SIZE_NAME
+    <select id="getPetSizeByName" parameterType="string" resultMap="locationPetSize">
+        SELECT PET_SIZE_NO, PET_SIZE_NAME
         FROM PET_SIZE
-        WHERE LOCATION_NO = #{locationNo}
+        WHERE PET_SIZE_NAME = #{petSizeName}
     </select>
 
     <insert id="insertLocationEnterGrade" parameterType="LocationEnterGrade">
-	    INSERT INTO ENTER_GRADE (ENTER_NO, LOCATION_NO, PET_SIZE_NO)
-	    VALUES (NEXTVAL('seq_ent'), #{locationNo}, #{petSizeNo})
-	</insert>
+        INSERT INTO ENTER_GRADE (ENTER_NO, LOCATION_NO, PET_SIZE_NO)
+        VALUES (NEXTVAL('seq_ent'), #{locationNo}, #{petSizeNo})
+    </insert>
 
     <select id="getLocationEnterGrades" parameterType="int" resultMap="locationEnterGrade">
         SELECT ENTER_NO, LOCATION_NO, PET_SIZE_NO
@@ -202,15 +158,15 @@
         WHERE LOCATION_NO = #{locationNo}
     </select>
     
-    <select id="getPetKindSizesAndGradesByLocation" parameterType="int" resultType="map">
-        SELECT pk.PET_KIND_NAME,
-               ps.PET_SIZE_NAME,
-               leg.PET_SIZE_NO
-        FROM LOCATION_ENTER_GRADE leg
-        JOIN PET_SIZE ps ON leg.PET_SIZE_NO = ps.PET_SIZE_NO
-        JOIN PET_KIND pk ON ps.PET_KIND_NO = pk.PET_KIND_NO
-        WHERE leg.LOCATION_NO = #{locationNo}
+    <delete id="deletePetSizesByLocation" parameterType="int">
+        DELETE FROM ENTER_GRADE 
+        WHERE LOCATION_NO = #{locationNo}
+    </delete>
+
+    <select id="getPetSizes" parameterType="int" resultType="string">
+        SELECT ps.PET_SIZE_NAME
+        FROM ENTER_GRADE eg
+        JOIN PET_SIZE ps ON eg.PET_SIZE_NO = ps.PET_SIZE_NO
+        WHERE eg.LOCATION_NO = #{locationNo}
     </select>
-    
-    
 </mapper>

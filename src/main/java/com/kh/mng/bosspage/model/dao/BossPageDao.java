@@ -1,8 +1,6 @@
 package com.kh.mng.bosspage.model.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
-import com.kh.mng.bosspage.model.vo.LocationPetKind;
 import com.kh.mng.bosspage.model.vo.LocationPetSize;
 import com.kh.mng.bosspage.model.vo.LocationPicture;
 
@@ -71,26 +68,8 @@ public class BossPageDao {
         return sqlSession.delete("location.deleteOperationTimes", locationNo);
     }
 
-    public int deletePetKindsAndSizes(int locationNo) {
-        sqlSession.delete("location.deletePetKinds", locationNo);
-        sqlSession.delete("location.deletePetSizes", locationNo);
-        return 1;
-    }
-
-    public LocationPetKind getPetKindByName(String petKindName) {
-        return sqlSession.selectOne("location.getPetKindByName", petKindName);
-    }
-
     public LocationPetSize getPetSizeByName(String petSizeName) {
         return sqlSession.selectOne("location.getPetSizeByName", petSizeName);
-    }
-
-    public int insertPetKind(Map<String, Object> params) {
-        return sqlSession.insert("location.insertPetKind", params);
-    }
-
-    public int insertPetSize(Map<String, Object> params) {
-        return sqlSession.insert("location.insertPetSize", params);
     }
 
     public int insertLocationEnterGrade(LocationEnterGrade locationEnterGrade) {
@@ -112,23 +91,9 @@ public class BossPageDao {
     public List<LocationPicture> getPicturesByLocation(int locationNo) {
         return sqlSession.selectList("location.getPicturesByLocation", locationNo);
     }
-
-    public int insertPetKind(int locationNo, String petKind) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("locationNo", locationNo);
-        params.put("petKind", petKind);
-        return sqlSession.insert("location.insertPetKind", params);
-    }
-
-    public int insertPetSize(int locationNo, String petSize) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("locationNo", locationNo);
-        params.put("petSize", petSize);
-        return sqlSession.insert("location.insertPetSize", params);
-    }
-
-    public List<String> getPetKinds(int locationNo) {
-        return sqlSession.selectList("location.getPetKinds", locationNo);
+    
+    public int deletePetSizesByLocation(int locationNo) {
+        return sqlSession.delete("location.deletePetSizesByLocation", locationNo);
     }
 
     public List<String> getPetSizes(int locationNo) {

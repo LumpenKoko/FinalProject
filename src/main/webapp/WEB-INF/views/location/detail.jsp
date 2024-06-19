@@ -323,8 +323,12 @@
 												<span style="color:#FE8B94;">
 													<c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
 												</span>
-												<span><a href="#">수정</a>|<a
-														onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
+												<span>
+												   <if test="${r.userNo == userNo}">
+														<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a>
+												   </if>
+													
+												</span>
 											</div>
 										</div>
 

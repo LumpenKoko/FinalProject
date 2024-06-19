@@ -94,6 +94,8 @@ function drawReivew(review) {
 
   let reviewContent = document.querySelector("#review-content-box");
   let reviewBody = "";
+  let checkUser= ""
+
   for (let r of review) {
     let imgs = "";
     let reply = "";
@@ -128,6 +130,10 @@ function drawReivew(review) {
       checkedMasterInput=`
       <a id="reply-button${r.reviewNo}" class="reply-button" onclick="onReplyOnClick('${r.reviewNo}')">답글작성</a>&nbsp;`
     }
+
+    if(r.userNo==userNo){
+      
+    }
     
     reviewBody += `
         <div class="review-section">
@@ -140,8 +146,8 @@ function drawReivew(review) {
 							</div>
 
 							<div>
-                <span  style="color:#FE8B94;">`+ reviewStar + `</span>
-                <span><a href="#">수정</a>|<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
+                <span style="color:#FE8B94;">`+ reviewStar + `</span>
+                <span><a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
 							</div>
 						</div>
             <div class="img-content">`+ imgs + `</div>

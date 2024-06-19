@@ -64,4 +64,6 @@ public interface MemberService {
 	
 	// 프로필 사진 업로드
 	int insertProfileImg(ProfileImg profileImg);
+
+	ProfileImg getProfileImg(int userNo);
 }

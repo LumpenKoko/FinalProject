@@ -151,4 +151,9 @@ public class MemberServiceImpl implements MemberService {
 	public int insertProfileImg(ProfileImg profileImg) {
 		return memberDao.insertProfileImg(sqlSession, profileImg);
 	}
+
+	@Override
+	public ProfileImg getProfileImg(int userNo) {
+		return memberDao.getProfileImg(sqlSession, userNo);
+	}
 }

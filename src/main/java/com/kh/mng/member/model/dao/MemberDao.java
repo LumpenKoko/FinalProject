@@ -106,4 +106,8 @@ public class MemberDao {
 	public int insertProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
 		return sqlSession.insert("imgMapper.insertProfileImg", profileImg);
 	}
+
+	public ProfileImg getProfileImg(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("imgMapper.getProfileImg", userNo);
+	}
 }

@@ -313,6 +313,13 @@ form{
     width: 120px;
 }
 
+.delete-img{
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 /*페이징 처리 css*/
 
  /* .page-div{

@@ -92,28 +92,26 @@
 								<div class="title">상세정보 </div>
 								<div class="detail-information detail-content">
 									<div>
-										<div class="content"><h5>${l.categoryName}</h5></div>
-										<div class="content">${l.locationPhone}</div>
+										<div><h5>${l.categoryName}</h5></div>
+										<div class="title"><h6>☎${l.locationPhone}</h6></div><br>
 										<!-- 장소별로 식별-->
 										<c:if test="${l.locationCategoryNo eq 4}">
-											<c:forEach var="o" items="${l.operationTime}">
-												<div class="content">체크인:${o.startTime}</div>
-												<div class="content">체크아웃:${o.endTime}</div>
-												<div class="content">체크인/체크아웃:${o.day}</div>
-											</c:forEach>
+											<div><h5>체크인 체크아웃</h5></div>
+											<div><c:forEach var="o" items="${l.operationTime}">
+												<span>${o.day}:</span>
+												<span>▼${o.startTime}~${o.endTime}▲</span>&nbsp;
+											</c:forEach></div>
 									   </c:if>
 									</div>
+
 									<div>
 
-										<div><h5>반려동물 출입등급</h5></div>
-										<div class="content">
+										<div class="title">반려동물 출입등급</div>
+										<div>
 											<c:forEach var="k" items="${l.petKindGrade}">
-												<span>
-													${k.petSizeName}
-												</span>
+											  <span class="content">${k.petSizeName}</span>
 											</c:forEach>
 										</div><br>
-										<div><h5>${l.locationName}</h5></div>
 										<div class="content">${l.address}</div>
 										<div class="content">${l.reservationLink}</div>
 									</div>
@@ -123,7 +121,7 @@
 							<div class="section more-area">
 								<span class="title">더 알아보기</span><br>
 								<div><button class="common-button white-button" style="width:100%;"
-										onclick="location.href='https://map.kakao.com/link/search/제주특별자치도 제주시 첨단로 242'">지도보기</button>
+										onclick="location.href='https://map.kakao.com/link/search/${l.address}'">지도보기</button>
 								</div>
 								<div> </div>
 								<div><button class="common-button pink-button" style="width:100%;"
@@ -252,7 +250,7 @@
 										</div>
 										<!-- Modal footer -->
 										<div class="modal-footer" style="align-items: center; width:100%;">
-											<button type="button" class="common-button pink-button">예약하기</button>
+											<button type="button" class="common-button pink-button" onclick="location.href='${l.reservationLink}'">예약하기</button>
 											<button type="button" class="common-button white-button"
 												data-dismiss="modal">닫기</button>
 										</div>
@@ -299,9 +297,9 @@
 									<li class="count" style="color:#c2bcbc;">${reviewCount}건의 리뷰</li>
 								</ul>
 								<ul class="category-ul">
-									<li><a  onclick="reviewPaging(1,'o')">최신순</a></li>
-									<li><a  onclick="reviewPaging(1,'h')">높은 평점순</a></li>
-									<li><a  onclick="reviewPaging(1,'l')">낮은 평점순</a></li>
+									<li><a  onclick="reviewPaging(1,'o')" style="cursor: pointer;">최신순</a></li>
+									<li><a  onclick="reviewPaging(1,'h')" style="cursor: pointer;">높은 평점순</a></li>
+									<li><a  onclick="reviewPaging(1,'l')" style="cursor: pointer;">낮은 평점순</a></li>
 								</ul>
 							</div>
 
@@ -323,8 +321,12 @@
 												<span style="color:#FE8B94;">
 													<c:forEach begin="1" end="${r.reviewStar}">★</c:forEach>
 												</span>
-												<span><a href="#">수정</a>|<a
-														onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a></span>
+												<span>
+												   <c:if test="${r.userNo == userNo}">
+														<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a>
+												   </c:if>
+													
+												</span>
 											</div>
 										</div>
 
@@ -428,9 +430,12 @@
 							<div class="review-section">
 								<div class="enroll-div">
 									<div class="enroll-profile">
-										<div class="img-div">
-											<img src="resources/img/default/default_profile.jpg" alt="Profile Image">
-										</div>
+										<c:if test="${userProfile!=null}">
+											<div class="img-div">
+												<img src="${userProfile.filePath}${userProfile.changeName}" alt="Profile Image">
+											</div>
+									    </c:if>
+
 										<div class="star-rating">
 											<input type="radio" class="star" name="rating" value="1">
 											<input type="radio" class="star" name="rating" value="2">

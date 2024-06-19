@@ -558,6 +558,7 @@ public class CommunityController {
 	        if(userNo != 0) {
 	        	// 검사해봄
 	        	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
+	        	log.info("like객체:" + forIsLike);
 	        	int isLikeReturn = communityService.getIsLike(forIsLike);
 	        	
 	        	if (isLikeReturn > 0) {
@@ -603,13 +604,43 @@ public class CommunityController {
 	
 	@ResponseBody
 	@GetMapping(value="like.sh", produces="application/json; charset=utf-8")
-	public String likeShorts(@RequestParam(value="num") int videoId,
+	public boolean likeShorts(@RequestParam(value="num") int videoId,
 							@RequestParam(value="userNum") int userNo){
+		//totalInfo 가져와서 isLike가
+		// true: 좋아요 삭제하는 쿼리 날림
+		// false: 좋아요 추가하는 쿼리 날림
+		// 미완성.....
 		int shortsNum = communityService.getShortsNum(videoId);
 		
-		ForIsLike forisLike = new ForIsLike(userNo, shortsNum);
+		boolean isLike = false;
+        
+        if(userNo != 0) {
+        	// 검사해봄
+        	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
+        	log.info("like객체:" + forIsLike);
+        	int isLikeReturn = communityService.getIsLike(forIsLike);
+        	
+        	if (isLikeReturn > 0) {
+        		isLike = true;
+        	} else {
+        		isLike = false;
+        	}
+        }
+        
+        if(isLike) {
+        	// 좋아요 삭제하는 쿼리
+        	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
+        	int result = communityService.deleteLike(forIsLike); // 1 이상이면 성공
+        } else if(!isLike) {
+        	// 좋아요 추가하는 쿼리
+        	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
+        	int result = communityService.likeShorts(forIsLike); // 1 이상이면 성공
+        } else {
+        	log.info("error");
+        }
 		
-		return communityService.likeShorts(forisLike);
+        return false;
+//		return communityService.likeShorts(forisLike);
 //		return new Gson().toJson(replyList);
 	}
 }

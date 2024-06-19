@@ -35,6 +35,7 @@ import com.kh.mng.common.chat.service.ChatService;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.dto.ReplyInfo;
 import com.kh.mng.location.model.dto.ReviewInfo;
@@ -44,6 +45,7 @@ import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.service.LocationService;
 import com.kh.mng.member.model.vo.Member;
+import com.kh.mng.member.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,6 +58,7 @@ import com.kh.mng.location.model.vo.DetailLocation;
 public class LocationController {
 
 	private final LocationService detailService;
+	private final MemberService memberService;
 	private final ChatService chatService;
 	
 	
@@ -75,9 +78,10 @@ public class LocationController {
 	
 	
 	@Autowired 
-	public  LocationController(LocationService detailService,ChatService chatService) {
+	public  LocationController(LocationService detailService,ChatService chatService,MemberService memberService) {
 		this.detailService=detailService;
 		this.chatService=chatService;
+		this.memberService=memberService;
 	}
 
 	
@@ -102,12 +106,14 @@ public class LocationController {
 		String checkedMaster="NNNN";
 		int userNo=-1;
 		
+		ProfileImg userProfile =null;
 		if(loginUser!=null) {
 			//사장인지 체크
 			if((loginUser.getUserNo()==detailLocations.getUserNo())&& (detailLocations.getUserKind().equals("Y"))) {
 				checkedMaster="YYYY";
 			}
 			userNo=loginUser.getUserNo();
+			userProfile = memberService.getProfileImg(userNo);
 		}
 		
 		System.out.println(checkedMaster);
@@ -117,6 +123,7 @@ public class LocationController {
 		model.addAttribute("checkedMaster",checkedMaster);
 		model.addAttribute("reviewCount",reviewCount);
 		model.addAttribute("userNo",userNo);
+		model.addAttribute("userProfile",userProfile);
 		
 		return "location/detail";
 	}

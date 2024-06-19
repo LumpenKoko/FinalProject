@@ -159,4 +159,9 @@
     		#{shortsNo}
     		)
     </insert>
+    
+    <delete id="deleteGood">
+	    DELETE FROM GOOD
+	    WHERE USER_NO = #{userNo} AND SHORTS_NO = #{shortsNo}
+	</delete>
   </mapper>

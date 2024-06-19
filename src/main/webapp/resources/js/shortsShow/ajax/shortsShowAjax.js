@@ -162,11 +162,6 @@ function loadVideo(num) {
 // 좋아요 누르는 함수
 $(document).on('click', '[id^="like-btn"]', function () {
 
-    console.log("제발");
-    console.log(userNo);
-    console.log(typeof(userNo)); //String임....
-    console.log("여기");
-
     if (userNo === null) {
         alert("로그인한 회원만 좋아요를 누를 수 있습니다.");
         return;
@@ -209,7 +204,7 @@ $(document).on('click', '[id^="like-btn"]', function () {
             }
         },
         error: function () {
-            console.log("댓글 로드 실패");
+            console.log("좋아요 실패");
         }
     });
 });

@@ -14,6 +14,8 @@ import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
 import com.kh.mng.community.model.dao.CommunityDao;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
@@ -294,6 +296,8 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	
+	
+	
 	//게시판댓글 대댓글 입력 서비스
 	@Override
 	@Transactional
@@ -437,6 +441,22 @@ public class CommunityServiceImpl implements CommunityService{
 		
 	}
 	
+	//게시글 수정
+	@Override
+	@Transactional
+	public int updateBoard(BoardEnroll board, BoardFileInfo boardFile) {
+		
+		int result=communityDao.updateBoard(sqlSession, board);
+		log.info(" s result1:{}",result);
+		int result2=1;
+		if(result>0&&boardFile.getChangeName()!=null) {
+			result2=communityDao.updateAttachment(sqlSession,boardFile);
+		}
+		log.info(" s result2:{}",result2);
+		return result*result2;
+	}
+
+	
 	@Override
 	public int checkBoardOwner(int boardNo) {
 		
@@ -463,6 +483,8 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.getShortsNum(sqlSession, videoId);
 	}
 
+
+	
 
 
 

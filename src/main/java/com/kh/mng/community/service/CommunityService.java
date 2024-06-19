@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
@@ -69,6 +71,8 @@ public interface CommunityService {
 	ArrayList<Attachment> deleteBoard(BoardInfo boardInfo);
 
 	int checkBoardOwner(int boardNo);
+
+	int updateBoard(BoardEnroll board, BoardFileInfo boardFile);
 
 	
 

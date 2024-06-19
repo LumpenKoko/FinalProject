@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
+import com.kh.mng.community.model.dto.BoardEnroll;
+import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -211,6 +213,16 @@ public class CommunityDao {
 
 	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
 		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
+	}
+
+	public int updateBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
+		
+		return sqlSession.update("communityBoardMapper.updateBoard",board);
+	}
+
+	public int updateAttachment(SqlSessionTemplate sqlSession,BoardFileInfo boardFile) {
+		
+		return sqlSession.update("communityBoardMapper.updateBoardAttachment",boardFile);
 	}
 
 	

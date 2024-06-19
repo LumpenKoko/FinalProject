@@ -18,7 +18,9 @@
 	<div class="wrapper">
 		<div class="main">
 			<div class="community-area">
-				<form action="#" method="POST" enctype="multipart/form-data">
+				<form action="update.bo" method="POST" enctype="multipart/form-data">
+					
+					<input name="boardNo" value="${updateBoard.boardNo}"  hidden>
 					<div>
 						<div>
 							<select id="category" name="boardCategoryNo">
@@ -33,26 +35,24 @@
 							</select>
 						</div>
 						<div>
-							<input type="text" name="boardTitle" placeholder="제목을 입력하세요" id="titleInput">
+							<input type="text" name="boardTitle" placeholder="제목을 입력하세요" id="titleInput" value="${updateBoard.boardTitle}">
 						</div>
 						
 					</div>
 
 					<hr>
 					
-					<textarea id="summernote" name="boardContent">
-						
-					</textarea>
+					<textarea id="summernote" name="boardContent">${updateBoard.boardContent}</textarea>
 
 					<hr>
 
-					<input type="file" name="upfile" style="display: none;" onchange="thumbnailImg(this)">
+					<input type="file" name="upfile" style="display: none;" onchange="thumbnailImg(this)" value="${( not empty updateBoard.attachment)?updateBoard.attachment.get(0):''}">
 					<div class="flex-box" style="height: 100px; justify-content: space-between;">
 						<div id="img-box">
 							<img src="resources/img/default/defaultImg.png" alt="이미지등록" id="img-icon" style="cursor: pointer;" width="50" height="50" onclick="insertImg()">
 							<span></span>
 						</div>
-						<button type="submit" class="common-button pink-button">게시글 등록</button>
+						<button type="submit" class="common-button pink-button">게시글 수정</button>
 					</div>
 					
 				</form>

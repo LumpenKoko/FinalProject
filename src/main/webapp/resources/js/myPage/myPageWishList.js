@@ -52,3 +52,31 @@ for (var i = 0; i < petNames.length; i++) {
     petNameElement.textContent = petNames[i];
     petNamesElement.appendChild(petNameElement);
 }
+
+function uploadProfileImage(contextPath) {
+    var fileInput = document.getElementById('fileInput');
+    var upfile = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('profileImage', upfile);
+
+    $.ajax({
+        url: contextPath + '/insertProfileImg.mp',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if(response === "NNNNY") {
+                alert('프로필 이미지 업로드 성공');
+                location.href = contextPath + '/myPageMain.mp';
+            } else {
+                alert('프로필 이미지 업로드 실패');
+                location.href = contextPath + '/myPageMain.mp';
+            }
+        },
+        error: function() {
+            alert('프로필 이미지 업로드 실패');
+            location.href = contextPath + '/myPageMain.mp';
+        }
+    });
+}

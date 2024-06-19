@@ -26,15 +26,10 @@ function saveLocationInfo() {
         operationTimes.push({ day, startTime, endTime, restStatus });
     });
 
-    const animalTypes = [];
-    document.querySelectorAll('input[name="animal-type"]:checked').forEach(element => {
-        animalTypes.push(element.value);
-    });
-
     const petSizes = [];
-    document.querySelectorAll('input[name="pet-size"]:checked').forEach(element => {
+    document.querySelectorAll('input[name="animal-type"]:checked').forEach(element => {
         petSizes.push(element.value);
-});
+    });
 
     const locationInfo = {
         locationPhone: locationPhone,
@@ -44,7 +39,6 @@ function saveLocationInfo() {
         operationTimes: operationTimes,
         petSizes: petSizes // petSizes를 추가하여 전송
     };
-
 
     $.ajax({
         url: contextPath + '/saveLocationInfo.bm',

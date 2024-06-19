@@ -67,15 +67,8 @@ public class BossPageDao {
     public int deleteOperationTimes(int locationNo) {
         return sqlSession.delete("location.deleteOperationTimes", locationNo);
     }
-
-    public LocationPetSize getPetSizeByName(String petSizeName) {
-        return sqlSession.selectOne("location.getPetSizeByName", petSizeName);
-    }
-
-    public int insertLocationEnterGrade(LocationEnterGrade locationEnterGrade) {
-        return sqlSession.insert("location.insertLocationEnterGrade", locationEnterGrade);
-    }
-
+    
+    
     public List<LocationEnterGrade> getLocationEnterGrades(int locationNo) {
         return sqlSession.selectList("location.getLocationEnterGrades", locationNo);
     }
@@ -84,9 +77,6 @@ public class BossPageDao {
         return sqlSession.insert("location.insertPicture", picture);
     }
 
-    public int deletePicturesByLocation(int locationNo) {
-        return sqlSession.delete("location.deletePicturesByLocation", locationNo);
-    }
 
     public List<LocationPicture> getPicturesByLocation(int locationNo) {
         return sqlSession.selectList("location.getPicturesByLocation", locationNo);
@@ -96,7 +86,19 @@ public class BossPageDao {
         return sqlSession.delete("location.deletePetSizesByLocation", locationNo);
     }
 
+    public int deletePicturesByLocation(int locationNo) {
+    	return sqlSession.delete("location.deletePicturesByLocation", locationNo);
+    }
+    
+    public LocationPetSize getPetSizeByName(String petSizeName) {
+    	return sqlSession.selectOne("location.getPetSizeByName", petSizeName);
+    }
+    
+    public int insertLocationEnterGrade(LocationEnterGrade locationEnterGrade) {
+        return sqlSession.insert("location.insertLocationEnterGrade", locationEnterGrade);
+    }
+    
     public List<String> getPetSizes(int locationNo) {
-        return sqlSession.selectList("location.getPetSizes", locationNo);
+    	return sqlSession.selectList("location.getPetSizes", locationNo);
     }
 }

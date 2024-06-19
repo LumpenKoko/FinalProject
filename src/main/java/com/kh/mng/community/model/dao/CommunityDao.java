@@ -222,7 +222,6 @@ public class CommunityDao {
 	    return (result != null) ? result : 0;
 	}
 
-
 	public int updateBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		
 		return sqlSession.update("communityBoardMapper.updateBoard",board);
@@ -236,7 +235,7 @@ public class CommunityDao {
 
 //	community 게시글 등록
 
-	
+
 	public int insertBoard(SqlSessionTemplate sqlSession, BoardEnroll board) {
 		return sqlSession.insert("communityBoardMapper.insertBoard", board);
 	}
@@ -244,6 +243,7 @@ public class CommunityDao {
 	public int insertBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
 		return sqlSession.insert("communityBoardMapper.insertBoardAttachment", boardFile);
 	}
+
 
 	// 숏츠 좋아요 관련
 	public int likeShorts(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
@@ -253,6 +253,11 @@ public class CommunityDao {
 
 	public int deleteLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
 		return sqlSession.delete("communityBoardMapper.deleteLike", forIsLike);
+
+	public int insertUpdateBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("communityBoardMapper.insertUpdateBoardAttachment", boardFile);
+
 	}
 
 	

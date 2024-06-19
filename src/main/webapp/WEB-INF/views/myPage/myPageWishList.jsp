@@ -24,8 +24,9 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(resources/img/myPage/profile.png)">
-                                    <input type="file" id="fileInput" style="display: none;">
+                                <div id="profile" style="background-image: url(${profileImg.changeName})">
+                                    <input type="file" id="fileInput" style="display: none;"
+                                        onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
                                 <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>
                                 <div id="solidMain"></div>

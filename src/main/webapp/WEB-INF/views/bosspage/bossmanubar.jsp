@@ -22,7 +22,7 @@
             </div>
             <div style="border-bottom: none;"><p style="margin-left: 10px;">쿠폰 / 리뷰관리</p></div>
             <div style="border-bottom: none;">
-                <a href="<%=request.getContextPath()%>/bossCouponPage.bcc?uno=${loginUser.userNo}">쿠폰 관리</a>
+                <a href="<%=request.getContextPath()%>/bossCouponPage.bc">쿠폰 관리</a>
             </div>
             <div style="border-bottom-left-radius:15px; border-bottom-right-radius: 15px;">
                 <a href="<%=request.getContextPath()%>/bossPageReviews.bp">리뷰 관리</a>

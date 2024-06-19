@@ -30,50 +30,50 @@ public class BossPageServiceImplSecond implements BossPageServiceSecond{
 //		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
 //	}
 	
-	private final BossPageDaoSecond bossPageDaoSecond;
-    private final SqlSessionTemplate sqlSession;
-    
-    @Autowired
-    public BossPageServiceImplSecond(BossPageDaoSecond bossPageDaoSecond, SqlSessionTemplate sqlSession) {
-    	this.bossPageDaoSecond = bossPageDaoSecond;
-    	this.sqlSession = sqlSession;
-    }
-//	@Autowired
-//    private BossPageDaoSecond bossPageDaoSecond;
-
+//	private final BossPageDaoSecond bossPageDaoSecond;
+//    private final SqlSessionTemplate sqlSession;
+//    
 //    @Autowired
-//    private SqlSessionTemplate sqlSession;
-
-    
-    
-	@Override
-	public ArrayList<CouponKind> selectCouponKindList(String loginUserNo) {
-		return bossPageDaoSecond.selectCouponKindList(sqlSession, loginUserNo);
-	}
-
-	@Override
-	public int insertCouponKind(CouponKind coupon) {
-		int locNo = bossPageDaoSecond.selectLocationNo(sqlSession, coupon);
-		coupon.setLocationNo(String.valueOf(locNo));
-		return bossPageDaoSecond.insertCouponKind(sqlSession, coupon);
-	}
-
-	@Override
-	public CouponKind updateCouponKind(CouponKind coupon) {
-		int result = bossPageDaoSecond.updateCouponKind(sqlSession, coupon);
-		CouponKind newCoupon = null;
-		
-		if (result > 0) {
-			newCoupon = bossPageDaoSecond.selectCouponKind(sqlSession, coupon.getCouponNo());
-		} 
-		
-		return newCoupon;
-	}
-
-	@Override
-	public int deleteCouponkind(int couponNo) {
-		return bossPageDaoSecond.deleteCouponKind(sqlSession, couponNo);
-	}
+//    public BossPageServiceImplSecond(BossPageDaoSecond bossPageDaoSecond, SqlSessionTemplate sqlSession) {
+//    	this.bossPageDaoSecond = bossPageDaoSecond;
+//    	this.sqlSession = sqlSession;
+//    }
+////	@Autowired
+////    private BossPageDaoSecond bossPageDaoSecond;
+//
+////    @Autowired
+////    private SqlSessionTemplate sqlSession;
+//
+//    
+//    
+//	@Override
+//	public ArrayList<CouponKind> selectCouponKindList(String loginUserNo) {
+//		return bossPageDaoSecond.selectCouponKindList(sqlSession, loginUserNo);
+//	}
+//
+//	@Override
+//	public int insertCouponKind(CouponKind coupon) {
+//		int locNo = bossPageDaoSecond.selectLocationNo(sqlSession, coupon);
+//		coupon.setLocationNo(String.valueOf(locNo));
+//		return bossPageDaoSecond.insertCouponKind(sqlSession, coupon);
+//	}
+//
+//	@Override
+//	public CouponKind updateCouponKind(CouponKind coupon) {
+//		int result = bossPageDaoSecond.updateCouponKind(sqlSession, coupon);
+//		CouponKind newCoupon = null;
+//		
+//		if (result > 0) {
+//			newCoupon = bossPageDaoSecond.selectCouponKind(sqlSession, coupon.getCouponNo());
+//		} 
+//		
+//		return newCoupon;
+//	}
+//
+//	@Override
+//	public int deleteCouponkind(int couponNo) {
+//		return bossPageDaoSecond.deleteCouponKind(sqlSession, couponNo);
+//	}
 
 //	@Override
 //	public int insertBoard(BoardEnroll board, BoardFileInfo boardfile) {

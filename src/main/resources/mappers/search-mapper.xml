@@ -213,7 +213,7 @@
 	
 	<!-- bossPage 임시 매퍼 -->
 	
-	<resultMap type="CouponKind" id="couponKindResult">
+	<!-- <resultMap type="CouponKind" id="couponKindResult">
          <result column="COUPON_NO" property="couponNo"/>
          <result column="COUPON_CONTENT" property="couponContent"/>
          <result column="COUPON_EXPIRATION_PERIOD" property="couponExpirationPeriod"/>
@@ -320,7 +320,7 @@
    		UPDATE COUPON
    		   SET STATUS = false
    		 WHERE COUPON_NO = #{couponNo}
-   	</update>
+   	</update> -->
    	
    	
    	

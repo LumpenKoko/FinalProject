@@ -229,16 +229,6 @@
         ON (L.LOCATION_CATEGORY_NO = C.LOCATION_CATEGORY_NO)
     </select>
     
-    <delete id="deletePetSizesByLocation" parameterType="int">
-        DELETE FROM ENTER_GRADE 
-        WHERE LOCATION_NO = #{locationNo}
-    </delete>
-
-    <select id="getPetSizes" parameterType="int" resultType="string">
-        SELECT ps.PET_SIZE_NAME
-        FROM ENTER_GRADE eg
-        JOIN PET_SIZE ps ON eg.PET_SIZE_NO = ps.PET_SIZE_NO
-        WHERE eg.LOCATION_NO = #{locationNo}
-    </select>
+    
     
 </mapper>

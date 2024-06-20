@@ -16,7 +16,7 @@
 </head>
     <%@ include file="../common/header.jsp"%>
 
-<body onload="init('${contextPath}','${loginUser.userNickname}','${loginUser.userNo}')">
+<body onload="init('${contextPath}','${loginUser.userNickname}','${loginUser.userNo}','${loginUser.userProfile.filePath}','${loginUser.userProfile.changeName}')">
 	
 	<div class="wrapper">
         <div class="main">
@@ -96,6 +96,7 @@
                                                     <img src="resources/community/threeCircle.png" alt="">
                                                     <c:if test="${loginUser!=null && (loginUser.userNo eq r.userNo )}">
                                                         <div class="change-box">
+    
                                                             <div id="deleteReply${r.replyNo}" onclick="replyDelete('${r.replyNo}')"><a style="cursor: pointer;">삭제하기</a></div>
                                                         </div>
                                                     </c:if>
@@ -121,6 +122,7 @@
                                                         </div>
                                                         <c:if test="${loginUser!=null && (loginUser.userNo eq rr.userNo )}">
                                                             <div class="change-box">
+                                                                <div><a href="/myPageMain.mp">수정</a></div>
                                                                 <div id="deleteReply${rr.replyNo}" onclick="replyDelete('${rr.replyNo}')"><a style="cursor: pointer;">삭제하기</a></div>
                                                             </div>
                                                         </c:if>
@@ -137,7 +139,7 @@
                                        
                                             <div class="reply-regist-info">
                                                 <div>
-                                                    <img src="${r.replyUserProfile.filePath}${r.replyUserProfile.changeName}" alt="">
+                                                    <img src="${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}" alt="">
                                                     <span>${(loginUser!=null)?loginUser.userNickname:'로그인하세요'}</span>
                                                 </div>
                                             </div>

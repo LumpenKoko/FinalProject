@@ -13,6 +13,7 @@ import com.kh.mng.common.chat.model.dao.ChatDao;
 import com.kh.mng.common.chat.model.dto.ChatInfo;
 import com.kh.mng.common.chat.model.dto.UserTarget;
 import com.kh.mng.common.chat.model.vo.Chat;
+import com.kh.mng.common.chat.model.vo.ChatLocationInfo;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
 
@@ -93,6 +94,22 @@ public class ChatService {
 		}
 		
 		
+	}
+
+	@Transactional
+	public ArrayList<ChatLocationInfo> selectChatLocationInfo(int userNo) {
+		
+		ArrayList<ChatLocationInfo> chatLocationInfo =new ArrayList<>();
+		
+		ArrayList<Integer>locationNos=chatDao.selectLocationNo(sqlSession,userNo);
+	
+		for(Integer locationNo:locationNos) {
+			
+			 ChatLocationInfo chatLos= chatDao.selectLocationInfo(sqlSession,locationNo);
+			 chatLocationInfo.add(chatLos);
+		}
+		
+		return  chatLocationInfo;
 	}
 	
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.chat.model.dto.ChatInfo;
 import com.kh.mng.common.chat.model.dto.UserTarget;
 import com.kh.mng.common.chat.model.vo.Chat;
+import com.kh.mng.common.chat.model.vo.ChatLocationInfo;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
 
@@ -59,6 +60,16 @@ public class ChatDao {
 	public int updateNotify(SqlSessionTemplate sqlSession,int chatNo) {
 		
 		return sqlSession.update("chatMapper.updateNotify",chatNo);
+	}
+
+	public ChatLocationInfo selectLocationInfo(SqlSessionTemplate sqlSession, int locationNo) {
+		
+		return sqlSession.selectOne("chatMapper.locationInfo",locationNo);
+	}
+
+	public ArrayList<Integer> selectLocationNo(SqlSessionTemplate sqlSession, int userNo) {
+		
+		return (ArrayList)sqlSession.selectList("chatMapper.selectlocationNo",userNo);
 	}
 
 }

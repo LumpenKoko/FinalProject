@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kh.mng.common.chat.model.dto.UserTarget;
 import com.kh.mng.common.chat.model.vo.Chat;
+import com.kh.mng.common.chat.model.vo.ChatLocationInfo;
 import com.kh.mng.common.chat.model.vo.MasterInfo;
 import com.kh.mng.common.chat.model.vo.UserInfo;
 import com.kh.mng.common.chat.service.ChatService;
@@ -376,7 +377,7 @@ public class LocationController {
 //		return new Gson().toJson(reivewPage);
 //	}
 	
-	///////채팅///////
+	//==========================/////채팅/////==============================================//
 	
 	@GetMapping(value = "chatPage.cp")
 	public String chatPage(@RequestParam(value="locationNo",defaultValue="1") int locationNo,  Model model,HttpSession session) {
@@ -448,6 +449,16 @@ public class LocationController {
 		ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
 		log.info("{}"+chats);
 		return new Gson().toJson(chats);
+	}
+	
+	//접속유저가 유저일시 채팅목록 띄워주기 , 채팅방 이름은 장소이름으로 한다.
+	//목록을 클릭하면  프론트에서 해당 채팅방으로 포워딩 시키기
+	@GetMapping(value="userchat.view")
+	public String userGetChatList(Model model,HttpSession session) {
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		ArrayList<ChatLocationInfo> locationInfo = chatService.selectChatLocationInfo(userNo);
+		model.addAttribute("locationInfo",locationInfo);
+		return "chat/chatUserList";
 	}
 
 	

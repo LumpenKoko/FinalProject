@@ -4,16 +4,7 @@ function showOrderBox(){
     orderBox.classList.toggle('display-block');
 }
 
-// 정렬 기준 스타일 바꾸기
-function changeOrderColor(selectedOrder){
-    let orderContent = document.querySelectorAll('.order-by-list');
-    
-    for (let order of orderContent){
-        order.style.color = 'black';
-    }
 
-    selectedOrder.style.color = 'var(--main-color)'
-}
     
 // 페이지 로드 시 공감 및 가게 클릭 시 페이지 이동 이벤트핸들러
 function handelPick(event, loginUserNo, locationNo){
@@ -162,18 +153,18 @@ function drawSearchPage(locationInfo){
     
     orderByTitle.innerHTML += '<span>정렬기준</span><img id="order-by-icon" src="resources/img/searchpage/open-icon.png" alt="">'
 
-    for (let i = 0; i < 3; i++){
+    for (let i = 1; i <= 3; i++){
         let orderByContent = document.createElement('input');
         orderByContent.name = 'order';
         orderByContent.type = 'radio';
         orderByContent.style.display = 'none';
-        orderByContent.value = i+1;
+        orderByContent.value = i;
 
-        if (i == 0){
+        if (i == 1){
             orderByContent.id = 'order-by-time';
-        } else if (i == 1) {
+        } else if (i == 2) {
             orderByContent.id = 'order-by-star';
-        } else if (i == 2){
+        } else if (i == 3){
             orderByContent.id = 'order-by-pick';
         }
 
@@ -194,9 +185,21 @@ function drawSearchPage(locationInfo){
 
     searchOrderBy.append(orderByBox);
 
-    orderByBox.innerHTML += '<label class="order-by-list" for="order-by-time">최신순</label>'
-                            + '<label class="order-by-list" for="order-by-star">별점순</label>'
-                            + '<label id="order-by-last" class="order-by-list" for="order-by-pick">찜개수순</label></div>'
+    if (locationInfo.order == 1){
+        orderByBox.innerHTML += '<label class="order-by-list" for="order-by-time" style="color: var(--main-color)">최신순</label>'
+                                + '<label class="order-by-list" for="order-by-star">별점순</label>'
+                                + '<label id="order-by-last" class="order-by-list" for="order-by-pick">찜개수순</label></div>'
+    } else if (locationInfo.order == 2){
+        orderByBox.innerHTML += '<label class="order-by-list" for="order-by-time">최신순</label>'
+                                + '<label class="order-by-list" for="order-by-star" style="color: var(--main-color)">별점순</label>'
+                                + '<label id="order-by-last" class="order-by-list" for="order-by-pick">찜개수순</label></div>'
+    } else if (locationInfo.order == 3){
+        orderByBox.innerHTML += '<label class="order-by-list" for="order-by-time">최신순</label>'
+                                + '<label class="order-by-list" for="order-by-star">별점순</label>'
+                                + '<label id="order-by-last" class="order-by-list" for="order-by-pick" style="color: var(--main-color)">찜개수순</label></div>'
+    }
+
+    
     orderByTitle.onclick = showOrderBox;
 
     // 검색 결과 장소 컨텐츠 박스
@@ -225,8 +228,11 @@ function drawSearchPage(locationInfo){
             searchResultBox.append(searchContentBox)
 
             // 좌측 장소 대표 이미지
-            searchContentBox.innerHTML = '<img src="'+ loc.attachment.filePath + loc.attachment.changeName + '" alt="">';
-
+            if (loc.attachment != null){
+                searchContentBox.innerHTML = '<img src="'+ loc.attachment.filePath + loc.attachment.changeName + '" alt="">';
+            } else {
+                searchContentBox.innerHTML = '<img src="resources/img/default/default_location_img.png" alt="">';
+            }
             // 우측 장소 설명 박스
             let searchContent = document.createElement('div');
             searchContent.className = 'search-content';

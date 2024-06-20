@@ -422,7 +422,7 @@ function activeCommonEnroll(){
 // 주소 실시간 수정
 function changeAddress(){
     let content = document.querySelector("#address-content");
-    let detail = document.querySelector("#address-detail");
+    // let detail = document.querySelector("#address-detail");
     let userAddress = document.querySelector("[name='address']");
     userAddress.value = content.value
     // userAddress.value = content.value + " " + detail.value;

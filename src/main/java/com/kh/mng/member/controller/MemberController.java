@@ -169,9 +169,11 @@ public class MemberController {
 	
 	// 핸드폰 번호 중복 체크
 	@ResponseBody
-	@GetMapping(value="checkPhone.me")
+	@GetMapping("checkPhone.me")
 	public String checkPhoneNumber(String userPhone) {
 		int result = memberService.checkPhoneNumber(userPhone);
+		log.info(userPhone);
+		log.info("{}", result);
 		if (result > 0) {
 			return "NNNNY";
 		} else {
@@ -202,5 +204,17 @@ public class MemberController {
 	        redirectAttributes.addFlashAttribute("errorMsg", "개인정보 수정에 실패하였습니다.");
 	        return "redirect:/myPageInfo.mp";
 	    }
+	}
+	
+	
+	@PostMapping("searchUserId")
+	public String searchUserId(String userPhone, String certifyCode) {
+		
+		return "";
+	}
+	
+	@PostMapping("changeUserPwd")
+	public String changeUserPwd() {
+		return "";
 	}
 }

@@ -230,4 +230,8 @@
         WHERE LOCATION_NO = #{locationNo}
     </select>
     
+    <delete id="deletePicturesByLocation" parameterType="int">
+	    DELETE FROM PICTURE WHERE LOCATION_NO = #{locationNo}
+	</delete>
+    
 </mapper>

@@ -27,7 +27,7 @@
                                         onclick="document.getElementById('fileInput').click()" id="camera">
                                     <div id="profile"
                                         style="background-image: url(${profileImg.filePath}${profileImg.changeName})">
-                                        <input type="file" id="fileInput" style="display: none;"
+                                        <input type="file" id="fileInput" style="display: none; background-position: center; background-repeat: no-repeat; background-size: cover;"
                                             onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                     </div>
                                     <p id="nickName" style="margin-bottom: 10px;">${loginUser.userNickname}</p>

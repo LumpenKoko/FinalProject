@@ -36,7 +36,7 @@ function init(path,masterKind){
         }
     
         socket.onmessage=function(ev){
-           
+           const now =new Date();
             const recevie =JSON.parse(ev.data);
             //유저목록 count 증가 시킨다. 
             //let userNo=document.querySelector("#userKey").value
@@ -52,6 +52,8 @@ function init(path,masterKind){
             document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
             parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
         }
+         document.querySelector("#content"+recevie.userNo).innerHTML=recevie.msg;
+         document.querySelector("#date"+recevie.userNo).innerHTML=`${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
       }
     
     }
@@ -95,17 +97,18 @@ function openChatRoom(roomNo,targetId,targetNo){
                                     <div class="img-div">
                                         <img src="resources/img/default/default_profile.jpg">
                                     </div>
-                                    <div class="master-name title">${recevie.nick}</div>
+                                    <div class="master-name title">${(recevie.nick!==undefined)?recevie.nick:"사장님"}</div>
                                 </div>
                                 <div class="content master-content master-color">
                                         <div> ${recevie.msg} </div>
-                                    <div class="time">${now.getHours()}:${now.getMinutes()}</div>
+                                    <div class="time">${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}</div>
                                 </div>
                         </div>
             `
     }
      else{
 
+         //자신한테 오는 메세지가 아니면 카운트표시만 증가시킨다.
         //유저목록 count 증가 시킨다. 
           //let userNo=document.querySelector("#userKey").value
           if(document.querySelector("#notifyCount"+recevie.userNo)===null){
@@ -120,6 +123,9 @@ function openChatRoom(roomNo,targetId,targetNo){
            document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
            parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
        }
+           document.querySelector("#content"+recevie.userNo).innerHTML=recevie.msg;
+           document.querySelector("#date"+recevie.userNo).innerHTML=`${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+
      }
 
 
@@ -243,6 +249,8 @@ function onloadChatList(data,callback){
             callback(response)
             if(document.querySelector("#notifyCount"+data.targetNo)){
                 document.querySelector("#notifyCount"+data.targetNo).remove();
+                document.querySelector("#content"+data.targetNo).innerHTML="";
+                document.querySelector("#date"+data.targetNo).innerHTML="";
             }
           
         },
@@ -253,6 +261,3 @@ function onloadChatList(data,callback){
 
   
 }
-
-
-

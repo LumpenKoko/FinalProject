@@ -51,15 +51,18 @@ public class ChatService {
 	}
 	
 	@Transactional
-	public ArrayList<UserInfo> selectUserInfo(int userNo) {
+	public ArrayList<UserInfo> selectUserInfo(UserTarget userMasterInfo) {
 		//넘어오는 userNo는 사장님 userNO
-		ArrayList<UserInfo> userInfo=chatDao.selectUserInfo(sqlSession,userNo);
-		 
+		ArrayList<UserInfo> userInfo=chatDao.selectUserInfo(sqlSession,userMasterInfo);
 		if(!userInfo.isEmpty()) {
-			//UserInfo에서 반환되는 userNo는 유저userNo
-			for(UserInfo userList:userInfo) {
-				int messageCount=chatDao.selectNotifyMessageCount(sqlSession,userList.getUserNo());
-				Map<String,String> lastestMessage=chatDao.selectNotifyMessage(sqlSession,userList.getUserNo());
+			//UserInfo에서 반환되는 userNo는 유저userNo           //userList.getUserNo()
+			for(UserInfo userList:userInfo) { 
+				UserTarget targetUser = new UserTarget();
+				targetUser.setTargetNo(userMasterInfo.getUserNo());
+				targetUser.setUserNo(userList.getUserNo());
+				
+				int messageCount=chatDao.selectNotifyMessageCount(sqlSession,targetUser); 
+				Map<String,String> lastestMessage=chatDao.selectNotifyMessage(sqlSession,targetUser);
 				userList.setMessageCount(messageCount);
 				userList.setLastestMessage(lastestMessage);
 			}

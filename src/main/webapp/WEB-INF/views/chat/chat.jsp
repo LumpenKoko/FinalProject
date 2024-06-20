@@ -36,13 +36,13 @@
 										<input id="userId${userList.userNo}" type="text"  value="${userList.userId}" hidden>
 										<input id="userNo${userList.userNo}" type="text"  value="${userList.userNo}" hidden>
 										<div id="userNickName${userList.userNo}" class="title">${userList.userNickName}</div>
-										<div class="content${userList.userNo}">${userList.lastestMessage.message}</div>
+										<div id="content${userList.userNo}">${userList.lastestMessage.message}</div>
 									</div>
 								</div>
 								
 								<!--실시간 처리-->
 								<div id="notice${userList.userNo}" class="notice">
-									<div class="date">${userList.lastestMessage.enroll_time}</div>
+									<div id=date${userList.userNo}  class="date">${userList.lastestMessage.enroll_time}</div>
 									<c:if test="${userList.messageCount != 0}">
 										<div id="notifyCount${userList.userNo}" class="notify">${userList.messageCount}</div>
 									</c:if>

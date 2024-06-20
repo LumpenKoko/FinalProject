@@ -1,12 +1,15 @@
 package com.kh.mng.bosspage.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -249,12 +252,12 @@ public class bossPageController {
     }
 
     @PostMapping("/uploadImage")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("locationNo") int locationNo) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("locationNo") int locationNo,HttpSession session) {
         log.info("uploadImage called with file: {} and locationNo: {}", file.getOriginalFilename(), locationNo);
 
         try {
             // 파일 저장 경로 설정
-            String uploadDir = "C:/path/to/upload/directory";  // 실제 파일 저장 경로로 변경해야 합니다.
+            String uploadDir = "resources/img/location/";  // 실제 파일 저장 경로로 변경해야 합니다.
             log.info("Upload directory: {}", uploadDir);
 
             // 디렉토리 존재 여부 확인 및 생성
@@ -265,7 +268,9 @@ public class bossPageController {
             }
 
             String originalFileName = file.getOriginalFilename();
-            String newFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+            //String newFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+            String newFileName =saveFile(file,session,uploadDir);
+            
             log.info("Original file name: {}, New file name: {}", originalFileName, newFileName);
 
             Path path = uploadPath.resolve(newFileName);
@@ -276,7 +281,7 @@ public class bossPageController {
             LocationPicture picture = new LocationPicture();
             picture.setOriginName(originalFileName);
             picture.setChangeName(newFileName);
-            picture.setFilePath(path.toString());
+            picture.setFilePath(uploadDir);
             picture.setFileLevel(1); // 파일 레벨을 적절히 설정
             picture.setLocationNo(locationNo);
 
@@ -294,6 +299,40 @@ public class bossPageController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청");
         }
     }
+    
+    private String saveFile(MultipartFile upfile, HttpSession session, String path) {
+		// 파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
+		String originName = upfile.getOriginalFilename();
+
+		// 년월일시분초
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+		// 5자리 랜덤값
+		int ranNum = (int) (Math.random() * 90000) + 10000;
+
+		// 확장자
+		String ext = originName.substring(originName.lastIndexOf("."));
+
+		// 수정된 첨부파일명
+		String changeName = currentTime + ranNum + ext;
+
+		// 첨부파일을 저장할 폴더의 물리적 경로(session)
+		String savePath = session.getServletContext().getRealPath(path);
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return changeName;
+
+	}
+	
+    
+    
+    
 
 
 

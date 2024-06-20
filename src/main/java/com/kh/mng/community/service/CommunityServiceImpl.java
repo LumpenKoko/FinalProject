@@ -112,7 +112,7 @@ public class CommunityServiceImpl implements CommunityService{
 				 if(attachment.isEmpty()) {
 					 Attachment defaultAttachMent = new Attachment();
 					 defaultAttachMent.setFilePath("resources/img/default/");
-					 defaultAttachMent.setChangeName("defaultImg.png");
+					 defaultAttachMent.setChangeName("default_location_img.png");
 					 attachment.add(defaultAttachMent);
 				 }
 				 
@@ -189,7 +189,7 @@ public class CommunityServiceImpl implements CommunityService{
 			else {
 				ShortsFileInfo defaultImg= new ShortsFileInfo();
 				defaultImg.setFilePath("resources/img/default/");
-				defaultImg.setChangeName("defaultImg.png");
+				defaultImg.setChangeName("default_location_img.png");
 				
 				count1=communityDao.insertShortsAttachment(sqlSession,defaultImg);
 			}

@@ -19,6 +19,7 @@ import lombok.ToString;
 public class BossLocationOption {
 
 	private int locationOptionNo;
+	private int locationNo;
 	private String goods;//상품이름
 	private String goodPrice;//상품가격
 	private String roomInfo;//객실 정보

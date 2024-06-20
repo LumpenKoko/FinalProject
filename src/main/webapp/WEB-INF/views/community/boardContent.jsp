@@ -32,8 +32,8 @@
                             <img src="resources/community/threeCircle.png" alt="">
                             <c:if test="${loginUser!=null && (loginUser.userNo eq board.userNo )}">
                                 <div class="change-box">
-                                    <div class="change-box-list" onclick="update()">수정하기</div>
-                                    <div class="change-box-list change-box-last"  onclick="deleteBoard()">삭제하기</div>
+                                    <div class="change-box-list" onclick="update()" style="cursor: pointer;">수정하기</div>
+                                    <div class="change-box-list change-box-last"  onclick="deleteBoard()" style="cursor: pointer;">삭제하기</div>
                                 </div>
                             </c:if>
                         </div>
@@ -198,7 +198,7 @@
                    
                         <div class="reply-regist-info">
                             <div>
-                                <img src="resources/img/default/default_profile.jpg" alt="">
+                                <img src="${userProfile.filePath}${userProfile.changeName}" alt="">
                                 <span>${(loginUser!=null)?loginUser.userNickname:'로그인하세요'}</span>
                             </div>
                             <button  type="button" id="replyButton" class="common-button pink-button">댓글 등록</button>

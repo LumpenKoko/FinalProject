@@ -11,6 +11,7 @@ import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.DeleteBoardAttachmentInfo;
 import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -87,6 +88,8 @@ public interface CommunityService {
 	int insertBoard(BoardEnroll board, BoardFileInfo boardFile);
 
 	int deleteLike(ForIsLike forIsLike);
+
+	int deleteBoardAttachment(DeleteBoardAttachmentInfo deleteInfo);
 
 
 }

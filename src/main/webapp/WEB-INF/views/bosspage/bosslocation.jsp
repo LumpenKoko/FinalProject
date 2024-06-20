@@ -61,26 +61,21 @@
                     <div>
                         <p>업체 사진등록(*필수*)</p>
                         <div id="photo-registration">
-                            <label for="file7">
-                                <div class="registration-upload" data-target="file7">
-                                    <img src="resources/img/myPage/+.png">
-                                </div>
+                            <label for="file7" class="registration-upload" data-target="file7">
+                                <img src="resources/img/myPage/+.png">
                             </label>
-                            <input type="file" accept="image/*" name="file" id="file7" class="company-file">
-                            <label for="file8">
-                                <div class="registration-upload" data-target="file8">
-                                    <img src="resources/img/myPage/+.png">
-                                </div>
+                            <input type="file" accept="image/*" name="file" id="file7" class="company-file" style="display: none;">
+                            <label for="file8" class="registration-upload" data-target="file8">
+                                <img src="resources/img/myPage/+.png">
                             </label>
-                            <input type="file" accept="image/*" name="file" id="file8" class="company-file">
-                            <label for="file9">
-                                <div class="registration-upload" data-target="file9">
-                                    <img src="resources/img/myPage/+.png">
-                                </div>
+                            <input type="file" accept="image/*" name="file" id="file8" class="company-file" style="display: none;">
+                            <label for="file9" class="registration-upload" data-target="file9">
+                                <img src="resources/img/myPage/+.png">
                             </label>
-                            <input type="file" accept="image/*" name="file" id="file9" class="company-file">
+                            <input type="file" accept="image/*" name="file" id="file9" class="company-file" style="display: none;">
                         </div>
                     </div>
+                    
                     <div>
                         <p>상품등록</p>
                         <div id="product-registration">

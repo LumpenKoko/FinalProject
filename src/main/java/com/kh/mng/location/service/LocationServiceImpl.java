@@ -127,7 +127,7 @@ public class LocationServiceImpl implements LocationService {
 				 if(userProfile==null) {
 					userProfile=new Attachment();
 					userProfile.setFilePath("resources/img/default/");
-					userProfile.setChangeName("star.png");
+					userProfile.setChangeName("default_profile.jpg");
 				  }
 				 review.setAttachment(attachMents);
 				 review.setUserProfile(userProfile);
@@ -211,7 +211,7 @@ public class LocationServiceImpl implements LocationService {
 				 if(userProfile==null) {
 					userProfile=new Attachment();
 					userProfile.setFilePath("resources/img/default/");
-					userProfile.setChangeName("star.png");
+					userProfile.setChangeName("default_profile.jpg");
 				  }
 				 review.setAttachment(attachMents);
 				 review.setUserProfile(userProfile);

@@ -25,14 +25,14 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    slides = document.querySelectorAll('.slide>img');
-    currentSlide = 0;
-    slideCount = slides.length;
+// document.addEventListener('DOMContentLoaded', () => {
+//     slides = document.querySelectorAll('.slide>img');
+//     currentSlide = 0;
+//     slideCount = slides.length;
 
-    // 첫 슬라이드를 바로 표시
-    slides[currentSlide].style.display = 'block';
-    slides[currentSlide].style.opacity = 1;
+//     // 첫 슬라이드를 바로 표시
+//     slides[currentSlide].style.display = 'block';
+//     slides[currentSlide].style.opacity = 1;
 
-    setInterval(nextSlide, 4500); // 3.5초마다 자동 슬라이드
-});
+//     setInterval(nextSlide, 4500); // 3.5초마다 자동 슬라이드
+// });

@@ -30,6 +30,16 @@ function thumbnailImg(imgFile){
     let nameBox = document.querySelector('#img-box>span');
     fileName = imgFile.files[0].name;
     nameBox.innerHTML = fileName;
+    
+    removeExistedFile()
+}
+function removeExistedFile(){
 
-    document.querySelector("#existingFile").remove();
+    let tempExistedFile=document.querySelector("#tempExistedFile")
+    let existedFileChange=document.querySelector("#existedFileChange")
+    existedFileChange.value=tempExistedFile.value;
+
+   let existedFile=document.querySelector("#existingFile")
+   existedFile.remove();
+ 
 }

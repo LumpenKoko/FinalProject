@@ -245,7 +245,7 @@
 }
 
 .input-reply-div{
-    width: 95%;
+    width: 80%;
     float:right;
     display: flex;
     justify-content: space-evenly;
@@ -311,6 +311,13 @@ form{
 #delete-text>button{
     margin: 0px 10px;
     width: 120px;
+}
+
+.delete-img{
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    margin-left: 10px;
 }
 
 /*페이징 처리 css*/

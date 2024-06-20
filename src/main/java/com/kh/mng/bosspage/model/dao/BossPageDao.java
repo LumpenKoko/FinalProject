@@ -2,7 +2,10 @@ package com.kh.mng.bosspage.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +19,8 @@ import com.kh.mng.bosspage.model.vo.LocationPicture;
 
 @Repository
 public class BossPageDao {
+
+    private static final Logger log = LoggerFactory.getLogger(BossPageDao.class);
 
     @Autowired
     private SqlSessionTemplate sqlSession;
@@ -67,8 +72,7 @@ public class BossPageDao {
     public int deleteOperationTimes(int locationNo) {
         return sqlSession.delete("location.deleteOperationTimes", locationNo);
     }
-    
-    
+
     public List<LocationEnterGrade> getLocationEnterGrades(int locationNo) {
         return sqlSession.selectList("location.getLocationEnterGrades", locationNo);
     }
@@ -80,24 +84,25 @@ public class BossPageDao {
     public List<LocationPicture> getPicturesByLocation(int locationNo) {
         return sqlSession.selectList("location.getPicturesByLocation", locationNo);
     }
-    
+
     public int deletePetSizesByLocation(int locationNo) {
         return sqlSession.delete("location.deletePetSizesByLocation", locationNo);
     }
 
     public int deletePicturesByLocation(int locationNo) {
-    	return sqlSession.delete("location.deletePicturesByLocation", locationNo);
+        log.info("Deleting pictures for locationNo: {}", locationNo);
+        return sqlSession.delete("location.deletePicturesByLocation", locationNo);
     }
-    
+
     public LocationPetSize getPetSizeByName(String petSizeName) {
-    	return sqlSession.selectOne("location.getPetSizeByName", petSizeName);
+        return sqlSession.selectOne("location.getPetSizeByName", petSizeName);
     }
-    
+
     public int insertLocationEnterGrade(LocationEnterGrade locationEnterGrade) {
         return sqlSession.insert("location.insertLocationEnterGrade", locationEnterGrade);
     }
-    
+
     public List<String> getPetSizes(int locationNo) {
-    	return sqlSession.selectList("location.getPetSizes", locationNo);
+        return sqlSession.selectList("location.getPetSizes", locationNo);
     }
 }

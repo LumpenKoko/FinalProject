@@ -35,4 +35,5 @@ public interface BossPageService {
     LocationPetSize getPetSizeByName(String petSizeName);
     int saveLocationEnterGrade(LocationEnterGrade locationEnterGrade);
     List<LocationEnterGrade> getLocationEnterGrades(int locationNo);
+    int deletePictures(int locationNo); // 추가
 }

@@ -252,10 +252,15 @@ public class bossPageController {
     }
 
     @PostMapping("/uploadImage")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("locationNo") int locationNo,HttpSession session) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("locationNo") int locationNo, HttpSession session) {
         log.info("uploadImage called with file: {} and locationNo: {}", file.getOriginalFilename(), locationNo);
 
         try {
+            // 기존 파일 삭제
+            log.info("Deleting existing pictures for locationNo: {}", locationNo);
+            int deleteResult = bossPageService.deletePictures(locationNo);
+            log.info("Number of pictures deleted: {}", deleteResult);
+
             // 파일 저장 경로 설정
             String uploadDir = "resources/img/location/";  // 실제 파일 저장 경로로 변경해야 합니다.
             log.info("Upload directory: {}", uploadDir);
@@ -268,9 +273,8 @@ public class bossPageController {
             }
 
             String originalFileName = file.getOriginalFilename();
-            //String newFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-            String newFileName =saveFile(file,session,uploadDir);
-            
+            String newFileName = saveFile(file, session, uploadDir);
+
             log.info("Original file name: {}, New file name: {}", originalFileName, newFileName);
 
             Path path = uploadPath.resolve(newFileName);

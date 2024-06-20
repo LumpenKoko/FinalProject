@@ -159,6 +159,15 @@ public class BossPageServiceImpl implements BossPageService {
         }
         return pictures.size();
     }
+    
+    @Override
+    @Transactional
+    public int deletePictures(int locationNo) {
+        log.info("Deleting pictures for locationNo: {}", locationNo);
+        int result = bossPageDao.deletePicturesByLocation(locationNo);
+        log.info("Number of pictures deleted: {}", result);
+        return result;
+    }
 
     @Override
     public List<LocationPicture> getPicturesByLocation(int locationNo) {

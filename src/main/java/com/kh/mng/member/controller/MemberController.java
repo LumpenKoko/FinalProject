@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.member.service.MemberServiceImpl;
@@ -208,8 +209,15 @@ public class MemberController {
 	
 	
 	@PostMapping("searchUserId")
-	public String searchUserId(String userPhone, String certifyCode) {
-		
+	public String searchUserId(String userPhone, String certifyCode, HttpSession session) {
+//		PhoneSmsVo psv = memberService.checkCertifyCode(userPhone);
+//		if (psv != null && bcryptPasswordEncoder.matches(certifyCode, psv.getCertifyCode())) {
+//			// 인증번호 삭제 메소드 추가
+//			return "";
+//		} else {
+//			session.setAttribute("alertMsg", "인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+//			return "NNNNN";
+//		}
 		return "";
 	}
 	

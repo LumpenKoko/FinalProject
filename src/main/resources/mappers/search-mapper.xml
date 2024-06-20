@@ -149,7 +149,7 @@
 			ORDER BY LOCATION_STAR DESC
 		</when>
 		<when test="order == 3">
-			ORDER BY PICK_COUNT DESC
+			ORDER BY PICK_COUNT DESC NULLS LAST
 		</when>
 	</choose>
 	</select>

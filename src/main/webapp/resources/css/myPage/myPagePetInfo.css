@@ -170,6 +170,7 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
 }
 
 #contentText {
@@ -198,7 +199,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
 }
 
 #right2 h1 {

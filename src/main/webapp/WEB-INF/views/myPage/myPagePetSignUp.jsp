@@ -108,7 +108,7 @@
                                         style="background-image: url(resources/img/myPage/+.png);"></div>
                                     <input type="file" id="fileInput" style="display: none;" accept="image/*">
                                 </div> -->
-                                <div
+                                <!-- <div
                                     style="margin-left: 100px; font-size: 21px; margin-top: 40px; flex-direction: column;">
                                     <span
                                         style="float: left; text-align: left; margin-bottom: 0px !important;">사진</span><br>
@@ -116,7 +116,7 @@
                                         style="margin-top: 0px; top: 0px; background-image: url(resources/img/myPage/+.png); cursor: pointer; width: 150px; height: 150px; display: block; background-size: cover; background-position: center; border: 2px solid transparent;"></label>
                                     <input type="file" id="imgFileInput" style="display: none;" accept="image/*"
                                         onchange="displayImage(this)">
-                                </div>
+                                </div> -->
                                 <button type="submit" id="submit">등록하기</button>
                             </form>
                         </div>

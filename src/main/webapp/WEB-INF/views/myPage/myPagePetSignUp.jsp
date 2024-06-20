@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Insert title here</title>
-
+        <%@ include file="../common/common-file.jsp" %>
 
         <link rel="stylesheet" href="resources/css/myPage/myPagePetSignUp.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
@@ -24,7 +24,7 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(${profileImg.filePath}${profileImg.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                                <div id="profile" style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
                                     <input type="file" id="fileInput" style="display: none;"
                                         onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
@@ -108,7 +108,7 @@
                                         style="background-image: url(resources/img/myPage/+.png);"></div>
                                     <input type="file" id="fileInput" style="display: none;" accept="image/*">
                                 </div> -->
-                                <div
+                                <!-- <div
                                     style="margin-left: 100px; font-size: 21px; margin-top: 40px; flex-direction: column;">
                                     <span
                                         style="float: left; text-align: left; margin-bottom: 0px !important;">사진</span><br>
@@ -116,7 +116,7 @@
                                         style="margin-top: 0px; top: 0px; background-image: url(resources/img/myPage/+.png); cursor: pointer; width: 150px; height: 150px; display: block; background-size: cover; background-position: center; border: 2px solid transparent;"></label>
                                     <input type="file" id="imgFileInput" style="display: none;" accept="image/*"
                                         onchange="displayImage(this)">
-                                </div>
+                                </div> -->
                                 <button type="submit" id="submit">등록하기</button>
                             </form>
                         </div>

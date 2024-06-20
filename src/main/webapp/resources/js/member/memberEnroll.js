@@ -425,6 +425,7 @@ function changeAddress(){
     // let detail = document.querySelector("#address-detail");
     let userAddress = document.querySelector("[name='address']");
     userAddress.value = content.value
+    console.log(userAddress)
     // userAddress.value = content.value + " " + detail.value;
 }
 
@@ -508,7 +509,7 @@ function showAddress(){
                 document.getElementById('address-zipCode').value = data.zonecode;
                 document.getElementById("address-content").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("address-detail").focus();
+                // document.getElementById("address-detail").focus();
             }
         
     }).open();

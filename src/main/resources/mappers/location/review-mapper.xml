@@ -19,16 +19,15 @@
    	   <result column="LOCATION_NO" property="locationNo"/>
    </resultMap>
    
-   <resultMap type="Review" id="myPageReview">
+   <resultMap type="MyPageReview" id="myPageReview">
    	  <result column="REVIEW_NO" property="reviewNo"/>
    	  <result column="REVIEW_STAR" property="reviewStar"/>
    	  <result column="REVIEW_CONTENT" property="reviewContent"/>
-   	  <result column="ENROLL_DATE" property="enrollDate"/>
    	  <result column="MODIFY_DATE" property="modifyDate"/>
    	  <result column="USER_NICKNAME" property="userNickName"/>
-   	  <result column="LOCATION_STAR" property="locationStar"/>
    	  <result column="USER_NO" property="userNo"/>
-   	   <result column="LOCATION_NO" property="locationNo"/>
+   	  <result column="LOCATION_NO" property="locationNo"/>
+   	  <result column="LOCATION_NAME" property="locationName"/>
    </resultMap>
    
    
@@ -223,10 +222,16 @@
      SELECT	REVIEW_NO,
      		REVIEW_STAR,
      		REVIEW_CONTENT,
-     		ENROLL_DATE,
-     		MODIFY_DATE
-     		FROM REVIEW
-     		WHERE USER_NO = #{userNo}
+     		R.MODIFY_DATE,
+     		M.USER_NICKNAME,
+     		R.LOCATION_NO,
+     		L.LOCATION_NAME
+     		FROM REVIEW R
+     		JOIN LOCATION L
+     		ON (R.LOCATION_NO = L.LOCATION_NO)
+     		JOIN MEMBER M
+     		ON (R.USER_NO = M.USER_NO)
+     		WHERE R.USER_NO = #{userNo}
      		ORDER BY MODIFY_DATE DESC
     </select>
     

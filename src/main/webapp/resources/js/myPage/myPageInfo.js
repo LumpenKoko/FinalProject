@@ -117,7 +117,6 @@ var petNamesElement = document.getElementById("petNames");
 for (var i = 0; i < petNames.length; i++) {
     var petNameElement = document.createElement("p");
     petNameElement.textContent = petNames[i];
-    // petNamesElement.appendChild(petNameElement);
 }
 
 function uploadProfileImage(contextPath) {

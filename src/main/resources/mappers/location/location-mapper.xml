@@ -217,10 +217,11 @@
     </select>
     
     <!-- Insert Picture -->
-    <insert id="insertPicture" parameterType="LocationPicture">
-        INSERT INTO PICTURE (PIC_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL, LOCATION_NO)
-        VALUES (NEXTVAL('seq_pic'), #{originName}, #{changeName}, #{filePath}, #{fileLevel}, #{locationNo})
-    </insert>
+	<insert id="insertPicture" parameterType="LocationPicture">
+	    INSERT INTO PICTURE (PIC_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL, LOCATION_NO)
+	    VALUES (NEXTVAL('seq_pic'), #{originName}, #{changeName}, #{filePath}, #{fileLevel}, #{locationNo})
+	</insert>
+
 
     <!-- Select Pictures By Location -->
     <select id="getPicturesByLocation" parameterType="int" resultType="LocationPicture">

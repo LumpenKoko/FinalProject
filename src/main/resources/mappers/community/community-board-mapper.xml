@@ -98,7 +98,8 @@
   	  		   		
   	  		   		<when test='boardCategoryNo!=0 and boardContent!="default"'>
  						AND  C.BOARD_CATEGORY_NO = #{boardCategoryNo}
- 						AND  B.BOARD_CONTENT LIKE CONCAT('%',#{boardContent},'%')
+ 						AND  B.BOARD_CONTENT LIKE CONCAT('%',#{boardContent},'%') OR
+ 						 B.BOARD_Title LIKE CONCAT('%',#{boardContent},'%')
   	  		   		</when>
   	  		   
   	  		   </choose>
@@ -341,6 +342,11 @@
 	
 	<delete id="deleteBoard" >
 		DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
+	</delete>
+	
+	<delete id="deleteBoardAttachment">
+	 	DELETE FROM PICTURE WHERE CHANGE_NAME=#{changeName} AND BOARD_NO = #{boardNo}
+	
 	</delete>
 	
 	<select id="checkBoardOwner" resultType="_int">

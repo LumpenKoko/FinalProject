@@ -18,6 +18,7 @@ import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.DeleteBoardAttachmentInfo;
 import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -473,6 +474,15 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return result*result2;
 	}
+	
+	
+
+	@Override
+	public int deleteBoardAttachment(DeleteBoardAttachmentInfo deleteInfo) {
+		
+		return communityDao.deleteBoardAttachment(sqlSession,deleteInfo);
+	}
+
 
 	
 	@Override
@@ -530,7 +540,6 @@ public class CommunityServiceImpl implements CommunityService{
 
 
 
-
 	@Override
 	public int insertBoard(BoardEnroll board, BoardFileInfo boardfile) {
 		int result1 = communityDao.insertBoard(sqlSession, board);
@@ -551,6 +560,8 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return result1 * result2;
 	}
+
+
 
 
 	

@@ -47,12 +47,19 @@
 					<hr>
 
 					<!--"${( not empty updateBoard.attachment)?updateBoard.attachment.get(0):''}"-->
-					<input type="file" name="upfile" style="display: none;" onchange="thumbnailImg(this)">
+					<input type="file" name="upfile" style="display: none;"  onchange="thumbnailImg(this)">
+
 					<c:if test = "${!updateBoard.attachment.isEmpty()}">
-                      <div id="existingFile">현재 업로드된 파일 : 
+					   <input  id="tempExistedFile" type="text"   value="${updateBoard.attachment.get(0).changeName}" hidden >
+                       
+					   <div id="existingFile">현재 업로드된 파일 : 
                       	 <a  href="${updateBoard.attachment.get(0).changeName}" download="${updateBoard.attachment.get(0).originName}">${updateBoard.attachment.get(0).originName}</a>
-					  </div>
+						&nbsp;<a id="existedRemove" style="cursor: pointer;" onclick="removeExistedFile()">삭제</a>
+					   </div>
+
+					   <input id="existedFileChange" type="text" name="existedFileChangeName"  value="none" hidden >
                     </c:if>
+
 					<div class="flex-box" style="height: 100px; justify-content: space-between;">
 						<div id="img-box">
 							<img src="resources/img/default/defaultImg.png" alt="이미지등록" id="img-icon" style="cursor: pointer;" width="50" height="50" onclick="insertImg()">

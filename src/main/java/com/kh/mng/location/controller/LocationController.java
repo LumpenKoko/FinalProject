@@ -387,7 +387,7 @@ public class LocationController {
 		String check=loginUser.getUserKind();
 		log.info("userKind:{}",check);
 		
-		
+		// MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
 		
 		
 		//접속 유저가 사장님이면?
@@ -395,16 +395,22 @@ public class LocationController {
 			//ArrayList<Chat> masterchats=chatService.selectChats(loginUser.getUserNo());
 			
 
-			//채팅 데이터베이스에 유저 목록 가져오기 (자기자신뺀 유저만 가져오기 
-		    ArrayList<UserInfo> userInfo= chatService.selectUserInfo(loginUser.getUserNo());
-		    System.out.println(userInfo);
+			//채팅 데이터베이스에 사장님 목록 가져오기 (target이 자신인것만 채팅 목록에 띄우기 위해) 
+		    UserTarget masterUserInfo =new UserTarget();
+		    
+		    MasterInfo userInfo= chatService.selectMasterInfo(locationNo);
+		    masterUserInfo.setTargetNo(userInfo.getMasterNo());
+		    masterUserInfo.setUserNo(loginUser.getUserNo());
+			 
+		    ArrayList<UserInfo> userInfos= chatService.selectUserInfo(masterUserInfo);//dao에서 TargetNo사용하지 않음
+		 
 		 
 		   // ArrayList<Chat> entireChats=chatService.selectEntireUserChats(loginUser.getUserNo());
 			
 			//사장님이라는 것을 알려줄수있는 표시
 			model.addAttribute("master","YMYMYMMYYY");
 			//model.addAttribute("entireChats",entireChats);
-			model.addAttribute("chatUserList",userInfo);
+			model.addAttribute("chatUserList",userInfos);
 			
 			
 			
@@ -416,7 +422,6 @@ public class LocationController {
 			
 			//사장님아이디찾기
 			 MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
-			 
 			 UserTarget userMasterInfo =new UserTarget();
 			 userMasterInfo.setTargetNo(masterInfo.getMasterNo());
 			 userMasterInfo.setUserNo(loginUser.getUserNo());

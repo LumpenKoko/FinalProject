@@ -36,7 +36,7 @@
 										<input id="userId${userList.userNo}" type="text"  value="${userList.userId}" hidden>
 										<input id="userNo${userList.userNo}" type="text"  value="${userList.userNo}" hidden>
 										<div id="userNickName${userList.userNo}" class="title">${userList.userNickName}</div>
-										<div class="content">${userList.lastestMessage.message}</div>
+										<div class="content${userList.userNo}">${userList.lastestMessage.message}</div>
 									</div>
 								</div>
 								

@@ -35,9 +35,9 @@ public class ChatDao {
 		return sqlSession.selectOne("chatMapper.selectMasterInfo",locationNo);
 	}
 	
-	public ArrayList<UserInfo> selectUserInfo(SqlSessionTemplate sqlSession,int userNo) {
+	public ArrayList<UserInfo> selectUserInfo(SqlSessionTemplate sqlSession,UserTarget userMasterInfo) {
 		
-		return (ArrayList) sqlSession.selectList("chatMapper.selectUserInfo",userNo);
+		return (ArrayList) sqlSession.selectList("chatMapper.selectUserInfo",userMasterInfo);
 	}
 
 	public ArrayList<Chat> selectUserChats(SqlSessionTemplate sqlSession, UserTarget userMasterInfo) {
@@ -46,14 +46,14 @@ public class ChatDao {
 		return (ArrayList) sqlSession.selectList("chatMapper.selectUserChats", userMasterInfo);
 	}
 
-	public int selectNotifyMessageCount(SqlSessionTemplate sqlSession,int userNo) {
+	public int selectNotifyMessageCount(SqlSessionTemplate sqlSession,UserTarget targetUser) {
 		
-		return sqlSession.selectOne("chatMapper.selectNotifyMessageCount",userNo);
+		return sqlSession.selectOne("chatMapper.selectNotifyMessageCount",targetUser);
 	}
 
-	public Map<String, String> selectNotifyMessage(SqlSessionTemplate sqlSession,int userNo) {
+	public Map<String, String> selectNotifyMessage(SqlSessionTemplate sqlSession,UserTarget targetUser) {
 		
-		return (Map)sqlSession.selectOne("chatMapper.selectlastestMessage", userNo);
+		return (Map)sqlSession.selectOne("chatMapper.selectlastestMessage", targetUser);
 	}
 
 	public int updateNotify(SqlSessionTemplate sqlSession,int chatNo) {

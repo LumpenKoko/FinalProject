@@ -51,7 +51,7 @@ function init(path,masterKind){
             else{
             document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
             parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
-        }
+          }
       }
     
     }
@@ -86,6 +86,7 @@ function openChatRoom(roomNo,targetId,targetNo){
      
         let sendUserNo=parseInt(document.querySelector("#userKey").value);
 
+        //자신한테오는 메세지면 메세지 띄우고
         if(recevie.userNo===sendUserNo){
          
 
@@ -95,17 +96,18 @@ function openChatRoom(roomNo,targetId,targetNo){
                                     <div class="img-div">
                                         <img src="resources/img/default/default_profile.jpg">
                                     </div>
-                                    <div class="master-name title">${recevie.nick}</div>
+                                    <div class="master-name title">${(recevie.nick!==undefined)?recevie.nick:"사장님"}</div>
                                 </div>
                                 <div class="content master-content master-color">
                                         <div> ${recevie.msg} </div>
-                                    <div class="time">${now.getHours()}:${now.getMinutes()}</div>
+                                    <div class="time">${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}</div>
                                 </div>
                         </div>
             `
-    }
+      }
      else{
 
+        //자신한테 오는 메세지가 아니면 카운트표시만 증가시킨다.
         //유저목록 count 증가 시킨다. 
           //let userNo=document.querySelector("#userKey").value
           if(document.querySelector("#notifyCount"+recevie.userNo)===null){
@@ -119,15 +121,13 @@ function openChatRoom(roomNo,targetId,targetNo){
         else{
            document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
            parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
-       }
+           document.querySelector("#content"+recevie.userNo).innerHTML=recevie.message;
+        }
+       
      }
+     
+    
 
-
-         
-
-
-
-    }
 
     sendButton.onclick=function(){
         let sendMsg=document.querySelector("input[name=msg]");
@@ -223,6 +223,9 @@ function drawChatList(chatList){
 			</div>
          
          `
+        
+         
+
        }
 
     }

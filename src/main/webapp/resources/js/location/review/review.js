@@ -132,7 +132,10 @@ function drawReivew(review) {
     }
 
     if(r.userNo==userNo){
-       checkUser=`<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a>`
+       checkUser=`
+       <a href="myPageMain.mp">수정</a>
+       <a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a> 
+       `
     }
     
     reviewBody += `
@@ -165,6 +168,9 @@ function drawReivew(review) {
          
 
         `+ reply
+
+
+        checkUser=""
   }
 
   reviewContent.innerHTML = reviewBody;

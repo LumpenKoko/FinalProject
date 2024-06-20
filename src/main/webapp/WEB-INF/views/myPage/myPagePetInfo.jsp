@@ -66,20 +66,19 @@
                     </div>
                     <div id="right">
                         <div id="main_main_right">
-                            <div id="right1">
-                                <p id="contentText">아직 등록하신 반려동물이 없으시네요!<br>지금 바로 반려동물을 등록하고 행복한 동행을 시작해보세요.</p>
-                                <button type="submit" id="signUp"
-                                    onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'"
-                                    style="cursor: pointer;">반려동물
-                                    등록하기</button>
-                            </div>
+                            <c:if test="${empty petList}">
+                                <div id="right1" style="display: none;">
+                                    <p id="contentText">아직 등록하신 반려동물이 없으시네요!<br>지금 바로 반려동물을 등록하고 행복한 동행을 시작해보세요.</p>
+                                    <button type="submit" id="signUp" onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'" style="cursor: pointer;">반려동물 등록하기</button>
+                                </div>
+                            </c:if>
                             <div id="right2">
                                 <h1>반려동물 1</h1>
                                 <c:forEach items="${petList}" var="pet" varStatus="loop">
                                     <form class="petForm${loop.index}" id="right2-container" method="post"
                                         action="updatePet.mp" data-index="${loop.index}">
                                         <div id="right2-container" class="right2-container-${loop.index}">
-                                            <div id="right2-left">
+                                            <div id="right2-left" style="padding-left: 60px;">
                                                 <img src="resources/img/myPage/petProfile.png" id="petProfile"
                                                     onclick="">
                                                 <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진
@@ -93,18 +92,18 @@
                                                     <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">이름
                                                     </p>
                                                     <input type="text" class="petName" name="petName"
-                                                        value="${pet.petName}">
+                                                        value="${pet.petName}" style="padding-left: 10px;">
                                                 </div>
                                                 <div style="margin-top: 30px;">
                                                     <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">생일
                                                     </p>
                                                     <input type="date" class="petBirthday" name="petBirthday"
-                                                        value="${pet.petBirthday}">
+                                                        value="${pet.petBirthday}" style="padding-left: 10px;">
                                                 </div>
                                                 <div style="margin-top: 30px;">
                                                     <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">크기
                                                     </p>
-                                                    <select name="petSizeNo" class="petSizeNo">
+                                                    <select name="petSizeNo" class="petSizeNo" style="padding-left: 10px;">
                                                         <option value="1" ${pet.petSizeNo eq '1' ? 'selected' : '' }>소형견
                                                         </option>
                                                         <option value="2" ${pet.petSizeNo eq '2' ? 'selected' : '' }>중형견
@@ -126,7 +125,7 @@
                                                     <label for="women${loop.index}">여아</label>
                                                 </div>
                                                 <button type="submit" class="update update-${loop.index}"
-                                                    style="margin-top: 50px; cursor: pointer;"
+                                                    style="margin-top: 55px; cursor: pointer;"
                                                     onclick="updatePet(petNo)">수정</button>
                                             </div>
                                         </div>

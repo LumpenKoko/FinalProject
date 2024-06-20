@@ -126,6 +126,7 @@
 		FROM PICTURE
 		WHERE LOCATION_NO = #{locationNo}
 		AND FILE_LEVEL = 1
+		LIMIT 1
 	</select>
 	
 	<select id="selectAttachmentShorts" resultMap="attachmentResult">

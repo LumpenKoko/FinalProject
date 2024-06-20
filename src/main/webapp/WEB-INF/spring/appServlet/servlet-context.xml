@@ -31,13 +31,33 @@
     
 	 <interceptors>
 	 	<interceptor>
+	 		<mapping path="/chatPage.cp"/>
+	 		<beans:bean class="com.kh.mng.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
+	 	</interceptor>
+	 	
+	 	<interceptor>
+	 		<mapping path="/bossMainPage.bm"/>
+	 		<mapping path="/bossLocation.bl"/>
+	 		<mapping path="/bossCouponPage.bc"/>
+	 		<mapping path="/bossPageReviews.bp"/>
+	 		
+	 		<beans:bean class="com.kh.mng.common.intercepter.BossIntercepter" id="BossIntercepter"/>
+	 	</interceptor>
+	 	
+ 	 	<interceptor>
 	 		<mapping path="/myPageMain.mp"/>
+	 		<mapping path="/myPageWish.mp"/>
+	 		<mapping path="/myPageCoupon.mp"/>
+	 		<mapping path="/myPageBoard.mp"/>
+	 		<mapping path="/myPageInfo.mp"/>
+	 		<mapping path="/myPagePetInfo.mp"/>
+	 		
 	 		<mapping path="/enrollshort.view"/>
 	 		<mapping path="/enroll.short"/>
 	 		<mapping path="/enrollBoard.bo"/>
-	 		<mapping path="/chatPage.cp"/>
 	 		<mapping path="/detailView.bo"/>
-	 		<beans:bean class="com.kh.mng.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
+	 		<mapping path="/shortsView.bo"/>
+	 		<beans:bean class="com.kh.mng.common.intercepter.MemberIntercepter" id="MemberIntercepter"/>
 	 	</interceptor>
 	</interceptors>
 	

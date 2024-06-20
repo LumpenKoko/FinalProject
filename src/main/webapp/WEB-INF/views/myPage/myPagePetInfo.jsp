@@ -24,7 +24,8 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                                <div id="profile"
+                                    style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
                                     <input type="file" id="fileInput" style="display: none;"
                                         onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
@@ -69,7 +70,9 @@
                             <c:if test="${empty petList}">
                                 <div id="right1" style="display: none;">
                                     <p id="contentText">아직 등록하신 반려동물이 없으시네요!<br>지금 바로 반려동물을 등록하고 행복한 동행을 시작해보세요.</p>
-                                    <button type="submit" id="signUp" onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'" style="cursor: pointer;">반려동물 등록하기</button>
+                                    <button type="submit" id="signUp"
+                                        onclick="location.href='<%=request.getContextPath()%>/myPagePetSignUp.mp'"
+                                        style="cursor: pointer;">반려동물 등록하기</button>
                                 </div>
                             </c:if>
                             <div id="right2">
@@ -79,8 +82,13 @@
                                         action="updatePet.mp" data-index="${loop.index}">
                                         <div id="right2-container" class="right2-container-${loop.index}">
                                             <div id="right2-left" style="padding-left: 60px;">
-                                                <img src="resources/img/myPage/petProfile.png" id="petProfile"
-                                                    onclick="">
+                                                <div style="background-image: url(${pet.petImg.filePath}${pet.petImg.changeName}); background-position: center;
+                                                    background-repeat: no-repeat; background-size: cover; width: 300px; height: 300px; cursor: pointer;
+                                                    border-radius: 15px;" id="petProfile-${loop.index}"
+                                                    onclick="document.getElementById('petImgInput-${loop.index}').click()">
+                                                </div>
+                                                <input type="file" id="petImgInput-${loop.index}" style="display: none;"
+                                                    onchange="uploadPetImage('${pet.petNo}', '<%=request.getContextPath()%>', ${loop.index})">
                                                 <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진
                                                     변경 가능</p>
                                                 <button type="button" class="delete"
@@ -103,7 +111,8 @@
                                                 <div style="margin-top: 30px;">
                                                     <p style="font-size: 18px; margin-bottom: 0px; text-align: left;">크기
                                                     </p>
-                                                    <select name="petSizeNo" class="petSizeNo" style="padding-left: 10px;">
+                                                    <select name="petSizeNo" class="petSizeNo"
+                                                        style="padding-left: 10px;">
                                                         <option value="1" ${pet.petSizeNo eq '1' ? 'selected' : '' }>소형견
                                                         </option>
                                                         <option value="2" ${pet.petSizeNo eq '2' ? 'selected' : '' }>중형견

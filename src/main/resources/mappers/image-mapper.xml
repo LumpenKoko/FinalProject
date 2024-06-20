@@ -59,4 +59,55 @@
 		WHERE PIC_NO = #{picNo}
 	</update>
 
+	<insert id="insertPetImg">
+		INSERT INTO PICTURE(
+		PIC_NO,
+		ORIGIN_NAME,
+		CHANGE_NAME,
+		FILE_PATH,
+		FILE_LEVEL,
+		PET_NO
+		)
+		VALUES(
+		NEXTVAL('SEQ_PIC'),
+		#{originName},
+		#{changeName},
+		#{filePath},
+		#{fileLevel},
+		#{petNo}
+		)
+	</insert>
+	
+	<update id="updatePetImg" parameterType="ProfileImg">
+		UPDATE PICTURE
+		SET ORIGIN_NAME = #{originName},
+		CHANGE_NAME = #{changeName},
+		FILE_PATH = #{filePath}
+		WHERE PIC_NO = #{picNo}
+	</update>
+	
+	<select id="getPetImg" resultMap="imgResult">
+		SELECT ORIGIN_NAME,
+		PIC_NO,
+		CHANGE_NAME,
+		FILE_PATH
+		FROM PICTURE
+		WHERE PET_NO = #{petNo}
+		AND FILE_LEVEL = 1
+		ORDER BY PIC_NO
+		DESC
+		LIMIT 1;
+	</select>
+	
+	<select id="getImgList" resultMap="imgResult">
+		SELECT ORIGIN_NAME,
+		PIC_NO,
+		CHANGE_NAME,
+		FILE_PATH,
+		PET_NO
+		FROM PICTURE
+		WHERE PET_NO IS NOT NULL
+		AND FILE_LEVEL = 1
+	</select>
+
 </mapper>

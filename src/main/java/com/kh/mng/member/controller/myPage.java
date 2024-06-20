@@ -292,11 +292,6 @@ public class myPage {
 		}
 	}
 
-//	@GetMapping("myPagePetInfo.mp")
-//	public String myPagePetInfo() {
-//		return "myPage/myPagePetInfo";
-//	}
-
 	@GetMapping("myPagePetInfo.mp")
 	public String myPagePetInfo(Model model, HttpSession session) {
 		// 세션에서 로그인된 사용자의 정보를 가져옴
@@ -306,6 +301,19 @@ public class myPage {
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
 			ProfileImg profileImg = memberService.getProfileImg(userNo);
+			List<ProfileImg> imgList = petService.getImgList();
+			session.setAttribute("imgList", imgList);
+			System.out.println(imgList);
+			System.out.println(petList);
+			
+			for(Pet pet : petList) {
+				for(ProfileImg img : imgList) {
+					if(pet.getPetNo() == img.getPetNo()) {
+						pet.setPetImg(img);
+						break;
+					}
+				}
+			}
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				session.setAttribute("petList", petList);
@@ -340,33 +348,6 @@ public class myPage {
 			return "NNNNN";
 		}
 	}
-	
-//	@ResponseBody
-//	@PostMapping("/insertProfileImg.mp")
-//	public String insertProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
-//		Member loginUser = (Member) session.getAttribute("loginUser");
-//		int userNo = loginUser.getUserNo();
-//		
-//		String path="resources/img/user/";
-//		ProfileImg profileImg = new ProfileImg();
-//		if(!upfile.getOriginalFilename().equals("")) {
-//			String changeName = saveFile(upfile, session);
-//			
-//			profileImg.setOriginName(upfile.getOriginalFilename());
-//			profileImg.setChangeName("resources/img/user/" + changeName);
-//			profileImg.setUserNo(userNo);
-//			profileImg.setFilePath("resources/img/user/");
-//			profileImg.setFileLevel(0);
-//		}
-//		
-//		int result = memberService.insertProfileImg(profileImg);
-//		System.out.println(profileImg);
-//		if(result > 0) {
-//			return "NNNNY";
-//		} else {
-//			return "NNNNN";
-//		}
-//	}
 	
 	@ResponseBody
 	@PostMapping("/insertProfileImg.mp")

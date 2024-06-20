@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,65 +39,18 @@ public class PetController {
 
 	    // 사용자 번호를 Member 객체에 설정
 	    p.setUserNo(userNo);
-	    pic.setUserNo(userNo);
-	    pic.setPetNo(p.getPetNo());
-	    System.out.println(pic);
-	    // 파일 업로드
-	    if (upfile != null && !upfile.getOriginalFilename().equals("")) {
-	        String changeName = saveFile(upfile, session);
-
-	        // 이미지 정보에 변경된 파일 이름 설정
-	        pic.setOriginName(upfile.getOriginalFilename());
-	        pic.setChangeName("resources/uploadFiles/" + changeName);
-	        pic.setPetNo(p.getPetNo());
-	    } else {
-	        // 파일이 업로드되지 않은 경우에도 originName을 설정해야 함
-	        pic.setOriginName("");
-	        pic.setChangeName("");
-	        pic.setFilePath("");
-	    }
 
 	    // 반려동물 정보 저장
 	    int result = petService.insertPet(p);
-	    int picResult = petService.insertPicture(pic);
 
-	    if (result > 0 && picResult > 0) {
+	    if (result > 0) {
+	    	session.setAttribute("pet", p);
 	        session.setAttribute("alertMsg", "반려동물 등록에 성공하셨습니다.");
 	    } else {
 	        model.addAttribute("errorMsg", "반려동물 등록에 실패하셨습니다.");
 	    }
 
 	    return "redirect:/myPagePetInfo.mp";
-	}
-
-	public String saveFile(MultipartFile upfile, HttpSession session) {
-	    // 파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
-	    String originName = upfile.getOriginalFilename();
-
-	    // 년월일시분초
-	    String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
-	    // 5자리 랜덤값
-	    int ranNum = (int) (Math.random() * 90000) + 10000;
-
-	    // 확장자
-	    String ext = originName.substring(originName.lastIndexOf("."));
-
-	    // 수정된 첨부파일명
-	    String changeName = currentTime + ranNum + ext;
-
-	    // 첨부파일을 저장할 폴더의 물리적 경로(session)
-	    String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-
-	    try {
-	        upfile.transferTo(new File(savePath + changeName));
-	    } catch (IllegalStateException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-
-	    return changeName;
 	}
 	
 	@PostMapping(value = "updatePet.mp")
@@ -132,60 +86,119 @@ public class PetController {
 		}
 	}
 	
+//	@ResponseBody
+//	@PostMapping("/insertPetImg.mp")
+//	public String insertOrUpdateProfileImg(@RequestParam("petImage") MultipartFile upfile, HttpSession session) {
+//	    Member loginUser = (Member) session.getAttribute("loginUser");
+//	    int userNo = loginUser.getUserNo();
+//	    
+//	    // 이미지 정보를 데이터베이스에서 가져오기
+//	    ProfileImg existingProfileImg = petService.getPetImg(petNo);
+//	    
+//	    System.out.println(existingProfileImg);
+//	    // 새로 업로드된 파일 처리
+//	    if (!upfile.isEmpty()) {
+//	        String changeName = saveFile(upfile, session);
+//	        
+//	        ProfileImg petImg = new ProfileImg();
+//	        petImg.setOriginName(upfile.getOriginalFilename());
+//	        petImg.setChangeName(changeName);
+//	        petImg.setUserNo(userNo);
+//	        petImg.setFilePath("resources/img/user/");
+//	        petImg.setFileLevel(1);
+//	        petImg.setPetNo(petNo);
+//	        
+//	        // 이미 등록된 이미지가 있으면 update 수행
+//	        if (existingProfileImg != null) {
+//	        	petImg.setPicNo(existingProfileImg.getPicNo());
+//	            int updateResult = petService.updatePetImg(petImg);
+//	            
+//	            if (updateResult > 0) {
+//	            	p.setPetImg(petImg);
+//	            	session.setAttribute("pet", p);
+//	                return "NNNNY"; // Update 성공 시 반환할 메시지
+//	            } else {
+//	                return "NNNNN"; // Update 실패 시 반환할 메시지
+//	            }
+//	        } else {
+//	            // 등록된 이미지가 없으면 insert 수행
+//	            int insertResult = petService.insertPetImg(petImg);
+//	            
+//	            if (insertResult > 0) {
+//	            	p.setPetImg(petImg);
+//	            	session.setAttribute("pet", p);
+//	                return "NNNNY"; // Insert 성공 시 반환할 메시지
+//	            } else {
+//	                return "NNNNN"; // Insert 실패 시 반환할 메시지
+//	            }
+//	        }
+//	    }
+//	    
+//	    return "NNNNN"; // 파일이 없을 경우 반환할 메시지
+//	}
+	
 	@ResponseBody
 	@PostMapping("/insertPetImg.mp")
-	public String insertOrUpdateProfileImg(@RequestParam("profileImage") MultipartFile upfile, HttpSession session) {
-	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    int userNo = loginUser.getUserNo();
-	    
-	    Pet pet = (Pet)session.getAttribute("pet");
-	    int petNo = pet.getPetNo();
-	    
-	    // 이미지 정보를 데이터베이스에서 가져오기
-	    ProfileImg existingProfileImg = petService.getPetImg(petNo);
-	    
-	    System.out.println(existingProfileImg);
-	    // 새로 업로드된 파일 처리
-	    if (!upfile.isEmpty()) {
-	        String changeName = saveFile(upfile, session);
+	public String insertPetImg(@RequestParam("petImage") MultipartFile upfile, @RequestParam("petNo") int petNo, HttpSession session) {
+	    try {
+	        Member loginUser = (Member) session.getAttribute("loginUser");
+	        if (loginUser == null) {
+	            return "LOGIN_REQUIRED"; // 로그인 필요 메시지 반환
+	        }
 	        
-	        ProfileImg profileImg = new ProfileImg();
-	        profileImg.setOriginName(upfile.getOriginalFilename());
-	        profileImg.setChangeName(changeName);
-	        profileImg.setUserNo(userNo);
-	        profileImg.setFilePath("resources/img/user/");
-	        profileImg.setFileLevel(0);
+	        int userNo = loginUser.getUserNo();
 	        
-	        // 이미 등록된 이미지가 있으면 update 수행
-	        if (existingProfileImg != null) {
-	            profileImg.setPicNo(existingProfileImg.getPicNo());
-	            int updateResult = petService.updatePetImg(profileImg);
+	        List<Pet> petList = (List<Pet>)session.getAttribute("petList");
+	        
+	        // 이미지 정보를 데이터베이스에서 가져오기
+	        ProfileImg existingPetImg = petService.getPetImg(petNo);
+	        
+	        System.out.println(petNo);
+	        
+	        // 새로 업로드된 파일 처리
+	        if (!upfile.isEmpty()) {
+	            String changeName = saveFile(upfile, session);
 	            
-	            if (updateResult > 0) {
-	            	pet.setPetImg(profileImg);
-	            	session.setAttribute("pet", pet);
-	                return "NNNNY"; // Update 성공 시 반환할 메시지
-	            } else {
-	                return "NNNNN"; // Update 실패 시 반환할 메시지
-	            }
-	        } else {
-	            // 등록된 이미지가 없으면 insert 수행
-	            int insertResult = petService.insertPetImg(profileImg);
+	            ProfileImg petImg = new ProfileImg();
+	            petImg.setOriginName(upfile.getOriginalFilename());
+	            petImg.setChangeName(changeName);
+	            petImg.setUserNo(userNo);
+	            petImg.setFilePath("resources/img/user/");
+	            petImg.setFileLevel(1); // 반려동물 이미지 레벨
+	            petImg.setPetNo(petNo); // petNo 설정
 	            
-	            if (insertResult > 0) {
-	            	pet.setPetImg(profileImg);
-	            	session.setAttribute("pet", pet);
-	                return "NNNNY"; // Insert 성공 시 반환할 메시지
+	            // 이미 등록된 이미지가 있으면 update 수행
+	            if (existingPetImg != null) {
+	                petImg.setPicNo(existingPetImg.getPicNo());
+	                int updateResult = petService.updatePetImg(petImg);
+	                
+	                if (updateResult > 0) {	                	
+	                	session.setAttribute("petList", petList);
+	                    return "NNNNY"; // Update 성공 시 반환할 메시지
+	                } else {
+	                    return "NNNNN"; // Update 실패 시 반환할 메시지
+	                }
 	            } else {
-	                return "NNNNN"; // Insert 실패 시 반환할 메시지
+	                // 등록된 이미지가 없으면 insert 수행
+	                int insertResult = petService.insertPetImg(petImg);
+	                
+	                if (insertResult > 0) {
+	                	session.setAttribute("petList", petList);
+	                    return "NNNNY"; // Insert 성공 시 반환할 메시지
+	                } else {
+	                    return "NNNNN"; // Insert 실패 시 반환할 메시지
+	                }
 	            }
 	        }
+	        
+	        return "NNNNN"; // 파일이 없을 경우 반환할 메시지
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "ERROR"; // 예외 발생 시 반환할 메시지
 	    }
-	    
-	    return "NNNNN"; // 파일이 없을 경우 반환할 메시지
 	}
 	
-	public String petFile(MultipartFile upfile, HttpSession session) {
+	public String saveFile(MultipartFile upfile, HttpSession session) {
 		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 				String originName = upfile.getOriginalFilename();
 				

@@ -26,7 +26,7 @@
                                     <img src="resources/img/myPage/camera.png"
                                         onclick="document.getElementById('fileInput').click()" id="camera">
                                     <div id="profile"
-                                        style="background-image: url(${profileImg.filePath}${profileImg.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                                        style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
                                         <input type="file" id="fileInput" style="display: none;"
                                             onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                     </div>
@@ -74,7 +74,7 @@
                                     <div id="right2">
                                         <div id="right2-top">
                                             <div id="right2-top1">
-                                                <div><img src="${profileImg.filePath}${profileImg.changeName}" id="reviewProfile">
+                                                <div><img src="${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}" id="reviewProfile">
                                                 </div>
                                                 <div id="top1Text">
                                                     <p

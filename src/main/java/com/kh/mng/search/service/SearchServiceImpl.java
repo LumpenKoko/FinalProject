@@ -40,6 +40,7 @@ public class SearchServiceImpl implements SearchService {
 		ArrayList<Location> list = searchDao.selectSearchLocationList(sqlSession, sf, pi);
 		// list 해당 petSize
 		for (Location loc : list) {
+			loc.setLocationStarCount((int)Math.round(loc.getLocationStar()));
 			loc.setCurrentDay(CurrentDate.currentDay()); // 현재 요일 (월 화 수 목 금 토 일 형식)
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));
@@ -62,6 +63,7 @@ public class SearchServiceImpl implements SearchService {
 		ArrayList<Location> list = searchDao.selectFilterLocationList(sqlSession, sf, pi);
 		// list 해당 petSize
 		for (Location loc : list) {
+			loc.setLocationStarCount((int)Math.round(loc.getLocationStar()));
 			loc.setCurrentDay(CurrentDate.currentDay()); // 현재 요일 (월 화 수 목 금 토 일 형식)
 			loc.setEnterList(new MainDao().selectEnterGradeList(sqlSession, loc));
 			loc.setOpTime(searchDao.selectOperationTime(sqlSession, loc));

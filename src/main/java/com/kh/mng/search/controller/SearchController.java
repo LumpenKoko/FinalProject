@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
-import com.kh.mng.location.model.dto.PickedInfo;
 import com.kh.mng.location.model.vo.Location;
 import com.kh.mng.search.model.dto.SearchFilter;
 import com.kh.mng.search.model.dto.SearchPick;
 import com.kh.mng.search.service.SearchServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class SearchController {
 	
@@ -96,6 +98,8 @@ public class SearchController {
 
 		ArrayList<Integer> pets = new ArrayList<Integer>();
 		ArrayList<Integer> locs = new ArrayList<Integer>();
+		
+		log.info(order);
 		
 		if (!petList.isEmpty()) {
 			for (String p : petList.split(",")) {

@@ -88,7 +88,7 @@ function drawPlaceTop(locationList){
         if (loc.attachment != null){
             place += loc.attachment.filePath + loc.attachment.changeName;
         } else {
-            place += 'resources/img/default/default_location_img.jpg';
+            place += 'resources/img/default/default_location_img.png';
         }
         
         place += `" alt="">`;

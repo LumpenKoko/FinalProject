@@ -23,7 +23,6 @@
                     <!-- category-box-content div 클릭 시 박스 체크 되도록 js 만들어야 함 -->
                     <div class="category-box-content category-big">
                         <label for="filter-dog">강아지</label>
-                        <input type="checkbox" id="filter-dog" class="checkbox-color-pink">
                     </div>
                     <div class="category-box-content">
                         <label for="filter-dog-small">소형견</label>
@@ -95,7 +94,7 @@
                         <input type="radio" name="order" id="order-by-pick" value="3" onchange="searchFilter('${keyword}', '${loginUser.userNo}')" style="display: none;">
                         <div id="order-by-box">
                             <label class="order-by-list" for="order-by-time">최신순</label>
-                            <label class="order-by-list" for="order-by-star">별점순</label>
+                            <label class="order-by-list" for="order-by-star" style="color: var(--main-color);">별점순</label>
                             <label id="order-by-last" class="order-by-list" for="order-by-pick">찜개수순</label>
                         </div>
                         <!-- 이걸 onclick으로 하면 지금 현재 어떤 값이 클릭되어 있는지를 확인하지 못함, select box나 radio로 해야 함 -->
@@ -111,7 +110,15 @@
                     <c:otherwise>
                         <c:forEach var="loc" items="${locationList}">
                             <div class="search-content-box gray-round-box" onclick="handelPick(event, '${loginUser.userNo}', '${loc.locationNo}')">
-                                <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
+                                <c:choose>
+                                    <c:when test="${not empty loc.attachment}">
+                                        <img src="${loc.attachment.filePath}${loc.attachment.changeName}" alt="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="resources/img/default/default_location_img.png" alt="">
+                                    </c:otherwise>
+                                </c:choose>
+                                
                                 <div class="search-content">
                                     <div class="content-title">
                                         <span>${loc.locationName}</span>
@@ -136,10 +143,9 @@
                                             <span class="font-bold">평점</span>
                                             <span>${loc.locationStar}</span>
                                             <div>
-                                                <img src="resources/img/searchpage/rating-star.png" alt="">
-                                                <img src="resources/img/searchpage/rating-star.png" alt="">
-                                                <img src="resources/img/searchpage/rating-star.png" alt="">
-                                                <img src="resources/img/searchpage/rating-star.png" alt="">
+                                                <c:forEach begin="1" end="${loc.locationStarCount}">
+                                                    <img src="resources/img/searchpage/rating-star.png" alt="">
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div>

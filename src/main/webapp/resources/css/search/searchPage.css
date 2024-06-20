@@ -135,6 +135,7 @@
     justify-content: center;
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 0px;
+    cursor: pointer;
 }
 
 .order-by-list:hover{

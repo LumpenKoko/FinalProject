@@ -12,7 +12,7 @@
 <script src="resources/js/member/memberSearch.js"></script>
 <script src="resources/js/member/memberAjax.js"></script>
 </head>
-<body onload="'${contextPath}', '0'">
+<body onload="init('${contextPath}', '0')">
 	<%@ include file="../common/header.jsp"%>
 	
     <div class="wrapper">
@@ -33,7 +33,14 @@
                 가입 시 사용한 전화번호를 입력하세요.
             </div>
 
-            <form action="">
+            <c:choose>
+                <c:when test="${type eq 1}">
+                    <form action="">
+                </c:when>
+                <c:otherwise>
+                    <form action="">
+                </c:otherwise>
+            </c:choose>
                 <!-- <div class="minibox-mini-title">
                     <span>이름</span>
                     <span class="required-color">*</span>
@@ -41,11 +48,10 @@
                 </div>
                 <input type="text" class="minibox-input" placeholder="가입 시 사용한 이름을 입력하세요.">
                  -->
-                <form action="">
                     <div class="minibox-mini-title">
                         <span>휴대폰번호 인증</span>
                         <span class="required-color">*</span>
-                        <span id="check-number" class="error-message-margin"></span>
+                        <span id="check-number-message" class="error-message-margin"></span>
                     </div>
                     <!-- <select name="" id="" class="minibox-input">
                         <option value="SKT" class="minibox-input">SKT</option>
@@ -56,7 +62,7 @@
                     <input type="text" name="userPhone" class="minibox-input" placeholder="가입 시 사용한 전화번호를 입력하세요. (- 없이 입력)">
 
                     <div class="minibox-mini-title">
-                        <span class="error-message-nomargin">인증번호가 일치하지 않습니다.</span>
+                        <span class="error-message-nomargin"></span>
                     </div>
                     <div id="check-number">
                         <input type="text" class="minibox-input" placeholder="인증번호 6자리 숫자">
@@ -65,8 +71,7 @@
                     </div>
                     
                     <!-- <div id="plus-time">시간 연장</div> -->
-                </form>
-                <button type="submit" class="common-button pink-button minibox-full-button">확인</button>
+                <button type="submit" id="enroll-button" class="common-button pink-button minibox-full-button" disabled>확인</button>
             </form>
         </div>
 	</div>

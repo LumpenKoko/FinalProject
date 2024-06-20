@@ -249,15 +249,28 @@ public class bossPageController {
     }
 
     @PostMapping("/uploadImage")
-    @ResponseBody
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("locationNo") int locationNo) {
+        log.info("uploadImage called with file: {} and locationNo: {}", file.getOriginalFilename(), locationNo);
+
         try {
             // 파일 저장 경로 설정
-            String uploadDir = "/path/to/upload/directory";  // 실제 파일 저장 경로로 변경해야 합니다.
+            String uploadDir = "C:/path/to/upload/directory";  // 실제 파일 저장 경로로 변경해야 합니다.
+            log.info("Upload directory: {}", uploadDir);
+
+            // 디렉토리 존재 여부 확인 및 생성
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+                log.info("Upload directory created: {}", uploadPath.toString());
+            }
+
             String originalFileName = file.getOriginalFilename();
             String newFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-            Path path = Paths.get(uploadDir, newFileName);
+            log.info("Original file name: {}, New file name: {}", originalFileName, newFileName);
+
+            Path path = uploadPath.resolve(newFileName);
             Files.write(path, file.getBytes());
+            log.info("File written to: {}", path.toString());
 
             // 파일 정보를 데이터베이스에 저장
             LocationPicture picture = new LocationPicture();
@@ -267,13 +280,23 @@ public class bossPageController {
             picture.setFileLevel(1); // 파일 레벨을 적절히 설정
             picture.setLocationNo(locationNo);
 
-            bossPageService.savePictures(locationNo, Arrays.asList(picture));
+            // bossPageService를 사용하여 파일 정보 저장
+            int saveResult = bossPageService.savePictures(locationNo, Arrays.asList(picture));
+            log.info("File information saved to database with result: {}", saveResult);
 
             return ResponseEntity.ok(newFileName);  // 업로드된 파일명을 반환
         } catch (IOException e) {
+            log.error("IOException during file upload", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 실패");
+        } catch (Exception e) {
+            log.error("Exception during file upload", e);
+            // 다른 예외 처리
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청");
         }
     }
+
+
+
 
     @GetMapping("/getPictures")
     @ResponseBody

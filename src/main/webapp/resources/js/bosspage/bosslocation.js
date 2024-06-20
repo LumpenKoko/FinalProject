@@ -12,7 +12,6 @@ function initializePage() {
 
 // 이벤트 리스너 설정 함수
 function setupEventListeners() {
-    
     // 상품 등록 버튼 클릭 이벤트 설정
     $("#add-product").off('click').on('click', function() {
         var newProductForm = $("<div class='product-registration'>" +
@@ -74,7 +73,7 @@ function saveLocationInfo() {
         success: function(response) {
             console.log("AJAX request successful");
             if (response.success) {
-                uploadImages(userNo); // 이미지 업로드 함수 호출
+                uploadImages(response.locationNo); // 이미지 업로드 함수 호출
             } else {
                 alert("장소정보 업데이트에 실패했습니다: " + response.message);
                 $('.upload-bt').prop('disabled', false); // 버튼 다시 활성화
@@ -89,7 +88,7 @@ function saveLocationInfo() {
 
 // 이미지 업로드 함수
 function uploadImages(locationNo) {
-    console.log("uploadImages called");
+    console.log("uploadImages called with locationNo:", locationNo);
     const imageInputs = document.querySelectorAll('.company-file');
     let uploadSuccess = true;
 
@@ -112,6 +111,9 @@ function uploadImages(locationNo) {
                 },
                 error: function(xhr, status, error) {
                     console.error("파일 업로드 실패:", error);
+                    console.log("xhr:", xhr);
+                    console.log("status:", status);
+                    console.log("error:", error);
                     uploadSuccess = false;
                 }
             });
@@ -120,10 +122,8 @@ function uploadImages(locationNo) {
 
     if (uploadSuccess) {
         alert("장소정보 업데이트가 완료되었습니다.");
-        $('.upload-bt').prop('disabled', false); // 버튼 다시 활성화
     } else {
         alert("이미지 업로드 중 일부 파일에 실패했습니다.");
-        $('.upload-bt').prop('disabled', false); // 버튼 다시 활성화
     }
 }
 

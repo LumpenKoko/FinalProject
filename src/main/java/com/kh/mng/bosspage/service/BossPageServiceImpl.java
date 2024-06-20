@@ -152,9 +152,12 @@ public class BossPageServiceImpl implements BossPageService {
     }
 
     @Override
+    @Transactional
     public int savePictures(int locationNo, List<LocationPicture> pictures) {
-        // TODO Auto-generated method stub
-        return 0;
+        for (LocationPicture picture : pictures) {
+            bossPageDao.insertPicture(picture);
+        }
+        return pictures.size();
     }
 
     @Override

@@ -26,7 +26,7 @@
                                     <img src="resources/img/myPage/camera.png"
                                         onclick="document.getElementById('fileInput').click()" id="camera">
                                     <div id="profile"
-                                        style="background-image: url(${profileImg.filePath}${profileImg.changeName})">
+                                        style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
                                         <input type="file" id="fileInput" style="display: none;"
                                             onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                     </div>
@@ -74,12 +74,12 @@
                                     <div id="right2">
                                         <div id="right2-top">
                                             <div id="right2-top1">
-                                                <div><img src="resources/img/myPage/profile.png" id="reviewProfile">
+                                                <div><img src="${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}" id="reviewProfile">
                                                 </div>
                                                 <div id="top1Text">
                                                     <p
                                                         style="margin-top: 20px; margin-bottom: 0px; font-size: 18px; font-weight: bold; text-align: left;">
-                                                        ${loginUser.userName}</p>
+                                                        ${review.locationName}</p>
                                                     <p style="margin-top: 0px; font-size: 13px; color: #bababa;">
                                                         ${review.modifyDate}</p>
                                                 </div>
@@ -131,10 +131,10 @@
                                                 <input type="text"
                                                     style="width: 500px; height: 40px; border: 1px solid #bababa;
                                                     border-top-left-radius: 15px; border-bottom-left-radius: 15px; float: left; padding-left: 10px;"
-                                                    value="${review.reviewContent}" id="updateContent">
+                                                    value="${review.reviewContent}" id="updateContent-${review.reviewNo}">
                                                 <button
                                                     style="width: 40px; height: 40px; border: 1px solid #bababa; float: left;"
-                                                    onclick="updateReview('${review.reviewNo}', '<%=request.getContextPath()%>')">확인</button>
+                                                    onclick="updateReview('${review.reviewNo}', '<%=request.getContextPath()%>', 'updateContent-${review.reviewNo}')">확인</button>
                                                 <button style="width: 40px; height: 40px; border: 1px solid #bababa; float: left;
                                                     border-top-right-radius: 15px; border-bottom-right-radius: 15px;"
                                                     onclick="HideUpdateForm(this)">취소</button>

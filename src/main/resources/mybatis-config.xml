@@ -56,6 +56,7 @@
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPicture" alias="LocationPicture"/>
 		<typeAlias type="com.kh.mng.location.model.vo.AddressInfo" alias="AddressInfo"/>
 		<typeAlias type="com.kh.mng.common.model.vo.ProfileImg" alias="ProfileImg"/>
+		<typeAlias type="com.kh.mng.location.model.vo.MyPageReview" alias="MyPageReview"/>
 		
 		
 		<typeAlias type="com.kh.mng.bosspage.model.vo.LocationPicture" alias="LocationPicture"/>

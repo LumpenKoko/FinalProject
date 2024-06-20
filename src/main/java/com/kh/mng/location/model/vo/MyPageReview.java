@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.common.model.vo.ProfileImg;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,8 @@ public class MyPageReview {
 	private String reviewContent;
 	private String userNickName;
 	private Date modifyDate;
+	private String locationName;
+	private int reviewStar;
+	private int locationNo;
+	private ArrayList<Attachment> attachment;
 }

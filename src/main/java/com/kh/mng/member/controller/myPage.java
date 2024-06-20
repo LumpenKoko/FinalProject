@@ -395,7 +395,8 @@ public class myPage {
 	            int updateResult = memberService.updateProfileImg(profileImg);
 	            
 	            if (updateResult > 0) {
-	            	session.setAttribute("profileImg", profileImg);
+	            	loginUser.setUserProfile(profileImg);
+	            	session.setAttribute("loginUser", loginUser);
 	                return "NNNNY"; // Update 성공 시 반환할 메시지
 	            } else {
 	                return "NNNNN"; // Update 실패 시 반환할 메시지
@@ -405,7 +406,8 @@ public class myPage {
 	            int insertResult = memberService.insertProfileImg(profileImg);
 	            
 	            if (insertResult > 0) {
-	            	session.setAttribute("profileImg", profileImg);
+	            	loginUser.setUserProfile(profileImg);
+	            	session.setAttribute("loginUser", loginUser);
 	                return "NNNNY"; // Insert 성공 시 반환할 메시지
 	            } else {
 	                return "NNNNN"; // Insert 실패 시 반환할 메시지

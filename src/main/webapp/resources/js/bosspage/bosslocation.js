@@ -1,23 +1,19 @@
-document.addEventListener('DOMContentLoaded', function() {
-    initializePage();
-});
-
+// 페이지 초기화 함수
 function initializePage() {
+    // 장소 정보를 로드
     loadLocationInfo();
+    // 운영 시간 요소 추가
     addOperatingHoursElements();
+    // 이미지 파일 입력 이벤트 초기화
     initializeLocationPage();
+    // 이벤트 리스너 설정
     setupEventListeners();
 }
 
+// 이벤트 리스너 설정 함수
 function setupEventListeners() {
-    // 기존 이벤트 리스너 제거 후 재등록
-    $(".upload-bt").off('click').on('click', function(event) {
-        event.preventDefault(); // 기본 동작 방지
-        console.log("Save button clicked");
-        $(this).prop('disabled', true); // 버튼 비활성화
-        saveLocationInfo();
-    });
-
+    
+    // 상품 등록 버튼 클릭 이벤트 설정
     $("#add-product").off('click').on('click', function() {
         var newProductForm = $("<div class='product-registration'>" +
             "<input type='text' class='product-name' placeholder='상품명을 입력하세요.'>" +
@@ -29,11 +25,13 @@ function setupEventListeners() {
         $("#product-registration").before(newProductForm);
     });
 
+    // 상품 삭제 버튼 클릭 이벤트 설정
     $(document).off('click', '.delete-product').on('click', '.delete-product', function() {
         $(this).closest(".product-registration").remove();
     });
 }
 
+// 장소 정보 저장 함수
 function saveLocationInfo() {
     console.log("saveLocationInfo called");
     const locationPhone = document.getElementById("store-phone").value;
@@ -41,6 +39,7 @@ function saveLocationInfo() {
     const reservationLink = document.getElementById("reservation-link-input").value;
     const userNo = $("#userNo").val();
 
+    // 운영 시간 정보를 배열로 수집
     const operationTimes = [];
     document.querySelectorAll('.operating-hours').forEach(element => {
         const day = element.querySelector('p').innerText;
@@ -50,11 +49,13 @@ function saveLocationInfo() {
         operationTimes.push({ day, startTime, endTime, restStatus });
     });
 
+    // 반려동물 크기 정보를 배열로 수집
     const petSizes = [];
     document.querySelectorAll('input[name="animal-type"]:checked').forEach(element => {
         petSizes.push(element.value);
     });
 
+    // 장소 정보 객체 생성
     const locationInfo = {
         locationPhone: locationPhone,
         explanation: explanation,
@@ -64,7 +65,7 @@ function saveLocationInfo() {
         petSizes: petSizes
     };
 
-    // AJAX 요청 보내기
+    // 장소 정보 저장을 위한 AJAX 요청
     $.ajax({
         url: contextPath + '/saveLocationInfo.bm',
         type: 'POST',
@@ -73,7 +74,7 @@ function saveLocationInfo() {
         success: function(response) {
             console.log("AJAX request successful");
             if (response.success) {
-                uploadImages(userNo);
+                uploadImages(userNo); // 이미지 업로드 함수 호출
             } else {
                 alert("장소정보 업데이트에 실패했습니다: " + response.message);
                 $('.upload-bt').prop('disabled', false); // 버튼 다시 활성화
@@ -86,6 +87,7 @@ function saveLocationInfo() {
     });
 }
 
+// 이미지 업로드 함수
 function uploadImages(locationNo) {
     console.log("uploadImages called");
     const imageInputs = document.querySelectorAll('.company-file');
@@ -125,6 +127,7 @@ function uploadImages(locationNo) {
     }
 }
 
+// 장소 정보 로드 함수
 function loadLocationInfo() {
     $.ajax({
         url: contextPath + '/getLocationInfo.bm',
@@ -159,6 +162,7 @@ function loadLocationInfo() {
     });
 }
 
+// 운영 시간 요소 생성 함수
 function createOperatingHoursElement(day) {
     return `
         <div class="operating-hours">
@@ -176,6 +180,7 @@ function createOperatingHoursElement(day) {
     `;
 }
 
+// 운영 시간 요소 추가 함수
 function addOperatingHoursElements() {
     const days = ['월', '화', '수', '목', '금', '토', '일'];
     const container = document.getElementById('operating-hours-container');
@@ -185,6 +190,7 @@ function addOperatingHoursElements() {
     });
 }
 
+// 이미지 파일 입력 이벤트 초기화 함수
 function initializeLocationPage() {
     const imageInputs = document.querySelectorAll('.company-file');
     
@@ -195,6 +201,7 @@ function initializeLocationPage() {
     });
 }
 
+// 이미지 로드 함수
 function loadImg(inputFile) {
     if (inputFile.files.length === 1) {
         const reader = new FileReader();
@@ -209,7 +216,3 @@ function loadImg(inputFile) {
         companyImg.src = "resources/img/myPage/+.png";
     }
 }
-
-$(document).ready(function() {
-    setupEventListeners();
-});

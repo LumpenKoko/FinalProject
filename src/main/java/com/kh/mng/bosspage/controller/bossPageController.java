@@ -160,9 +160,9 @@ public class bossPageController {
     @ResponseBody
     @PostMapping(value = "/saveLocationInfo.bm", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> saveLocationInfo(@RequestBody Map<String, Object> payload, HttpSession session) {
+        log.info("saveLocationInfo called with payload: {}", payload);
         Map<String, Object> response = new HashMap<>();
-        log.info("payload:{}", payload);
-
+        
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             try {

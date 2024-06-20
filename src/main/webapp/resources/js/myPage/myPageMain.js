@@ -74,8 +74,10 @@ function HideUpdateForm(element) {
     updateForm.setAttribute('hidden', true);
 }
 
-function updateReview(reviewNo, contextPath) {
-    var reviewContent = document.getElementById("updateContent").value; // updateContent의 값을 가져옴
+function updateReview(reviewNo, contextPath, inputId) {
+    // 리뷰 콘텐츠 값을 가져옴
+    var reviewContent = document.getElementById(inputId).value;
+    
     // FormData 객체 생성
     var formData = new FormData();
     formData.append('reviewNo', reviewNo);
@@ -87,7 +89,6 @@ function updateReview(reviewNo, contextPath) {
         data: formData,
         processData: false, // 데이터 처리 방법을 지정하지 않음
         contentType: false, // 컨텐츠 타입을 false로 지정하여 jQuery가 기본적으로 설정하는 application/x-www-form-urlencoded를 사용하지 않도록 함
-
         success: function (response) {
             console.log(response);
             if (response === 'NNNNY') {

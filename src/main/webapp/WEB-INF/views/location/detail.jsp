@@ -323,7 +323,8 @@
 												</span>
 												<span>
 												   <c:if test="${r.userNo == userNo}">
-														<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a>
+													<a href="myPageMain.mp">수정</a>
+													<a onclick="reviewDelete('${r.reviewNo}','${r.userNo}')">삭제</a>
 												   </c:if>
 													
 												</span>

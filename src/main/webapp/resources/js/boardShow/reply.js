@@ -151,7 +151,7 @@ function drawReply(replys) {
                                        
                                             <div class="reply-regist-info">
                                                 <div>
-                                                    <img src="${r.replyUserProfile.filePath}${r.replyUserProfile.changeName}" alt="">
+                                                    <img src="${userFilePath}${userChangeName}" alt="">
                                                     <span>${userNickName}</span>
                                                 </div>
                                             </div>

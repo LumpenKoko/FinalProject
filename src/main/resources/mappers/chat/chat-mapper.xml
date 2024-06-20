@@ -27,6 +27,11 @@
 	   	  <result column="USER_ID" property="userId"/>
 	   	  <result column="USER_NICKNAME" property="userNickName"/>
   	  </resultMap>
+  	  
+  	  <resultMap type="ChatLocationInfo" id="chatLocationInfo">
+  	  	<result column="LOCATION_NAME" property="locationName"/>
+  	  	<result column="LOCATION_NO" property="locationNo"/>
+  	   </resultMap>
   
      <insert id="insertChatRoom">
      		INSERT INTO 
@@ -39,6 +44,7 @@
      		 USER_NO,
      		 TARGET_ID,
      		 TARGET_NO,
+     		 LOCATION_NO,
      		 STATUS,
      		 re_chat_no
      		)
@@ -51,6 +57,7 @@
      		 #{userNo},
      		 #{targetId},
      		 #{targetNo},
+     		 #{locationNo},
      		 TRUE,
      		 CURRVAL('SEQ_CHAT')
      		)
@@ -110,6 +117,24 @@
     		
     
     </select>
+    
+    <select id="selectlocationNo" resultType="_int">
+    		SELECT DISTINCT
+    				LOCATION_NO
+    				FROM CHAT
+    				WHERE USER_NO = #{USER_NO}
+    
+    </select>
+    
+    <select id="locationInfo" resultMap="chatLocationInfo">
+    	SELECT  LOCATION_NO,
+    			LOCATION_NAME
+    			FROM LOCATION
+    			WHERE LOCATION_NO = #{locationNo}
+    
+    </select>
+    
+    
     
     <select id="selectlastestMessage"  resultType="map">
     	SELECT MESSAGE ,to_char(enroll_time,'YYYY-MM-DD HH24:MI:SS') AS ENROLL_TIME 

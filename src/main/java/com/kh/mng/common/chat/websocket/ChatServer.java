@@ -86,6 +86,7 @@ public class ChatServer extends TextWebSocketHandler {
 		
 		String target=obj.get("target").getAsString();//
 		String targetNo=obj.get("targetNo").getAsString();
+		int locationNo=obj.get("locationNo").getAsInt();
 		int roomNo=obj.get("roomNo").getAsInt();
 		
 //		ChatRoom receivechats =new ChatRoom();
@@ -104,6 +105,7 @@ public class ChatServer extends TextWebSocketHandler {
 		chatInfo.setTargetNo(Integer.parseInt(targetNo));
 		chatInfo.setRoomNo(this.roomNo);
 		chatInfo.setUserNo(loginUser.getUserNo());
+		chatInfo.setLocationNo(locationNo);
 		
 		//db에 메세지 저장(ChatRoom에 참여)
 		int count=chatService.insertChats(chatInfo);

@@ -1,5 +1,8 @@
 let contextPath=""
+let locationNo=""
 
+const urlStrPicked = window.location.href;
+const url = new URL(urlStrPicked);
 
 function init(path,masterKind){
     // if(targetId==="NNNNN"){
@@ -7,7 +10,10 @@ function init(path,masterKind){
     //     //userId
     // }
     contextPath=path
-
+    const urlParams =url.searchParams
+    console.log(urlParams)
+    locationNo= (urlParams.get("locationNo")!=null)?urlParams.get("locationNo"):0;
+    console.log(locationNo)
 
     //유저가 일반 유저면 사장님 target가져오고 바로 웹소켓(채팅방 열기)
     if(masterKind==='NNNNN'){
@@ -129,10 +135,6 @@ function openChatRoom(roomNo,targetId,targetNo){
      }
 
 
-         
-
-
-
     }
 
     sendButton.onclick=function(){
@@ -142,7 +144,8 @@ function openChatRoom(roomNo,targetId,targetNo){
             message:sendMsg.value,
             target:targetId,
             roomNo:roomNo,
-            targetNo:targetNo
+            targetNo:targetNo,
+            locationNo:locationNo
         }
         console.log(msgData)
         socket.send(JSON.stringify(msgData));

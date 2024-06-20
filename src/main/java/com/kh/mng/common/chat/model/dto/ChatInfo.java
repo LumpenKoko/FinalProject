@@ -13,4 +13,5 @@ public class ChatInfo {
 	private String roomNo;
 	private int userNo;
 	private int targetNo;
+	private int locationNo;
 }

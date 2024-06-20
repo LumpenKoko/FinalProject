@@ -57,7 +57,7 @@
                 <c:otherwise>
                     <li><span>지도</span></li>
                     <li><a href="<%=contextPath%>/community">커뮤니티</a></li>
-                    <li><a href="<%=contextPath%>/myPageMain.mp">대시보드</a></li>
+                    <li><a href="<%=contextPath%>">대시보드</a></li>
                 </c:otherwise>
             </c:choose>
         </ul>

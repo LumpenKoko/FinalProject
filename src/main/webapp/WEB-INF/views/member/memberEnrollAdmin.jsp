@@ -144,10 +144,10 @@
                         <input type="text" id="address-zipCode" class="minibox-input" placeholder="우편번호 입력">
                         <button type="button" class="common-button white-button" onclick="showAddress()">우편번호 검색</button>
                     </div>
-                    <input type="text" id="address-content" class="minibox-input" onchange="changeAddress()" placeholder="">
+                    <input type="text" name="address" id="address-content" class="minibox-input" onkeyup="changeAddress()" placeholder="">
                     <!-- <input type="text" id="address-detail" class="minibox-input" onkeyup="changeAddress()" placeholder="상세 주소를 입력하세요."> -->
 
-                    <input type="text" name="address" id="input-address">
+                    <!-- <input type="text" name="address" id="input-address"> -->
 
                     <!-- <button type="submit" id="check-admin-button" class="common-button pink-button minibox-full-button">사업자 정보 인증</button> -->
                 <!-- </form> -->

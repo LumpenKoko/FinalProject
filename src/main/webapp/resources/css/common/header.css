@@ -124,3 +124,13 @@
     border-radius: 50%;
     border: 2px solid #fe8b94;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;
+    color: var(--main-color);
+}

@@ -1,13 +1,60 @@
-document.getElementById('fileInput').addEventListener('change', function () {
-    var file = this.files[0];
-    var reader = new FileReader();
+// function uploadPetImage(petNo, contextPath) {
+//     var fileInput = document.getElementById('petImgInput');
+//     var upfile = fileInput.files[0];
+//     var formData = new FormData();
+//     formData.append('petImage', upfile);
+//     formData.append('petNo', petNo);
 
-    reader.onload = function (e) {
-        document.getElementById('profile').style.backgroundImage = "url('" + e.target.result + "')";
-    }
+//     $.ajax({
+//         url: contextPath + '/insertPetImg.mp',
+//         type: 'POST',
+//         data: formData,
+//         processData: false,
+//         contentType: false,
+//         success: function(response) {
+//             if(response === "NNNNY") {
+//                 alert('반려동물 이미지 업로드 성공');
+//                 location.href = contextPath + '/myPagePetInfo.mp';
+//             } else {
+//                 alert('반려동물 이미지 업로드 실패');
+//                 location.href = contextPath + '/myPagePetInfo.mp';
+//             }
+//         },
+//         error: function() {
+//             alert('반려동물 이미지 업로드 실패');
+//             location.href = contextPath + '/myPagePetInfo.mp';
+//         }
+//     });
+// }
 
-    reader.readAsDataURL(file);
-});
+function uploadPetImage(petNo, contextPath, index) {
+    var fileInput = document.getElementById(`petImgInput-${index}`);
+    var upfile = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('petImage', upfile);
+    formData.append('petNo', petNo);
+
+    $.ajax({
+        url: contextPath + '/insertPetImg.mp',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if(response === "NNNNY") {
+                alert('반려동물 이미지 업로드 성공');
+                location.href = contextPath + '/myPagePetInfo.mp';
+            } else {
+                alert('반려동물 이미지 업로드 실패');
+                location.href = contextPath + '/myPagePetInfo.mp';
+            }
+        },
+        error: function() {
+            alert('반려동물 이미지 업로드 실패');
+            location.href = contextPath + '/myPagePetInfo.mp';
+        }
+    });
+}
 
 function updatePet(petNo) {
     var formData = {
@@ -77,3 +124,4 @@ function uploadProfileImage(contextPath) {
         }
     });
 }
+

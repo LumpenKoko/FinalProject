@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.common.model.dto.PetPicture;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.pet.model.vo.Pet;
@@ -32,11 +33,23 @@ public class PetDao {
     	return sqlSession.selectList("communityBoardMapper.getBoardList", userNo);
     }
     
-    public int insertPicture(SqlSessionTemplate sqlSession, PetPicture pic) {
-    	return sqlSession.insert("attachment.insertPic", pic);
-    }
-    
     public int deletePet(SqlSessionTemplate sqlSession, Pet p) {
     	return sqlSession.delete("petMapper.deletePet", p);
     }
+
+	public int insertPetImg(SqlSessionTemplate sqlSession, ProfileImg petImg) {
+		return sqlSession.insert("imgMapper.insertPetImg", petImg);
+	}
+
+	public ProfileImg getPetImg(SqlSessionTemplate sqlSession, int petNo) {
+		return sqlSession.selectOne("imgMapper.getPetImg", petNo);
+	}
+
+	public int updatePetImg(SqlSessionTemplate sqlSession, ProfileImg petImg) {
+		return sqlSession.update("imgMapper.updatePetImg", petImg);
+	}
+
+	public List<ProfileImg> getImgList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("imgMapper.getImgList");
+	}
 }

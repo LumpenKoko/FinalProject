@@ -13,6 +13,7 @@ import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
+import com.kh.mng.community.model.dto.DeleteBoardAttachmentInfo;
 import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -259,6 +260,11 @@ public class CommunityDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("communityBoardMapper.insertUpdateBoardAttachment", boardFile);
 
+	}
+
+	public int deleteBoardAttachment(SqlSessionTemplate sqlSession, DeleteBoardAttachmentInfo deleteInfo) {
+		
+		return sqlSession.delete("communityBoardMapper.deleteBoardAttachment",deleteInfo);
 	}
 
 	

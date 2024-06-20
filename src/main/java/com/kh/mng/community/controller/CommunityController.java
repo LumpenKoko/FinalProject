@@ -24,12 +24,14 @@ import com.google.gson.Gson;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.PageInfo;
 import com.kh.mng.common.model.vo.Pagination;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.dto.BoardEnroll;
 import com.kh.mng.community.model.dto.BoardFileInfo;
 import com.kh.mng.community.model.dto.BoardGoodInfo;
 import com.kh.mng.community.model.dto.BoardInfo;
 import com.kh.mng.community.model.dto.BoardPage;
 import com.kh.mng.community.model.dto.BoardReplyInfo;
+import com.kh.mng.community.model.dto.DeleteBoardAttachmentInfo;
 import com.kh.mng.community.model.dto.ForIsLike;
 import com.kh.mng.community.model.dto.ReplyInfo;
 import com.kh.mng.community.model.dto.ShorstInfo;
@@ -43,6 +45,7 @@ import com.kh.mng.community.model.vo.ShortsReply;
 import com.kh.mng.community.model.vo.TotalShortsInfo;
 import com.kh.mng.community.service.CommunityService;
 import com.kh.mng.member.model.vo.Member;
+import com.kh.mng.member.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,8 +55,16 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class CommunityController {
 	
+	
+	private final CommunityService communityService;
+	private final MemberService memberService;
+	
 	@Autowired
-	private CommunityService communityService;
+	public CommunityController(CommunityService communityService,MemberService memberService) {
+		this.communityService= communityService;
+		this.memberService=memberService;
+		
+	}
 	
 	@GetMapping("/community")
 	public String communityMain(@RequestParam(value="shortsPageNo",defaultValue="1") int shortsPageNo,  
@@ -270,18 +281,20 @@ public class CommunityController {
 								  @RequestParam(value="pageNo",defaultValue="1") int pageNo,
 								  Model model,HttpSession session) {
 		
-		//int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
+		int userNo=((Member)session.getAttribute("loginUser")).getUserNo();
 		
 		int  replyCount= communityService.selectBoardReplyCount(bno);
 	    PageInfo replyPi = Pagination.getPageInfo(replyCount ,pageNo, 10, 10);
 		
-		 CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno,0);
+		CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno,0);
+		ProfileImg profileImg= memberService.getProfileImg(userNo);
 		 
-		 log.info("communityBoard:{}",communityBoard);
+		log.info("communityBoard:{}",communityBoard);
 		 
 		
-		 model.addAttribute("board",communityBoard);
-		 model.addAttribute("replyPi",replyPi);
+		model.addAttribute("board",communityBoard);
+	    model.addAttribute("replyPi",replyPi);
+		model.addAttribute("userProfile", profileImg);
 		 
 		 return "community/boardContent";
 	}
@@ -466,10 +479,8 @@ public class CommunityController {
 				if(!deletedBoardAttachment.isEmpty()) {
 					for(Attachment attachment:deletedBoardAttachment) {
 						File file =new File(savePath+attachment.getChangeName());
-						System.out.println(file.getPath());
 						if(file.exists()) {
 							file.delete();
-							System.out.println("파일삭제성공");
 						}
 					}
 				}
@@ -506,14 +517,15 @@ public class CommunityController {
     //게시글 수정
     
     @PostMapping(value="update.bo")
-    public String updatedBoard(BoardEnroll board, MultipartFile upfile,HttpSession session, Model model) {
+    public String updatedBoard(@RequestParam(value="existedFileChangeName",defaultValue="none")String existedFileChangeName, BoardEnroll board, MultipartFile upfile,HttpSession session, Model model) {
+    	
     	
     	BoardFileInfo boardFile = new BoardFileInfo();
 		Member loginUser = (Member)(session.getAttribute("loginUser"));
 		board.setUserNo(loginUser.getUserNo());
 		boardFile.setBoardNo(board.getBoardNo());
 		
-		System.out.println("upfile:"+upfile);
+	
 		String path="resources/img/community/";
 		if(!upfile.getOriginalFilename().equals("")) {
 			String changeName = saveFile(upfile, session,path);
@@ -521,8 +533,15 @@ public class CommunityController {
 			boardFile.setOriginName(upfile.getOriginalFilename());
 			boardFile.setChangeName(changeName);
 			boardFile.setFilePath("resources/img/community/");
-			boardFile.setUserNo(loginUser.getUserNo());
+			
 		}
+		//파일이 안넘어올때 디폴트 값으로 
+//		else {
+//			boardFile.setFilePath("resources/img/default/");
+//			boardFile.setChangeName("defaultImg.png");
+//			boardFile.setOriginName("defaultImg.png");
+//		}
+		boardFile.setUserNo(loginUser.getUserNo());
 		
 		
 		int result=communityService.updateBoard(board, boardFile);
@@ -530,6 +549,26 @@ public class CommunityController {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "게시글이 수정 되었습니다.");
+			
+			//게시글 첨부파일까지 삭제
+			//게시글 수정 되는 첨부파일이 있을때
+			if(!existedFileChangeName.equals("none")) {
+				String savePath = session.getServletContext().getRealPath("resources/img/community/");
+				DeleteBoardAttachmentInfo deleteInfo= new DeleteBoardAttachmentInfo();
+				deleteInfo.setBoardNo(board.getBoardNo());
+				deleteInfo.setChangeName(existedFileChangeName);
+				int count=communityService.deleteBoardAttachment(deleteInfo);
+				File file =new File(savePath+existedFileChangeName);
+				if(file.exists()) {
+					file.delete();
+					log.info("삭제성공");
+				}
+			}
+			else {
+				
+			}
+			
+			
 		}
 		else {
 			session.setAttribute("alertMsg", "게시글 수정에 실패하였습니다.");

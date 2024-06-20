@@ -245,7 +245,7 @@
 }
 
 .input-reply-div{
-    width: 95%;
+    width: 80%;
     float:right;
     display: flex;
     justify-content: space-evenly;

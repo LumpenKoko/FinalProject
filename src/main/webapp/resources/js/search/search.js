@@ -303,8 +303,12 @@ function drawSearchPage(locationInfo){
 
             // 반려동물 사이즈
             let sizeList = "";
-            for (let size of loc.enterList){
-                sizeList += size.petSizeNo + ' ';
+            if (loc.enterList[0] == null){
+                sizeList += "-";
+            } else {
+                for (let size of loc.enterList){
+                    sizeList += size.petSizeNo + ' ';
+                }
             }
             upperBox.innerHTML += '<div><span class="font-bold">종류</span><span>'
                                     + sizeList + '</span></div>';
@@ -335,17 +339,20 @@ function drawSearchPage(locationInfo){
 
             let opTimeText = document.createElement('span');
             opTimeText.className = 'operation-time';
-            console.log(loc.opTime)
-            if (!loc.opTime.restStatus){
-                opTimeText.dataset.start = loc.opTime.startTime;
-                opTimeText.dataset.end = loc.opTime.endTime;
-                opTimeText.dataset.status = loc.opTime.restStatus;
-                opTimeText.dataset.category = loc.locationCategoryNo;
-            } else if (loc.opTime.restStatus){
-                opTimeText.dataset.start = '00:00:00';
-                opTimeText.dataset.end = '00:00:00';
-                opTimeText.dataset.status = loc.opTime.restStatus;
-                opTimeText.dataset.category = loc.locationCategoryNo;
+            if (loc.opTime == null){
+                opTimeText.innerHTML = "-";
+            } else {
+                if (!loc.opTime.restStatus){
+                    opTimeText.dataset.start = loc.opTime.startTime;
+                    opTimeText.dataset.end = loc.opTime.endTime;
+                    opTimeText.dataset.status = loc.opTime.restStatus;
+                    opTimeText.dataset.category = loc.locationCategoryNo;
+                } else if (loc.opTime.restStatus){
+                    opTimeText.dataset.start = '00:00:00';
+                    opTimeText.dataset.end = '00:00:00';
+                    opTimeText.dataset.status = loc.opTime.restStatus;
+                    opTimeText.dataset.category = loc.locationCategoryNo;
+                }
             }
             opTimeBox.append(opTimeText);
         }

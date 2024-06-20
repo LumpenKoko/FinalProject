@@ -26,7 +26,6 @@ public class MainController {
 	@RequestMapping(value="topPlace.ma", produces="application/json; charset-UTF-8")
 	public String ajaxSelectLocationMainList() {
 		ArrayList<Location> list = mainService.ajaxSelectLocationMainList();
-		log.info(list.toString());
 		return new Gson().toJson(list);
 	}
 	

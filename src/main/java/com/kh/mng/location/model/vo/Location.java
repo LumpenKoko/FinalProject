@@ -37,5 +37,6 @@ public class Location {
 	private String currentDay; // 현재 요일
 	private int pickCount; // 전체 공감 개수
 	private int userPick; // 유저가 공감한 가게인지
+	private int locationStarCount; // 평점 반올림한 수
 	
 }

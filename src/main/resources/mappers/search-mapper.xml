@@ -72,6 +72,8 @@
 		
    		WHERE LO.STATUS = true
    		AND LOCATION_NAME LIKE '%${keyword}%'
+   		
+   		ORDER BY LOCATION_STAR DESC
    	</select>
    
    	<select id="selectFilterLocationListCount" resultType="_int">
@@ -115,11 +117,11 @@
 			
 			JOIN LOCATION_CATEGORY LC
 			ON LO.LOCATION_CATEGORY_NO = LC.LOCATION_CATEGORY_NO
-			JOIN ENTER_GRADE E
+			LEFT JOIN ENTER_GRADE E
 			ON LO.LOCATION_NO = E.LOCATION_NO
-			JOIN PICK P
+			LEFT JOIN PICK P
 			ON LO.LOCATION_NO = P.LOCATION_NO
-			JOIN (SELECT COUNT(*) AS PICK_COUNT,
+			LEFT JOIN (SELECT COUNT(*) AS PICK_COUNT,
 							P.LOCATION_NO
 				  FROM PICK P
 				  GROUP BY P.LOCATION_NO) PC
@@ -170,6 +172,7 @@
 		FROM OPERATION_TIME
 		WHERE LOCATION_NO = #{locationNo}
 		AND DAYS IN (#{currentDay}, '체크인/체크아웃')
+		LIMIT 1
 	</select>
 	
 <!-- 	<select id="selectPickCount" resultType="_int">

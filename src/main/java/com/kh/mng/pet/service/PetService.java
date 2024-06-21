@@ -5,6 +5,8 @@ import java.util.List;
 import com.kh.mng.common.model.dto.PetPicture;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.CommunityBoard;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.pet.model.vo.Pet;
 
@@ -16,9 +18,9 @@ public interface PetService {
 	
 	List<Pet> getPetByUserNo(int userNo);
 	
-	List<Review> getReviewList(int userNo);
+	List<MyPageReview> getReviewList(int userNo);
 	
-	List<Board> getBoardList(int userNo);
+	List<CommunityBoard> getBoardList(int userNo);
 	
 	int deletePet(Pet p);
 	

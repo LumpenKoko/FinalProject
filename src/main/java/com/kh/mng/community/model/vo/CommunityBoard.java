@@ -2,8 +2,10 @@ package com.kh.mng.community.model.vo;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.common.model.vo.ProfileImg;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,5 +35,5 @@ public class CommunityBoard {
 	private ArrayList <Attachment> attachment;//첨부파일
 	private Attachment userProfile;//유저 프로필
 	private ArrayList<BoardReply> replys; //댓글;
-	
+	private List<ProfileImg> boardImg; // 마이페이지용 게시글 사진 리스트
 }

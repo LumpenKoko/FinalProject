@@ -1,6 +1,9 @@
 package com.kh.mng.community.model.vo;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.kh.mng.common.model.vo.ProfileImg;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +28,5 @@ public class Board {
 	private String boardCategoryNo;
 	private int goodCount; // 데이터 조회 시 사용할 추천 횟수
 	private int replyCount; // 데이터 조회 시 사용할 댓글수
+	private List<ProfileImg> boardImg; // 마이페이지용 게시글 사진 리스트
 }

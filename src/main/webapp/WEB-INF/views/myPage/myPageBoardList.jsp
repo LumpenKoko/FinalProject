@@ -73,7 +73,7 @@
                                 <span onclick="location.href='<%=request.getContextPath()%>/myPageShorts.mp'"
                                     id="shorts">쇼츠</span>
                             </div>
-                            <c:forEach var="board" items="${BoardList}" varStatus="loop">
+                            <c:forEach var="board" items="${boards}" varStatus="loop">
                                 <div id="right2" style="cursor: pointer;">
                                     <div id="right2-left">
                                         <div style="height: 45px;">
@@ -91,10 +91,22 @@
                                     </div>
                                     <div id="right2-right">
                                         <div id="right2-right-top">
-                                            <img src="resources/img/myPage/board.png">
+                                            <c:choose>
+                                                <c:when test="${empty board.boardImg}">
+                                                    <img src="resources/img/myPage/logo.PNG" style="width: 119px; height: 119px;">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:forEach var="img" items="${board.boardImg}">
+                                                        <img src="${img.filePath}${img.changeName}" alt="">
+                                                    </c:forEach>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div id="right2-right-bottom" style="margin-left: 85px;">
-                                            <span style="color: #bababa; cursor: pointer; margin-left: 65px;"
+                                            <span style="color: #bababa; cursor: pointer;"
+                                            onclick="location.href='updateview.bo'">수정</span>
+                                            <span style="color: #bababa; margin-left: 10px; cursor:default ;">|</span>
+                                            <span style="color: #bababa; cursor: pointer; margin-left: 10px;"
                                                 onclick="deleteBoard('${board.boardNo}', '<%=request.getContextPath()%>')">삭제</span>
                                         </div>
                                     </div>

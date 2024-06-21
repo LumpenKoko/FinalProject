@@ -21,11 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.CommunityBoard;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.vo.MyPageEnter;
 import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
-import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.location.model.vo.WishListNo;
 import com.kh.mng.member.model.vo.Member;
 import com.kh.mng.member.service.MemberService;
@@ -49,11 +49,20 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
-			List<Review> ReviewList = petService.getReviewList(userNo);
 			ProfileImg profileImg = memberService.getProfileImg(userNo);
-			model.addAttribute("ReviewList", ReviewList);
-			System.out.println(ReviewList);
-			System.out.println(profileImg);
+			List<MyPageReview> ReviewList = petService.getReviewList(userNo);
+			
+			List<MyPageReview> reviews = new ArrayList<>();
+			
+			for(MyPageReview review : ReviewList) {
+				int reviewNo = review.getReviewNo();
+				System.out.println(reviewNo);
+				List<ProfileImg> reviewImg = memberService.getReivewImg(reviewNo);
+				review.setReviewImg(reviewImg);
+				reviews.add(review);
+			}
+			session.setAttribute("reviews", reviews);
+			System.out.println(reviews);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);
@@ -216,10 +225,18 @@ public class myPage {
 			int userNo = loginUser.getUserNo(); // 사용자 번호
 			// 사용자 번호를 사용하여 펫 데이터를 불러옴
 			List<Pet> petList = petService.getPetByUserNo(userNo);
-			List<Board> BoardList = petService.getBoardList(userNo);
+			List<CommunityBoard> BoardList = petService.getBoardList(userNo);
 			ProfileImg profileImg = memberService.getProfileImg(userNo);
-			model.addAttribute("BoardList", BoardList);
-			System.out.println(BoardList);
+			
+			List<CommunityBoard> boards = new ArrayList<>();
+			for(CommunityBoard board : BoardList) {
+				int boardNo = board.getBoardNo();
+				List<ProfileImg> boardImg = memberService.getBoardImg(boardNo);
+				board.setBoardImg(boardImg);
+				boards.add(board);
+			}
+			
+			session.setAttribute("boards", boards);
 			if (petList != null) {
 				// 펫 데이터를 모델에 추가하여 HTML에 전달
 				model.addAttribute("petList", petList);

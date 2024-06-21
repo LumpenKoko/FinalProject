@@ -70,7 +70,7 @@
                         <div id="right">
                             <div id="main_main_right">
                                 <div id="right1">작성한 리뷰</div>
-                                <c:forEach var="review" items="${ReviewList}" varStatus="loop">
+                                <c:forEach var="review" items="${reviews}" varStatus="loop">
                                     <div id="right2">
                                         <div id="right2-top">
                                             <div id="right2-top1">
@@ -115,12 +115,16 @@
                                             </div>
                                         </div>
                                         <div id="right2-mid">
-                                            <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg"
-                                                alt="">
-                                            <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg"
-                                                alt="">
-                                            <img src="https://images.mypetlife.co.kr/content/uploads/2018/05/09155809/KakaoTalk_Moim_4AWlBQu0MIdS4z9cheGIreazGTaSR3-1024x800.jpg"
-                                                alt="">
+                                            <c:choose>
+                                                <c:when test="${empty review.reviewImg}">
+                                                    <img src="resources/img/myPage/logo.PNG">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:forEach var="img" items="${review.reviewImg}">
+                                                        <img src="${img.filePath}${img.changeName}" alt="">
+                                                    </c:forEach>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div id="right2-bottom">
                                             <p

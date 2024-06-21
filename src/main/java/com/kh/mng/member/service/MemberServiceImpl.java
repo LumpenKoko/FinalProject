@@ -194,4 +194,14 @@ public class MemberServiceImpl implements MemberService {
 	public List<MyPageEnter> getEnterList(int locationNo) {
 		return memberDao.getEnterList(sqlSession, locationNo);
 	}
+
+	@Override
+	public List<ProfileImg> getReivewImg(int reviewNo) {
+		return memberDao.getReviewImg(sqlSession, reviewNo);
+	}
+
+	@Override
+	public List<ProfileImg> getBoardImg(int boardNo) {
+		return memberDao.getBoardImg(sqlSession, boardNo);
+	}
 }

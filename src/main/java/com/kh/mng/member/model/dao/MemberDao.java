@@ -135,4 +135,12 @@ public class MemberDao {
 	public List<MyPageEnter> getEnterList(SqlSessionTemplate sqlSession, int locationNo) {
 		return sqlSession.selectList("location.getEnterList", locationNo);
 	}
+
+	public List<ProfileImg> getReviewImg(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.selectList("imgMapper.getReviewImg", reviewNo);
+	}
+
+	public List<ProfileImg> getBoardImg(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectList("imgMapper.getBoardImg", boardNo);
+	}
 }

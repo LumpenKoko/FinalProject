@@ -122,5 +122,25 @@
 		ORDER BY PIC_NO DESC
 		LIMIT 1
 	</select>
+	
+	<select id="getReviewImg" resultMap="imgResult">
+		SELECT ORIGIN_NAME,
+		CHANGE_NAME,
+		FILE_PATH
+		FROM PICTURE
+		WHERE REVIEW_NO = #{reviewNo}
+		ORDER BY PIC_NO DESC
+		LIMIT 3
+	</select>
+
+	<select id="getBoardImg" resultMap="imgResult">
+		SELECT ORIGIN_NAME,
+		CHANGE_NAME,
+		FILE_PATH
+		FROM PICTURE
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY PIC_NO DESC
+		LIMIT 3
+	</select>
 
 </mapper>

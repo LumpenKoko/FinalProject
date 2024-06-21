@@ -78,4 +78,8 @@ public interface MemberService {
 	List<Picked> getPickCount(int locationNo);
 
 	List<MyPageEnter> getEnterList(int locationNo);
+
+	List<ProfileImg> getReivewImg(int reviewNo);
+
+	List<ProfileImg> getBoardImg(int boardNo);
 }

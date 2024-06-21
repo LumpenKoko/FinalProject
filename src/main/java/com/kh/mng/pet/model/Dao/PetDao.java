@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.mng.common.model.dto.PetPicture;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.CommunityBoard;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.pet.model.vo.Pet;
 
@@ -25,11 +27,11 @@ public class PetDao {
         return sqlSession.selectList("petMapper.selectPet", userNo);
     }
     
-    public List<Review> getReviewList(SqlSessionTemplate sqlSession, int userNo) {
+    public List<MyPageReview> getReviewList(SqlSessionTemplate sqlSession, int userNo) {
     	return sqlSession.selectList("review.selectMyPageReview", userNo);
     }
     
-    public List<Board> getBoardList(SqlSessionTemplate sqlSession, int userNo) {
+    public List<CommunityBoard> getBoardList(SqlSessionTemplate sqlSession, int userNo) {
     	return sqlSession.selectList("communityBoardMapper.getBoardList", userNo);
     }
     

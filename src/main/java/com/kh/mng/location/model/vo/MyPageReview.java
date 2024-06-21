@@ -1,9 +1,8 @@
 package com.kh.mng.location.model.vo;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 
-import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.ProfileImg;
 
 import lombok.AllArgsConstructor;
@@ -26,5 +25,5 @@ public class MyPageReview {
 	private String locationName;
 	private int reviewStar;
 	private int locationNo;
-	private ArrayList<Attachment> attachment;
+	private List<ProfileImg> reviewImg;
 }

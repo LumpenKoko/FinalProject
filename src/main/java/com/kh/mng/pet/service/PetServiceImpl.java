@@ -6,9 +6,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.mng.common.model.dto.PetPicture;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
+import com.kh.mng.community.model.vo.CommunityBoard;
+import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Review;
 import com.kh.mng.pet.model.Dao.PetDao;
 import com.kh.mng.pet.model.vo.Pet;
@@ -38,12 +39,12 @@ public class PetServiceImpl implements PetService {
 	}
 
 	@Override
-	public List<Review> getReviewList(int userNo) {
+	public List<MyPageReview> getReviewList(int userNo) {
 		return petDao.getReviewList(sqlSession, userNo);
 	}
 
 	@Override
-	public List<Board> getBoardList(int userNo) {
+	public List<CommunityBoard> getBoardList(int userNo) {
 		return petDao.getBoardList(sqlSession, userNo);
 	}
 

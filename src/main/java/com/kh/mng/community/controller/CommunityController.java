@@ -288,13 +288,22 @@ public class CommunityController {
 		
 		CommunityBoard communityBoard = communityService.selectBoardDetail(replyPi,bno,0);
 		ProfileImg profileImg= memberService.getProfileImg(userNo);
+		if(profileImg==null) {
+			ProfileImg defaultImg =new ProfileImg();
+			defaultImg.setFilePath("resources/img/default/");
+			defaultImg.setChangeName("default_profile.jpg");
+			model.addAttribute("userProfile",defaultImg);
+		}
+		else {
+			model.addAttribute("userProfile", profileImg);
+		}
 		 
 		log.info("communityBoard:{}",communityBoard);
 		 
 		
 		model.addAttribute("board",communityBoard);
 	    model.addAttribute("replyPi",replyPi);
-		model.addAttribute("userProfile", profileImg);
+	
 		 
 		 return "community/boardContent";
 	}

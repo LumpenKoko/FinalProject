@@ -6,6 +6,7 @@
     position: relative;
 	display:flex;
 	justify-content: space-between;
+	
 }
 
 .header-img .radio-button{
@@ -22,6 +23,7 @@
 	width:100%;
 	height:100%;
 	transition: opacity 500ms;
+	object-fit: cover;
 }
 
 .header-img .navigation-manual{
@@ -177,6 +179,10 @@
 
 .detail-main .more-area{
 	width:20%;
+}
+.detail-main  .location-check-in-out{
+	width:100%;
+	
 }
 
 

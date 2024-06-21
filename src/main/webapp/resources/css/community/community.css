@@ -178,6 +178,14 @@
 .community-main  .board-content .content, .content-title, .reply-count{
     margin-left: 20px;
   }
+/*내용 넘치면 안넘어가게*/
+.community-main .content{
+    width:900px;
+    height:80px;
+    -webkit-line-clamp:2;
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+}
 
 /*이미지 관련 클래스*/
 .community-main  .board-content .profile .img-div {

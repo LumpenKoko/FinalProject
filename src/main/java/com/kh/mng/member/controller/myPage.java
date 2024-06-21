@@ -139,8 +139,6 @@ public class myPage {
 						location.setPickCount(pickCount.size());
 						location.setGetEnterList(enterGrade);
 						wishList.add(location);
-						System.out.println(enterGrade);
-						System.out.println(location.getLocationNo());
 					}
 				}
 			}

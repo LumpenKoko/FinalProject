@@ -107,7 +107,9 @@
                                                 style="cursor: pointer;">
                                                 <span id="type1">종류</span>
                                                 <span id="type2">
-                                                    
+                                                    <c:forEach var="enter" items="${wish.getEnterList}">
+                                                        ${enter.petSizeName}
+                                                    </c:forEach>
                                                 </span>
                                             </div>
                                             <div id="solid">

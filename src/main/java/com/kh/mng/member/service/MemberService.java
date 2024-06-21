@@ -1,13 +1,17 @@
 package com.kh.mng.member.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.BoardNum;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.location.model.vo.EnterGrade;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageEnter;
 import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -68,4 +72,10 @@ public interface MemberService {
 	ProfileImg getProfileImg(int userNo);
 
 	int updateProfileImg(ProfileImg profileImg);
+
+	ProfileImg getLocationImg(int locationNo);
+
+	List<Picked> getPickCount(int locationNo);
+
+	List<MyPageEnter> getEnterList(int locationNo);
 }

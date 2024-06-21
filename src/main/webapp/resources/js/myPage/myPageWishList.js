@@ -57,3 +57,5 @@ function uploadProfileImage(contextPath) {
         }
     });
 }
+
+document.write('${wish.getEnterList.petSizeName}');

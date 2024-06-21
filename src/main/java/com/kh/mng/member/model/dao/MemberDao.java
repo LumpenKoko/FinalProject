@@ -1,16 +1,20 @@
 package com.kh.mng.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.common.model.vo.Attachment;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.location.model.vo.EnterGrade;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageEnter;
 import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -118,5 +122,17 @@ public class MemberDao {
 
 	public int updateProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
 		return sqlSession.update("imgMapper.updateProfileImg", profileImg);
+	}
+
+	public ProfileImg getLocationImg(SqlSessionTemplate sqlSession, int locationNo) {
+		return sqlSession.selectOne("imgMapper.getLocationImg", locationNo);
+	}
+
+	public List<Picked> getPickCount(SqlSessionTemplate sqlSession, int locationNo) {
+		return sqlSession.selectList("picked.getPickCount", locationNo);
+	}
+
+	public List<MyPageEnter> getEnterList(SqlSessionTemplate sqlSession, int locationNo) {
+		return sqlSession.selectList("location.getEnterList", locationNo);
 	}
 }

@@ -146,3 +146,18 @@ function uploadProfileImage(contextPath) {
         }
     });
 }
+
+// 이메일을 불러올 때
+const loginUser = { userEmail: userEmail }; // 예제 사용자 이메일
+    
+// 이메일의 '@' 뒤를 숨기는 함수
+function maskEmail(email) {
+    const [user, domain] = email.split('@');
+    return domain ? `${user}@******` : user;
+}
+
+// 페이지가 로드될 때 실행
+document.addEventListener("DOMContentLoaded", () => {
+    const emailInput = document.getElementById('userEmail');
+    emailInput.value = maskEmail(loginUser.userEmail);
+});

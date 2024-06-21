@@ -22,6 +22,7 @@ import com.kh.mng.bosspage.model.vo.BossLocation;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.community.model.vo.Board;
 import com.kh.mng.community.model.vo.Shorts;
+import com.kh.mng.location.model.vo.MyPageEnter;
 import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.Review;
@@ -131,6 +132,12 @@ public class myPage {
 			for (Picked picked : pickList) {
 				for (BossLocation location : locationList) {
 					if (picked.getLocationNo() == location.getLocationNo()) {
+						ProfileImg locationImg = memberService.getLocationImg(location.getLocationNo());
+						List<Picked> pickCount = memberService.getPickCount(location.getLocationNo());
+						List<MyPageEnter> enterGrade = memberService.getEnterList(location.getLocationNo());
+						location.setLocationImg(locationImg);
+						location.setPickCount(pickCount.size());
+						location.setGetEnterList(enterGrade);
 						wishList.add(location);
 					}
 				}

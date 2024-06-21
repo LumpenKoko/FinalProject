@@ -10,6 +10,9 @@
         <link rel="stylesheet" href="resources/css/myPage/myPageInfo.css" />
         <link rel="stylesheet" href="resources/css/common/common.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
         <script src="resources/js/myPage/myPageInfo.js"></script>
     </head>
 
@@ -63,14 +66,14 @@
                     <div id="right">
                         <form id="main_main_right" action="update.mp">
                             <h1 style="margin-top: 50px; color: #FE8B94; text-align: center;">개인정보 수정</h1>
-                            <div id="id-input">
+                            <!-- <div id="id-input">
                                 <span style="text-align: left; margin-bottom: 0px; font-size: 19px;">아이디</span>
                                 <span id="hiddenId" style="color: red; font-size: 15px;"><b>경고!</b> 사용할 수 없는 아이디
                                     입니다.</span><br>
                                 <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
                                   height: 50px; text-align: left; padding-left: 20px;" value="${loginUser.userId}"
                                     id="userId" name="userId">
-                            </div>
+                            </div> -->
                             <div id="name-input">
                                 <p style="text-align: left; margin-bottom: 0px; font-size: 19px;">이름</p>
                                 <input type="text" style="border-radius: 15px; border: 1px solid #bababa; margin-top: 0px; width: 80%; float: left;
@@ -104,7 +107,7 @@
                                     id="userEmail" name="userEmail">
                                 <p style="font-size: 22px; line-height: 50px;">@</p>
                                 <select id="website"
-                                    style="border-radius: 15px; width: 300px; border: 1px solid #bababa; margin-right: 165px; padding-left: 20px;">
+                                    style="border-radius: 15px; width: 300px; height: 50px; border: 1px solid #bababa; margin-right: 165px; padding-left: 20px;">
                                     <option value="naver.com">naver.com</option>
                                     <option value="daum.net">daum.net</option>
                                     <option value="gmail.com">gmail.com</option>

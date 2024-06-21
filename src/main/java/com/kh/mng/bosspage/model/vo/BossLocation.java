@@ -2,9 +2,12 @@ package com.kh.mng.bosspage.model.vo;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.mng.common.model.vo.Attachment;
+import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.location.model.vo.EnterGrade;
+import com.kh.mng.location.model.vo.MyPageEnter;
 import com.kh.mng.location.model.vo.OperationTime;
 
 import lombok.AllArgsConstructor;
@@ -35,8 +38,10 @@ public class BossLocation {
 	private ArrayList<Attachment> atList; // 사진 여러 장
 	private Attachment attachment; // 사진 한 장
 	private ArrayList<EnterGrade> enterList; // 출입 등급
+	private List<MyPageEnter> getEnterList;
 	private OperationTime opTime; // 운영 시간 한 가지
 	private String currentDay; // 현재 요일
 	private int pickCount; // 전체 공감 개수
 	private int userPick; // 유저가 공감한 가게인지
+	private ProfileImg locationImg;
 }

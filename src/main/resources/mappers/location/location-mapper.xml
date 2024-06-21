@@ -53,6 +53,7 @@
         <result column="ENTER_NO" property="enterNo"/>
         <result column="LOCATION_NO" property="locationNo"/>
         <result column="PET_SIZE_NO" property="petSizeNo"/>
+        <result column="PET_SIZE_NAME" property="petSizeName"/>
     </resultMap>
     
     <resultMap type="LocationPicture" id="locationPicture">
@@ -234,4 +235,14 @@
 	    DELETE FROM PICTURE WHERE LOCATION_NO = #{locationNo}
 	</delete>
     
+    <select id="getEnterList" resultMap="locationEnterGrade">
+    	SELECT ENTER_NO,
+    		   LOCATION_NO,
+    		   E.PET_SIZE_NO,
+    		   P.PET_SIZE_NAME
+    	FROM ENTER_GRADE E
+    	JOIN PET_SIZE P
+    	ON (E.PET_SIZE_NO = P.PET_SIZE_NO)
+    	WHERE LOCATION_NO = #{locationNo}
+    </select>
 </mapper>

@@ -9,6 +9,7 @@ function init(path,masterKind){
     //     targetId="toribro12345";
     //     //userId
     // }
+    //contextPath가져오기
     contextPath=path
     const urlParams =url.searchParams
     locationNo= (urlParams.get("locationNo")!=null)?urlParams.get("locationNo"):0;
@@ -39,11 +40,11 @@ function init(path,masterKind){
             alert("웹소켓 연결 실패")
         }
     
+        //메세지 보내기...
         socket.onmessage=function(ev){
             const now =new Date();
             const recevie =JSON.parse(ev.data);
             //유저목록 count 증가 시킨다. 
-            //let userNo=document.querySelector("#userKey").value
             if(document.querySelector("#notifyCount"+recevie.userNo)===null){
                 let notifyCount=document.createElement("div");
                 notifyCount.id="notifyCount"+recevie.userNo
@@ -62,6 +63,7 @@ function init(path,masterKind){
     }
 }
 
+//웹소켓 여는 함수
 function openChatRoom(roomNo,targetId,targetNo){
 
    
@@ -138,6 +140,17 @@ function openChatRoom(roomNo,targetId,targetNo){
 
     }
 
+
+    //엔터키 누르면 실행
+    let input=document.querySelector("input[name=msg]");
+
+     input.addEventListener("keyup",function(e){
+        if(e.keyCode===13){
+            e.preventDefault();
+            document.querySelector("#send-button").click();
+        }
+    })
+
     //채팅 보내기 버튼을 클릭시 실행되는 함수
     sendButton.onclick=function(){
         let sendMsg=document.querySelector("input[name=msg]");
@@ -149,6 +162,8 @@ function openChatRoom(roomNo,targetId,targetNo){
            targetNo:targetNo,
            locationNo:locationNo
        }
+
+
 
        //소켓에서 메세지 받아오는 메서드
        socket.send(JSON.stringify(msgData));
@@ -207,7 +222,7 @@ function chooseChatRoom(roomNo,id){
     alert("채팅방에 연결되었습니다.")
 }
 
-
+//채팅 리스트 그리기
 function drawChatList(chatList){
 
   let chatDiv=document.querySelector("#chatMsg");

@@ -37,4 +37,11 @@
 		  	 FROM PICK
 		  	 WHERE USER_NO = #{userNo};
 		  </select>
+		  
+		  <select id="getPickCount" resultMap="pickResult">
+		  	 SELECT PICK_NO,
+		  	 		LOCATION_NO
+		  	 FROM PICK
+		  	 WHERE LOCATION_NO = #{locationNo};
+		  </select>
  </mapper>

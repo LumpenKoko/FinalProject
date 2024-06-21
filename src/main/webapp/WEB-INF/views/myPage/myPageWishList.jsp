@@ -71,7 +71,7 @@
                                 <div id="right2">
                                     <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'"
                                         style="cursor: pointer;">
-                                        <img src="resources/img/myPage/cafe.png" id="cafe">
+                                        <img src="${wish.locationImg.filePath}${wish.locationImg.changeName}" id="cafe">
                                     </div>
                                     <div id="right2-right" style="height: 80%;">
                                         <div id="right2-right1">
@@ -83,7 +83,7 @@
                                                     <div id="wishIcon-${loop.index}" class="wishIcon"
                                                         onclick="wishDelete('${loginUser.userNo}', '${wish.locationNo}', '<%=request.getContextPath()%>')"
                                                         style="display: flex; color: #FE8B94;">♥</div>
-                                                    <div id="count" style="display: flex;">45</div>
+                                                    <div id="count" style="display: flex;">${wish.pickCount}</div>
                                                 </div>
                                             </div>
                                             <div id="category"
@@ -97,13 +97,18 @@
                                                 style="cursor: pointer;">
                                                 <span id="score1">평점</span>
                                                 <span id="score2">${wish.locationStar}</span>
-                                                <span id="score3">★★★★★</span>
+                                                <span id="score3">
+                                                    <c:forEach var="i" begin="1" end="${wish.locationStar}">
+                                                        ★
+                                                    </c:forEach>
                                             </div>
                                             <div id="type"
                                                 onclick="location.href='<%=request.getContextPath()%>/detail'"
                                                 style="cursor: pointer;">
                                                 <span id="type1">종류</span>
-                                                <span id="type2">소형견,중형견,고양이</span>
+                                                <span id="type2">
+                                                    
+                                                </span>
                                             </div>
                                             <div id="solid">
                                                 <div id="solid2"></div>

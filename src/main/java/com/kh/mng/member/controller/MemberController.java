@@ -189,10 +189,11 @@ public class MemberController {
 
 	    // 로그인한 사용자 정보에서 사용자 번호 가져오기
 	    int userNo = loginUser.getUserNo();
+	    String userId = loginUser.getUserId();
 
 	    // 사용자 번호를 Member 객체에 설정
 	    m.setUserNo(userNo);
-
+	    m.setUserId(userId);
 	    // 개인정보 업데이트
 	    int result = memberService.updateMember(m);
 	    

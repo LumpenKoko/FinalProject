@@ -1,5 +1,6 @@
 package com.kh.mng.member.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,11 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.common.model.vo.ProfileImg;
 import com.kh.mng.common.phonesms.PhoneSmsVo;
 import com.kh.mng.community.model.vo.Shorts;
 import com.kh.mng.location.model.dao.DetailDao;
+import com.kh.mng.location.model.vo.EnterGrade;
 import com.kh.mng.location.model.vo.Location;
+import com.kh.mng.location.model.vo.MyPageEnter;
 import com.kh.mng.location.model.vo.MyPageReview;
 import com.kh.mng.location.model.vo.Picked;
 import com.kh.mng.location.model.vo.WishListNo;
@@ -174,5 +178,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateProfileImg(ProfileImg profileImg) {
 		return memberDao.updateProfileImg(sqlSession, profileImg);
+	}
+
+	@Override
+	public ProfileImg getLocationImg(int locationNo) {
+		return memberDao.getLocationImg(sqlSession, locationNo);
+	}
+
+	@Override
+	public List<Picked> getPickCount(int locationNo) {
+		return memberDao.getPickCount(sqlSession, locationNo);
+	}
+
+	@Override
+	public List<MyPageEnter> getEnterList(int locationNo) {
+		return memberDao.getEnterList(sqlSession, locationNo);
 	}
 }

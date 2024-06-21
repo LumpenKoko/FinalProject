@@ -109,5 +109,18 @@
 		WHERE PET_NO IS NOT NULL
 		AND FILE_LEVEL = 1
 	</select>
+	
+	<select id="getLocationImg" resultMap="imgResult">
+		SELECT ORIGIN_NAME,
+		PIC_NO,
+		CHANGE_NAME,
+		FILE_PATH,
+		LOCATION_NO
+		FROM PICTURE
+		WHERE LOCATION_NO = #{locationNo}
+		AND FILE_LEVEL = 1
+		ORDER BY PIC_NO DESC
+		LIMIT 1
+	</select>
 
 </mapper>

@@ -395,18 +395,19 @@ public class LocationController {
 		if(check.equals("Y")) {
 			//ArrayList<Chat> masterchats=chatService.selectChats(loginUser.getUserNo());
 			
-
-			//채팅 데이터베이스에 사장님 목록 가져오기 (target이 자신인것만 채팅 목록에 띄우기 위해) 
+		
+			//저장할 사장님 정보
 		    UserTarget masterUserInfo =new UserTarget();
 		    
+			//채팅 데이터베이스에 사장님 목록 가져오기 (target이 자신인것만 채팅 목록에 띄우기 위해) 
 		    MasterInfo userInfo= chatService.selectMasterInfo(locationNo);
 		    masterUserInfo.setTargetNo(userInfo.getMasterNo());
 		    masterUserInfo.setUserNo(loginUser.getUserNo());
 			 
+		    
+		    //가져온 사장님정보로 타켓이 자신인 유저 정보를 가져오기
 		    ArrayList<UserInfo> userInfos= chatService.selectUserInfo(masterUserInfo);//dao에서 TargetNo사용하지 않음
 		 
-		 
-		   // ArrayList<Chat> entireChats=chatService.selectEntireUserChats(loginUser.getUserNo());
 			
 			//사장님이라는 것을 알려줄수있는 표시
 			model.addAttribute("master","YMYMYMMYYY");
@@ -416,19 +417,20 @@ public class LocationController {
 			
 			
 		}
+		
 		//접속유저가 일반 회원이면
 		else {
-			
-			//데이터베이스에 채팅방 만들고 유저 참여시키기 
+			 UserTarget userMasterInfo =new UserTarget();
 			
 			//사장님아이디찾기
 			 MasterInfo masterInfo= chatService.selectMasterInfo(locationNo);
-			 UserTarget userMasterInfo =new UserTarget();
+	         
+			 //저장
 			 userMasterInfo.setTargetNo(masterInfo.getMasterNo());
 			 userMasterInfo.setUserNo(loginUser.getUserNo());
 			 
 			 
-			//채팅 데이터베이스에서 현재 자신의 채팅 목록 가져오기  status true인 상태인 채팅만
+			//채팅 데이터베이스에서 현재 자신의 채팅 내용들 가져오기  status true인 상태인 채팅만
 			ArrayList<Chat> chats=chatService.selectUserChats(userMasterInfo);
 			log.info("chats:{}",chats.toString());
 			model.addAttribute("master","NNNNN");
@@ -460,6 +462,8 @@ public class LocationController {
 		model.addAttribute("locationInfo",locationInfo);
 		return "chat/chatUserList";
 	}
+	
+	
 
 	//////////////////////////////////////////////////////////////////////////////////
 	

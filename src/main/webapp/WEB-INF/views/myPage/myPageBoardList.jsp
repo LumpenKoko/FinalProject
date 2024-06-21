@@ -24,7 +24,8 @@
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
                                     onclick="document.getElementById('fileInput').click()" id="camera">
-                                <div id="profile" style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                                <div id="profile" style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); 
+                                    background-position: center; background-repeat: no-repeat; background-size: cover; object-fit: cover;">
                                     <input type="file" id="fileInput" style="display: none;"
                                         onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
@@ -97,7 +98,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:forEach var="img" items="${board.boardImg}">
-                                                        <img src="${img.filePath}${img.changeName}" alt="">
+                                                        <img src="${img.filePath}${img.changeName}" style="object-fit: cover;">
                                                     </c:forEach>
                                                 </c:otherwise>
                                             </c:choose>

@@ -23,9 +23,10 @@
                         <div id="main_main_left">
                             <div id="main_main_left1">
                                 <img src="resources/img/myPage/camera.png"
-                                    onclick="document.getElementById('fileInput').click()" id="camera">
+                                    onclick="document.getElementById('fileInput').click()" id="camera" style="object-fit: cover;">
                                 <div id="profile"
-                                    style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                                    style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); 
+                                    background-position: center; background-repeat: no-repeat; background-size: cover; object-fit: cover;">
                                     <input type="file" id="fileInput" style="display: none;"
                                         onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                 </div>
@@ -71,7 +72,7 @@
                                 <div id="right2">
                                     <div id="right2-left" onclick="location.href='<%=request.getContextPath()%>/detail'"
                                         style="cursor: pointer;">
-                                        <img src="${wish.locationImg.filePath}${wish.locationImg.changeName}" id="cafe">
+                                        <img src="${wish.locationImg.filePath}${wish.locationImg.changeName}" id="cafe" style="object-fit: cover;">
                                     </div>
                                     <div id="right2-right" style="height: 80%;">
                                         <div id="right2-right1">

@@ -102,6 +102,7 @@
     	  		  REST_STATUS
     	  		  FROM OPERATION_TIME
     	  		  WHERE LOCATION_NO =#{locationNo}
+    	  		
     </select>
     
     

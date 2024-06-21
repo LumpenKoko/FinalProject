@@ -80,7 +80,15 @@ public class MainServiceImpl implements MainService{
 		// 좋아요 수 많은 5개 게시글 정보와 댓글수 가져오기
 		for(int i = 0; i < good.size(); i++) {
 			Board b = mainDao.ajaxSelectBoardMain(sqlSession, good.get(i).getBoardNo());
-			b.setReplyCount(mainDao.selectReplyCount(sqlSession, good.get(i).getBoardNo()));
+			log.info(b.toString());
+			Integer goodCount = mainDao.selectReplyCount(sqlSession, good.get(i).getBoardNo());
+			log.info("{}", goodCount);
+			if (goodCount == 0) {
+				b.setReplyCount(0);
+			} else {
+				b.setReplyCount(goodCount);
+			}
+
 			goodList.add(b);
 		}
 		

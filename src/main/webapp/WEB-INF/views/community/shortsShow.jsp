@@ -26,6 +26,7 @@
             <div id="container"></div>
             <div id="loader">Loading...</div>
         </div>
+        <img src="" id="like-btn">
     </div>
 </body>
 </html>

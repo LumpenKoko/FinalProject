@@ -313,6 +313,14 @@ function activeEnroll(userInfo, userId, userPhone, enroll){
         }
     }
 
+    let pwdCheck = document.querySelector('#pwd-check');
+    if (userInfo[0].value != pwdCheck.value){
+        result = result * 0;
+    }
+
+    console.log(pwdCheck.value)
+    console.log(userInfo[0].value)
+
     if (userId.dataset.check == 'false'){
         result = result * 0;
     }
@@ -320,9 +328,6 @@ function activeEnroll(userInfo, userId, userPhone, enroll){
     if (userPhone.dataset.check == 'false'){
         result = result * 0;
     }
-
-    console.log(userId.dataset.check)
-    console.log(userPhone.dataset.check)
 
     let agree = document.querySelector("#check-agree-all");
     if (!agree.checked){
@@ -455,17 +460,6 @@ function activeBossEnroll(){
 
     activeEnroll(userInfo, userId, userPhone, enroll);
 }
-
-
-
-
-
-
-
-
-
-
-//---------------------------------
 
 
 

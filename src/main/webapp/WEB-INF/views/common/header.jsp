@@ -52,7 +52,7 @@
         <ul>
             <c:choose>
                 <c:when test="${not empty loginUser && loginUser.userKind eq 'Y'}">
-                    <span style="font-weight: 700">사장님 페이지</span>
+                    <span id="boss-page-link" style="font-weight: 700"><a href="<%=contextPath%>/bossMainPage.bm">사장님 페이지</a></span>
                 </c:when>
                 <c:otherwise>
                     <li><span>지도</span></li>

@@ -134,3 +134,12 @@ a:hover{
     text-decoration: none;
     color: var(--main-color);
 }
+
+#header-menu span>a{
+    color: black;
+    text-decoration: none;
+}
+
+#header-menu span>a:hover{
+    color: var(--main-color)
+}

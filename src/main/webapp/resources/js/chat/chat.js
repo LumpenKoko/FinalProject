@@ -11,9 +11,7 @@ function init(path,masterKind){
     // }
     contextPath=path
     const urlParams =url.searchParams
-    console.log(urlParams)
     locationNo= (urlParams.get("locationNo")!=null)?urlParams.get("locationNo"):0;
-    console.log(locationNo)
 
     //유저가 일반 유저면 사장님 target가져오고 바로 웹소켓(채팅방 열기)
     if(masterKind==='NNNNN'){
@@ -42,7 +40,7 @@ function init(path,masterKind){
         }
     
         socket.onmessage=function(ev){
-           const now =new Date();
+            const now =new Date();
             const recevie =JSON.parse(ev.data);
             //유저목록 count 증가 시킨다. 
             //let userNo=document.querySelector("#userKey").value
@@ -51,7 +49,6 @@ function init(path,masterKind){
                 notifyCount.id="notifyCount"+recevie.userNo
                 notifyCount.className="notify"
                 notifyCount.innerText=1
-                console.log(notifyCount)
                 document.querySelector("#notice"+recevie.userNo).appendChild(notifyCount)
             }   
             else{
@@ -94,11 +91,12 @@ function openChatRoom(roomNo,targetId,targetNo){
      
         let sendUserNo=parseInt(document.querySelector("#userKey").value);
 
+        //자신에게 오는 메세지면 메세지를 띄원다.
         if(recevie.userNo===sendUserNo){
          
 
             msgContainer.innerHTML+=`
-                <div class="send-master">
+                <div  class="send-master">
                                 <div class="master-profile">
                                     <div class="img-div">
                                         <img src="resources/img/default/default_profile.jpg">
@@ -111,64 +109,76 @@ function openChatRoom(roomNo,targetId,targetNo){
                                 </div>
                         </div>
             `
-    }
-     else{
 
-         //자신한테 오는 메세지가 아니면 카운트표시만 증가시킨다.
-        //유저목록 count 증가 시킨다. 
-          //let userNo=document.querySelector("#userKey").value
-          if(document.querySelector("#notifyCount"+recevie.userNo)===null){
-            let notifyCount=document.createElement("div");
-            notifyCount.id="notifyCount"+recevie.userNo
-            notifyCount.className="notify"
-            notifyCount.innerText=1
-            console.log(notifyCount)
-            document.querySelector("#notice"+recevie.userNo).appendChild(notifyCount)
-        }   
+            //메세지 타겟 주기
+             msgContainer.lastElementChild.scrollIntoView({behavior: 'smooth'})
+        }
+
         else{
-           document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
-           parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
-       }
-           document.querySelector("#content"+recevie.userNo).innerHTML=recevie.msg;
-           document.querySelector("#date"+recevie.userNo).innerHTML=`${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
 
-     }
+            //자신한테 오는 메세지가 아니면 카운트표시만 증가시킨다.
+            //유저목록 count 증가 시킨다. 
+            //let userNo=document.querySelector("#userKey").value
+            if(document.querySelector("#notifyCount"+recevie.userNo)===null){
+                let notifyCount=document.createElement("div");
+                notifyCount.id="notifyCount"+recevie.userNo
+                notifyCount.className="notify"
+                notifyCount.innerText=1
+                document.querySelector("#notice"+recevie.userNo).appendChild(notifyCount)
+            }   
+            else{
+                document.querySelector("#notifyCount"+recevie.userNo).innerHTML=
+                parseInt(document.querySelector("#notifyCount"+recevie.userNo).innerText)+1;
+            }
+                document.querySelector("#content"+recevie.userNo).innerHTML=recevie.msg;
+                document.querySelector("#date"+recevie.userNo).innerHTML=`${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+
+        }
 
 
     }
 
+    //채팅 보내기 버튼을 클릭시 실행되는 함수
     sendButton.onclick=function(){
         let sendMsg=document.querySelector("input[name=msg]");
         const now = new Date();
         const msgData = {
-            message:sendMsg.value,
-            target:targetId,
-            roomNo:roomNo,
-            targetNo:targetNo,
-            locationNo:locationNo
-        }
-        console.log(msgData)
-        socket.send(JSON.stringify(msgData));
-      
-        //유저 넘버에따라서 출력하기?
-        //특정 유저 메세지만 출력해주기
-        // 클릭했을때 키값을 넘기면 된다.  
+           message:sendMsg.value,
+           target:targetId,
+           roomNo:roomNo,
+           targetNo:targetNo,
+           locationNo:locationNo
+       }
+
+       //소켓에서 메세지 받아오는 메서드
+       socket.send(JSON.stringify(msgData));
+       
+           //유저 넘버에따라서 출력하기?
+           //특정 유저 메세지만 출력해주기
+           // 클릭했을때 키값을 넘기면 된다.  
 
        
             msgContainer.innerHTML+=`
-            <div class="send-user">
-                       <div>To:${targetId}</div>
-                       <div class="content  user-content user-color">
-                           <div>${sendMsg.value}</div>
-                        <div class="time">${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}</div>
-                       </div>
+                   <div class="send-user">
+                           <div>To:${targetId}</div>
+                           <div class="content  user-content user-color">
+                               <div>${sendMsg.value}</div>
+                               <div class="time">${now.getFullYear()}-${(now.getMonth()+1)>=10?now.getMonth():'0'+now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}</div>
+                           </div>
                    </div>
    
-             `
-             sendMsg.value=""
+               `
+            sendMsg.value=""
 
-        }
+        //메세지 타겟 주기
+        msgContainer.lastElementChild.scrollIntoView({behavior: 'smooth'})
+
     }
+
+   
+
+  
+}
 
 
 

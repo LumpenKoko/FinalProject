@@ -110,7 +110,8 @@ $(document).on('click', '[id^="submit-comment"]', function () {
 });
 
 // Ajax로 동영상을 가져와서 동영상 요소 생성
-function loadVideo(num) {
+function loadVideo(num, item) {
+    const likeButtonImg = item.querySelector(`#like-btn${num}`);
     $.ajax({
         url: contextPath + '/getVideo.sh',
         data: {
@@ -151,6 +152,13 @@ function loadVideo(num) {
             profileSection.innerHTML = `<img src="${totalShortsInfo.profilePath + totalShortsInfo.profileName}" class="shorts-profile-img">`;
             // totalShortsInfo.isLike boolean형으로 받아오는 것 확인했음.
             // 추후 js만든 후 해당 데이터 이용해서 좋아요 깜빡이게 구현 필요.
+            if(totalShortsInfo.isLike){
+                likeButtonImg.src = "resources/img/searchpage/like-after.png";
+            } else{
+                likeButtonImg.src = "resources/img/searchpage/like-pre.png";
+            }
+
+            
 
         },
         error: function () {
@@ -166,8 +174,8 @@ $(document).on('click', '[id^="like-btn"]', function () {
         alert("로그인한 회원만 좋아요를 누를 수 있습니다.");
         return;
     }
-
     const num = parseInt(this.id.replace('like-btn', ''));
+    
 
     $.ajax({
         url: contextPath + '/like.sh',
@@ -177,30 +185,15 @@ $(document).on('click', '[id^="like-btn"]', function () {
         },
         dataType : "json",
         success: function (response) {
-            const replyList = response;
-            console.log(replyList);
-
-            if (replyList.length === 0) {
-                const newComment = $('<div class="no-reply"></div>').text("아직 댓글이 없어요ㅠㅠ");
-                $('#comments-list' + num).append(newComment);
-            } else {
-                $('#comments-list' + num).empty();
-                for (let i = 0; i < replyList.length; i++) {
-                    const newCommentContainer = $('<div class="comment-container"></div>');
-
-                    // 프로필 사진을 담는 div
-                    const profilePicDiv = $('<div class="profile-pic"></div>');
-                    const profilePicImg = $('<img class="profile-img">');
-                    profilePicImg.attr('src', replyList[i].filePath + replyList[i].changeName);
-                    profilePicDiv.append(profilePicImg);
-                    newCommentContainer.append(profilePicDiv);
-
-                    // 사용자 정보와 댓글 내용을 담는 div
-                    const commentInfoDiv = $('<div class="comment-info"></div>').text(replyList[i].userNickname + " : " + replyList[i].replyContent + " - " + replyList[i].enrollDate);
-                    newCommentContainer.append(commentInfoDiv);
-
-                    $('#comments-list' + num).append(newCommentContainer);
+            console.log(response);
+            if(response === "sucess"){
+                if(likeButtonImg.src === "resources/img/searchpage/like-after.png") {
+                    likeButtonImg.src = "resources/img/searchpage/like-pre.png";
+                } else {
+                    likeButtonImg.src = "resources/img/searchpage/like-after.png"
                 }
+            } else {
+                alert("좋아요 실패");
             }
         },
         error: function () {

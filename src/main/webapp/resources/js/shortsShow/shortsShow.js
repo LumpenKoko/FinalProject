@@ -61,12 +61,8 @@ function createItem(num) {
                 </div>
                 <div class="text-overlay">
                     <div>
-                        <button class="comment-button" data-index="`+ num + `" data-toggle="true" id="show-reply-btn` + num + `">
-                            댓글버튼
-                        </button>
-                        <button id="like-btn` + num +`">
-                            좋아요버튼
-                        </button>
+                        <img src="resources/img/community/reply.png" class="comment-button" data-index="` + num + `" data-toggle="true" id="show-reply-btn` + num + `" width="50" height="50">
+                        <img src="" id="like-btn${num}" style="width: 50px; height: 50px;">
                         <div class="white-pont" id="thumbnail-like-count` + num +`"></div>
                         <div class="white-pont" id="thumbnail-reply-count` + num +`"></div>
                         <div id="thumbnail-profile` + num + `"></div>
@@ -90,7 +86,7 @@ function createItem(num) {
                 </div>
             </div>
             `;
-    loadVideo(num);  // 1부터 시작함
+    loadVideo(num, item);  // 1부터 시작함
     return item;
 }
 

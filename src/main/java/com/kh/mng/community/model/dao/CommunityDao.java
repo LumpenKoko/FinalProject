@@ -32,8 +32,6 @@ import com.kh.mng.community.model.vo.TotalShortsInfo;
 public class CommunityDao {
 	
 	public TotalShortsInfo getVideoInfo(SqlSessionTemplate sqlSession, int videoId) {
-		TotalShortsInfo si = sqlSession.selectOne("shortsMapper.getVideoInfo", videoId);
-		System.out.println("service" + si);
 		return sqlSession.selectOne("shortsMapper.getVideoInfo", videoId);
 	}
 	
@@ -214,12 +212,13 @@ public class CommunityDao {
 	}
 
 	public ShortsReply getRecentReply(SqlSessionTemplate sqlSession, int replyNo) {
-		return sqlSession.selectOne("shortsMapper.getRecentReply", replyNo);
+		return sqlSession.selectOne("communityBoardMapper.getRecentReply", replyNo);
 	}
 
 	public int getIsLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
 		
 		Integer result = sqlSession.selectOne("shortsMapper.getIsLike", forIsLike);
+		
 	    return (result != null) ? result : 0;
 	}
 
@@ -248,12 +247,14 @@ public class CommunityDao {
 
 	// 숏츠 좋아요 관련
 	public int likeShorts(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
-		return sqlSession.insert("communityBoardMapper.enrollLike", forIsLike);
+		System.out.println("like: " + sqlSession.insert("shortsMapper.enrollLike", forIsLike)); // 1
+		return sqlSession.insert("shortsMapper.enrollLike", forIsLike);
 	}
 	
 
 	public int deleteLike(SqlSessionTemplate sqlSession, ForIsLike forIsLike) {
-		return sqlSession.delete("communityBoardMapper.deleteLike", forIsLike);
+		System.out.println("delete: " + sqlSession.delete("shortsMapper.deleteLike", forIsLike)); // 1
+		return sqlSession.delete("shortsMapper.deleteLike", forIsLike);
 	}
 
 	public int insertUpdateBoardAttachment(SqlSessionTemplate sqlSession, BoardFileInfo boardFile) {

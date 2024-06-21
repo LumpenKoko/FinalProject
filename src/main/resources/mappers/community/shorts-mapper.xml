@@ -30,27 +30,26 @@
    
   
   	<select id="getVideoInfo" resultMap="shortsInfo">
-  		SELECT 
-		    S.SHORTS_NO,
-		    S.ENROLL_DATE,
-		    S.SHORTS_CONTENT,
-		    V.FILE_PATH AS VIDEO_FILE_PATH,
-		    V.CHANGE_NAME AS VIDEO_CHANGE_NAME,
-		    M.USER_NICKNAME,
-		    COALESCE(P.FILE_PATH, 'resources/img/default/') AS PROFILE_FILE_PATH,
-		    COALESCE(P.CHANGE_NAME, 'default_profile.jpg') AS PROFILE_CHANGE_NAME
-		FROM SHORTS S
-		JOIN VIDEO V ON S.SHORTS_NO = V.SHORTS_NO
-		JOIN MEMBER M ON S.USER_NO = M.USER_NO
-		LEFT JOIN PICTURE P ON S.USER_NO = P.USER_NO
-		WHERE S.SHORTS_NO = (
-		    SELECT SHORTS_NO
-		    FROM (
-		        SELECT SHORTS_NO, ROW_NUMBER() OVER (ORDER BY SHORTS_NO DESC) AS RN
-		        FROM SHORTS
-		    ) AS SUB
-		    WHERE RN = #{number}
-		);
+  		SELECT *
+		FROM (
+		    SELECT 
+		        S.SHORTS_NO,
+		        S.ENROLL_DATE,
+		        S.SHORTS_CONTENT,
+		        V.FILE_PATH AS VIDEO_FILE_PATH,
+		        V.CHANGE_NAME AS VIDEO_CHANGE_NAME,
+		        M.USER_NICKNAME,
+		        COALESCE(P.FILE_PATH, 'resources/img/default/') AS PROFILE_FILE_PATH,
+		        COALESCE(P.CHANGE_NAME, 'default_profile.jpg') AS PROFILE_CHANGE_NAME,
+		        ROW_NUMBER() OVER (ORDER BY S.SHORTS_NO DESC) AS RN
+		    FROM SHORTS S
+		    JOIN VIDEO V ON S.SHORTS_NO = V.SHORTS_NO
+		    JOIN MEMBER M ON S.USER_NO = M.USER_NO
+		    LEFT JOIN PICTURE P ON S.USER_NO = P.USER_NO
+		) AS SUB
+		WHERE RN = #{number};
+
+
 
   	</select>
   	
@@ -154,13 +153,13 @@
     		)
     	VALUES
     		(
-    		SEQ_GOOD.NEXTVAL,
+    		NEXTVAL('seq_good'),
     		#{userNo},
     		#{shortsNo}
     		)
     </insert>
     
-    <delete id="deleteGood">
+    <delete id="deleteLike">
 	    DELETE FROM GOOD
 	    WHERE USER_NO = #{userNo} AND SHORTS_NO = #{shortsNo}
 	</delete>

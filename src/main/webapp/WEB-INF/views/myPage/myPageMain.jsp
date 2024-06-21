@@ -26,7 +26,8 @@
                                     <img src="resources/img/myPage/camera.png"
                                         onclick="document.getElementById('fileInput').click()" id="camera">
                                     <div id="profile"
-                                        style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                                        style="background-image: url(${loginUser.userProfile.filePath}${loginUser.userProfile.changeName}); 
+                                            background-position: center; background-repeat: no-repeat; background-size: cover; object-fit: cover;">
                                         <input type="file" id="fileInput" style="display: none;"
                                             onchange="uploadProfileImage('<%=request.getContextPath()%>')">
                                     </div>
@@ -117,11 +118,11 @@
                                         <div id="right2-mid">
                                             <c:choose>
                                                 <c:when test="${empty review.reviewImg}">
-                                                    <img src="resources/img/myPage/logo.PNG">
+                                                    <img src="resources/img/myPage/logo.PNG" style="object-fit: contain;">
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:forEach var="img" items="${review.reviewImg}">
-                                                        <img src="${img.filePath}${img.changeName}" alt="">
+                                                        <img src="${img.filePath}${img.changeName}" style="object-fit: cover;">
                                                     </c:forEach>
                                                 </c:otherwise>
                                             </c:choose>

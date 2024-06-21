@@ -594,6 +594,7 @@ public class CommunityController {
 	        
 	        boolean isLike = false;
 	        
+	        
 	        if(userNo != 0) {
 	        	// 검사해봄
 	        	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
@@ -606,6 +607,7 @@ public class CommunityController {
 	        }
 	        
 	        totalShortsInfo.setLike(isLike);
+	        
 	        
 	        log.info("totalInfo:" + totalShortsInfo);
 	        
@@ -643,7 +645,7 @@ public class CommunityController {
 	
 	@ResponseBody
 	@GetMapping(value="like.sh", produces="application/json; charset=utf-8")
-	public boolean likeShorts(@RequestParam(value="num") int videoId,
+	public String likeShorts(@RequestParam(value="num") int videoId,
 							@RequestParam(value="userNum") int userNo){
 		//totalInfo 가져와서 isLike가
 		// true: 좋아요 삭제하는 쿼리 날림
@@ -656,8 +658,9 @@ public class CommunityController {
         if(userNo != 0) {
         	// 검사해봄
         	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
-        	log.info("like객체:" + forIsLike);
+        	log.info("forIsLikeObject:" + forIsLike);
         	int isLikeReturn = communityService.getIsLike(forIsLike);
+        	log.info("isLikeReturn: " + isLikeReturn);
         	
         	if (isLikeReturn > 0) {
         		isLike = true;
@@ -666,19 +669,22 @@ public class CommunityController {
         	}
         }
         
+        int result;
         if(isLike) {
         	// 좋아요 삭제하는 쿼리
         	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
-        	int result = communityService.deleteLike(forIsLike); // 1 이상이면 성공
-        } else if(!isLike) {
+        	result = communityService.deleteLike(forIsLike); // 1 이상이면 성공
+        } else {
         	// 좋아요 추가하는 쿼리
         	ForIsLike forIsLike = new ForIsLike(userNo, shortsNum);
-        	int result = communityService.likeShorts(forIsLike); // 1 이상이면 성공
-        } else {
-        	log.info("error");
+        	result = communityService.likeShorts(forIsLike); // 1 이상이면 성공
         }
-		
-        return false;
+        
+        if (result > 0) {
+        	return "success";
+        } else {
+        	return "false";
+        }
 //		return communityService.likeShorts(forisLike);
 //		return new Gson().toJson(replyList);
 	}

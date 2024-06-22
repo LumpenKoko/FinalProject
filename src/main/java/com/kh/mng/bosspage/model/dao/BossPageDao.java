@@ -105,4 +105,9 @@ public class BossPageDao {
     public List<String> getPetSizes(int locationNo) {
         return sqlSession.selectList("location.getPetSizes", locationNo);
     }
+    
+    public int insertProduct(BossLocationOption product) {
+        return sqlSession.insert("location.insertProduct", product);
+    }
+    
 }

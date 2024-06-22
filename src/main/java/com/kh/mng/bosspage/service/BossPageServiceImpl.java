@@ -174,4 +174,10 @@ public class BossPageServiceImpl implements BossPageService {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    @Override
+    @Transactional
+    public int saveLocationOption(BossLocationOption product) {
+        return bossPageDao.insertProduct(product);
+    }
 }

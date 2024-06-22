@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mng.bosspage.model.vo.BossLocation;
+import com.kh.mng.bosspage.model.vo.BossLocationOption;
 import com.kh.mng.bosspage.model.vo.BossPage;
 import com.kh.mng.bosspage.model.vo.LocationEnterGrade;
 import com.kh.mng.bosspage.model.vo.LocationOperationTime;
@@ -207,6 +208,18 @@ public class bossPageController {
                     bossPageService.savePetSizes(locationInfo.getLocationNo(), petSizes);
                 }
 
+                // Product handling
+                List<Map<String, String>> productsData = (List<Map<String, String>>) payload.get("products");
+                if (productsData != null) {
+                    for (Map<String, String> productData : productsData) {
+                        BossLocationOption product = new BossLocationOption();
+                        product.setLocationNo(locationInfo.getLocationNo());
+                        product.setGoods(productData.get("productName"));
+                        product.setGoodPrice(productData.get("commodityPrice"));
+                        bossPageService.saveLocationOption(product);
+                    }
+                }
+
                 if (result > 0) {
                     response.put("message", "장소정보 업데이트를 완료하였습니다.");
                     response.put("success", true);
@@ -227,6 +240,7 @@ public class bossPageController {
         }
         return ResponseEntity.ok(response);
     }
+
 
     @ResponseBody
     @GetMapping(value = "/getLocationInfo.bm", produces = "application/json; charset=UTF-8")

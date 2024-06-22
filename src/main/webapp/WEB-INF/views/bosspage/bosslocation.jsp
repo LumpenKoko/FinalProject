@@ -24,7 +24,7 @@
                 <div class="privacy-top">${loginUser.userName} 대표님의 장소정보</div>
                 <div id="location-details">
                     <p>업종</p>
-                    <p class="location-category">${location.locationCategoryNo}</p>
+                    <p class="location-category" id="location-category">${location.locationCategoryNo}</p>
                     <div>
                         <p>상호명</p>
                         <p class="locationName">${location.locationName}</p>
@@ -75,8 +75,7 @@
                             <input type="file" accept="image/*" name="file" id="file9" class="company-file" style="display: none;">
                         </div>
                     </div>
-                    
-                    <div>
+                    <div id="product-registration-section">
                         <p>상품등록</p>
                         <div id="product-registration">
                             <button id="add-product">
@@ -95,7 +94,3 @@
     
 </body>
 </html>
-    
-</body>
-</html>
-

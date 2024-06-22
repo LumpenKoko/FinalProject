@@ -8,6 +8,15 @@ function initializePage() {
     initializeLocationPage();
     // 이벤트 리스너 설정
     setupEventListeners();
+    // 업종에 따른 섹션 숨기기
+    hideProductRegistrationIfNeeded();
+}
+
+function hideProductRegistrationIfNeeded() {
+    var locationCategory = document.getElementById("location-category").innerText;
+    if (locationCategory === "병원") {
+        document.getElementById("product-registration-section").style.display = "none";
+    }
 }
 
 // 이벤트 리스너 설정 함수
@@ -54,6 +63,14 @@ function saveLocationInfo() {
         petSizes.push(element.value);
     });
 
+    // 상품 정보를 배열로 수집
+    const products = [];
+    document.querySelectorAll('.product-registration').forEach(element => {
+        const productName = element.querySelector('.product-name').value;
+        const commodityPrice = element.querySelector('.commodity-price').value;
+        products.push({ productName, commodityPrice });
+    });
+
     // 장소 정보 객체 생성
     const locationInfo = {
         locationPhone: locationPhone,
@@ -61,7 +78,8 @@ function saveLocationInfo() {
         reservationLink: reservationLink,
         userNo: userNo,
         operationTimes: operationTimes,
-        petSizes: petSizes
+        petSizes: petSizes,
+        products: products // 상품 정보 추가
     };
 
     // 장소 정보 저장을 위한 AJAX 요청
@@ -85,6 +103,8 @@ function saveLocationInfo() {
         }
     });
 }
+
+
 
 // 이미지 업로드 함수
 function uploadImages(locationNo) {

@@ -245,4 +245,9 @@
     	ON (E.PET_SIZE_NO = P.PET_SIZE_NO)
     	WHERE LOCATION_NO = #{locationNo}
     </select>
+    
+    <insert id="insertProduct" parameterType="BossLocationOption">
+	    INSERT INTO LOCATION_OPTION (LOCATION_OPTION_NO, LOCATION_NO, GOODS, GOODS_PRICE)
+	    VALUES (NEXTVAL('SEQ_LOPT'), #{locationNo}, #{goods}, #{goodPrice})
+	</insert>
 </mapper>

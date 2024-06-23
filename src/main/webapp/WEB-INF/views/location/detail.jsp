@@ -33,7 +33,7 @@
 		</head>
 		<%@ include file="../common/header.jsp" %>
 
-			<body onload="init('${contextPath}','${userNo}')">
+			<body onload="init('${contextPath}','${userNo}','${checkedMaster}')">
 			
 
 				<div class="wrapper detail-wrapper">

@@ -148,6 +148,7 @@ function openChatRoom(roomNo,targetId,targetNo){
         if(e.keyCode===13){
             e.preventDefault();
             document.querySelector("#send-button").click();
+            e.preventDefault();
         }
     })
 
@@ -288,4 +289,8 @@ function onloadChatList(data,callback){
     })
 
   
+}
+
+function moveToLocation(){
+    location.href=contextPath+"/detail?locationNo="+locationNo;
 }

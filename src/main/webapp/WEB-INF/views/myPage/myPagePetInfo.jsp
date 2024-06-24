@@ -85,8 +85,8 @@
                                                 <c:choose>
                                                     <c:when test="${ empty pet.petImg}">
                                                         <div style="background-image: url(resources/img/myPage/logo.PNG); background-position: center;
-                                                        background-repeat: no-repeat; background-size: cover; width: 300px; height: 300px; cursor: pointer;
-                                                        border-radius: 15px;" id="petProfile-${loop.index}"
+                                                        background-repeat: no-repeat; width: 300px; height: 300px; cursor: pointer;
+                                                        border-radius: 15px; object-fit: cover;" id="petProfile-${loop.index}"
                                                         onclick="document.getElementById('petImgInput-${loop.index}').click()">
                                                     </div>
                                                     </c:when>

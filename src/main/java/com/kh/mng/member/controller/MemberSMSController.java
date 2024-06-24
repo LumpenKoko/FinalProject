@@ -62,24 +62,24 @@ public class MemberSMSController {
     	int result = memberService.insertCertifyCode(psv);
     	
     	if (result > 0) {
-//    		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
-//    		Message message = new Message();
-//    		
-//    		message.setTo(getNum);
-//    		message.setFrom(sentNum);
-//    		message.setText(msgText);
-//    		
-//    		MultipleDetailMessageSentResponse response = null;
-//    		try {
-//    			response = messageService.send(message);
-//    		} catch (NurigoMessageNotReceivedException e) {
-//    			e.printStackTrace();
-//    		} catch (NurigoEmptyResponseException e) {
-//    			e.printStackTrace();
-//    		} catch (NurigoUnknownException e) {
-//    			e.printStackTrace();
-//    		}
-//    		
+    		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, apiUrl);
+    		Message message = new Message();
+    		
+    		message.setTo(getNum);
+    		message.setFrom(sentNum);
+    		message.setText(msgText);
+    		
+    		MultipleDetailMessageSentResponse response = null;
+    		try {
+    			response = messageService.send(message);
+    		} catch (NurigoMessageNotReceivedException e) {
+    			e.printStackTrace();
+    		} catch (NurigoEmptyResponseException e) {
+    			e.printStackTrace();
+    		} catch (NurigoUnknownException e) {
+    			e.printStackTrace();
+    		}
+    		
     		return "NNNNY";
     	} else {
     		return "NNNNN";

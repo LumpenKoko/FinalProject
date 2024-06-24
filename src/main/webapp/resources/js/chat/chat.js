@@ -155,6 +155,9 @@ function openChatRoom(roomNo,targetId,targetNo){
     //채팅 보내기 버튼을 클릭시 실행되는 함수
     sendButton.onclick=function(){
         let sendMsg=document.querySelector("input[name=msg]");
+        if(sendMsg.value===""){
+            return false;
+        }
         const now = new Date();
         const msgData = {
            message:sendMsg.value,

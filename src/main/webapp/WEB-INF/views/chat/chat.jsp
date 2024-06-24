@@ -82,6 +82,13 @@
 							<img src="resources/img/default/default_profile.jpg">
 						</div>
 						<div id="chattingUser" class="title"></div>
+						<c:if test="${master.equals('NNNNN')}">
+							<div style="width:350px ;">&nbsp;&nbsp;</div>
+							<div style="float:right">
+								<a onclick="location.href='${contextPath}/userchat.view'" style="cursor: pointer;">채팅목록으로</a>&nbsp;&nbsp;
+								<a onclick="moveToLocation()" style="cursor: pointer;">장소로이동</a>
+							</div>
+						</c:if>
 					</div>
 
 					<!--#########-->

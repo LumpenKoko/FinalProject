@@ -148,12 +148,16 @@ function openChatRoom(roomNo,targetId,targetNo){
         if(e.keyCode===13){
             e.preventDefault();
             document.querySelector("#send-button").click();
+            e.preventDefault();
         }
     })
 
     //채팅 보내기 버튼을 클릭시 실행되는 함수
     sendButton.onclick=function(){
         let sendMsg=document.querySelector("input[name=msg]");
+        if(sendMsg.value===""){
+            return false;
+        }
         const now = new Date();
         const msgData = {
            message:sendMsg.value,
@@ -288,4 +292,8 @@ function onloadChatList(data,callback){
     })
 
   
+}
+
+function moveToLocation(){
+    location.href=contextPath+"/detail?locationNo="+locationNo;
 }

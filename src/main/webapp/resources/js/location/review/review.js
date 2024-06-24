@@ -108,7 +108,7 @@ function drawReivew(review) {
 
     if (r.masterReply != null) {
 
-      reply += `<div id="master-reply-content${r.reviewNo}" class="master-reply-input"  style="align-items: right;">
+      reply = `<div id="master-reply-content${r.reviewNo}" class="master-reply-input"  style="align-items: right;">
                  <div class="review-section reply">
         
                     <div class="reply-master">
@@ -156,7 +156,7 @@ function drawReivew(review) {
             <div class="img-content">`+ imgs + `</div>
             <div class="content">${r.reviewContent}</div>
 
-            <!--사장님 답글 영역-->
+           
             <div>`+checkedMasterInput+`
                  <a id="reply-button-show${r.reviewNo}" class="reply-button" onclick="onReplyShow('${r.reviewNo}')">답글</a></div>
             <div id="master-reply-input-div${r.reviewNo}" class="master-reply-input show-reply">
@@ -171,6 +171,7 @@ function drawReivew(review) {
 
 
         checkUser=""
+       
   }
 
   reviewContent.innerHTML = reviewBody;

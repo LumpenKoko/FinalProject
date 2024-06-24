@@ -33,7 +33,7 @@
 		</head>
 		<%@ include file="../common/header.jsp" %>
 
-			<body onload="init('${contextPath}','${userNo}')">
+			<body onload="init('${contextPath}','${userNo}','${checkedMaster}')">
 			
 
 				<div class="wrapper detail-wrapper">
@@ -55,17 +55,6 @@
 					     <div class="overlay">
 							<h1 class="gugi-regular">${l.locationName}</h1>
 						</div>
-
-						<!-- <div class="head-img-next">
-							<button>&lt;</button>
-						</div> -->
-
-						<!-- 					
-							<div class="navigation-manual">
-								<c:forEach var="h" begin="0" end="${l.mainAttachMent.size()-1}">
-									<label for="radio${h}" class="manual-btn">●</label>
-								</c:forEach>
-							</div> -->
 						
 					</div>
 					
@@ -91,25 +80,33 @@
 							<div class="section detail-area">
 								<div class="title">상세정보 </div>
 								<div class="detail-information detail-content">
-									<div>
+									<div class="detail-area">
 										<div><h5>${l.categoryName}</h5></div>
 										<div class="title"><h6>☎${l.locationPhone}</h6></div><br>
 										<!-- 장소별로 식별-->
-										<c:if test="${l.locationCategoryNo eq 4}">
-											<div><h5>체크인 체크아웃</h5></div>
-											<div><c:forEach var="o" items="${l.operationTime}">
+									
+										<div><h5>체크인 체크아웃</h5></div>
+										<div class="location-check-in-out detail-area">
+											<c:forEach var="o" items="${l.operationTime}">
 												<span>${o.day}:</span>
-												<span>▼${o.startTime}~${o.endTime}▲</span>&nbsp;
-											</c:forEach></div>
-									   </c:if>
+												<c:if test="${o.restStatus eq false}">
+													<span>▼${o.startTime}~${o.endTime}▲ </;span>
+												</c:if>
+												<c:if test="${o.restStatus eq true}">
+													<span>※휴무※</span>
+												</c:if>
+												
+											</c:forEach>
+										  </div>
+									  
 									</div>
 
 									<div>
 
 										<div class="title">반려동물 출입등급</div>
-										<div>
+										<div class="detail-area">
 											<c:forEach var="k" items="${l.petKindGrade}">
-											  <span class="content">${k.petSizeName}</span>
+												&nbsp; <span class="content">${k.petSizeName}</span>&nbsp;&nbsp;
 											</c:forEach>
 										</div><br>
 										<div class="content">${l.address}</div>

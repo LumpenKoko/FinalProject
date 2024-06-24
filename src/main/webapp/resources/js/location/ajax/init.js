@@ -8,11 +8,11 @@ let statusResult='';
 let checkedMaster;
 
 //초기화 함수
- function init(path,userNum){
+ function init(path,userNum, checkMaster){
     
     contextPath=path;
     userNo=userNum;
-
+    checkedMaster=checkMaster
     //path와 유저,공간번호 초기화
     const urlParams =url.searchParams
     spaceNo=urlParams.get('locationNo')

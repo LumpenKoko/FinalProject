@@ -223,7 +223,7 @@ function chooseChatRoom(roomNo,id){
     },drawChatList);
 
     openChatRoom(roomNo,targetId,targetNo);
-    alert("채팅방에 연결되었습니다.")
+    
 }
 
 //채팅 리스트 그리기

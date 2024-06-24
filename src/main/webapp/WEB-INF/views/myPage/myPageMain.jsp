@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div id="main_main_left3">
-                                    <div id="chatting">채팅 목록</div>
+                                    <div id="chatting" onclick="location.href='userchat.view'" style="cursor: pointer;">채팅 목록</div>
                                 </div>
                             </div>
                         </div>

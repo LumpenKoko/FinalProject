@@ -82,11 +82,22 @@
                                         action="updatePet.mp" data-index="${loop.index}">
                                         <div id="right2-container" class="right2-container-${loop.index}">
                                             <div id="right2-left" style="padding-left: 60px;">
-                                                <div style="background-image: url(${pet.petImg.filePath}${pet.petImg.changeName}); background-position: center;
-                                                    background-repeat: no-repeat; background-size: cover; width: 300px; height: 300px; cursor: pointer;
-                                                    border-radius: 15px;" id="petProfile-${loop.index}"
-                                                    onclick="document.getElementById('petImgInput-${loop.index}').click()">
-                                                </div>
+                                                <c:choose>
+                                                    <c:when test="${ empty pet.petImg}">
+                                                        <div style="background-image: url(resources/img/myPage/logo.PNG); background-position: center;
+                                                        background-repeat: no-repeat; width: 300px; height: 300px; cursor: pointer;
+                                                        border-radius: 15px; object-fit: cover;" id="petProfile-${loop.index}"
+                                                        onclick="document.getElementById('petImgInput-${loop.index}').click()">
+                                                    </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div style="background-image: url(${pet.petImg.filePath}${pet.petImg.changeName}); background-position: center;
+                                                            background-repeat: no-repeat; background-size: cover; width: 300px; height: 300px; cursor: pointer;
+                                                            border-radius: 15px;" id="petProfile-${loop.index}"
+                                                            onclick="document.getElementById('petImgInput-${loop.index}').click()">
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <input type="file" id="petImgInput-${loop.index}" style="display: none;"
                                                     onchange="uploadPetImage('${pet.petNo}', '<%=request.getContextPath()%>', ${loop.index})">
                                                 <p style="font-size: 18px; color: #FE8B94;margin-top: 10px;">사진 클릭시 사진
